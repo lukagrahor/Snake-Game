@@ -16,9 +16,11 @@ public class Arena : MonoBehaviour
 
     void SpawnArena()
     {
-        for (int i = 0; i < size*size; i++)
+        int colNumber = 0;
+        for (int i = 0; i < size * size; i++)
         {
-            Vector3 location = new Vector3(i + 0.5f, 0f, i / size);
+            colNumber = i % size;
+            Vector3 location = new Vector3(colNumber - 5, 0f, (i / size) - 5);
             Instantiate(ArenaBlock, location, Quaternion.identity);
         }
     }
