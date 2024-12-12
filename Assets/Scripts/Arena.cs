@@ -21,7 +21,8 @@ public class Arena : MonoBehaviour
         {
             colNumber = i % size;
             Vector3 location = new Vector3(colNumber - 5, 0f, (i / size) - 5);
-            Instantiate(ArenaBlock, location, Quaternion.identity);
+            GameObject block = Instantiate(ArenaBlock, location, Quaternion.identity);
+            block.transform.SetParent(transform);
         }
     }
 }
