@@ -1,0 +1,10 @@
+# ninja log v5
+35	839	7559644990439291	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	970ce7fe5ca0047a
+46	841	7559644990558976	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	cd7697898b012ff1
+1	862	7559644990799032	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	556d66323c6c06ff
+68	888	7559644991044218	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	6a96aa33c747cf55
+79	938	7559644991526662	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	aade6a97e4dc57f8
+25	969	7559644991870704	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	c444f1a0981f4927
+57	1097	7559644993142440	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	d68ded56e3e5e736
+15	1166	7559644993814172	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	a8d27bbc1985ec5f
+1166	1278	7559644994920907	E:/Unity projekti/Snake-Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6fm6o6sf/obj/arm64-v8a/libgame.so	30636258d8007a77
