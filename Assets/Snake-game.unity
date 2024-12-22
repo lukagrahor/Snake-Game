@@ -593,13 +593,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714036033}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.6000366, y: -0.11864801, z: -0.6010764, w: 0.5143791}
+  m_LocalPosition: {x: 0.33, y: 2.44, z: -0.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 28.337, y: -73.379, z: -120.195}
 --- !u!1 &1773978370
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 1773978372}
   - component: {fileID: 1773978371}
   - component: {fileID: 1773978375}
+  - component: {fileID: 1773978377}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -643,7 +644,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -770,6 +771,23 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &1773978377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773978370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 92dd258956b22324dbafdc679ffb5270, type: 2}
 --- !u!1 &1787770534
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snakePart: {fileID: 145140993811211266, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
+  moveSpeed: 2
 --- !u!4 &1787770536
 Transform:
   m_ObjectHideFlags: 0

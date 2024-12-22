@@ -19,15 +19,15 @@ MonoBehaviour:
   m_RendererDataList:
   - {fileID: 11400000, guid: 65bc7dbf4170f435aa868c779acfb082, type: 2}
   m_DefaultRendererIndex: 0
-  m_RequireDepthTexture: 0
-  m_RequireOpaqueTexture: 0
+  m_RequireDepthTexture: 1
+  m_RequireOpaqueTexture: 1
   m_OpaqueDownsampling: 0
   m_SupportsTerrainHoles: 1
   m_SupportsHDR: 1
   m_HDRColorBufferPrecision: 0
   m_MSAA: 1
-  m_RenderScale: 0.8
-  m_UpscalingFilter: 3
+  m_RenderScale: 1
+  m_UpscalingFilter: 1
   m_FsrOverrideSharpness: 0
   m_FsrSharpness: 0.92
   m_EnableLODCrossFade: 1
@@ -43,10 +43,10 @@ MonoBehaviour:
   m_ProbeVolumeSHBands: 1
   m_MainLightRenderingMode: 1
   m_MainLightShadowsSupported: 1
-  m_MainLightShadowmapResolution: 2048
+  m_MainLightShadowmapResolution: 4096
   m_AdditionalLightsRenderingMode: 1
   m_AdditionalLightsPerObjectLimit: 4
-  m_AdditionalLightShadowsSupported: 0
+  m_AdditionalLightShadowsSupported: 1
   m_AdditionalLightsShadowmapResolution: 2048
   m_AdditionalLightsShadowResolutionTierLow: 256
   m_AdditionalLightsShadowResolutionTierMedium: 512
@@ -101,7 +101,7 @@ MonoBehaviour:
       m_Values: 
   m_PrefilteringModeMainLightShadows: 3
   m_PrefilteringModeAdditionalLight: 0
-  m_PrefilteringModeAdditionalLightShadows: 0
+  m_PrefilteringModeAdditionalLightShadows: 2
   m_PrefilterXRKeywords: 1
   m_PrefilteringModeForwardPlus: 2
   m_PrefilteringModeDeferredRendering: 0
