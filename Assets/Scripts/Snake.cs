@@ -15,9 +15,10 @@ public class Snake : MonoBehaviour
     void Awake()
     {
         SnakeParts = new List<GameObject>();
-        moveDirection = new Vector3(1f, 0, 0);
+        moveDirection = new Vector3(1f, 0, 0) * moveSpeed;
         SnakeHeadObject = Instantiate(snakeHeadPrefab);
         SnakeHeadObject.transform.SetParent(transform);
+        SnakeHeadObject.transform.localPosition = new Vector3(0, 0.75f, 0);
         // arena je na poziciji 0, kocka arene jevelika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         SnakeMovement = gameObject.AddComponent<SnakeMovement>();
     }
@@ -47,7 +48,10 @@ public class Snake : MonoBehaviour
     {
         Debug.Log("Grow!");
         GameObject newSnakePart = Instantiate(snakePartPrefab);
-        //newSnakePart.transform.SetParent(transform);
+        Debug.Log(newSnakePart.name);
+        Debug.Log($"Parenting to: {transform.name}");
+        newSnakePart.transform.SetParent(transform);
+        newSnakePart.transform.localPosition = new Vector3(-0.5f, 0.75f, 0);
         SnakeParts.Add(newSnakePart);
     }
 }

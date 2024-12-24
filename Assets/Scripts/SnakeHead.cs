@@ -21,4 +21,9 @@ public class SnakeHead : MonoBehaviour
     {
         pickupItem.Invoke();
     }
+
+    void Move()
+    {
+
+    }
 }
