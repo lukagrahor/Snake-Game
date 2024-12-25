@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 311438574784473439}
   - component: {fileID: 4807662827012809556}
   - component: {fileID: 7723874410829606706}
-  - component: {fileID: -3341983892340847818}
   m_Layer: 6
-  m_Name: SnakeHead
+  m_Name: SnakeCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,30 +136,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-3341983892340847818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145140993811211266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4de13919ac80169418e47313c54f0c7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupItem:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
-        m_TargetAssemblyTypeName: Food, Assembly-CSharp
-        m_MethodName: Use
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
