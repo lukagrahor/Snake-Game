@@ -4,14 +4,14 @@ using UnityEngine.EventSystems;
 public class SnakePart : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    bool enableMovement = false;
-    Vector3 moveDirection = new Vector3(0, 0, 0);
+    bool enableMovement;
     float moveSpeed = 0f;
+    Vector3 moveDirection = new Vector3(0, 0, 0);
     Vector3 turnPosition;
     Vector3 turnDirection;
     void Start()
     {
-        
+        enableMovement = false;
     }
 
     // Update is called once per frame
@@ -19,14 +19,10 @@ public class SnakePart : MonoBehaviour
     {
         Move();
     }
-    public void PrepareForTurn(Vector3 direction, float speed, Vector3 turnPosition, Vector3 turnDirection)
+    public void PrepareForTurn(Vector3 turnPosition, Vector3 turnDirection)
     {
         transform.SetParent(null);
-        moveSpeed = speed;
-        moveDirection = direction * speed;
         enableMovement = true;
-        Debug.Log("turnPosition" + ": " + turnPosition);
-        Debug.Log("transform position" + ": " + transform.position);
         this.turnPosition = turnPosition;
         this.turnDirection = turnDirection;
     }
@@ -40,6 +36,13 @@ public class SnakePart : MonoBehaviour
             }
             transform.Translate(moveDirection * Time.deltaTime);
         }
+    }
+
+    public void Setup(float moveSpeed, Vector3 moveDirection)
+    {
+        this.moveSpeed = moveSpeed;
+        this.moveDirection = moveDirection;
+        transform.localPosition = new Vector3(-0.5f, 0, 0);
     }
 
     public void SetDirection(Vector3 direction)
