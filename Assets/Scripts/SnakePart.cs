@@ -11,7 +11,7 @@ public class SnakePart : MonoBehaviour
     Vector3 turnDirection;
     void Start()
     {
-        enableMovement = false;
+
     }
 
     // Update is called once per frame
@@ -21,32 +21,77 @@ public class SnakePart : MonoBehaviour
     }
     public void PrepareForTurn(Vector3 turnPosition, Vector3 turnDirection)
     {
-        transform.SetParent(null);
-        enableMovement = true;
         this.turnPosition = turnPosition;
         this.turnDirection = turnDirection;
+        Debug.Log($"turnDirection: {turnDirection}");
     }
     void Move()
     {
-        if (enableMovement)
+        if (turnPosition.x != 0 || turnPosition.z != 0)
         {
-            if (transform.position.x >= turnPosition.x)
+            if (moveDirection.x != 0)
             {
-                moveDirection = turnDirection * moveSpeed;
+                CheckForTurnXAxis(moveDirection.x);
             }
-            transform.Translate(moveDirection * Time.deltaTime);
+            else if (moveDirection.z != 0)
+            {
+                CheckForTurnZAxis(moveDirection.z);
+            }
+        }
+        /*
+        if (transform.position.x >= turnPosition.x)
+        {
+            moveDirection = turnDirection * moveSpeed;
+        }
+        */
+        Debug.Log($"moveDirection: {this.moveDirection}");
+        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+    }
+
+    void CheckForTurnXAxis(float axisDirection)
+    {
+        if (axisDirection <= 0)
+        {
+            TurnCheck(-transform.position.x, -turnPosition.x);
+        }
+        else if (axisDirection >= 0)
+        {
+            TurnCheck(transform.position.x, turnPosition.x);
         }
     }
 
-    public void Setup(float moveSpeed, Vector3 moveDirection)
+    void CheckForTurnZAxis(float axisDirection)
+    {
+        if (axisDirection <= 0)
+        {
+            TurnCheck(-transform.position.z, -turnPosition.z);
+        }
+        else if (axisDirection >= 0)
+        {
+            TurnCheck(transform.position.z, turnPosition.z);
+        }
+    }
+
+    void TurnCheck(float currentPosition, float turnPositionOnRequireAxis)
+    {
+        if (currentPosition >= turnPositionOnRequireAxis)
+        {
+            Debug.Log($"currentPosition: {currentPosition}");
+            Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequireAxis}");
+            moveDirection = turnDirection;
+        }
+    }
+
+    public void Setup(float moveSpeed, Vector3 moveDirection, Transform snakeTransform)
     {
         this.moveSpeed = moveSpeed;
         this.moveDirection = moveDirection;
         transform.localPosition = new Vector3(-0.5f, 0, 0);
+        transform.SetParent(snakeTransform);
     }
 
     public void SetDirection(Vector3 direction)
     {
-        moveDirection = direction * moveSpeed;
+        moveDirection = direction;
     }
 }

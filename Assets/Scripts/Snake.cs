@@ -38,8 +38,8 @@ public class Snake : MonoBehaviour
         {
             snakeParts[0].PrepareForTurn(snakeHead.transform.position, turnDirection);
 
-            snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
-            snakeCorner.Setup(snakeHead.transform);
+            //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
+            //snakeCorner.Setup(snakeHead.transform);
         }
         moveDirection = turnDirection;
         snakeHead.SetDirection(moveDirection);
@@ -55,7 +55,7 @@ public class Snake : MonoBehaviour
         {
             newSnakePart.transform.SetParent(snakeHead.transform);
         }
-        newSnakePart.Setup(moveSpeed, moveDirection);
+        newSnakePart.Setup(moveSpeed, moveDirection, transform);
         snakeParts.Add(newSnakePart);
     }
 }
