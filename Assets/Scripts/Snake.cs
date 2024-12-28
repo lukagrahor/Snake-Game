@@ -11,13 +11,13 @@ public class Snake : MonoBehaviour
     List<SnakePart> snakeParts;
     SnakeCorner snakeCorner;
 
-    Vector3 moveDirection = new Vector3(1f, 0, 0);
+    float snakeYRotation = 0;
     [SerializeField] float moveSpeed = 1f;
     void Awake()
     {
         snakeParts = new List<SnakePart>();
         snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
-        snakeHead.Setup(moveSpeed, moveDirection, transform);
+        snakeHead.Setup(moveSpeed, snakeYRotation, transform);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
     }
 
@@ -27,22 +27,22 @@ public class Snake : MonoBehaviour
 
     }
 
-    public Vector3 GetDirection()
+    public float GetYRotation()
     {
-        return moveDirection;
+        return snakeYRotation;
     }
 
-    public void SetDirection(Vector3 turnDirection)
+    public void SetYRotation(float turnRotation)
     {
         if (snakeParts.Count != 0)
         {
-            snakeParts[0].PrepareForTurn(snakeHead.transform.position, turnDirection);
+            //snakeParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation); ne pozabt odkomentirat kodr bo glava se prav rotirala
 
             //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
             //snakeCorner.Setup(snakeHead.transform);
         }
-        moveDirection = turnDirection;
-        snakeHead.SetDirection(moveDirection);
+        snakeHead.SetRotation(turnRotation);
+        snakeYRotation = snakeHead.GetRotation();
     }
 
     public void Grow()
@@ -55,7 +55,7 @@ public class Snake : MonoBehaviour
         {
             newSnakePart.transform.SetParent(snakeHead.transform);
         }
-        newSnakePart.Setup(moveSpeed, moveDirection, transform);
+        //newSnakePart.Setup(moveSpeed, moveDirection, transform);
         snakeParts.Add(newSnakePart);
     }
 }

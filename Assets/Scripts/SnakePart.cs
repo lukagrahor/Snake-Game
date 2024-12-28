@@ -86,7 +86,7 @@ public class SnakePart : MonoBehaviour
     {
         this.moveSpeed = moveSpeed;
         this.moveDirection = moveDirection;
-        transform.localPosition = new Vector3(-0.5f, 0, 0);
+        transform.localPosition = new Vector3(-1f, 0, 0);
         transform.SetParent(snakeTransform);
     }
 
