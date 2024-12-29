@@ -36,7 +36,7 @@ public class Snake : MonoBehaviour
     {
         if (snakeParts.Count != 0)
         {
-            //snakeParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation); ne pozabt odkomentirat kodr bo glava se prav rotirala
+            snakeParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation);
 
             //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
             //snakeCorner.Setup(snakeHead.transform);
@@ -55,7 +55,7 @@ public class Snake : MonoBehaviour
         {
             newSnakePart.transform.SetParent(snakeHead.transform);
         }
-        //newSnakePart.Setup(moveSpeed, moveDirection, transform);
+        newSnakePart.Setup(moveSpeed, snakeYRotation, transform);
         snakeParts.Add(newSnakePart);
     }
 }

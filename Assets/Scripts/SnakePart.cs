@@ -4,11 +4,10 @@ using UnityEngine.EventSystems;
 public class SnakePart : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    bool enableMovement;
     float moveSpeed = 0f;
-    Vector3 moveDirection = new Vector3(0, 0, 0);
+    float turnRotation;
     Vector3 turnPosition;
-    Vector3 turnDirection;
+    
     void Start()
     {
 
@@ -19,79 +18,122 @@ public class SnakePart : MonoBehaviour
     {
         Move();
     }
-    public void PrepareForTurn(Vector3 turnPosition, Vector3 turnDirection)
+    public void PrepareForTurn(Vector3 turnPosition, float turnRotation)
     {
         this.turnPosition = turnPosition;
-        this.turnDirection = turnDirection;
-        Debug.Log($"turnDirection: {turnDirection}");
+        this.turnRotation = turnRotation;
+        Debug.Log($"turnRotation: {turnRotation}");
     }
     void Move()
     {
         if (turnPosition.x != 0 || turnPosition.z != 0)
         {
-            if (moveDirection.x != 0)
-            {
-                CheckForTurnXAxis(moveDirection.x);
-            }
-            else if (moveDirection.z != 0)
-            {
-                CheckForTurnZAxis(moveDirection.z);
-            }
+            CheckAllAxis(transform.rotation.eulerAngles.y);
         }
-        /*
-        if (transform.position.x >= turnPosition.x)
-        {
-            moveDirection = turnDirection * moveSpeed;
-        }
-        */
-        Debug.Log($"moveDirection: {this.moveDirection}");
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+
+        Debug.Log($"moveRotation: {transform.rotation.eulerAngles.y}");
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
+        
     }
 
-    void CheckForTurnXAxis(float axisDirection)
+    void CheckAllAxis(float moveRotation)
     {
-        if (axisDirection <= 0)
+        float absoluteMoveRotation = GetAbsoluteRotation(moveRotation);
+        float roundedRotation = Mathf.Round(absoluteMoveRotation / 90f) * 90f;
+        if (roundedRotation < 0)
+        {
+            roundedRotation = 360 + roundedRotation;
+        }
+
+        // check if a turn happened on the movement axis
+        if (roundedRotation == 0)
+        {
+            CheckForTurn(transform.position.z, turnPosition.z);
+        }
+
+        else if (roundedRotation == 180)
+        {
+            CheckForTurn(-transform.position.z, -turnPosition.z);
+        }
+
+        if (roundedRotation == 90)
+        {
+            CheckForTurn(transform.position.x, turnPosition.x);
+        }
+
+        else if (roundedRotation == 270)
+        {
+            CheckForTurn(-transform.position.x, -turnPosition.x);
+        }
+    }
+
+    void CheckForTurn(float currentPosition, float turnPositionOnRequiredAxis)
+    {
+        if (currentPosition >= turnPositionOnRequiredAxis)
+        {
+            Debug.Log($"currentPosition: {currentPosition}");
+            Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequiredAxis}");
+            //SetRotation(turnRotation);
+        }
+    }
+
+    /*
+    void CheckForTurnXAxis(float moveRotation)
+    {
+        if (moveRotation <= 0)
         {
             TurnCheck(-transform.position.x, -turnPosition.x);
         }
-        else if (axisDirection >= 0)
+        else if (moveRotation >= 0)
         {
             TurnCheck(transform.position.x, turnPosition.x);
         }
     }
 
-    void CheckForTurnZAxis(float axisDirection)
+    void CheckForTurnZAxis(float moveRotation)
     {
-        if (axisDirection <= 0)
+        if (moveRotation <= 0)
         {
             TurnCheck(-transform.position.z, -turnPosition.z);
         }
-        else if (axisDirection >= 0)
+        else if (moveRotation >= 0)
         {
             TurnCheck(transform.position.z, turnPosition.z);
         }
     }
+    */
 
-    void TurnCheck(float currentPosition, float turnPositionOnRequireAxis)
-    {
-        if (currentPosition >= turnPositionOnRequireAxis)
-        {
-            Debug.Log($"currentPosition: {currentPosition}");
-            Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequireAxis}");
-            moveDirection = turnDirection;
-        }
-    }
 
-    public void Setup(float moveSpeed, Vector3 moveDirection, Transform snakeTransform)
+    public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform)
     {
-        this.moveSpeed = moveSpeed;
-        this.moveDirection = moveDirection;
-        transform.localPosition = new Vector3(-1f, 0, 0);
+        this.moveSpeed = 0f;
+
+        transform.localPosition = new Vector3(0, 0, -1f);
+        SetStartingRotation(moveRotation);
+        
         transform.SetParent(snakeTransform);
     }
 
-    public void SetDirection(Vector3 direction)
+    public void SetStartingRotation(float rotation)
     {
-        moveDirection = direction;
+        Debug.Log("SETIRAM ROTACIJU");
+        transform.eulerAngles = new Vector3(0f , rotation, 0f);
+    }
+
+    public void SetRotation(float rotation)
+    {
+        Debug.Log("SETIRAM ROTACIJU2");
+        transform.Rotate(0f, rotation, 0f);
+    }
+
+    float GetAbsoluteRotation(float rotation)
+    {
+        // get rid of minuses and numbers bigger than 360
+        float absoluteMoveRotation = rotation % 360;
+        if (absoluteMoveRotation < 0)
+        {
+            absoluteMoveRotation = 360 + absoluteMoveRotation;
+        }
+        return absoluteMoveRotation;
     }
 }

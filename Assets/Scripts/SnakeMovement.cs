@@ -35,41 +35,38 @@ public class SnakeMovement : MonoBehaviour
         {
             snakeYRotation = 360 + snakeYRotation;
         }
+        float roundedRotation = Mathf.Round(snakeYRotation / 90f) * 90f;
         Debug.Log($"snakeYRotation2: {snakeYRotation}");
         Debug.Log($"swipeDirection: {swipeDirection}");
-        if (snakeYRotation == 0)
+        if (roundedRotation == 0)
         {
             // Gor desno
             if (swipeDirection.x > 0 && swipeDirection.y > 0)
             {
                 snake.SetYRotation(90f);
-                //snake.transform.Rotate(0, -90, 0);
             }
             // Dol levo
             else if (swipeDirection.x < 0 && swipeDirection.y < 0)
             {
                 snake.SetYRotation(-90f);
-                //snake.transform.Rotate(0, 90, 0);
             }
         }
 
-        if (snakeYRotation == 180)
+        if (roundedRotation == 180)
         {
             // Gor desno
             if (swipeDirection.x > 0 && swipeDirection.y > 0)
             {
-                //snake.transform.Rotate(0, 90, 0);
                 snake.SetYRotation(-90f);
             }
             // Dol levo
             else if (swipeDirection.x < 0 && swipeDirection.y < 0)
             {
-                //snake.transform.Rotate(0, -90, 0);
                 snake.SetYRotation(90f);
             }
         }
 
-        if (snakeYRotation == 90)
+        if (roundedRotation == 90)
         {
 
             // Dol desno
@@ -84,7 +81,7 @@ public class SnakeMovement : MonoBehaviour
             }
         }
 
-        if (snakeYRotation == 270)
+        if (roundedRotation == 270)
         {
             // Dol desno
             if (swipeDirection.x > 0 && swipeDirection.y < 0)
@@ -97,34 +94,6 @@ public class SnakeMovement : MonoBehaviour
                 snake.SetYRotation(90f);
             }
         }
-        /*
-        if (moveDirection.x != 0)
-        {
-            // Dol desno
-            if (swipeDirection.x > 0 && swipeDirection.y < 0)
-            {
-                snake.SetDirection(new Vector3(0, 0, -1f));
-            }
-            // Gor levo
-            else if (swipeDirection.x < 0 && swipeDirection.y > 0)
-            {
-                snake.SetDirection(new Vector3(0, 0, 1f));
-            }
-        }
-        else if (moveDirection.z != 0)
-        {
-            // Dol levo
-            if (swipeDirection.x > 0 && swipeDirection.y > 0)
-            {
-                snake.SetDirection(new Vector3(1f, 0, 0));
-            }
-            // Gor desno
-            else if (swipeDirection.x < 0 && swipeDirection.y < 0)
-            {
-                snake.SetDirection(new Vector3(-1f, 0, 0));
-            }
-        }
-        */
     }
     private void SwipePerformed(InputAction.CallbackContext context)
     { 
