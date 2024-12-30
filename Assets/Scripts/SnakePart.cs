@@ -22,16 +22,18 @@ public class SnakePart : MonoBehaviour
     {
         this.turnPosition = turnPosition;
         this.turnRotation = turnRotation;
-        Debug.Log($"turnRotation: {turnRotation}");
+        moveSpeed += 0.02f;
+        //Debug.Log($"turnRotation: {turnRotation}");
     }
     void Move()
     {
+        // if the head turned
         if (turnPosition.x != 0 || turnPosition.z != 0)
         {
             CheckAllAxis(transform.rotation.eulerAngles.y);
         }
 
-        Debug.Log($"moveRotation: {transform.rotation.eulerAngles.y}");
+        //Debug.Log($"moveRotation: {transform.rotation.eulerAngles.y}");
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
         
     }
@@ -71,9 +73,14 @@ public class SnakePart : MonoBehaviour
     {
         if (currentPosition >= turnPositionOnRequiredAxis)
         {
-            Debug.Log($"currentPosition: {currentPosition}");
-            Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequiredAxis}");
-            //SetRotation(turnRotation);
+            //Debug.Log($"currentPosition: {currentPosition}");
+            //Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequiredAxis}");
+            Debug.Log("Obrat");
+            SetRotation(turnRotation);
+
+            turnRotation = 0f;
+            turnPosition = new Vector3(0f, 0f, 0f);
+            moveSpeed -= 0.02f;
         }
     }
 
@@ -106,7 +113,7 @@ public class SnakePart : MonoBehaviour
 
     public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform)
     {
-        this.moveSpeed = 0f;
+        this.moveSpeed = moveSpeed;
 
         transform.localPosition = new Vector3(0, 0, -1f);
         SetStartingRotation(moveRotation);
@@ -116,13 +123,13 @@ public class SnakePart : MonoBehaviour
 
     public void SetStartingRotation(float rotation)
     {
-        Debug.Log("SETIRAM ROTACIJU");
+        //Debug.Log("SETIRAM ROTACIJU");
         transform.eulerAngles = new Vector3(0f , rotation, 0f);
     }
 
     public void SetRotation(float rotation)
     {
-        Debug.Log("SETIRAM ROTACIJU2");
+        //Debug.Log("SETIRAM ROTACIJU2");
         transform.Rotate(0f, rotation, 0f);
     }
 

@@ -39,7 +39,7 @@ public class Food : MonoBehaviour, IPickup
         if (snake != null)
         {
             onUseFood += snake.Grow;
-            Debug.Log("ey yo");
+            //Debug.Log("ey yo");
             //growSnake = new UnityEvent();
             //growSnake.AddListener(snake.Grow);
         }

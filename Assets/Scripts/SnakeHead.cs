@@ -11,7 +11,7 @@ public class SnakeHead : MonoBehaviour
     float moveSpeed = 0f;
     void Start()
     {
-        Debug.Log("Head attached");
+        //Debug.Log("Head attached");
     }
 
     // Update is called once per frame
@@ -37,7 +37,11 @@ public class SnakeHead : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        pickupItem.Invoke();
+        //Debug.Log($"Collision: {other.GetComponent<Food>()}");
+        if (other.GetComponent<Food>() != null)
+        {
+            pickupItem.Invoke();
+        }
     }
 
     void Move()

@@ -11,12 +11,14 @@ public class SnakeMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("Barje");
+        //Debug.Log("Barje");
         snake = gameObject.GetComponent<Snake>();
         _controls = new InputSystem_Actions();
         _controls.Player.Enable();
         _controls.Player.Touch.canceled += TouchCompleted;
         _controls.Player.Swipe.performed += SwipePerformed;
+        _controls.Player.MoveLeft.performed += MoveLeft;
+        _controls.Player.MoveRight.performed += MoveRight;
     }
 
     // Update is called once per frame
@@ -28,17 +30,8 @@ public class SnakeMovement : MonoBehaviour
     private void TouchCompleted(InputAction.CallbackContext context)
     {
         //if (swipeDirection.magnitude < minimumSwipeMagnitude) { return; }
-        float snakeYRotation = snake.GetYRotation();
-        Debug.Log($"snakeYRotation1: {snakeYRotation}");
-        snakeYRotation = snakeYRotation % 360; // to get which direction the snake faces
-        if (snakeYRotation < 0)
-        {
-            snakeYRotation = 360 + snakeYRotation;
-        }
-        float roundedRotation = Mathf.Round(snakeYRotation / 90f) * 90f;
-        Debug.Log($"snakeYRotation2: {snakeYRotation}");
-        Debug.Log($"swipeDirection: {swipeDirection}");
-        if (roundedRotation == 0)
+        float snakeYRotation = snake.GetAbsoluteRotation();
+        if (snakeYRotation == 0)
         {
             // Gor desno
             if (swipeDirection.x > 0 && swipeDirection.y > 0)
@@ -52,7 +45,7 @@ public class SnakeMovement : MonoBehaviour
             }
         }
 
-        if (roundedRotation == 180)
+        if (snakeYRotation == 180)
         {
             // Gor desno
             if (swipeDirection.x > 0 && swipeDirection.y > 0)
@@ -66,9 +59,8 @@ public class SnakeMovement : MonoBehaviour
             }
         }
 
-        if (roundedRotation == 90)
+        if (snakeYRotation == 90)
         {
-
             // Dol desno
             if (swipeDirection.x > 0 && swipeDirection.y < 0)
             {
@@ -81,7 +73,7 @@ public class SnakeMovement : MonoBehaviour
             }
         }
 
-        if (roundedRotation == 270)
+        if (snakeYRotation == 270)
         {
             // Dol desno
             if (swipeDirection.x > 0 && swipeDirection.y < 0)
@@ -98,5 +90,13 @@ public class SnakeMovement : MonoBehaviour
     private void SwipePerformed(InputAction.CallbackContext context)
     { 
         swipeDirection = context.ReadValue<Vector2>();
+    }
+    private void MoveLeft(InputAction.CallbackContext context)
+    {
+        snake.SetYRotation(-90f);
+    }
+    private void MoveRight(InputAction.CallbackContext context)
+    {
+        snake.SetYRotation(90f);
     }
 }

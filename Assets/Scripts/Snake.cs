@@ -35,7 +35,7 @@ public class Snake : MonoBehaviour
     public void SetYRotation(float turnRotation)
     {
         if (snakeParts.Count != 0)
-        {
+        {                                                                           
             snakeParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation);
 
             //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
@@ -47,15 +47,26 @@ public class Snake : MonoBehaviour
 
     public void Grow()
     {
-        Debug.Log("Grow!");
+        //Debug.Log("Grow!");
         SnakePart newSnakePart = Instantiate(snakePartPrefab.gameObject).GetComponent<SnakePart>();
-        Debug.Log(newSnakePart.name);
-        Debug.Log($"Parenting to: {transform.name}");
+        //Debug.Log(newSnakePart.name);
+        //Debug.Log($"Parenting to: {transform.name}");
         if(snakeParts.Count == 0)
         {
             newSnakePart.transform.SetParent(snakeHead.transform);
         }
         newSnakePart.Setup(moveSpeed, snakeYRotation, transform);
         snakeParts.Add(newSnakePart);
+    }
+
+    public float GetAbsoluteRotation()
+    {
+        // get rid of minuses and numbers bigger than 360
+        float absoluteMoveRotation = snakeYRotation % 360;
+        if (absoluteMoveRotation < 0)
+        {
+            absoluteMoveRotation = 360 + absoluteMoveRotation;
+        }
+        return absoluteMoveRotation;
     }
 }
