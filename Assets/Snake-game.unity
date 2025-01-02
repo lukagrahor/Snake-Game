@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &331910130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331910131}
+  - component: {fileID: 331910132}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &331910131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331910130}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331910132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331910130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0746a75c784651409724aaa0f6b22d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arena: {fileID: 1036702770}
+  gridObject: {fileID: 5107840659102063939, guid: d855a86e23ffaa549bc15badc826d5ec, type: 3}
 --- !u!1 &740745291
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arenaBlock: {fileID: 1127111279667803167, guid: 2f750edc48b377b4aa91d16686290284, type: 3}
-  size: 20
+  size: 12
 --- !u!4 &1036702771
 Transform:
   m_ObjectHideFlags: 0
@@ -367,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
-  snakePartPrefab: {fileID: 7960219415230364317, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
+  snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   snakeCornerPrefab: {fileID: -7157476473349645326, guid: f5640eabb116c6e48a14c70cf9a13bc1, type: 3}
   moveSpeed: 2
 --- !u!4 &1500429125
@@ -928,3 +974,4 @@ SceneRoots:
   - {fileID: 1356850517}
   - {fileID: 1593648708}
   - {fileID: 1500429125}
+  - {fileID: 331910131}

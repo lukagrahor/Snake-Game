@@ -1,13 +1,13 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class SnakePart : MonoBehaviour
+public class SnakeTorso : MonoBehaviour, ISnakePart
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     float moveSpeed = 0f;
     float turnRotation;
     Vector3 turnPosition;
-    
+    bool lastSnakePart = true;
+
     void Start()
     {
 
@@ -25,7 +25,7 @@ public class SnakePart : MonoBehaviour
         moveSpeed += 0.02f;
         //Debug.Log($"turnRotation: {turnRotation}");
     }
-    void Move()
+    public void Move()
     {
         // if the head turned
         if (turnPosition.x != 0 || turnPosition.z != 0)
@@ -35,7 +35,7 @@ public class SnakePart : MonoBehaviour
 
         //Debug.Log($"moveRotation: {transform.rotation.eulerAngles.y}");
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
-        
+
     }
 
     void CheckAllAxis(float moveRotation)
@@ -117,14 +117,14 @@ public class SnakePart : MonoBehaviour
 
         transform.localPosition = new Vector3(0, 0, -1f);
         SetStartingRotation(moveRotation);
-        
+
         transform.SetParent(snakeTransform);
     }
 
     public void SetStartingRotation(float rotation)
     {
         //Debug.Log("SETIRAM ROTACIJU");
-        transform.eulerAngles = new Vector3(0f , rotation, 0f);
+        transform.eulerAngles = new Vector3(0f, rotation, 0f);
     }
 
     public void SetRotation(float rotation)
@@ -142,5 +142,19 @@ public class SnakePart : MonoBehaviour
             absoluteMoveRotation = 360 + absoluteMoveRotation;
         }
         return absoluteMoveRotation;
+    }
+    public bool isLast()
+    {
+        return lastSnakePart;
+    }
+
+    public void setLast()
+    {
+        lastSnakePart = true;
+    }
+
+    public void unsetLast()
+    {
+        lastSnakePart = false;
     }
 }

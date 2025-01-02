@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class SnakeHead : MonoBehaviour
+public class SnakeHead : MonoBehaviour, ISnakePart
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] UnityEvent pickupItem;
     //float moveRotationY = 0f;
     float moveSpeed = 0f;
+    bool lastSnakePart = true;
     void Start()
     {
         //Debug.Log("Head attached");
@@ -44,7 +45,7 @@ public class SnakeHead : MonoBehaviour
         }
     }
 
-    void Move()
+    public void Move()
     {
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward); // Vector3.forward --> local space, tranform.forward --> world space
     }
@@ -60,5 +61,19 @@ public class SnakeHead : MonoBehaviour
     public float GetRotation()
     {
         return transform.rotation.eulerAngles.y;
+    }
+    public bool isLast()
+    {
+        return lastSnakePart;
+    }
+
+    public void setLast()
+    {
+        lastSnakePart = true;
+    }
+
+    public void unsetLast()
+    {
+        lastSnakePart = false;
     }
 }
