@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -10,6 +11,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     //float moveRotationY = 0f;
     float moveSpeed = 0f;
     bool lastSnakePart = true;
+    private bool hasSnapped = false;
     void Start()
     {
         //Debug.Log("Head attached");
@@ -42,6 +44,67 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         if (other.GetComponent<Food>() != null)
         {
             pickupItem.Invoke();
+        }
+
+        if (other.GetComponent<GridObject>() != null)
+        {
+            hasSnapped = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //Debug.Log($"Collision: {other.GetComponent<Food>()}");
+        if (other.GetComponent<GridObject>() != null)
+        {
+            //Debug.Log($"Kaèa glava pozicija {transform.position}");
+            Transform gridObjectTransform = other.transform;
+            // ignore the y axis
+            Vector3 snakeHeadTransform = new Vector3(transform.position.x, 1f, transform.position.z);
+            Debug.Log($"Distance: {Vector3.Distance(snakeHeadTransform, gridObjectTransform.position)}");
+
+            if (Vector3.Distance(snakeHeadTransform, gridObjectTransform.position) <= 0.05f && hasSnapped == false)
+            {
+                Debug.Log("Jabadabadu1");
+                transform.position = new Vector3(gridObjectTransform.position.x, 0.75f, gridObjectTransform.position.z);
+                hasSnapped = true;
+            }
+
+            //Debug.Log($"Mreža objekt pozicija {gridObjectTransform.position}");
+            /*
+            float headRotation = GetRotation();
+            if (headRotation == 0)
+            {
+                if (transform.position.z >= gridObjectTransform.position.z)
+                {
+                    Debug.Log("Eureka1!!!");
+                }
+            }
+
+            else if(headRotation == 180)
+            {
+                if (transform.position.z <= gridObjectTransform.position.z)
+                {
+                    Debug.Log("Eureka2!!!");
+                }
+            }
+
+            else if (headRotation == 90)
+            {
+                if (transform.position.x >= gridObjectTransform.position.x)
+                {
+                    Debug.Log("Eureka3!!!");
+                }
+            }
+
+            else if (headRotation == 270)
+            {
+                if (transform.position.x <= gridObjectTransform.position.x)
+                {
+                    Debug.Log("Eureka4!!!");
+                }
+            }*/
+
         }
     }
 

@@ -20,7 +20,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     }
     public void PrepareForTurn(Vector3 turnPosition, float turnRotation)
     {
-        this.turnPosition = turnPosition;
+        this.turnPosition = new Vector3(Mathf.Round(turnPosition.x * 100) / 100f, 0f, Mathf.Round(turnPosition.z * 100) / 100f);
         this.turnRotation = turnRotation;
         moveSpeed += 0.02f;
         //Debug.Log($"turnRotation: {turnRotation}");
@@ -73,6 +73,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         if (currentPosition >= turnPositionOnRequiredAxis)
         {
+            currentPosition = turnPositionOnRequiredAxis;
             //Debug.Log($"currentPosition: {currentPosition}");
             //Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequiredAxis}");
             Debug.Log("Obrat");

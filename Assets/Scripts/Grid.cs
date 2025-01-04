@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class ArenaGrid : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Arena arena;
