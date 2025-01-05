@@ -12,12 +12,13 @@ public class Snake : MonoBehaviour
     SnakeCorner snakeCorner;
 
     float snakeYRotation = 0;
-    [SerializeField] float moveSpeed = 1f;
+    [SerializeField] float moveSpeed = 2f;
+    [SerializeField] ArenaBlock arenaBlock;
     void Awake()
     {
         snakeTorsoParts = new List<SnakeTorso>();
         snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
-        snakeHead.Setup(moveSpeed, snakeYRotation, transform);
+        snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize());
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
     }
 
@@ -41,7 +42,7 @@ public class Snake : MonoBehaviour
             //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
             //snakeCorner.Setup(snakeHead.transform);
         }
-        snakeHead.SetRotation(turnRotation);
+        snakeHead.AddToRotationBuffer(turnRotation);
         snakeYRotation = snakeHead.GetRotation();
     }
 

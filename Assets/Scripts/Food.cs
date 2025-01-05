@@ -7,6 +7,7 @@ public class Food : MonoBehaviour, IPickup
     GameObject foodObject;
     //[SerializeField] UnityEvent growSnake;
     public event Action onUseFood;
+    [SerializeField] ArenaBlock arenaBlock;
     void Start()
     {
         
@@ -32,6 +33,7 @@ public class Food : MonoBehaviour, IPickup
     }
     public void Spawn() {
         foodObject = Instantiate(this.gameObject);
+        foodObject.transform.localPosition = new Vector3(0, arenaBlock.GetBlockSize(), 3f);
     }
 
     public void Setup(Snake snake)

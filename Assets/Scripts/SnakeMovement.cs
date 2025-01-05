@@ -31,62 +31,73 @@ public class SnakeMovement : MonoBehaviour
     {
         //if (swipeDirection.magnitude < minimumSwipeMagnitude) { return; }
         float snakeYRotation = snake.GetAbsoluteRotation();
-        if (snakeYRotation == 0)
+        Debug.Log("Huh1");
+        if (swipeDirection.x > 0)
         {
-            // Gor desno
-            if (swipeDirection.x > 0 && swipeDirection.y > 0)
-            {
-                snake.SetYRotation(90f);
-            }
-            // Dol levo
-            else if (swipeDirection.x < 0 && swipeDirection.y < 0)
-            {
-                snake.SetYRotation(-90f);
-            }
+            snake.SetYRotation(90f);
         }
+        else if (swipeDirection.x < 0)
+        {
+            snake.SetYRotation(-90f);
+        }
+            /*
+            if (snakeYRotation == 0)
+            {
+                // Gor desno
+                if (swipeDirection.x > 0 && swipeDirection.y > 0)
+                {
+                    snake.SetYRotation(90f);
+                }
+                // Dol levo
+                else if (swipeDirection.x < 0 && swipeDirection.y < 0)
+                {
+                    snake.SetYRotation(-90f);
+                }
+            }
 
-        if (snakeYRotation == 180)
-        {
-            // Gor desno
-            if (swipeDirection.x > 0 && swipeDirection.y > 0)
+            if (snakeYRotation == 180)
             {
-                snake.SetYRotation(-90f);
+                // Gor desno
+                if (swipeDirection.x > 0 && swipeDirection.y > 0)
+                {
+                    snake.SetYRotation(-90f);
+                }
+                // Dol levo
+                else if (swipeDirection.x < 0 && swipeDirection.y < 0)
+                {
+                    snake.SetYRotation(90f);
+                }
             }
-            // Dol levo
-            else if (swipeDirection.x < 0 && swipeDirection.y < 0)
-            {
-                snake.SetYRotation(90f);
-            }
-        }
 
-        if (snakeYRotation == 90)
-        {
-            // Dol desno
-            if (swipeDirection.x > 0 && swipeDirection.y < 0)
+            if (snakeYRotation == 90)
             {
-                snake.SetYRotation(90f);
+                // Dol desno
+                if (swipeDirection.x > 0 && swipeDirection.y < 0)
+                {
+                    snake.SetYRotation(90f);
+                }
+                // Gor levo
+                else if (swipeDirection.x < 0 && swipeDirection.y > 0)
+                {
+                    snake.SetYRotation(-90f);
+                }
             }
-            // Gor levo
-            else if (swipeDirection.x < 0 && swipeDirection.y > 0)
-            {
-                snake.SetYRotation(-90f);
-            }
-        }
 
-        if (snakeYRotation == 270)
-        {
-            // Dol desno
-            if (swipeDirection.x > 0 && swipeDirection.y < 0)
+            if (snakeYRotation == 270)
             {
-                snake.SetYRotation(-90f);
+                // Dol desno
+                if (swipeDirection.x > 0 && swipeDirection.y < 0)
+                {
+                    snake.SetYRotation(-90f);
+                }
+                // Gor levo
+                else if (swipeDirection.x < 0 && swipeDirection.y > 0)
+                {
+                    snake.SetYRotation(90f);
+                }
             }
-            // Gor levo
-            else if (swipeDirection.x < 0 && swipeDirection.y > 0)
-            {
-                snake.SetYRotation(90f);
-            }
+            */
         }
-    }
     private void SwipePerformed(InputAction.CallbackContext context)
     { 
         swipeDirection = context.ReadValue<Vector2>();
@@ -94,9 +105,11 @@ public class SnakeMovement : MonoBehaviour
     private void MoveLeft(InputAction.CallbackContext context)
     {
         snake.SetYRotation(-90f);
+        Debug.Log("Huh2");
     }
     private void MoveRight(InputAction.CallbackContext context)
     {
         snake.SetYRotation(90f);
+        Debug.Log("Huh3");
     }
 }

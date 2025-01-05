@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c645264e638f54ebfe37a93e8b4cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenaBlock: {fileID: -5578893402839629581, guid: 2f750edc48b377b4aa91d16686290284, type: 3}
