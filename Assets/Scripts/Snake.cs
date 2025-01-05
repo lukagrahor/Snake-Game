@@ -14,11 +14,12 @@ public class Snake : MonoBehaviour
     float snakeYRotation = 0;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] ArenaBlock arenaBlock;
+    float nextTorsoRotation;
     void Awake()
     {
         snakeTorsoParts = new List<SnakeTorso>();
         snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
-        snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize());
+        snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
     }
 
@@ -35,15 +36,29 @@ public class Snake : MonoBehaviour
 
     public void SetYRotation(float turnRotation)
     {
-        if (snakeTorsoParts.Count != 0)
-        {
-            snakeTorsoParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation);
-
-            //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
-            //snakeCorner.Setup(snakeHead.transform);
-        }
         snakeHead.AddToRotationBuffer(turnRotation);
         snakeYRotation = snakeHead.GetRotation();
+        nextTorsoRotation = turnRotation;
+        //SetTorsoRotation(turnRotation);
+    }
+
+    // when the head reaches the position of the block it gives the position to the torso parts
+    public void SetTorsoRotation()
+    {
+        if (snakeTorsoParts.Count == 0)
+        {
+            return;
+        }
+        Debug.Log("Uspelo mi je juhej");
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            torso.AddToRotationBuffer(nextTorsoRotation);
+            torso.AddToPositionBuffer(snakeHead.transform.position);
+        }
+        //snakeTorsoParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation);
+
+        //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
+        //snakeCorner.Setup(snakeHead.transform);
     }
 
     public void Grow()
@@ -59,6 +74,7 @@ public class Snake : MonoBehaviour
         }
         else
         {
+            newSnakeTorso.transform.SetParent(snakeTorsoParts[snakeTorsoParts.Count].transform);
             snakeTorsoParts[snakeTorsoParts.Count].unsetLast();
         }
         newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);

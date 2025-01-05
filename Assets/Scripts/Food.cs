@@ -34,6 +34,8 @@ public class Food : MonoBehaviour, IPickup
     public void Spawn() {
         foodObject = Instantiate(this.gameObject);
         foodObject.transform.localPosition = new Vector3(0, arenaBlock.GetBlockSize(), 3f);
+        foodObject = Instantiate(this.gameObject);
+        foodObject.transform.localPosition = new Vector3(3, arenaBlock.GetBlockSize(), -2f);
     }
 
     public void Setup(Snake snake)
@@ -45,5 +47,10 @@ public class Food : MonoBehaviour, IPickup
             //growSnake = new UnityEvent();
             //growSnake.AddListener(snake.Grow);
         }
+    }
+
+    Vector3 GetNewPosition()
+    {
+        return new Vector3(3f, arenaBlock.GetBlockSize(), -2f);
     }
 }
