@@ -5,7 +5,7 @@ public class Arena : MonoBehaviour
 {
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] int size = 10;
-    [SerializeField] float blockSize = 0.5f;
+    //[SerializeField] float blockSize = 0.5f;
     CameraCornerSpawner cameraCornerSpawner;
     public struct CornerBlocks
     {
@@ -38,6 +38,7 @@ public class Arena : MonoBehaviour
         Vector3 right = Vector3.zero;
         Vector3 top = Vector3.zero;
         float colNumber = 0f;
+        float blockSize = GetBlockSize();
         for (int i = 0; i < size * size; i++)
         {
             Vector3 location = Vector3.zero;
@@ -91,4 +92,9 @@ public class Arena : MonoBehaviour
     }
 
     public int GetSize() { return size; }
+
+    public float GetBlockSize()
+    {
+        return arenaBlock.GetBlockSize();
+    }
 }

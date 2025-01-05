@@ -320,7 +320,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaBlock: {fileID: -5578893402839629581, guid: 2f750edc48b377b4aa91d16686290284, type: 3}
   size: 20
-  blockSize: 0.5
 --- !u!4 &1036702771
 Transform:
   m_ObjectHideFlags: 0
@@ -416,7 +415,7 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   snakeCornerPrefab: {fileID: -7157476473349645326, guid: f5640eabb116c6e48a14c70cf9a13bc1, type: 3}
-  moveSpeed: 2
+  moveSpeed: 2.5
   arenaBlock: {fileID: -5578893402839629581, guid: 2f750edc48b377b4aa91d16686290284, type: 3}
 --- !u!4 &1500429125
 Transform:

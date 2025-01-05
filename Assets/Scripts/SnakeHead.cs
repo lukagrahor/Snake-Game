@@ -63,17 +63,18 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         if (other.GetComponent<GridObject>() != null)
         {
             //Debug.Log($"Kaèa glava pozicija {transform.position}");
-            Transform gridObjectTransform = other.transform;
             // ignore the y axis
-            Vector3 snakeHeadTransform = new Vector3(transform.position.x, 1f, transform.position.z);
-            //Debug.Log($"Distance: {Vector3.Distance(snakeHeadTransform, gridObjectTransform.position)}");
+            Vector3 gridBlockPosition = new Vector3(other.transform.position.x, 0f, other.transform.position.z);
+            Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
-            if (Vector3.Distance(snakeHeadTransform, gridObjectTransform.position) <= 0.05f && hasSnapped == false)
+            Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
+
+            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.05f && hasSnapped == false)
             {
-                //Debug.Log("Jabadabadu1");
+                Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
-                    transform.position = new Vector3(gridObjectTransform.position.x, transform.position.y, gridObjectTransform.position.z);
+                    transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
                     hasSnapped = true;
                     SetRotation();
                 }

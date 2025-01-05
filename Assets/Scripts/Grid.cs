@@ -17,19 +17,30 @@ public class ArenaGrid : MonoBehaviour
     }
     void SpawnGrid()
     {
-        Vector3 bottom = Vector3.zero;
-        Vector3 left = Vector3.zero;
-        Vector3 right = Vector3.zero;
-        Vector3 top = Vector3.zero;
-        int colNumber = 0;
         int size = arena.GetSize();
+        float blockSize = arena.GetBlockSize();
         for (int i = 0; i < size * size; i++)
         {
-            colNumber = i % size;
+            float colNumber = 0;
+            Vector3 location = Vector3.zero;
+            if (blockSize < 1f)
+            {
+                colNumber = (i * blockSize) % (size * blockSize);
+                location = new Vector3(colNumber - 5, blockSize, ((i / size) * blockSize) - 5);
+            }
+            else
+            {
+                colNumber = i % size;
+                location = new Vector3(colNumber - 5, blockSize, (i / size) - 5);
+            }
+            /*
+            int colNumber = i % size;
 
             Vector3 location = new Vector3(colNumber - 5, 1f, (i / size) - 5);
             //Debug.Log($"i: {i} location: {location}");
+            */
             GameObject block = Instantiate(gridObject.gameObject, location, Quaternion.identity);
+            block.transform.localScale = new Vector3(blockSize + 0.001f, blockSize + 0.001f, blockSize + 0.001f);
             block.transform.SetParent(transform);
         }
     }
