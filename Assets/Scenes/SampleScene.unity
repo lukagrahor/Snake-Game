@@ -341,7 +341,7 @@ Transform:
   m_GameObject: {fileID: 311419180}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -11.262014, y: 5, z: -1.2914443}
+  m_LocalPosition: {x: -11.262014, y: 5.0000005, z: -1.2914443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -410,7 +410,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.5129137
+  orthographic size: 4.0552964
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -435,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -11.23848, y: 5.0936956, z: -1.2384782}
+  m_LocalPosition: {x: -11.238479, y: 5.093696, z: -1.2384777}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -694,6 +694,7 @@ GameObject:
   m_Component:
   - component: {fileID: 545034463}
   - component: {fileID: 545034464}
+  - component: {fileID: 545034465}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Untagged
@@ -733,6 +734,19 @@ MonoBehaviour:
   snakeCornerPrefab: {fileID: -7157476473349645326, guid: f5640eabb116c6e48a14c70cf9a13bc1, type: 3}
   moveSpeed: 2
   arenaBlock: {fileID: -5578893402839629581, guid: 2f750edc48b377b4aa91d16686290284, type: 3}
+--- !u!114 &545034465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0afd10c687693ad45a4843e1688d34bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimumSwipeMagnitude: 10
 --- !u!1 &587043826
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,6 +921,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 284575320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1379569879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379569881}
+  - component: {fileID: 1379569880}
+  m_Layer: 0
+  m_Name: ObjectSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1379569880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379569879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21399c45704218e4ab3fb672a0c5fc56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickup: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
+  snake: {fileID: 545034464}
+--- !u!4 &1379569881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379569879}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.749103, y: 3.9077346, z: -0.15986583}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1682332299
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,3 +1039,4 @@ SceneRoots:
   - {fileID: 284575320}
   - {fileID: 545034463}
   - {fileID: 457970927}
+  - {fileID: 1379569881}

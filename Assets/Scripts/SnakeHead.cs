@@ -71,11 +71,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             Vector3 gridBlockPosition = new Vector3(other.transform.position.x, 0f, other.transform.position.z);
             Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
-            //Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
+            Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
 
             if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.05f && hasSnapped == false)
             {
-                //Debug.Log("Jabadabadu1");
+                Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
                     // snap to the place of the grid block
