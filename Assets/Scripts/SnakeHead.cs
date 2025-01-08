@@ -9,7 +9,6 @@ using UnityEngine.UIElements;
 public class SnakeHead : MonoBehaviour, ISnakePart
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] UnityEvent pickupItem;
     public event Action onRotate;
     //float moveRotationY = 0f;
     float moveSpeed = 0f;
@@ -49,12 +48,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log($"Collision: {other.GetComponent<Food>()}");
-        if (other.GetComponent<Food>() != null)
-        {
-            pickupItem.Invoke();
-        }
-
         if (other.GetComponent<GridObject>() != null)
         {
             hasSnapped = false;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -21,6 +22,11 @@ public class Snake : MonoBehaviour
         snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
         snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
+    }
+
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -74,8 +80,9 @@ public class Snake : MonoBehaviour
         }
         else
         {
-            newSnakeTorso.transform.SetParent(snakeTorsoParts[snakeTorsoParts.Count].transform);
+            newSnakeTorso.transform.SetParent(snakeTorsoParts[snakeTorsoParts.Count - 1].transform);
             snakeTorsoParts[snakeTorsoParts.Count].unsetLast();
+            Debug.Log("jaja boys");
         }
         newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
         snakeTorsoParts.Add(newSnakeTorso);

@@ -1,5 +1,4 @@
 public interface IPickup
 {
-    public void Use();
-    public void Spawn();
+    public void Use(Snake snake);
 }
