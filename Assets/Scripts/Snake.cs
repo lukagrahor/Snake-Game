@@ -81,7 +81,7 @@ public class Snake : MonoBehaviour
         else
         {
             newSnakeTorso.transform.SetParent(snakeTorsoParts[snakeTorsoParts.Count - 1].transform);
-            snakeTorsoParts[snakeTorsoParts.Count].unsetLast();
+            snakeTorsoParts[snakeTorsoParts.Count-1].unsetLast();
             Debug.Log("jaja boys");
         }
         newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
