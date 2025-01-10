@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -141,6 +142,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         this.moveSpeed = moveSpeed;
 
         transform.localPosition = new Vector3(0, 0, -1f);
+        Debug.Log($"moveRotation: {moveRotation}");
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snakeTransform);

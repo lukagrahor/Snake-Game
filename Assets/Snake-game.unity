@@ -636,6 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickup: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
   snake: {fileID: 1500429124}
+  arenaBlock: {fileID: -5578893402839629581, guid: 2f750edc48b377b4aa91d16686290284, type: 3}
 --- !u!4 &1593648708
 Transform:
   m_ObjectHideFlags: 0

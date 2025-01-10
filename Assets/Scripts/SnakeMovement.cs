@@ -34,11 +34,11 @@ public class SnakeMovement : MonoBehaviour
         Debug.Log("Huh1");
         if (swipeDirection.x > 0)
         {
-            snake.SetYRotation(90f);
+            snake.SetNextYRotation(90f);
         }
         else if (swipeDirection.x < 0)
         {
-            snake.SetYRotation(-90f);
+            snake.SetNextYRotation(-90f);
         }
             /*
             if (snakeYRotation == 0)
@@ -104,12 +104,12 @@ public class SnakeMovement : MonoBehaviour
     }
     private void MoveLeft(InputAction.CallbackContext context)
     {
-        snake.SetYRotation(-90f);
+        snake.SetNextYRotation(-90f);
         Debug.Log("Huh2");
     }
     private void MoveRight(InputAction.CallbackContext context)
     {
-        snake.SetYRotation(90f);
+        snake.SetNextYRotation(90f);
         Debug.Log("Huh3");
     }
 }

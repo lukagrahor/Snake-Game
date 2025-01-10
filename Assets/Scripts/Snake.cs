@@ -39,11 +39,15 @@ public class Snake : MonoBehaviour
     {
         return snakeYRotation;
     }
-
     public void SetYRotation(float turnRotation)
     {
+        snakeYRotation = turnRotation;
+        Debug.Log($"snakeYRotation: {snakeYRotation}");
+    }
+    public void SetNextYRotation(float turnRotation)
+    {
         snakeHead.AddToRotationBuffer(turnRotation);
-        snakeYRotation = snakeHead.GetRotation();
+        // Že tle ne dobim ta prave rotacije
         nextTorsoRotation = turnRotation;
         //SetTorsoRotation(turnRotation);
     }

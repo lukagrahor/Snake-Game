@@ -101,6 +101,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         //Debug.Log($"Prva rotacija v bufferju: {rotationBuffer.First.Value}");
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         rotationBuffer.RemoveFirst();
+        transform.parent.GetComponent<Snake>().SetYRotation(GetRotation());
 
 
         if (rotationBuffer.Count <= 0)
