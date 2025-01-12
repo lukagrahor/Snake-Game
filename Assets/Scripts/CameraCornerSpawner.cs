@@ -21,7 +21,7 @@ public class CameraCornerSpawner : MonoBehaviour
     {
         Arena arena = GetComponent<Arena>();
         Arena.CornerBlocks cornerBlocks = arena.GetCornerBlocks();
-        Debug.Log($"cornerBlocks: {cornerBlocks.left}");
+        //Debug.Log($"cornerBlocks: {cornerBlocks.left}");
         /*
         bottom.transform.position = cornerBlocks.bottom + new Vector3(-0.5f, 0.2f, -0.5f);
         top.transform.position = cornerBlocks.top + new Vector3(0.5f, -0.2f, 0.5f);
@@ -43,7 +43,7 @@ public class CameraCornerSpawner : MonoBehaviour
             targetGroupOffset = 0.1f;
         }
        
-        Debug.Log($"targetGroupOffset: {targetGroupOffset}");
+        //Debug.Log($"targetGroupOffset: {targetGroupOffset}");
 
 
         bottom.transform.position = cornerBlocks.bottom + new Vector3(-1.4f - targetGroupOffset, 0.2f, -1.4f - targetGroupOffset);

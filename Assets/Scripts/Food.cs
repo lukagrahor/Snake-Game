@@ -24,7 +24,7 @@ public class Food : MonoBehaviour, IPickup
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log($"Collision: {other.GetComponent<Food>()}");
-        Debug.Log("A bo al nje?");
+        //Debug.Log("A bo al nje?");
         if (other.GetComponent<SnakeHead>() != null)
         {
             Use(other.GetComponentInParent<Snake>());

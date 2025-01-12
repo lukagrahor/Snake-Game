@@ -15,6 +15,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     bool lastSnakePart = true;
     private bool hasSnapped = false;
     LinkedList<float> rotationBuffer;
+    // for debugging
+    int blocksPassed = 0;
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
@@ -33,10 +35,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
         transform.SetParent(parentTransform);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
-        transform.localPosition = new Vector3(0, arenaBlockSize, 0);
+        transform.localPosition = new Vector3(0, arenaBlockSize - 0.05f, 0);
 
         SetMoveSpeed(moveSpeed);
-        Debug.Log($"moveSpeed: {moveSpeed}");
+        //Debug.Log($"moveSpeed: {moveSpeed}");
         AddToRotationBuffer(moveRotation);
         SetRotation();
     }
@@ -50,7 +52,9 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     {
         if (other.GetComponent<GridObject>() != null)
         {
+            Debug.Log($"other {other.GetComponent<GridObject>().getId()}");
             hasSnapped = false;
+            blocksPassed += 1;
         }
     }
 
@@ -59,16 +63,16 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         //Debug.Log($"Collision: {other.GetComponent<Food>()}");
         if (other.GetComponent<GridObject>() != null)
         {
-            //Debug.Log($"Kaèa glava pozicija {transform.position}");
             // ignore the y axis
             Vector3 gridBlockPosition = new Vector3(other.transform.position.x, 0f, other.transform.position.z);
             Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
-            Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
+            //Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
 
-            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.05f && hasSnapped == false)
+            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.01f && hasSnapped == false)
             {
-                Debug.Log("Jabadabadu1");
+                //Debug.Log($"rotationBuffer count: {rotationBuffer.Count}");
+                //Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
                     // snap to the place of the grid block
@@ -98,17 +102,15 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         {
             return;
         }
+        Debug.Log("Rotiraj!");
         //Debug.Log($"Prva rotacija v bufferju: {rotationBuffer.First.Value}");
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         rotationBuffer.RemoveFirst();
         transform.parent.GetComponent<Snake>().SetYRotation(GetRotation());
+        moveSpeed -= 0.03f;
+        Debug.Log($"blocksPassed: {blocksPassed}");
 
-
-        if (rotationBuffer.Count <= 0)
-        {
-            return;
-        }
-        Debug.Log($"Prva rotacija v bufferju po brisanju: {rotationBuffer.First.Value}");
+        //Debug.Log($"Prva rotacija v bufferju po brisanju: {rotationBuffer.First.Value}");
 
         //Debug.Log($"snakeheadRotation2: {transform.rotation.eulerAngles}");
         //moveRotationY = rotation;
@@ -116,8 +118,15 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     public void AddToRotationBuffer(float rotation)
     {
-        Debug.Log($"Dodaj v buffer: {rotation}");
+        //Debug.Log($"Dodaj v buffer: {rotation}");
+        // to prevent spam
+        if (rotationBuffer.Count == 2)
+        {
+            return;
+        }
         rotationBuffer.AddLast(rotation);
+        moveSpeed += 0.03f;
+        blocksPassed = 0;
     }
 
     public float GetRotation()
@@ -137,5 +146,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public void unsetLast()
     {
         lastSnakePart = false;
+    }
+
+    public Transform getTransform()
+    {
+        return transform;
     }
 }

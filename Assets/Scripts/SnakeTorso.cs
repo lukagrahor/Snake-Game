@@ -29,14 +29,15 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     public void AddToRotationBuffer(float rotation)
     {
-        Debug.Log($"Dodaj v buffer: {rotation}");
+        //Debug.Log($"Dodaj v buffer: {rotation}");
         rotationBuffer.AddLast(rotation);
     }
 
     public void AddToPositionBuffer(Vector3 position)
     {
-        Debug.Log($"Dodaj v buffer: {position}");
+        //Debug.Log($"Dodaj v buffer: {position}");
         positionBuffer.AddLast(position);
+        moveSpeed += 0.03f;
     }
     /*
     public void PrepareForTurn(Vector3 turnPosition, float turnRotation)
@@ -142,7 +143,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         this.moveSpeed = moveSpeed;
 
         transform.localPosition = new Vector3(0, 0, -1f);
-        Debug.Log($"moveRotation: {moveRotation}");
+        //Debug.Log($"moveRotation: {moveRotation}");
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snakeTransform);
@@ -194,22 +195,23 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             return;
         }
         Vector3 blockPositionWithY = positionBuffer.First.Value;
-        Debug.Log($"blockPositionWithY: {blockPositionWithY}");
+        //Debug.Log($"blockPositionWithY: {blockPositionWithY}");
 
         Vector3 gridBlockPosition = new Vector3(blockPositionWithY.x, 0f, blockPositionWithY.z);
         Vector3 snakeTorsoPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
-        Debug.Log($"Distance: {Vector3.Distance(snakeTorsoPosition, gridBlockPosition)}");
+        //Debug.Log($"Distance: {Vector3.Distance(snakeTorsoPosition, gridBlockPosition)}");
 
-        if (Vector3.Distance(snakeTorsoPosition, gridBlockPosition) <= 0.05f && hasSnapped == false)
+        if (Vector3.Distance(snakeTorsoPosition, gridBlockPosition) <= 0.025f && hasSnapped == false)
         {
-            Debug.Log("Jabadabadu1");
+            //Debug.Log("Jabadabadu1");
             if (rotationBuffer.Count > 0)
             {
-                Debug.Log("Dubidubiduba");
+                //Debug.Log("Dubidubiduba");
                 transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
-                hasSnapped = true;
                 SetRotation();
+                hasSnapped = true;
+                moveSpeed -= 0.03f;
             }
         }
         
@@ -225,13 +227,13 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         //Debug.Log("SETIRAM ROTACIJU2");
         //transform.Rotate(0f, rotation, 0f);
-        Debug.Log("Buraziru desu");
+        //Debug.Log("Buraziru desu");
         if (rotationBuffer.Count <= 0)
         {
             return;
         }
-        Debug.Log("jadransko morje");
-        Debug.Log($"Torso: Prva rotacija v bufferju: {rotationBuffer.First.Value}");
+        //Debug.Log("jadransko morje");
+        //Debug.Log($"Torso: Prva rotacija v bufferju: {rotationBuffer.First.Value}");
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         rotationBuffer.RemoveFirst();
         positionBuffer.RemoveFirst();
@@ -260,5 +262,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     public void unsetLast()
     {
         lastSnakePart = false;
+    }
+
+    public Transform getTransform()
+    {
+        return transform;
     }
 }

@@ -4,7 +4,7 @@ public class ArenaGrid : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Arena arena;
-    [SerializeField] GridObject gridObject;
+    [SerializeField] GridObject gridObjectPrefab;
     void Start()
     {
         SpawnGrid();
@@ -39,9 +39,12 @@ public class ArenaGrid : MonoBehaviour
             Vector3 location = new Vector3(colNumber - 5, 1f, (i / size) - 5);
             //Debug.Log($"i: {i} location: {location}");
             */
-            GameObject block = Instantiate(gridObject.gameObject, location, Quaternion.identity);
+            GameObject block = Instantiate(gridObjectPrefab.gameObject, location, Quaternion.identity);
             block.transform.localScale = new Vector3(blockSize + 0.001f, blockSize + 0.001f, blockSize + 0.001f);
             block.transform.SetParent(transform);
+            GridObject gridObject = block.GetComponent<GridObject>();
+            gridObject.setId(i);
+            block.name = i.ToString();
         }
     }
 }

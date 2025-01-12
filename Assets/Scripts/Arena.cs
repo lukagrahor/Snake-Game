@@ -83,7 +83,7 @@ public class Arena : MonoBehaviour
     void SetCornerBlockPositions(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top)
     {
         cornerBlocks = new CornerBlocks(bottom, left, right, top);
-        Debug.Log($"left {cornerBlocks.left}");
+        //Debug.Log($"left {cornerBlocks.left}");
     }
 
     public CornerBlocks GetCornerBlocks()

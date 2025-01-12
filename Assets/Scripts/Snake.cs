@@ -42,7 +42,7 @@ public class Snake : MonoBehaviour
     public void SetYRotation(float turnRotation)
     {
         snakeYRotation = turnRotation;
-        Debug.Log($"snakeYRotation: {snakeYRotation}");
+        //Debug.Log($"snakeYRotation: {snakeYRotation}");
     }
     public void SetNextYRotation(float turnRotation)
     {
@@ -59,7 +59,7 @@ public class Snake : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Uspelo mi je juhej");
+        //Debug.Log("Uspelo mi je juhej");
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
             torso.AddToRotationBuffer(nextTorsoRotation);
@@ -81,14 +81,17 @@ public class Snake : MonoBehaviour
         {
             newSnakeTorso.transform.SetParent(snakeHead.transform);
             snakeHead.unsetLast();
+            newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
         }
         else
         {
-            newSnakeTorso.transform.SetParent(snakeTorsoParts[snakeTorsoParts.Count - 1].transform);
-            snakeTorsoParts[snakeTorsoParts.Count-1].unsetLast();
-            Debug.Log("jaja boys");
+            ISnakePart nextPart = snakeTorsoParts[snakeTorsoParts.Count - 1];
+            newSnakeTorso.transform.SetParent(nextPart.getTransform());
+            nextPart.unsetLast();
+            //Debug.Log("jaja boys");
+            newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
         }
-        newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
+        
         snakeTorsoParts.Add(newSnakeTorso);
     }
 

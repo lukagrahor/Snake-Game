@@ -31,7 +31,7 @@ public class SnakeMovement : MonoBehaviour
     {
         //if (swipeDirection.magnitude < minimumSwipeMagnitude) { return; }
         float snakeYRotation = snake.GetAbsoluteRotation();
-        Debug.Log("Huh1");
+        //Debug.Log("Huh1");
         if (swipeDirection.x > 0)
         {
             snake.SetNextYRotation(90f);
@@ -105,11 +105,11 @@ public class SnakeMovement : MonoBehaviour
     private void MoveLeft(InputAction.CallbackContext context)
     {
         snake.SetNextYRotation(-90f);
-        Debug.Log("Huh2");
+        //Debug.Log("Huh2");
     }
     private void MoveRight(InputAction.CallbackContext context)
     {
         snake.SetNextYRotation(90f);
-        Debug.Log("Huh3");
+        //Debug.Log("Huh3");
     }
 }

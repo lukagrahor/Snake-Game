@@ -4,6 +4,8 @@ public class GridObject : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     bool occupied = false;
+    // for debugging
+    int id;
     void Start()
     {
         
@@ -20,7 +22,7 @@ public class GridObject : MonoBehaviour
         if (other.GetComponent<ISnakePart>() != null)
         {
             occupied = true;
-            Debug.Log($"occupied: {occupied} {other}");
+            //Debug.Log($"occupied: {occupied} {other}");
         }
     }
 
@@ -29,12 +31,22 @@ public class GridObject : MonoBehaviour
        if (other.GetComponent<ISnakePart>() != null && other.GetComponent<ISnakePart>().isLast() == true)
        {
             occupied = false;
-            Debug.Log($"not occupied: {occupied} {other}");
+            //Debug.Log($"not occupied: {occupied} {other}");
         }
     }
 
     public bool isOccupied()
     {
         return occupied;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 }

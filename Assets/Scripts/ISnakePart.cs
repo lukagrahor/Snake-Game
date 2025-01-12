@@ -5,5 +5,5 @@ public interface ISnakePart
     public bool isLast();
     public void setLast();
     public void unsetLast();
-
+    public Transform getTransform();
 }
