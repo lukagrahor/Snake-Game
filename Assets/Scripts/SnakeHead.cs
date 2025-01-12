@@ -68,8 +68,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
             //Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
-
-            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.01f && hasSnapped == false)
+            // too small distance can cause the snake to not turn when needed
+            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f && hasSnapped == false)
             {
                 //Debug.Log($"rotationBuffer count: {rotationBuffer.Count}");
                 //Debug.Log("Jabadabadu1");

@@ -202,7 +202,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
         //Debug.Log($"Distance: {Vector3.Distance(snakeTorsoPosition, gridBlockPosition)}");
 
-        if (Vector3.Distance(snakeTorsoPosition, gridBlockPosition) <= 0.025f && hasSnapped == false)
+        if (Vector3.Distance(snakeTorsoPosition, gridBlockPosition) <= 0.03f && hasSnapped == false)
         {
             //Debug.Log("Jabadabadu1");
             if (rotationBuffer.Count > 0)
