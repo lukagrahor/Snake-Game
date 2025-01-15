@@ -82,14 +82,16 @@ public class Snake : MonoBehaviour
             newSnakeTorso.transform.SetParent(snakeHead.transform);
             snakeHead.unsetLast();
             newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
+            newSnakeTorso.SetPreviousPart(snakeHead);
         }
         else
         {
-            ISnakePart nextPart = snakeTorsoParts[snakeTorsoParts.Count - 1];
-            newSnakeTorso.transform.SetParent(nextPart.getTransform());
-            nextPart.unsetLast();
+            ISnakePart previousPart = snakeTorsoParts[snakeTorsoParts.Count - 1];
+            newSnakeTorso.transform.SetParent(previousPart.getTransform());
+            previousPart.unsetLast();
             //Debug.Log("jaja boys");
             newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
+            newSnakeTorso.SetPreviousPart(previousPart);
         }
         
         snakeTorsoParts.Add(newSnakeTorso);

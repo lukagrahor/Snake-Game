@@ -107,7 +107,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         rotationBuffer.RemoveFirst();
         transform.parent.GetComponent<Snake>().SetYRotation(GetRotation());
-        moveSpeed -= 0.03f;
+        //moveSpeed -= 0.03f;
         Debug.Log($"blocksPassed: {blocksPassed}");
 
         //Debug.Log($"Prva rotacija v bufferju po brisanju: {rotationBuffer.First.Value}");
@@ -125,7 +125,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             return;
         }
         rotationBuffer.AddLast(rotation);
-        moveSpeed += 0.03f;
+        //moveSpeed += 0.03f;
         blocksPassed = 0;
     }
 
