@@ -15,7 +15,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     private bool hasSnapped = false;
     ISnakePart previousPart;
-
+    float time = 0f;
+    bool wait = false;
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
@@ -59,6 +60,16 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         }*/
 
         //Debug.Log($"moveRotation: {transform.rotation.eulerAngles.y}");
+        if (wait == true)
+        {
+            float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
+            Debug.Log($"distance to previous part: {distanceToPrevious}");
+            if (distanceToPrevious < 0.4f)
+            {
+                return;
+            }
+            wait = false;
+        }
         CheckForTurn();
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
 
@@ -154,6 +165,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         if (other.GetComponent<GridObject>() != null)
         {
+            time = Time.realtimeSinceStartup;
             hasSnapped = false;
         }
     }
@@ -210,32 +222,13 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             {
                 //Debug.Log("Dubidubiduba");
                 SetRotation();
-                Debug.Log($"roatatacija: {transform.rotation.eulerAngles.y}");
+                //Debug.Log($"roatatacija: {transform.rotation.eulerAngles.y}");
                 
-                Vector3 offset = Vector3.zero;
-                
-                if(transform.rotation.eulerAngles.y == 0)
-                {
-                    offset = new Vector3(0, 0, -floatOffset);
-                }
-                else if (transform.rotation.eulerAngles.y == 180)
-                {
-                    offset = new Vector3(0, 0, floatOffset);
-                }
-                else if (transform.rotation.eulerAngles.y == 90)
-                {
-                    offset = new Vector3(-floatOffset, 0, 0);
-                }
-                else if (transform.rotation.eulerAngles.y == 270)
-                {
-                    offset = new Vector3(floatOffset, 0, 0);
-                }
-                
-                transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z) + offset;
+                transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
                 
                 hasSnapped = true;
                 //moveSpeed -= 0.03f;
-                Debug.Log($"previousPart: {previousPart}");
+                //Debug.Log($"previousPart: {previousPart}");
             }
         }
         
@@ -259,8 +252,13 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        //Debug.Log("jadransko morje");
        //Debug.Log($"Torso: Prva rotacija v bufferju: {rotationBuffer.First.Value}");
        transform.Rotate(0, rotationBuffer.First.Value, 0);
+       time = Time.realtimeSinceStartup - time;
+       Debug.Log($"Torso speed: {moveSpeed}");
+       Debug.Log($"Èas potreben, da torso doseže lokacijo rotacije: {time}");
        rotationBuffer.RemoveFirst();
        positionBuffer.RemoveFirst();
+
+       wait = true;
    }
 
     public void SetPreviousPart(ISnakePart previousPart)
@@ -296,5 +294,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     public Transform getTransform()
     {
         return transform;
+    }
+
+    public void stopWaiting()
+    {
+        wait = false;
     }
 }

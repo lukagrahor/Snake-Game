@@ -17,6 +17,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     LinkedList<float> rotationBuffer;
     // for debugging
     int blocksPassed = 0;
+    float time = 0f;
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
@@ -52,9 +53,18 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     {
         if (other.GetComponent<GridObject>() != null)
         {
-            Debug.Log($"other {other.GetComponent<GridObject>().getId()}");
+            //Debug.Log($"other {other.GetComponent<GridObject>().getId()}");
+            time = Time.realtimeSinceStartup;
             hasSnapped = false;
             blocksPassed += 1;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<GridObject>() != null)
+        {
+            Debug.Log($"Izhod iz grid kocke: {other.GetComponent<GridObject>().getId()}");
         }
     }
 
@@ -92,7 +102,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     public void Move()
     {
-        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward); // Vector3.forward --> local space, tranform.forward --> world space
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward); // Vector3.forward --> local space, transform.forward --> world space
     }
 
     public void SetRotation()
@@ -102,13 +112,17 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         {
             return;
         }
-        Debug.Log("Rotiraj!");
+        //Debug.Log("Rotiraj!");
         //Debug.Log($"Prva rotacija v bufferju: {rotationBuffer.First.Value}");
         transform.Rotate(0, rotationBuffer.First.Value, 0);
+        time = Time.realtimeSinceStartup - time;
+        Debug.Log($"Head speed: {moveSpeed}");
+        Debug.Log($"Èas potreben, da head doseže lokacijo rotacije: {time}");
         rotationBuffer.RemoveFirst();
         transform.parent.GetComponent<Snake>().SetYRotation(GetRotation());
+
         //moveSpeed -= 0.03f;
-        Debug.Log($"blocksPassed: {blocksPassed}");
+        //Debug.Log($"blocksPassed: {blocksPassed}");
 
         //Debug.Log($"Prva rotacija v bufferju po brisanju: {rotationBuffer.First.Value}");
 
