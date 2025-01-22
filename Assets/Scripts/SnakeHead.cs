@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class SnakeHead : MonoBehaviour, ISnakePart
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public event Action onRotate;
+    //public event Action onRotate;
     //float moveRotationY = 0f;
     float moveSpeed = 0f;
     bool lastSnakePart = true;
@@ -32,7 +32,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     public void Setup(float moveSpeed, float moveRotation, Transform parentTransform, float arenaBlockSize, Snake snake)
     {
-        onRotate += snake.SetTorsoRotation;
+        //onRotate += snake.SetTorsoRotation;
 
         transform.SetParent(parentTransform);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
@@ -64,7 +64,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     {
         if (other.GetComponent<GridObject>() != null)
         {
-            Debug.Log($"Izhod iz grid kocke: {other.GetComponent<GridObject>().getId()}");
+            //Debug.Log($"Izhod iz grid kocke: {other.GetComponent<GridObject>().getId()}");
         }
     }
 
@@ -89,11 +89,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
                     transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
                     hasSnapped = true;
 
-                    if (onRotate != null)
-                    {
-                        onRotate();
-                    }
-
                     SetRotation();
                 }
             }
@@ -112,14 +107,22 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         {
             return;
         }
+
         //Debug.Log("Rotiraj!");
         //Debug.Log($"Prva rotacija v bufferju: {rotationBuffer.First.Value}");
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         time = Time.realtimeSinceStartup - time;
-        Debug.Log($"Head speed: {moveSpeed}");
-        Debug.Log($"Èas potreben, da head doseže lokacijo rotacije: {time}");
+        //Debug.Log($"Head speed: {moveSpeed}");
+        //Debug.Log($"Èas potreben, da head doseže lokacijo rotacije: {time}");
         rotationBuffer.RemoveFirst();
         transform.parent.GetComponent<Snake>().SetYRotation(GetRotation());
+        //transform.parent.GetComponent<Snake>().setNextTorsoRotation(GetRotation());
+        transform.parent.GetComponent<Snake>().SetTorsoRotation();
+
+        /*if (onRotate != null)
+        {
+            onRotate();
+        }*/
 
         //moveSpeed -= 0.03f;
         //Debug.Log($"blocksPassed: {blocksPassed}");

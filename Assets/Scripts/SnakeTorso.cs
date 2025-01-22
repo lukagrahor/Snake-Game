@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class SnakeTorso : MonoBehaviour, ISnakePart
 {
@@ -26,6 +27,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     // Update is called once per frame
     void Update()
     {
+        showPositions();
         Move();
     }
 
@@ -63,7 +65,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         if (wait == true)
         {
             float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
-            Debug.Log($"distance to previous part: {distanceToPrevious}");
+            //Debug.Log($"distance to previous part: {distanceToPrevious}");
             if (distanceToPrevious < 0.4f)
             {
                 return;
@@ -113,7 +115,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             currentPosition = turnPositionOnRequiredAxis;
             //Debug.Log($"currentPosition: {currentPosition}");
             //Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequiredAxis}");
-            Debug.Log("Obrat");
+            //Debug.Log("Obrat");
             SetRotation(turnRotation);
 
             turnRotation = 0f;
@@ -253,8 +255,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        //Debug.Log($"Torso: Prva rotacija v bufferju: {rotationBuffer.First.Value}");
        transform.Rotate(0, rotationBuffer.First.Value, 0);
        time = Time.realtimeSinceStartup - time;
-       Debug.Log($"Torso speed: {moveSpeed}");
-       Debug.Log($"Èas potreben, da torso doseže lokacijo rotacije: {time}");
+       //Debug.Log($"Torso speed: {moveSpeed}");
+       //Debug.Log($"Èas potreben, da torso doseže lokacijo rotacije: {time}");
        rotationBuffer.RemoveFirst();
        positionBuffer.RemoveFirst();
 
@@ -299,5 +301,26 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     public void stopWaiting()
     {
         wait = false;
+    }
+
+    void showPositions()
+    {
+        int i = 0;
+        if (positionBuffer.Count == 0)
+        {
+            //Debug.Log("Praznu!");
+            return;
+        }
+        foreach (Vector3 pos in positionBuffer)
+        {
+            //Debug.Log($"Toro position {i}: {pos}");
+            i++;
+        }
+        int j = 0;
+        foreach (float rotat in rotationBuffer)
+        {
+            //Debug.Log($"Toro rotation {j}: {rotat}");
+            j++;
+        }
     }
 }

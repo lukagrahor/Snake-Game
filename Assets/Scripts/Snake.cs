@@ -42,6 +42,7 @@ public class Snake : MonoBehaviour
     public void SetYRotation(float turnRotation)
     {
         snakeYRotation = turnRotation;
+        //SetTorsoRotation();
         //Debug.Log($"snakeYRotation: {snakeYRotation}");
     }
     public void SetNextYRotation(float turnRotation)
@@ -49,7 +50,7 @@ public class Snake : MonoBehaviour
         snakeHead.AddToRotationBuffer(turnRotation);
         // Že tle ne dobim ta prave rotacije
         nextTorsoRotation = turnRotation;
-        //SetTorsoRotation(turnRotation);
+        //SetTorsoRotation();
     }
 
     // when the head reaches the position of the block it gives the position to the torso parts
@@ -59,7 +60,9 @@ public class Snake : MonoBehaviour
         {
             return;
         }
-        //Debug.Log("Uspelo mi je juhej");
+        Debug.Log($"nextTorsoRotation {nextTorsoRotation}");
+        Debug.Log($"position of the rotation {snakeHead.transform.position}");
+        // nextTorsoRotation ni ta prav, 2x pride isti
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
             torso.AddToRotationBuffer(nextTorsoRotation);
@@ -106,5 +109,10 @@ public class Snake : MonoBehaviour
             absoluteMoveRotation = 360 + absoluteMoveRotation;
         }
         return absoluteMoveRotation;
+    }
+
+    public void setNextTorsoRotation(float nextTorsoRotation)
+    {
+        this.nextTorsoRotation = nextTorsoRotation;
     }
 }
