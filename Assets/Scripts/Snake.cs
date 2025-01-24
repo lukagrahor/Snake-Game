@@ -11,14 +11,16 @@ public class Snake : MonoBehaviour
     SnakeHead snakeHead;
     List<SnakeTorso> snakeTorsoParts;
     SnakeCorner snakeCorner;
+    LinkedList<float> nextTorsoRotation;
 
     float snakeYRotation = 0;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] ArenaBlock arenaBlock;
-    float nextTorsoRotation;
+    //float nextTorsoRotation;
     void Awake()
     {
         snakeTorsoParts = new List<SnakeTorso>();
+        nextTorsoRotation = new LinkedList<float>();
         snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
         snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
@@ -49,7 +51,7 @@ public class Snake : MonoBehaviour
     {
         snakeHead.AddToRotationBuffer(turnRotation);
         // Že tle ne dobim ta prave rotacije
-        nextTorsoRotation = turnRotation;
+        nextTorsoRotation.AddLast(turnRotation);
         //SetTorsoRotation();
     }
 
@@ -65,9 +67,11 @@ public class Snake : MonoBehaviour
         // nextTorsoRotation ni ta prav, 2x pride isti
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
-            torso.AddToRotationBuffer(nextTorsoRotation);
+            torso.AddToRotationBuffer(nextTorsoRotation.First.Value);
             torso.AddToPositionBuffer(snakeHead.transform.position);
         }
+
+        nextTorsoRotation.RemoveFirst();
         //snakeTorsoParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation);
 
         //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
@@ -113,6 +117,6 @@ public class Snake : MonoBehaviour
 
     public void setNextTorsoRotation(float nextTorsoRotation)
     {
-        this.nextTorsoRotation = nextTorsoRotation;
+        this.nextTorsoRotation.AddLast(nextTorsoRotation);
     }
 }
