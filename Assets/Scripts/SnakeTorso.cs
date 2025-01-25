@@ -33,7 +33,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     public void AddToRotationBuffer(float rotation)
     {
-        //Debug.Log($"Dodaj v buffer: {rotation}");
+        Debug.Log($"Dodaj v buffer: {rotation}");
         rotationBuffer.AddLast(rotation);
     }
 
@@ -252,7 +252,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        return;
        }
        //Debug.Log("jadransko morje");
-       //Debug.Log($"Torso: Prva rotacija v bufferju: {rotationBuffer.First.Value}");
+       Debug.Log($"Torso: Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
        transform.Rotate(0, rotationBuffer.First.Value, 0);
        time = Time.realtimeSinceStartup - time;
        //Debug.Log($"Torso speed: {moveSpeed}");

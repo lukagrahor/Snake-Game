@@ -51,7 +51,9 @@ public class Snake : MonoBehaviour
     {
         snakeHead.AddToRotationBuffer(turnRotation);
         // Že tle ne dobim ta prave rotacije
-        nextTorsoRotation.AddLast(turnRotation);
+
+        setNextTorsoRotation(turnRotation);
+        showNextTorsoRotations();
         //SetTorsoRotation();
     }
 
@@ -62,8 +64,8 @@ public class Snake : MonoBehaviour
         {
             return;
         }
-        Debug.Log($"nextTorsoRotation {nextTorsoRotation}");
-        Debug.Log($"position of the rotation {snakeHead.transform.position}");
+        //Debug.Log($"nextTorsoRotation {nextTorsoRotation}");
+        //Debug.Log($"position of the rotation {snakeHead.transform.position}");
         // nextTorsoRotation ni ta prav, 2x pride isti
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
@@ -117,6 +119,36 @@ public class Snake : MonoBehaviour
 
     public void setNextTorsoRotation(float nextTorsoRotation)
     {
+        // bil je bug kjer se je dodajalo rotacije v bufferr, ko ni blo še nobenega torso dela in pole ko je kaèa pobrala kos
+        // je upoštevalo vse ta stare rotacije
+        if (snakeTorsoParts.Count == 0)
+        {
+            return;
+        }
+
         this.nextTorsoRotation.AddLast(nextTorsoRotation);
+    }
+
+    void showNextTorsoRotations()
+    {
+        /*
+        int i = 0;
+        if (positionBuffer.Count == 0)
+        {
+            //Debug.Log("Praznu!");
+            return;
+        }
+        foreach (Vector3 pos in positionBuffer)
+        {
+            //Debug.Log($"Toro position {i}: {pos}");
+            i++;
+        }
+        */
+        int j = 0;
+        foreach (float rotat in nextTorsoRotation)
+        {
+            Debug.Log($"Next torso rotation {j}: {rotat}");
+            j++;
+        }
     }
 }

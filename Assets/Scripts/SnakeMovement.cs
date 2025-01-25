@@ -27,6 +27,14 @@ public class SnakeMovement : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if (_controls != null)
+        {
+            _controls.Player.Disable();
+        }
+    }
+
     private void TouchCompleted(InputAction.CallbackContext context)
     {
         //if (swipeDirection.magnitude < minimumSwipeMagnitude) { return; }
