@@ -33,7 +33,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     public void AddToRotationBuffer(float rotation)
     {
-        Debug.Log($"Dodaj v buffer: {rotation}");
+        //Debug.Log($"Dodaj v buffer: {rotation}");
         rotationBuffer.AddLast(rotation);
     }
 
@@ -154,10 +154,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform)
     {
+        // dobi moveRotacijo od kocke po obratu --> dobim move rotation 0, moglu bi pa bet 90
         this.moveSpeed = moveSpeed;
 
         transform.localPosition = new Vector3(0, 0, -1f);
-        //Debug.Log($"moveRotation: {moveRotation}");
+        Debug.Log($"moveRotation: {moveRotation}");
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snakeTransform);
@@ -252,7 +253,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        return;
        }
        //Debug.Log("jadransko morje");
-       Debug.Log($"Torso: Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
+       //Debug.Log($"Torso: Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
        transform.Rotate(0, rotationBuffer.First.Value, 0);
        time = Time.realtimeSinceStartup - time;
        //Debug.Log($"Torso speed: {moveSpeed}");
@@ -267,8 +268,12 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         this.previousPart = previousPart;
     }
-
-    float GetAbsoluteRotation(float rotation)
+    public float GetRotation()
+    {
+        return transform.rotation.eulerAngles.y;
+    }
+    /*
+    public float GetAbsoluteRotation(float rotation)
     {
         // get rid of minuses and numbers bigger than 360
         float absoluteMoveRotation = rotation % 360;
@@ -277,7 +282,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             absoluteMoveRotation = 360 + absoluteMoveRotation;
         }
         return absoluteMoveRotation;
-    }
+    }*/
     public bool isLast()
     {
         return lastSnakePart;
@@ -322,5 +327,27 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             //Debug.Log($"Toro rotation {j}: {rotat}");
             j++;
         }
+    }
+
+    public void copyBuffers (LinkedList<float> rotationBuffer, LinkedList<Vector3> positionBuffer)
+    {
+        foreach (var rotation in rotationBuffer)
+        {
+            this.rotationBuffer.AddLast(rotation);
+        }
+
+        foreach (var position in positionBuffer)
+        {
+            this.positionBuffer.AddLast(position);
+        }
+    }
+
+    public LinkedList<float> GetRotationBuffer()
+    {
+        return rotationBuffer;
+    }
+    public LinkedList<Vector3> GetPositionBuffer()
+    {
+        return positionBuffer;
     }
 }

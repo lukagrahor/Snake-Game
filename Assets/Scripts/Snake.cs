@@ -53,7 +53,7 @@ public class Snake : MonoBehaviour
         // Že tle ne dobim ta prave rotacije
 
         setNextTorsoRotation(turnRotation);
-        showNextTorsoRotations();
+        //showNextTorsoRotations();
         //SetTorsoRotation();
     }
 
@@ -95,11 +95,18 @@ public class Snake : MonoBehaviour
         }
         else
         {
+            // trigger za bug je, da se zgodi turn takoj pred tem ko kaèa poje hrano
             ISnakePart previousPart = snakeTorsoParts[snakeTorsoParts.Count - 1];
             newSnakeTorso.transform.SetParent(previousPart.getTransform());
             previousPart.unsetLast();
             //Debug.Log("jaja boys");
-            newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
+            float previousTorsoRotation = previousPart.GetRotation();
+            Debug.Log($"currentTorsoRotation: {previousTorsoRotation}");
+
+            newSnakeTorso.Setup(moveSpeed, previousTorsoRotation, transform);
+            // kopira pozicije, ki so v bufferju od njegovga predhodnika
+            newSnakeTorso.copyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
+
             newSnakeTorso.SetPreviousPart(previousPart);
         }
         

@@ -9,9 +9,9 @@ public class ObjectSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Vector3 food1Position = new Vector3 (0f, arenaBlock.GetBlockSize() - 0.05f, 3f);
+        Vector3 food1Position = new Vector3 (0f, arenaBlock.GetBlockSize() - 0.05f, 0f);
         Vector3 food2Position = new Vector3 (3f, arenaBlock.GetBlockSize() - 0.05f, -2f);
-        Vector3 food3Position = new Vector3(3f, arenaBlock.GetBlockSize() - 0.05f, 3f);
+        Vector3 food3Position = new Vector3(2f, arenaBlock.GetBlockSize() - 0.05f, 1f);
         Food food1 = Instantiate(pickup, food1Position, Quaternion.identity);
         Food food2 = Instantiate(pickup, food2Position, Quaternion.identity);
         Food food3 = Instantiate(pickup, food3Position, Quaternion.identity);
