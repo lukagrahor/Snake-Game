@@ -5,9 +5,10 @@ public class Arena : MonoBehaviour
 {
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] int size = 10;
-    [SerializeField] ArenaBounds bounds;
+    [SerializeField] ArenaBounds boundsPrefab;
     //[SerializeField] float blockSize = 0.5f;
     CameraCornerSpawner cameraCornerSpawner;
+    ArenaBounds bounds;
 
     public struct CornerBlocks
     {
@@ -23,8 +24,17 @@ public class Arena : MonoBehaviour
     private CornerBlocks cornerBlocks;
     void Start()
     {
+        /*
+        bounds = Instantiate(boundsPrefab).GetComponent<ArenaBounds>();
+        Debug.Log("bounds:");
+        Debug.Log(bounds);
+        */
+
         SpawnArena();
+
         cameraCornerSpawner = GetComponent<CameraCornerSpawner>();
+
+
         cameraCornerSpawner.Setup();
     }
 
@@ -80,6 +90,7 @@ public class Arena : MonoBehaviour
             }
         }
         SetCornerBlockPositions(bottom, left, right, top);
+        //bounds.Spawn(bottom, left, right, top);
     }
 
     void SetCornerBlockPositions(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top)
