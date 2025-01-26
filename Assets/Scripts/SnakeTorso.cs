@@ -27,7 +27,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     // Update is called once per frame
     void Update()
     {
-        showPositions();
+        //showPositions();
         Move();
     }
 
@@ -158,7 +158,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         this.moveSpeed = moveSpeed;
 
         transform.localPosition = new Vector3(0, 0, -1f);
-        Debug.Log($"moveRotation: {moveRotation}");
+        //Debug.Log($"moveRotation: {moveRotation}");
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snakeTransform);
@@ -252,6 +252,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        {
        return;
        }
+       showPositions();
        //Debug.Log("jadransko morje");
        //Debug.Log($"Torso: Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
        transform.Rotate(0, rotationBuffer.First.Value, 0);
@@ -310,6 +311,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     void showPositions()
     {
+        /*
         int i = 0;
         if (positionBuffer.Count == 0)
         {
@@ -321,10 +323,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             //Debug.Log($"Toro position {i}: {pos}");
             i++;
         }
+        */
         int j = 0;
         foreach (float rotat in rotationBuffer)
         {
-            //Debug.Log($"Toro rotation {j}: {rotat}");
+            //Debug.Log($"Torso rotation buffer {j}: {rotat}");
             j++;
         }
     }

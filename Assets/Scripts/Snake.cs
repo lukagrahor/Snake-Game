@@ -37,16 +37,17 @@ public class Snake : MonoBehaviour
 
     }
 
-    public float GetYRotation()
+    public float GetSnakeYRotation()
     {
-        return snakeYRotation;
+        return snakeHead.GetRotation();
     }
-    public void SetYRotation(float turnRotation)
+    /*
+    public void SetSnakeYRotation(float turnRotation)
     {
         snakeYRotation = turnRotation;
         //SetTorsoRotation();
         //Debug.Log($"snakeYRotation: {snakeYRotation}");
-    }
+    }*/
     public void SetNextYRotation(float turnRotation)
     {
         snakeHead.AddToRotationBuffer(turnRotation);
@@ -64,7 +65,7 @@ public class Snake : MonoBehaviour
         {
             return;
         }
-        //Debug.Log($"nextTorsoRotation {nextTorsoRotation}");
+        Debug.Log($"nextTorsoRotation {nextTorsoRotation.First.Value}");
         //Debug.Log($"position of the rotation {snakeHead.transform.position}");
         // nextTorsoRotation ni ta prav, 2x pride isti
         foreach (SnakeTorso torso in snakeTorsoParts)
@@ -90,7 +91,7 @@ public class Snake : MonoBehaviour
         {
             newSnakeTorso.transform.SetParent(snakeHead.transform);
             snakeHead.unsetLast();
-            newSnakeTorso.Setup(moveSpeed, snakeYRotation, transform);
+            newSnakeTorso.Setup(moveSpeed, snakeHead.GetRotation(), transform);
             newSnakeTorso.SetPreviousPart(snakeHead);
         }
         else
@@ -128,7 +129,7 @@ public class Snake : MonoBehaviour
     {
         // bil je bug kjer se je dodajalo rotacije v bufferr, ko ni blo še nobenega torso dela in pole ko je kaèa pobrala kos
         // je upoštevalo vse ta stare rotacije
-        if (snakeTorsoParts.Count == 0)
+        if (snakeTorsoParts.Count == 0 || this.nextTorsoRotation.Count == 2) // to prevent spam --> to je bil fix za odcep repa
         {
             return;
         }

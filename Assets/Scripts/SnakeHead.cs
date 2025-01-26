@@ -115,7 +115,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         //Debug.Log($"Head speed: {moveSpeed}");
         //Debug.Log($"Èas potreben, da head doseže lokacijo rotacije: {time}");
         rotationBuffer.RemoveFirst();
-        transform.parent.GetComponent<Snake>().SetYRotation(GetRotation());
+        //transform.parent.GetComponent<Snake>().SetSnakeYRotation(GetRotation());
         //transform.parent.GetComponent<Snake>().setNextTorsoRotation(GetRotation());
         transform.parent.GetComponent<Snake>().SetTorsoRotation();
 

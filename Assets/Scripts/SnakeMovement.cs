@@ -54,12 +54,12 @@ public class SnakeMovement : MonoBehaviour
                 // Gor desno
                 if (swipeDirection.x > 0 && swipeDirection.y > 0)
                 {
-                    snake.SetYRotation(90f);
+                    snake.SetSnakeYRotation(90f);
                 }
                 // Dol levo
                 else if (swipeDirection.x < 0 && swipeDirection.y < 0)
                 {
-                    snake.SetYRotation(-90f);
+                    snake.SetSnakeYRotation(-90f);
                 }
             }
 
@@ -68,12 +68,12 @@ public class SnakeMovement : MonoBehaviour
                 // Gor desno
                 if (swipeDirection.x > 0 && swipeDirection.y > 0)
                 {
-                    snake.SetYRotation(-90f);
+                    snake.SetSnakeYRotation(-90f);
                 }
                 // Dol levo
                 else if (swipeDirection.x < 0 && swipeDirection.y < 0)
                 {
-                    snake.SetYRotation(90f);
+                    snake.SetSnakeYRotation(90f);
                 }
             }
 
@@ -82,12 +82,12 @@ public class SnakeMovement : MonoBehaviour
                 // Dol desno
                 if (swipeDirection.x > 0 && swipeDirection.y < 0)
                 {
-                    snake.SetYRotation(90f);
+                    snake.SetSnakeYRotation(90f);
                 }
                 // Gor levo
                 else if (swipeDirection.x < 0 && swipeDirection.y > 0)
                 {
-                    snake.SetYRotation(-90f);
+                    snake.SetSnakeYRotation(-90f);
                 }
             }
 
@@ -96,12 +96,12 @@ public class SnakeMovement : MonoBehaviour
                 // Dol desno
                 if (swipeDirection.x > 0 && swipeDirection.y < 0)
                 {
-                    snake.SetYRotation(-90f);
+                    snake.SetSnakeYRotation(-90f);
                 }
                 // Gor levo
                 else if (swipeDirection.x < 0 && swipeDirection.y > 0)
                 {
-                    snake.SetYRotation(90f);
+                    snake.SetSnakeYRotation(90f);
                 }
             }
             */
