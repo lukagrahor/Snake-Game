@@ -26,8 +26,16 @@ public class SnakeMovement : MonoBehaviour
     {
 
     }
+    /*
+    private void OnApplicationPause()
+    {
+        if (_controls != null)
+        {
+            _controls.Player.Disable();
+        }
+    }*/
 
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
         if (_controls != null)
         {

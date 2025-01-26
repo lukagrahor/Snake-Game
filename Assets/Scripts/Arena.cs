@@ -5,8 +5,10 @@ public class Arena : MonoBehaviour
 {
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] int size = 10;
+    [SerializeField] ArenaBounds bounds;
     //[SerializeField] float blockSize = 0.5f;
     CameraCornerSpawner cameraCornerSpawner;
+
     public struct CornerBlocks
     {
         public Vector3 bottom, left, right, top;
