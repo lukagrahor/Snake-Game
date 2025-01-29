@@ -8,7 +8,7 @@ public class Arena : MonoBehaviour
     [SerializeField] ArenaBounds boundsPrefab;
     //[SerializeField] float blockSize = 0.5f;
     CameraCornerSpawner cameraCornerSpawner;
-    ArenaBounds bounds;
+    GameObject bounds;
 
     public struct CornerBlocks
     {
@@ -24,13 +24,23 @@ public class Arena : MonoBehaviour
     private CornerBlocks cornerBlocks;
     void Start()
     {
-        /*
-        bounds = Instantiate(boundsPrefab).GetComponent<ArenaBounds>();
+        SpawnArena();
+        if (boundsPrefab == null) {
+            Debug.Log("ajajaj:");
+        }
+
+        bounds = Instantiate(boundsPrefab.gameObject);
+
+        if (bounds == null)
+        {
+            Debug.Log("ejejej:");
+        }
         Debug.Log("bounds:");
         Debug.Log(bounds);
-        */
 
-        SpawnArena();
+        //bounds.Spawn(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top);
+
+        
 
         cameraCornerSpawner = GetComponent<CameraCornerSpawner>();
 

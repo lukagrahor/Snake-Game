@@ -779,6 +779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
   size: 20
+  boundsPrefab: {fileID: 2510434926391419946, guid: 9a8953d5c3b30c04187e8c4bd0942b99, type: 3}
 --- !u!4 &587043828
 Transform:
   m_ObjectHideFlags: 0
