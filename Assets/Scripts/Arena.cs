@@ -5,10 +5,10 @@ public class Arena : MonoBehaviour
 {
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] int size = 10;
-    [SerializeField] ArenaBounds boundsPrefab;
+    
     //[SerializeField] float blockSize = 0.5f;
     CameraCornerSpawner cameraCornerSpawner;
-    GameObject bounds;
+    ArenaBounds arenaBounds;
 
     public struct CornerBlocks
     {
@@ -25,12 +25,14 @@ public class Arena : MonoBehaviour
     void Start()
     {
         SpawnArena();
+        /*
         if (boundsPrefab == null) {
             Debug.Log("ajajaj:");
-        }
+        }*/
 
-        bounds = Instantiate(boundsPrefab.gameObject);
-
+        //bounds = Instantiate(boundsPrefab.gameObject);
+        //bounds.transform.SetParent(transform);
+        /*
         if (bounds == null)
         {
             Debug.Log("ejejej:");
@@ -38,13 +40,13 @@ public class Arena : MonoBehaviour
         Debug.Log("bounds:");
         Debug.Log(bounds);
 
-        //bounds.Spawn(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top);
+        bounds.GetComponent<ArenaBounds>().Spawn(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top);
+        */
 
-        
+        arenaBounds = GetComponent<ArenaBounds>();
+        arenaBounds.Setup(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top);
 
         cameraCornerSpawner = GetComponent<CameraCornerSpawner>();
-
-
         cameraCornerSpawner.Setup();
     }
 
@@ -86,12 +88,12 @@ public class Arena : MonoBehaviour
 
             if (i == size-1)
             {
-               left = location;
+               right = location;
             }
 
             if (i == (size * size) - size)
             {
-                right = location;
+                left = location;
             }
 
             if (i == (size * size) -1)

@@ -46,9 +46,9 @@ public class CameraCornerSpawner : MonoBehaviour
         //Debug.Log($"targetGroupOffset: {targetGroupOffset}");
 
 
-        bottom.transform.position = cornerBlocks.bottom + new Vector3(-1.4f - targetGroupOffset, 0.2f, -1.4f - targetGroupOffset);
+        bottom.transform.position = cornerBlocks.bottom + new Vector3(-1.4f - targetGroupOffset, 1.4f, -1.4f - targetGroupOffset);
         top.transform.position = cornerBlocks.top + new Vector3(1.4f + targetGroupOffset, -0.2f, 1.4f + targetGroupOffset);
-        left.transform.position = cornerBlocks.left + new Vector3(1f + targetGroupOffset, 0f, -0.5f - targetGroupOffset);
-        right.transform.position = cornerBlocks.right + new Vector3(-1.5f - targetGroupOffset, 0f, 0f + targetGroupOffset);
+        left.transform.position = cornerBlocks.left + new Vector3(-1.5f - targetGroupOffset, 0f, 0f + targetGroupOffset);
+        right.transform.position = cornerBlocks.right + new Vector3(1f + targetGroupOffset, 0f, -0.5f - targetGroupOffset);
     }
 }
