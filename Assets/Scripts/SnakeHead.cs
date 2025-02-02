@@ -58,6 +58,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             hasSnapped = false;
             blocksPassed += 1;
         }
+        else if (other.GetComponent<ArenaWall>() != null)
+        {
+            
+        }
     }
 
     private void OnTriggerExit(Collider other)
