@@ -33,6 +33,8 @@ public class ArenaBounds : MonoBehaviour
         float overlapOffset = 2f * blockSize;
         bottomLeftWall = SpawnBottomLeftTopRightWalls(left, bottom, -1f);
         topRightWall = SpawnBottomLeftTopRightWalls(top, right, 1f);
+        topLeftWall = SpawnTopLeftBottomRightWalls(left, top, -1f);
+        bottomRightWall = SpawnTopLeftBottomRightWalls(bottom, right, 1f);
         /*
         float bottomLeftWallZ = (Mathf.Abs(bottom.z) + Mathf.Abs(left.z)) / 2f;
         bottomLeftWallZ += bottom.z;
@@ -77,14 +79,25 @@ public class ArenaBounds : MonoBehaviour
         zPosition += rightEdge.z;
 
         Vector3 wallPosition = new Vector3(leftEdge.x + (blockSize * xPositionDirection), blockSize, zPosition);
-        topRightWall = Instantiate(wall, wallPosition, Quaternion.identity);
-        topRightWall.transform.localScale = new Vector3(blockSize, blockSize, arenaSize * blockSize + overlapOffset);
+        ArenaWall newWall = Instantiate(wall, wallPosition, Quaternion.identity);
+        newWall.transform.localScale = new Vector3(blockSize, blockSize, arenaSize * blockSize + overlapOffset);
 
-        return topRightWall;
+        return newWall;
     }
-
-    void SpawnTopLeftBottomRightWalls()
+    
+    ArenaWall SpawnTopLeftBottomRightWalls(Vector3 leftEdge, Vector3 rightEdge, float xPositionDirection)
     {
+        float blockSize = GetComponent<Arena>().GetBlockSize();
+        float arenaSize = GetComponent<Arena>().GetSize();
+        float overlapOffset = 2f * blockSize;
 
+        float topLeftWallX = (Mathf.Abs(rightEdge.x) + Mathf.Abs(leftEdge.x)) / 2f;
+        topLeftWallX += leftEdge.x;
+
+        Vector3 wallPosition = new Vector3(topLeftWallX, blockSize, rightEdge.z + blockSize);
+        ArenaWall newWall = Instantiate(wall, wallPosition, Quaternion.identity);
+        newWall.transform.localScale = new Vector3(arenaSize * blockSize, blockSize, blockSize);
+
+        return newWall;
     }
 }
