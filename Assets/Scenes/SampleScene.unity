@@ -410,7 +410,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.7506185
+  orthographic size: 5.5129137
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -732,7 +732,7 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   snakeCornerPrefab: {fileID: -7157476473349645326, guid: f5640eabb116c6e48a14c70cf9a13bc1, type: 3}
-  moveSpeed: 0.5
+  moveSpeed: 2
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
 --- !u!114 &545034465
 MonoBehaviour:
@@ -758,6 +758,7 @@ GameObject:
   - component: {fileID: 587043828}
   - component: {fileID: 587043827}
   - component: {fileID: 587043829}
+  - component: {fileID: 587043830}
   m_Layer: 0
   m_Name: Arena
   m_TagString: Untagged
@@ -779,7 +780,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
   size: 20
-  boundsPrefab: {fileID: 2510434926391419946, guid: 9a8953d5c3b30c04187e8c4bd0942b99, type: 3}
 --- !u!4 &587043828
 Transform:
   m_ObjectHideFlags: 0
@@ -811,6 +811,19 @@ MonoBehaviour:
   top: {fileID: 2049560729}
   left: {fileID: 1682332299}
   right: {fileID: 1254296664}
+--- !u!114 &587043830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587043826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c90b821b039964199ad8f2e7298d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wall: {fileID: -9021837510627038732, guid: 59b461ad23faeba49a6649705f8095b4, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
