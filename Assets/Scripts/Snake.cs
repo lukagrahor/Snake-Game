@@ -16,6 +16,8 @@ public class Snake : MonoBehaviour
     float snakeYRotation = 0;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] ArenaBlock arenaBlock;
+
+    float waitTime = 5f;
     //float nextTorsoRotation;
     void Awake()
     {
@@ -28,13 +30,24 @@ public class Snake : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    void Respawn()
+    {
+        Debug.Log("Respawn");
+        float timer = waitTime;
+        while(timer > 0f)
+        {
+            timer -= Time.deltaTime;
+            Debug.Log(timer);
+        }
     }
 
     public float GetSnakeYRotation()
@@ -158,5 +171,15 @@ public class Snake : MonoBehaviour
             Debug.Log($"Next torso rotation {j}: {rotat}");
             j++;
         }
+    }
+
+    public void GetHit()
+    {
+        Destroy(snakeHead.gameObject);
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            Destroy(torso.gameObject);
+        }
+        Respawn();
     }
 }

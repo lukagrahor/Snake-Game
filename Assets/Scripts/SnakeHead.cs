@@ -18,6 +18,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     // for debugging
     int blocksPassed = 0;
     float time = 0f;
+    Snake snake;
+    
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
@@ -33,7 +35,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public void Setup(float moveSpeed, float moveRotation, Transform parentTransform, float arenaBlockSize, Snake snake)
     {
         //onRotate += snake.SetTorsoRotation;
-
+        this.snake = snake;
         transform.SetParent(parentTransform);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         transform.localPosition = new Vector3(0f, arenaBlockSize - 0.05f, -2f);
@@ -60,17 +62,17 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         }
         else if (other.GetComponent<ArenaWall>() != null)
         {
-            
+            snake.GetHit();
         }
     }
-
+    /*
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<GridObject>() != null)
         {
             //Debug.Log($"Izhod iz grid kocke: {other.GetComponent<GridObject>().getId()}");
         }
-    }
+    }*/
 
     private void OnTriggerStay(Collider other)
     {
