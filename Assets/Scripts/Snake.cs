@@ -18,6 +18,7 @@ public class Snake : MonoBehaviour
     [SerializeField] ArenaBlock arenaBlock;
 
     float waitTime = 5f;
+    float timer = 0f;
     //float nextTorsoRotation;
     void Awake()
     {
@@ -37,17 +38,22 @@ public class Snake : MonoBehaviour
     void Update()
     {
 
+        RespawnCountdown();
+        
+    }
+
+    void RespawnCountdown()
+    {
+        if (timer <= 0f)
+        {
+        return;
+        }
+        timer -= Time.deltaTime;
     }
 
     void Respawn()
     {
         Debug.Log("Respawn");
-        float timer = waitTime;
-        while(timer > 0f)
-        {
-            timer -= Time.deltaTime;
-            Debug.Log(timer);
-        }
     }
 
     public float GetSnakeYRotation()
