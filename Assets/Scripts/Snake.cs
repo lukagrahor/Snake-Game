@@ -1,22 +1,25 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine.UIElements;
 
 public class Snake : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] SnakeHead snakeHeadPrefab;
     [SerializeField] SnakeTorso snakeTorsoPrefab;
-    [SerializeField] SnakeCorner snakeCornerPrefab;
+    //[SerializeField] SnakeCorner snakeCornerPrefab;
     SnakeHead snakeHead;
     List<SnakeTorso> snakeTorsoParts;
-    SnakeCorner snakeCorner;
+    //SnakeCorner snakeCorner;
     LinkedList<float> nextTorsoRotation;
 
     float snakeYRotation = 0;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] ArenaBlock arenaBlock;
 
+    [SerializeField] TMP_Text respawnTimerText;
     float waitTime = 5f;
     float timer = 0f;
     //float nextTorsoRotation;
@@ -37,23 +40,32 @@ public class Snake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        RespawnCountdown();
-        
+        if (timer > 0f)
+        {
+            RespawnCountdown();
+        }
     }
 
     void RespawnCountdown()
     {
-        if (timer <= 0f)
-        {
-        return;
-        }
         timer -= Time.deltaTime;
+        respawnTimerText.text = Math.Ceiling(timer).ToString();
+        if (timer < 0f)
+        {
+            Respawn();
+        }
     }
 
     void Respawn()
     {
         Debug.Log("Respawn");
+        transform.position = Vector3.zero;
+        snakeTorsoParts = new List<SnakeTorso>();
+        nextTorsoRotation = new LinkedList<float>();
+
+        snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
+        snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
+        respawnTimerText.text = "";
     }
 
     public float GetSnakeYRotation()
@@ -80,6 +92,8 @@ public class Snake : MonoBehaviour
     // when the head reaches the position of the block it gives the position to the torso parts
     public void SetTorsoRotation()
     {
+        Debug.Log("snakeTorsoParts Count");
+        Debug.Log(snakeTorsoParts.Count);
         if (snakeTorsoParts.Count == 0)
         {
             return;
@@ -102,10 +116,7 @@ public class Snake : MonoBehaviour
 
     public void Grow()
     {
-        //Debug.Log("Grow!");
         SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
-        //Debug.Log(newSnakePart.name);
-        //Debug.Log($"Parenting to: {transform.name}");
         if(snakeTorsoParts.Count == 0)
         {
             newSnakeTorso.transform.SetParent(snakeHead.transform);
@@ -119,7 +130,6 @@ public class Snake : MonoBehaviour
             ISnakePart previousPart = snakeTorsoParts[snakeTorsoParts.Count - 1];
             newSnakeTorso.transform.SetParent(previousPart.getTransform());
             previousPart.unsetLast();
-            //Debug.Log("jaja boys");
             float previousTorsoRotation = previousPart.GetRotation();
             Debug.Log($"currentTorsoRotation: {previousTorsoRotation}");
 
@@ -186,6 +196,11 @@ public class Snake : MonoBehaviour
         {
             Destroy(torso.gameObject);
         }
-        Respawn();
+        StartRespawnTimer();
+    }
+
+    void StartRespawnTimer()
+    {
+        timer = waitTime;
     }
 }
