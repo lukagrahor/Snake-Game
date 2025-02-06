@@ -832,6 +832,7 @@ MonoBehaviour:
   pickup: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
   snake: {fileID: 1500429124}
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
+  grid: {fileID: 331910132}
 --- !u!4 &1593648708
 Transform:
   m_ObjectHideFlags: 0

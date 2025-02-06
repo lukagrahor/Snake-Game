@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ArenaGrid : MonoBehaviour
@@ -5,8 +6,10 @@ public class ArenaGrid : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Arena arena;
     [SerializeField] GridObject gridObjectPrefab;
+    LinkedList<GridObject> gridObjects;
     void Start()
     {
+        gridObjects = new LinkedList<GridObject>();
         SpawnGrid();
     }
 
@@ -45,6 +48,12 @@ public class ArenaGrid : MonoBehaviour
             GridObject gridObject = block.GetComponent<GridObject>();
             gridObject.setId(i);
             block.name = i.ToString();
+            gridObjects.AddLast(gridObject);
         }
+    }
+
+    public LinkedList<GridObject> GetGridObjects()
+    {
+        return gridObjects;
     }
 }

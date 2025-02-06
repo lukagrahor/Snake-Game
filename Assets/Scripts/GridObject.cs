@@ -6,6 +6,7 @@ public class GridObject : MonoBehaviour
     bool occupied = false;
     // for debugging
     int id;
+    //pozicija
     void Start()
     {
         
