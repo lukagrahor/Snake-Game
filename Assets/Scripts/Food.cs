@@ -5,6 +5,7 @@ public class Food : MonoBehaviour, IPickup
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //[SerializeField] UnityEvent growSnake;
+    ObjectSpawner spawner;
     void Start()
     {
        
@@ -18,6 +19,7 @@ public class Food : MonoBehaviour, IPickup
       
     public void Use(Snake snake) {
         snake.Grow();
+        spawner.SpawnFood();
         Destroy(gameObject);
     }
 
@@ -29,5 +31,10 @@ public class Food : MonoBehaviour, IPickup
         {
             Use(other.GetComponentInParent<Snake>());
         }
+    }
+
+    public void SetObjectSpawner(ObjectSpawner spawner)
+    {
+        this.spawner = spawner;
     }
 }

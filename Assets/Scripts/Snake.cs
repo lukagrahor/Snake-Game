@@ -23,6 +23,7 @@ public class Snake : MonoBehaviour
     float waitTime = 5f;
     float timer = 0f;
     //float nextTorsoRotation;
+    // èe se kaèa obrne ko pobere pickup se odcepi
     void Awake()
     {
         snakeTorsoParts = new List<SnakeTorso>();
