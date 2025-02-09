@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class ArenaGrid : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Arena arena;
     [SerializeField] GridObject gridObjectPrefab;
-    LinkedList<GridObject> gridObjects;
+    GridObject [,] gridObjects;
     void Start()
     {
-        gridObjects = new LinkedList<GridObject>();
+        int size = arena.GetSize();
+        gridObjects = new GridObject[size, size];
         SpawnGrid();
     }
 
@@ -22,8 +24,15 @@ public class ArenaGrid : MonoBehaviour
     {
         int size = arena.GetSize();
         float blockSize = arena.GetBlockSize();
+        int row = 0;
+        int j = 0;
         for (int i = 0; i < size * size; i++)
         {
+            if (j == size)
+            {
+                row++;
+                j = 0;
+            }
             float colNumber = 0;
             Vector3 location = Vector3.zero;
             if (blockSize < 1f)
@@ -48,11 +57,17 @@ public class ArenaGrid : MonoBehaviour
             GridObject gridObject = block.GetComponent<GridObject>();
             gridObject.setId(i);
             block.name = i.ToString();
-            gridObjects.AddLast(gridObject);
+
+
+            int column = i % size;
+            Debug.Log($"Column:{column},  Row: {row}, objekt: {gridObject.name}");
+
+            gridObjects[column, row] = gridObject;
+            j++;
         }
     }
 
-    public LinkedList<GridObject> GetGridObjects()
+    public GridObject[,] GetGridObjects()
     {
         return gridObjects;
     }

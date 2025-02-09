@@ -9,29 +9,15 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] ArenaGrid grid;
 
-    LinkedList<GridObject> gridObjects;
-
     // preveri a se lahko 2 hrane spawnajo na istem mesti
     void Start()
     {
-        gridObjects = grid.GetGridObjects();
-        /*
-        Vector3 food1Position = new Vector3 (0f, arenaBlock.GetBlockSize() - 0.05f, 0f);
-        Vector3 food2Position = new Vector3 (3f, arenaBlock.GetBlockSize() - 0.05f, -2f);
-        Vector3 food3Position = new Vector3(2f, arenaBlock.GetBlockSize() - 0.05f, 1f);
-        Food food1 = Instantiate(pickup, food1Position, Quaternion.identity);
-        Food food2 = Instantiate(pickup, food2Position, Quaternion.identity);
-        Food food3 = Instantiate(pickup, food3Position, Quaternion.identity);*/
+        GridObject[,] gridObjects = grid.GetGridObjects();
 
-        //food1.Setup(0f, 3f);
-        //food2.Setup(3f, -2f);
-        /*
-        foreach (GridObject obj in gridObjects) {
-            Debug.Log(obj.name);
-            Debug.Log(obj.isOccupied());
-        }*/
-        //Instantiate(pickup, );
-        Vector3 objectPosition = GenerateObjectPosition(gridObjects);
+        Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
+        LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, gridObjects);
+
+        Vector3 objectPosition = GenerateObjectPosition(gridObjectsWithoutSpawnPoint);
 
         Food food = Instantiate(pickup, objectPosition, Quaternion.identity);
         food.SetObjectSpawner(this);
@@ -56,6 +42,7 @@ public class ObjectSpawner : MonoBehaviour
 
     LinkedList<GridObject> GetEmptyGridObjects()
     {
+        GridObject[,] gridObjects = grid.GetGridObjects();
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
         foreach (GridObject obj in gridObjects)
         {
@@ -68,8 +55,34 @@ public class ObjectSpawner : MonoBehaviour
         }
         return emptyGridObjects;
     }
+    // To avoid spawning the food on the same spot as the snake, the spawn position is removed from the List of possible spawn locations
+    LinkedList<GridObject> RemoveSnakeSpawnPoint(Vector3 snakeSpawnPosition, GridObject[,] gridObjects)
+    {
+        // the grid block and snake don't have the same y-axis
+        snakeSpawnPosition = new Vector3(snakeSpawnPosition.x, arenaBlock.GetBlockSize(), snakeSpawnPosition.z); 
+        LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
+        Debug.Log($"snakeSpawnPosition: {snakeSpawnPosition}");
+        Debug.Log("gridObjects:");
+        Debug.Log(gridObjects[0,0]);
+        Debug.Log(gridObjects[0,1]);
+        Debug.Log(gridObjects[0,2]);
+        foreach (GridObject obj in gridObjects)
+        {
+            Debug.Log($"Object spawn position: {obj.name}");
+            if (obj.transform.position != snakeSpawnPosition)
+            {
+                emptyGridObjects.AddLast(obj);
+            }
+        }
+        return emptyGridObjects;
+    }
+    /*
+    bool IsNearTheHead()
+    {
 
-        // Update is called once per frame
+    }*/
+
+    // Update is called once per frame
     void Update()
     {
         

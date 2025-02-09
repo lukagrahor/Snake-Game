@@ -4,6 +4,7 @@ public class GridObject : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     bool occupied = false;
+    bool occupiedBySnakehead = false;
     // for debugging
     int id;
     //pozicija
@@ -25,6 +26,11 @@ public class GridObject : MonoBehaviour
             occupied = true;
             //Debug.Log($"occupied: {occupied} {other}");
         }
+
+        if (other.GetComponent<SnakeHead>() != null)
+        {
+            occupiedBySnakehead = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -33,6 +39,11 @@ public class GridObject : MonoBehaviour
        {
             occupied = false;
             //Debug.Log($"not occupied: {occupied} {other}");
+       }
+
+        if (other.GetComponent<SnakeHead>() != null)
+        {
+            occupiedBySnakehead = false;
         }
     }
 

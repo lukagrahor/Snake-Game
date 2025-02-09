@@ -18,6 +18,7 @@ public class Snake : MonoBehaviour
     float snakeYRotation = 0;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] ArenaBlock arenaBlock;
+    Vector3 spawnPosition;
 
     [SerializeField] TMP_Text respawnTimerText;
     float waitTime = 5f;
@@ -28,8 +29,12 @@ public class Snake : MonoBehaviour
     {
         snakeTorsoParts = new List<SnakeTorso>();
         nextTorsoRotation = new LinkedList<float>();
-        snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
-        snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
+        spawnPosition = new Vector3(0f, arenaBlock.GetBlockSize() - 0.05f, -2f);
+        snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
+        // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
+        
+        snakeHead.Setup(moveSpeed, snakeYRotation, transform, this);
+        //snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
     }
 
@@ -65,7 +70,7 @@ public class Snake : MonoBehaviour
         nextTorsoRotation = new LinkedList<float>();
 
         snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
-        snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
+        snakeHead.Setup(moveSpeed, snakeYRotation, transform, this);
         respawnTimerText.text = "";
     }
 
@@ -203,5 +208,10 @@ public class Snake : MonoBehaviour
     void StartRespawnTimer()
     {
         timer = waitTime;
+    }
+
+    public Vector3 GetSpawnPosition()
+    {
+        return spawnPosition;
     }
 }
