@@ -61,4 +61,9 @@ public class GridObject : MonoBehaviour
     {
         return id;
     }
+
+    public bool IsOccupiedBySnakehead()
+    {
+        return occupiedBySnakehead;
+    }
 }

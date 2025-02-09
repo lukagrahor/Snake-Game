@@ -69,7 +69,7 @@ public class Snake : MonoBehaviour
         snakeTorsoParts = new List<SnakeTorso>();
         nextTorsoRotation = new LinkedList<float>();
 
-        snakeHead = Instantiate(snakeHeadPrefab.gameObject).GetComponent<SnakeHead>();
+        snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         snakeHead.Setup(moveSpeed, snakeYRotation, transform, this);
         respawnTimerText.text = "";
     }

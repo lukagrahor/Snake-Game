@@ -43,6 +43,8 @@ public class ObjectSpawner : MonoBehaviour
     LinkedList<GridObject> GetEmptyGridObjects()
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
+        //gridObjects = RemoveBlocksAtTheHead(gridObjects);
+        RemoveBlocksAtTheHead(gridObjects);
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
         foreach (GridObject obj in gridObjects)
         {
@@ -54,6 +56,40 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
         return emptyGridObjects;
+    }
+
+    void RemoveBlocksAtTheHead(GridObject[,] gridObjects)
+    {
+        LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
+        foreach (GridObject obj in gridObjects)
+        {
+            //Debug.Log(obj.name);
+            //Debug.Log(obj.isOccupied());
+            if (obj.IsOccupiedBySnakehead())
+            {
+                Debug.Log($"Glava je tu: {obj.name}");
+            }
+        }
+        Debug.Log($"golaž: {gridObjects.GetLength(0)}");
+        for (int col = 0; col < gridObjects.GetLength(0); col++)
+        { 
+            for (int row = 0; row < gridObjects.GetLength(1); row++)
+            {
+                if (gridObjects[col, row].IsOccupiedBySnakehead())
+                {
+                    // izberi tistega, ki je 2. v smeri premikanja kaèe
+                    // rotacija 0: col --> +
+                    // rotacija 90: row --> +
+                    // rotacija 180: col --> -
+                    // rotacija 270: row --> -
+                    Debug.Log($"Glava je tu: {gridObjects[col, row].name}, i: {col}, j: {row}");
+                    float moveDirection = snake.GetSnakeYRotation();
+                    Debug.Log($"moveDirection: {moveDirection}");
+                    // kocke okoli glave kaèe naj ne bodo uporabljene za spawn hrane
+                    
+                }
+            }
+        }
     }
     // To avoid spawning the food on the same spot as the snake, the spawn position is removed from the List of possible spawn locations
     LinkedList<GridObject> RemoveSnakeSpawnPoint(Vector3 snakeSpawnPosition, GridObject[,] gridObjects)
