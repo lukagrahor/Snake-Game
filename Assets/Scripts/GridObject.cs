@@ -7,6 +7,8 @@ public class GridObject : MonoBehaviour
     bool occupiedBySnakehead = false;
     // for debugging
     int id;
+    int col;
+    int row;
     //pozicija
     void Start()
     {
@@ -17,6 +19,13 @@ public class GridObject : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Setup(int id, int col, int row)
+    {
+        SetId(id);
+        SetCol(col);
+        SetRow(row);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,9 +61,26 @@ public class GridObject : MonoBehaviour
         return occupied;
     }
 
-    public void setId(int id)
+    void SetId(int id)
     {
         this.id = id;
+    }
+    public int GetCol()
+    {
+        return col;
+    }
+    public int GetRow()
+    {
+        return row;
+    }
+    void SetCol(int col)
+    {
+        this.col = col;
+    }
+
+    void SetRow(int row)
+    {
+        this.row = row;
     }
 
     public int getId()

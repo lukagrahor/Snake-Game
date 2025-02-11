@@ -55,11 +55,11 @@ public class ArenaGrid : MonoBehaviour
             block.transform.localScale = new Vector3(blockSize + 0.001f, blockSize + 0.001f, blockSize + 0.001f);
             block.transform.SetParent(transform);
             GridObject gridObject = block.GetComponent<GridObject>();
-            gridObject.setId(i);
+
             block.name = i.ToString();
 
-
             int column = i % size;
+            gridObject.Setup(i, column, row);
             Debug.Log($"Column:{column},  Row: {row}, objekt: {gridObject.name}");
 
             gridObjects[column, row] = gridObject;

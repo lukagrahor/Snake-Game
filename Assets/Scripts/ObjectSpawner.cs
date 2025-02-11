@@ -44,23 +44,45 @@ public class ObjectSpawner : MonoBehaviour
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
         //gridObjects = RemoveBlocksAtTheHead(gridObjects);
-        RemoveBlocksAtTheHead(gridObjects);
+        LinkedList<GridObject> noSpawnBlocks = RemoveBlocksAtTheHead(gridObjects);
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
         foreach (GridObject obj in gridObjects)
         {
             //Debug.Log(obj.name);
             //Debug.Log(obj.isOccupied());
+            if (isNextToHead(noSpawnBlocks, obj))
+            {
+                Debug.Log("Juup"); // hmmm samu enkrat reèe juup, moglu bi 4-krat
+                continue;
+            }
             if (!obj.isOccupied())
             {
                 emptyGridObjects.AddLast(obj);
             }
         }
+        foreach (GridObject obj in emptyGridObjects)
+        {
+            Debug.Log($"emptyGridObjects {obj.name}, kol:{obj.GetCol()}, rol:{obj.GetRow()}");
+        }
         return emptyGridObjects;
     }
 
-    void RemoveBlocksAtTheHead(GridObject[,] gridObjects)
+    bool isNextToHead(LinkedList<GridObject> noSpawnBlocks, GridObject obj)
+    {
+        foreach (GridObject noSpawnBlock in noSpawnBlocks)
+        {
+            if (obj.name == noSpawnBlock.name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    LinkedList<GridObject> RemoveBlocksAtTheHead(GridObject[,] gridObjects)
     {
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
+        LinkedList<GridObject> occupiedByHead = new LinkedList<GridObject>();
+
         foreach (GridObject obj in gridObjects)
         {
             //Debug.Log(obj.name);
@@ -69,27 +91,62 @@ public class ObjectSpawner : MonoBehaviour
             {
                 Debug.Log($"Glava je tu: {obj.name}");
             }
-        }
-        Debug.Log($"golaž: {gridObjects.GetLength(0)}");
-        for (int col = 0; col < gridObjects.GetLength(0); col++)
-        { 
-            for (int row = 0; row < gridObjects.GetLength(1); row++)
+
+            if (obj.IsOccupiedBySnakehead())
             {
-                if (gridObjects[col, row].IsOccupiedBySnakehead())
-                {
-                    // izberi tistega, ki je 2. v smeri premikanja kaèe
-                    // rotacija 0: col --> +
-                    // rotacija 90: row --> +
-                    // rotacija 180: col --> -
-                    // rotacija 270: row --> -
-                    Debug.Log($"Glava je tu: {gridObjects[col, row].name}, i: {col}, j: {row}");
-                    float moveDirection = snake.GetSnakeYRotation();
-                    Debug.Log($"moveDirection: {moveDirection}");
-                    // kocke okoli glave kaèe naj ne bodo uporabljene za spawn hrane
-                    
-                }
+                occupiedByHead.AddLast(obj);
             }
         }
+        Debug.Log($"golaž: {gridObjects.GetLength(0)}");
+
+        float moveDirection = snake.GetSnakeYRotation();
+        // kaj pa èe je kocka v koti al pr robi
+        Debug.Log($"moveDirection: {moveDirection}");
+        // rotacija 0: col --> +
+        // rotacija 90: row --> +
+        // rotacija 180: col --> -
+        // rotacija 270: row --> -
+        foreach (GridObject obj in occupiedByHead)
+        {
+            Debug.Log($"kol:{obj.GetCol()}, rol:{obj.GetRow()}");
+        }
+        GridObject headPositionBlock = null;
+        if (moveDirection == 0 || moveDirection == 90)
+        {
+            headPositionBlock = occupiedByHead.Last();
+        }
+        else if (moveDirection == 180 || moveDirection == 270)
+        {
+            headPositionBlock = occupiedByHead.First();
+        }
+        // odstrani sosednje kocke
+        LinkedList<GridObject> noSpawnBlocks = new LinkedList<GridObject>();
+        Debug.Log($"Izbrani --> kol:{headPositionBlock.GetCol()}, rol:{headPositionBlock.GetRow()}");
+        int col = headPositionBlock.GetCol();
+        int row = headPositionBlock.GetRow();
+        if (col != arenaBlock.GetBlockSize() - 1)
+        {
+            noSpawnBlocks.AddLast(gridObjects[col + 1, row]);
+        }
+        if (col != 0)
+        {
+            noSpawnBlocks.AddLast(gridObjects[col - 1, row]);
+        }
+        if (row != arenaBlock.GetBlockSize() - 1)
+        {
+            noSpawnBlocks.AddLast(gridObjects[col, row + 1]);
+        }
+        if (row != 0)
+        {
+            noSpawnBlocks.AddLast(gridObjects[col, row - 1]);
+        }
+
+        foreach (GridObject obj in noSpawnBlocks)
+        {
+            Debug.Log($"noSpawnBlocks {obj.name}, kol:{obj.GetCol()}, rol:{obj.GetRow()}");
+        }
+
+        return noSpawnBlocks;
     }
     // To avoid spawning the food on the same spot as the snake, the spawn position is removed from the List of possible spawn locations
     LinkedList<GridObject> RemoveSnakeSpawnPoint(Vector3 snakeSpawnPosition, GridObject[,] gridObjects)
