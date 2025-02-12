@@ -104,7 +104,7 @@ public class Snake : MonoBehaviour
         {
             return;
         }
-        Debug.Log($"nextTorsoRotation {nextTorsoRotation.First.Value}");
+        Debug.Log($"nextTorsoRotation {nextTorsoRotation.First.Value}"); // error object reference not set to instance of an object !!!!!!!!!!!!!!!!!!!!!!!!!! --> DOUBLE TAP OB TEM KO POBEREŠ KOCKO
         //Debug.Log($"position of the rotation {snakeHead.transform.position}");
         // nextTorsoRotation ni ta prav, 2x pride isti
         foreach (SnakeTorso torso in snakeTorsoParts)

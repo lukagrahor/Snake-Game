@@ -8,9 +8,10 @@ public class ArenaGrid : MonoBehaviour
     [SerializeField] Arena arena;
     [SerializeField] GridObject gridObjectPrefab;
     GridObject [,] gridObjects;
+    int size;
     void Start()
     {
-        int size = arena.GetSize();
+        size = arena.GetSize();
         gridObjects = new GridObject[size, size];
         SpawnGrid();
     }
@@ -70,5 +71,10 @@ public class ArenaGrid : MonoBehaviour
     public GridObject[,] GetGridObjects()
     {
         return gridObjects;
+    }
+
+    public int GetSize()
+    {
+        return size;
     }
 }
