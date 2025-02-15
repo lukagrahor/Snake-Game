@@ -103,7 +103,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
                 //Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
-                    Debug.Log($"Ime bloka: {other.GetComponent<GridObject>()}");
+                    //Debug.Log($"Ime bloka: {other.GetComponent<GridObject>()}");
                     //Debug.Log($"Head turn position: {gridBlockPosition}");
                     // snap to the place of the grid block
                     transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);

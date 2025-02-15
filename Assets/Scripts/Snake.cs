@@ -40,7 +40,7 @@ public class Snake : MonoBehaviour
 
     void Start()
     {
-        //Application.targetFrameRate = 30;
+        Application.targetFrameRate = 30;
     }
 
     // Update is called once per frame

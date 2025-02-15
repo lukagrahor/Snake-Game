@@ -66,7 +66,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         {
             float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
             //Debug.Log($"distance to previous part: {distanceToPrevious}");
-            if (distanceToPrevious < size)
+            if (distanceToPrevious <= size)
             {
                 return;
             }
@@ -75,6 +75,19 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         CheckForTurn();
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
 
+    }
+    void waitForTurn()
+    {
+        if (wait == true)
+        {
+            float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
+            //Debug.Log($"distance to previous part: {distanceToPrevious}");
+            if (distanceToPrevious <= size)
+            {
+                return;
+            }
+            wait = false;
+        }
     }
     /*
     void CheckAllAxis(float moveRotation)
