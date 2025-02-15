@@ -19,7 +19,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     int blocksPassed = 0;
     float time = 0f;
     Snake snake;
-    
+    GridObject nextBlock;
+
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
@@ -57,6 +58,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             time = Time.realtimeSinceStartup;
             hasSnapped = false;
             blocksPassed += 1;
+            nextBlock = other.GetComponent<GridObject>();
         }
         else if (other.GetComponent<ArenaWall>() != null)
         {
@@ -83,23 +85,25 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         {
             // ignore the y axis
             Vector3 gridBlockPosition = new Vector3(other.transform.position.x, 0f, other.transform.position.z);
+            Vector3 nextGridBlockPosition = new Vector3(nextBlock.transform.position.x, 0f, nextBlock.transform.position.z);
             Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
             Vector3 movementDirection = rotationToMovementVector(GetRotation());
-            Vector3 directionToBlock = gridBlockPosition - transform.position;
-            Debug.Log($"Head movementDirection: {movementDirection}");
-            Debug.Log($"Head directionToBlock: {directionToBlock}");
+            Vector3 directionToBlock = nextGridBlockPosition - transform.position;
+            //Debug.Log($"Head movementDirection: {movementDirection}");
+            //Debug.Log($"Head directionToBlock: {directionToBlock}");
             float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
-            Debug.Log($"Head dotProduct: {dotProduct}");
+            //Debug.Log($"Head dotProduct: {dotProduct}");
 
             //Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
             // too small distance can cause the snake to not turn when needed
-            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f || dotProduct < 0)
+            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f || dotProduct < 0) // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
             {
                 //Debug.Log($"rotationBuffer count: {rotationBuffer.Count}");
                 //Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
+                    Debug.Log($"Ime bloka: {other.GetComponent<GridObject>()}");
                     //Debug.Log($"Head turn position: {gridBlockPosition}");
                     // snap to the place of the grid block
                     transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
