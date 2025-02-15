@@ -75,20 +75,32 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     private void OnTriggerStay(Collider other)
     {
         //Debug.Log($"Collision: {other.GetComponent<Food>()}");
+        if (hasSnapped == true)
+        {
+            return;
+        }
         if (other.GetComponent<GridObject>() != null)
         {
             // ignore the y axis
             Vector3 gridBlockPosition = new Vector3(other.transform.position.x, 0f, other.transform.position.z);
             Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
+            Vector3 movementDirection = rotationToMovementVector(GetRotation());
+            Vector3 directionToBlock = gridBlockPosition - transform.position;
+            Debug.Log($"Head movementDirection: {movementDirection}");
+            Debug.Log($"Head directionToBlock: {directionToBlock}");
+            float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
+            Debug.Log($"Head dotProduct: {dotProduct}");
+
             //Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
             // too small distance can cause the snake to not turn when needed
-            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f && hasSnapped == false)
+            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f || dotProduct < 0)
             {
                 //Debug.Log($"rotationBuffer count: {rotationBuffer.Count}");
                 //Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
+                    //Debug.Log($"Head turn position: {gridBlockPosition}");
                     // snap to the place of the grid block
                     transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
                     hasSnapped = true;
@@ -120,7 +132,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         //Debug.Log($"Èas potreben, da head doseže lokacijo rotacije: {time}");
         rotationBuffer.RemoveFirst();
         //transform.parent.GetComponent<Snake>().SetSnakeYRotation(GetRotation());
-        //transform.parent.GetComponent<Snake>().setNextTorsoRotation(GetRotation());
+        //transform.parent.GetComponent<Snake>().SetNextTorsoRotation(GetRotation());
         transform.parent.GetComponent<Snake>().SetTorsoRotation();
 
         /*if (onRotate != null)
@@ -181,5 +193,17 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public LinkedList<Vector3> GetPositionBuffer()
     {
         return new LinkedList<Vector3>();
+    }
+
+    Vector3 rotationToMovementVector(float rotation)
+    {
+        return rotation switch
+        {
+            0 => new Vector3(0f, 0f, 1f),
+            90 => new Vector3(1f, 0f, 0f),
+            180 => new Vector3(0f, 0f, -1f),
+            270 => new Vector3(-1f, 0f, 0f),
+            _ => new Vector3(0f, 0f, 0f),
+        };
     }
 }

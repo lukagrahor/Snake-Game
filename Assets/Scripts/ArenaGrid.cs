@@ -61,7 +61,7 @@ public class ArenaGrid : MonoBehaviour
 
             int column = i % size;
             gridObject.Setup(i, column, row);
-            Debug.Log($"Column:{column},  Row: {row}, objekt: {gridObject.name}");
+            //Debug.Log($"Column:{column},  Row: {row}, objekt: {gridObject.name}");
 
             gridObjects[column, row] = gridObject;
             j++;

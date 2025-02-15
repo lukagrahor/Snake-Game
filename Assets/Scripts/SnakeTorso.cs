@@ -6,6 +6,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     float moveSpeed = 0f;
+    float size = 0.4f;
     //float turnRotation;
     //Vector3 turnPosition;
     bool lastSnakePart = true;
@@ -65,7 +66,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         {
             float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
             //Debug.Log($"distance to previous part: {distanceToPrevious}");
-            if (distanceToPrevious < 0.4f)
+            if (distanceToPrevious < size)
             {
                 return;
             }
@@ -205,7 +206,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
         //Debug.Log($"Kaèa glava pozicija {transform.position}");
         // ignore the y axis
-        if (positionBuffer.Count == 0)
+        if (positionBuffer.Count == 0 || hasSnapped == true)
         {
             return;
         }
@@ -217,12 +218,30 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
         //Debug.Log($"Distance: {Vector3.Distance(snakeTorsoPosition, gridBlockPosition)}");
         float floatOffset = Vector3.Distance(snakeTorsoPosition, gridBlockPosition);
-        if (floatOffset <= 0.03f && hasSnapped == false)
+        /*
+        Debug.Log($"floatOffset: {floatOffset}");
+        Debug.Log($"hasSnapped: {hasSnapped}");
+        */
+
+        Vector3 movementDirection = rotationToMovementVector(GetRotation());
+        Vector3 directionToBlock = gridBlockPosition - transform.position;
+        //Debug.Log($"movementDirection: {movementDirection}");
+        //Debug.Log($"directionToBlock: {directionToBlock}");
+        float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
+        //Debug.Log($"dotProdukt: {dotProduct}");
+        
+        
+        if (floatOffset <= 0.03f || dotProduct < 0) // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
         {
-            //Debug.Log("Jabadabadu1");
+            //Debug.Log($"aha torso");
             if (rotationBuffer.Count > 0)
             {
-                //Debug.Log("Dubidubiduba");
+                //Debug.Log($"Rotation is set {rotationBuffer.First.Value}");
+                /*
+                Debug.Log("------------------------------------------------");
+                Debug.Log($"Torso turn position: {gridBlockPosition}");
+                Debug.Log("------------------------------------------------");
+                */
                 SetRotation();
                 //Debug.Log($"roatatacija: {transform.rotation.eulerAngles.y}");
                 
@@ -249,9 +268,9 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        //Debug.Log("Buraziru desu");
        if (rotationBuffer.Count <= 0)
        {
-       return;
+            return;
        }
-       showPositions();
+       //showPositions();
        //Debug.Log("jadransko morje");
        //Debug.Log($"Torso: Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
        transform.Rotate(0, rotationBuffer.First.Value, 0);
@@ -326,7 +345,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         int j = 0;
         foreach (float rotat in rotationBuffer)
         {
-            //Debug.Log($"Torso rotation buffer {j}: {rotat}");
+            Debug.Log($"Torso rotation buffer {j}: {rotat}");
             j++;
         }
     }
@@ -351,5 +370,17 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     public LinkedList<Vector3> GetPositionBuffer()
     {
         return positionBuffer;
+    }
+
+    Vector3 rotationToMovementVector(float rotation)
+    {
+        return rotation switch
+        {
+            0 => new Vector3(0f, 0f, 1f),
+            90 => new Vector3(1f, 0f, 0f),
+            180 => new Vector3(0f, 0f, -1f),
+            270 => new Vector3(-1f, 0f, 0f),
+            _ => new Vector3(0f, 0f, 0f),
+        };
     }
 }

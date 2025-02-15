@@ -40,7 +40,7 @@ public class Snake : MonoBehaviour
 
     void Start()
     {
-
+        Application.targetFrameRate = 30;
     }
 
     // Update is called once per frame
@@ -98,13 +98,13 @@ public class Snake : MonoBehaviour
     // when the head reaches the position of the block it gives the position to the torso parts
     public void SetTorsoRotation()
     {
-        Debug.Log("snakeTorsoParts Count");
-        Debug.Log(snakeTorsoParts.Count);
+        //Debug.Log("snakeTorsoParts Count");
+        //Debug.Log(snakeTorsoParts.Count);
         if (snakeTorsoParts.Count == 0)
         {
             return;
         }
-        Debug.Log($"nextTorsoRotation {nextTorsoRotation.First.Value}"); // error object reference not set to instance of an object !!!!!!!!!!!!!!!!!!!!!!!!!! --> DOUBLE TAP OB TEM KO POBEREŠ KOCKO
+        //Debug.Log($"nextTorsoRotation {nextTorsoRotation.First.Value}"); // error object reference not set to instance of an object !!!!!!!!!!!!!!!!!!!!!!!!!! --> DOUBLE TAP OB TEM KO POBEREŠ KOCKO
         //Debug.Log($"position of the rotation {snakeHead.transform.position}");
         // nextTorsoRotation ni ta prav, 2x pride isti
         foreach (SnakeTorso torso in snakeTorsoParts)
