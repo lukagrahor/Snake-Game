@@ -88,7 +88,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             Vector3 nextGridBlockPosition = new Vector3(nextBlock.transform.position.x, 0f, nextBlock.transform.position.z);
             Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 
-            Vector3 movementDirection = rotationToMovementVector(GetRotation());
+            Vector3 movementDirection = RotationToMovementVector(GetRotation());
             Vector3 directionToBlock = nextGridBlockPosition - transform.position;
             //Debug.Log($"Head movementDirection: {movementDirection}");
             //Debug.Log($"Head directionToBlock: {directionToBlock}");
@@ -201,7 +201,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         return new LinkedList<Vector3>();
     }
 
-    Vector3 rotationToMovementVector(float rotation)
+    Vector3 RotationToMovementVector(float rotation)
     {
         // rotacije niso zmeraj tako kot bi si želel
         // 90.000001 --> pri rotaciji pride do float precision errors, zato zaokoržim

@@ -236,7 +236,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         Debug.Log($"Torso {gameObject.name} hasSnapped: {hasSnapped}");
         
 
-        Vector3 movementDirection = rotationToMovementVector(GetRotation());
+        Vector3 movementDirection = RotationToMovementVector(GetRotation());
         Vector3 directionToBlock = gridBlockPosition - transform.position;
         Debug.Log($"Torso {gameObject.name} movementDirection: {movementDirection}");
         Debug.Log($"Torso {gameObject.name} directionToBlock: {directionToBlock}");
@@ -388,7 +388,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         return positionBuffer;
     }
 
-    Vector3 rotationToMovementVector(float rotation)
+    Vector3 RotationToMovementVector(float rotation)
     {
         Debug.Log($"Torso {gameObject.name}, rotation: {rotation}");
         // rotacije niso zmeraj tako kot bi si želel
