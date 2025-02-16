@@ -109,8 +109,12 @@ public class Snake : MonoBehaviour
         // nextTorsoRotation ni ta prav, 2x pride isti
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
+            // bug --> nextTorsoRotation je null
+            Debug.Log($"nextTorsoRotation: {nextTorsoRotation.First.Value}");
             torso.AddToRotationBuffer(nextTorsoRotation.First.Value);
+            Debug.Log($"snakeHead: {snakeHead.transform.position}");
             torso.AddToPositionBuffer(snakeHead.transform.position);
+            
         }
 
         nextTorsoRotation.RemoveFirst();
@@ -144,6 +148,7 @@ public class Snake : MonoBehaviour
             newSnakeTorso.copyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
 
             newSnakeTorso.SetPreviousPart(previousPart);
+            newSnakeTorso.name = ""+snakeTorsoParts.Count;
         }
         
         snakeTorsoParts.Add(newSnakeTorso);

@@ -103,8 +103,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart
                 //Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
-                    //Debug.Log($"Ime bloka: {other.GetComponent<GridObject>()}");
-                    //Debug.Log($"Head turn position: {gridBlockPosition}");
+                    /*
+                    Debug.Log($"Ime bloka: {other.GetComponent<GridObject>()}");
+                    Debug.Log($"Head turn position: {gridBlockPosition}");
+                    */
                     // snap to the place of the grid block
                     transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
                     hasSnapped = true;
@@ -201,6 +203,9 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     Vector3 rotationToMovementVector(float rotation)
     {
+        // rotacije niso zmeraj tako kot bi si želel
+        // 90.000001 --> pri rotaciji pride do float precision errors, zato zaokoržim
+        rotation = Mathf.Round(rotation);
         return rotation switch
         {
             0 => new Vector3(0f, 0f, 1f),

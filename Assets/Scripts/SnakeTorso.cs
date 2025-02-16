@@ -231,28 +231,28 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
         //Debug.Log($"Distance: {Vector3.Distance(snakeTorsoPosition, gridBlockPosition)}");
         float floatOffset = Vector3.Distance(snakeTorsoPosition, gridBlockPosition);
-        /*
-        Debug.Log($"floatOffset: {floatOffset}");
-        Debug.Log($"hasSnapped: {hasSnapped}");
-        */
+        
+        Debug.Log($"Torso {gameObject.name} floatOffset: {floatOffset}");
+        Debug.Log($"Torso {gameObject.name} hasSnapped: {hasSnapped}");
+        
 
         Vector3 movementDirection = rotationToMovementVector(GetRotation());
         Vector3 directionToBlock = gridBlockPosition - transform.position;
-        //Debug.Log($"movementDirection: {movementDirection}");
-        //Debug.Log($"directionToBlock: {directionToBlock}");
-        float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
-        //Debug.Log($"dotProdukt: {dotProduct}");
+        Debug.Log($"Torso {gameObject.name} movementDirection: {movementDirection}");
+        Debug.Log($"Torso {gameObject.name} directionToBlock: {directionToBlock}");
+        float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized); // neki je narwbe
+        Debug.Log($"Torso {gameObject.name} dotProdukt: {dotProduct}");
         
         
         if (floatOffset <= 0.03f || dotProduct < 0) // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
         {
-            //Debug.Log($"aha torso");
+            //Debug.Log($"aha torso {gameObject.name}");
             if (rotationBuffer.Count > 0)
             {
                 //Debug.Log($"Rotation is set {rotationBuffer.First.Value}");
                 /*
                 Debug.Log("------------------------------------------------");
-                Debug.Log($"Torso turn position: {gridBlockPosition}");
+                Debug.Log($"Torso {gameObject.name}, turn position: {gridBlockPosition}");
                 Debug.Log("------------------------------------------------");
                 */
                 SetRotation();
@@ -283,11 +283,14 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        {
             return;
        }
-       //showPositions();
-       //Debug.Log("jadransko morje");
-       //Debug.Log($"Torso: Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
-       transform.Rotate(0, rotationBuffer.First.Value, 0);
-       time = Time.realtimeSinceStartup - time;
+        //showPositions();
+        //Debug.Log("jadransko morje");
+        Debug.Log($"Torso: {gameObject.name} Rotacija pred novo rotacijo: {GetRotation()}");
+        Debug.Log($"Torso: {gameObject.name} Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
+       //transform.Rotate(0, rotationBuffer.First.Value, 0);
+        transform.rotation = Quaternion.Euler(0, GetRotation() + rotationBuffer.First.Value, 0);
+        Debug.Log($"Torso: {gameObject.name} Rotacija po novi rotaciji: {GetRotation()}");
+        time = Time.realtimeSinceStartup - time;
        //Debug.Log($"Torso speed: {moveSpeed}");
        //Debug.Log($"Èas potreben, da torso doseže lokacijo rotacije: {time}");
        rotationBuffer.RemoveFirst();
@@ -387,6 +390,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     Vector3 rotationToMovementVector(float rotation)
     {
+        Debug.Log($"Torso {gameObject.name}, rotation: {rotation}");
+        // rotacije niso zmeraj tako kot bi si želel
+        // 90.000001 --> pri rotaciji pride do float precision errors, zato zaokorðim
+        rotation = Mathf.Round(rotation);
         return rotation switch
         {
             0 => new Vector3(0f, 0f, 1f),
