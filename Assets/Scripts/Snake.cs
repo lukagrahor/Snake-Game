@@ -13,7 +13,7 @@ public class Snake : MonoBehaviour
     SnakeHead snakeHead;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
-    LinkedList<float> nextTorsoRotation;
+    //LinkedList<float> nextTorsoRotation;
 
     float snakeYRotation = 0;
     [SerializeField] float moveSpeed = 2f;
@@ -28,11 +28,11 @@ public class Snake : MonoBehaviour
     void Awake()
     {
         snakeTorsoParts = new List<SnakeTorso>();
-        nextTorsoRotation = new LinkedList<float>();
+        //nextTorsoRotation = new LinkedList<float>();
         spawnPosition = new Vector3(0f, arenaBlock.GetBlockSize() - 0.05f, -2f);
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
-        
+
         snakeHead.Setup(moveSpeed, snakeYRotation, transform, this);
         //snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
@@ -67,7 +67,7 @@ public class Snake : MonoBehaviour
         Debug.Log("Respawn");
         transform.position = Vector3.zero;
         snakeTorsoParts = new List<SnakeTorso>();
-        nextTorsoRotation = new LinkedList<float>();
+        //nextTorsoRotation = new LinkedList<float>();
 
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         snakeHead.Setup(moveSpeed, snakeYRotation, transform, this);
@@ -90,12 +90,40 @@ public class Snake : MonoBehaviour
         snakeHead.AddToRotationBuffer(turnRotation);
         // Že tle ne dobim ta prave rotacije
 
-        setNextTorsoRotation(turnRotation);
+        //SetNextTorsoRotation(turnRotation);
         //showNextTorsoRotations();
         //SetTorsoRotation();
     }
 
-    // when the head reaches the position of the block it gives the position to the torso parts
+    // when the head reaches the position of the block it gives the position to the torso partsž
+    public void SetTorsoRotation(float nextTorsoRotation)
+    {
+        //Debug.Log("snakeTorsoParts Count");
+        //Debug.Log(snakeTorsoParts.Count);
+        if (snakeTorsoParts.Count == 0)
+        {
+            return;
+        }
+        //Debug.Log($"nextTorsoRotation {nextTorsoRotation.First.Value}"); // error object reference not set to instance of an object !!!!!!!!!!!!!!!!!!!!!!!!!! --> DOUBLE TAP OB TEM KO POBEREŠ KOCKO
+        //Debug.Log($"position of the rotation {snakeHead.transform.position}");
+        // nextTorsoRotation ni ta prav, 2x pride isti
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            // bug --> nextTorsoRotation je null
+            Debug.Log($"nextTorsoRotation: {nextTorsoRotation}");
+            torso.AddToRotationBuffer(nextTorsoRotation);
+            Debug.Log($"snakeHead: {snakeHead.transform.position}");
+            torso.AddToPositionBuffer(snakeHead.transform.position);
+
+        }
+
+        //nextTorsoRotation.RemoveFirst();
+        //snakeTorsoParts[0].PrepareForTurn(snakeHead.transform.position, turnRotation);
+
+        //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
+        //snakeCorner.Setup(snakeHead.transform);
+    }
+    /*
     public void SetTorsoRotation()
     {
         //Debug.Log("snakeTorsoParts Count");
@@ -122,7 +150,7 @@ public class Snake : MonoBehaviour
 
         //snakeCorner = Instantiate(snakeCornerPrefab.gameObject).GetComponent<SnakeCorner>();
         //snakeCorner.Setup(snakeHead.transform);
-    }
+    }*/
 
     public void Grow()
     {
@@ -145,7 +173,7 @@ public class Snake : MonoBehaviour
 
             newSnakeTorso.Setup(moveSpeed, previousTorsoRotation, transform);
             // kopira pozicije, ki so v bufferju od njegovga predhodnika
-            newSnakeTorso.copyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
+            newSnakeTorso.CopyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
 
             newSnakeTorso.SetPreviousPart(previousPart);
             newSnakeTorso.name = ""+snakeTorsoParts.Count;
@@ -164,10 +192,10 @@ public class Snake : MonoBehaviour
         }
         return absoluteMoveRotation;
     }
-
-    public void setNextTorsoRotation(float nextTorsoRotation)
+    /*
+    public void SetNextTorsoRotation(float nextTorsoRotation)
     {
-        // bil je bug kjer se je dodajalo rotacije v bufferr, ko ni blo še nobenega torso dela in pole ko je kaèa pobrala kos
+        // bil je bug kjer se je dodajalo rotacije v buffer, ko ni blo še nobenega torso dela in pole ko je kaèa pobrala kos
         // je upoštevalo vse ta stare rotacije
         if (snakeTorsoParts.Count == 0 || this.nextTorsoRotation.Count == 2) // to prevent spam --> to je bil fix za odcep repa
         {
@@ -175,30 +203,17 @@ public class Snake : MonoBehaviour
         }
 
         this.nextTorsoRotation.AddLast(nextTorsoRotation);
-    }
-
+    }*/
+    /*
     void showNextTorsoRotations()
     {
-        /*
-        int i = 0;
-        if (positionBuffer.Count == 0)
-        {
-            //Debug.Log("Praznu!");
-            return;
-        }
-        foreach (Vector3 pos in positionBuffer)
-        {
-            //Debug.Log($"Toro position {i}: {pos}");
-            i++;
-        }
-        */
         int j = 0;
         foreach (float rotat in nextTorsoRotation)
         {
             Debug.Log($"Next torso rotation {j}: {rotat}");
             j++;
         }
-    }
+    }*/
 
     public void GetHit()
     {
