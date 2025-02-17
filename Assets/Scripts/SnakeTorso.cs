@@ -62,21 +62,17 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         }*/
 
         //Debug.Log($"moveRotation: {transform.rotation.eulerAngles.y}");
-        if (wait == true)
+        
+        if (waitForTurn() == true)
         {
-            float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
-            //Debug.Log($"distance to previous part: {distanceToPrevious}");
-            if (distanceToPrevious <= size)
-            {
-                return;
-            }
-            wait = false;
+            return;
         }
+
         CheckForTurn();
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
 
     }
-    void waitForTurn()
+    bool waitForTurn()
     {
         if (wait == true)
         {
@@ -84,10 +80,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             //Debug.Log($"distance to previous part: {distanceToPrevious}");
             if (distanceToPrevious <= size)
             {
-                return;
+                return true;
             }
             wait = false;
         }
+        return false;
     }
     /*
     void CheckAllAxis(float moveRotation)
