@@ -40,6 +40,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MoveUp",
+                    "type": "Button",
+                    "id": "02463785-b65f-4392-99ca-a3ba7b036d7e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MoveDown",
+                    "type": "Button",
+                    "id": "2083def2-642c-404b-9fbf-2d508de666aa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -68,7 +86,7 @@
                 {
                     "name": "",
                     "id": "36e34559-eb75-426a-83e7-1c6d0677b726",
-                    "path": "<Keyboard>/#(A)",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -84,6 +102,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "MoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c92b7ef0-430f-4f25-bf77-eec4e0af724c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MoveUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6bc8782-8b25-4f05-b863-5c241a1b7c5d",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MoveDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

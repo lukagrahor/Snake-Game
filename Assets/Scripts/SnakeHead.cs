@@ -28,7 +28,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
@@ -200,6 +200,15 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public LinkedList<Vector3> GetPositionBuffer()
     {
         return new LinkedList<Vector3>();
+    }
+
+    public float GetNextRotation()
+    {
+        if (rotationBuffer.Count == 0)
+        {
+            return 0f;
+        }
+        return rotationBuffer.First.Value;
     }
 
     Vector3 RotationToMovementVector(float rotation)

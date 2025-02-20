@@ -6,7 +6,6 @@ public class Arena : MonoBehaviour
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] int size = 10;
     
-    //[SerializeField] float blockSize = 0.5f;
     CameraCornerSpawner cameraCornerSpawner;
     ArenaBounds arenaBounds;
 
@@ -25,23 +24,6 @@ public class Arena : MonoBehaviour
     void Start()
     {
         SpawnArena();
-        /*
-        if (boundsPrefab == null) {
-            Debug.Log("ajajaj:");
-        }*/
-
-        //bounds = Instantiate(boundsPrefab.gameObject);
-        //bounds.transform.SetParent(transform);
-        /*
-        if (bounds == null)
-        {
-            Debug.Log("ejejej:");
-        }
-        Debug.Log("bounds:");
-        Debug.Log(bounds);
-
-        bounds.GetComponent<ArenaBounds>().Spawn(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top);
-        */
 
         arenaBounds = GetComponent<ArenaBounds>();
         arenaBounds.Setup(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top);
@@ -61,6 +43,7 @@ public class Arena : MonoBehaviour
         Vector3 left = Vector3.zero;
         Vector3 right = Vector3.zero;
         Vector3 top = Vector3.zero;
+
         float colNumber = 0f;
         float blockSize = GetBlockSize();
         for (int i = 0; i < size * size; i++)
@@ -77,7 +60,6 @@ public class Arena : MonoBehaviour
                 location = new Vector3(colNumber - 5, 0f, (i / size) - 5);
             }
 
-            //Debug.Log($"i: {i} location: {location}");
             GameObject block = arenaBlock.Spawn(arenaBlock.gameObject, location, Quaternion.identity);
             block.transform.SetParent(transform);
 
@@ -102,13 +84,11 @@ public class Arena : MonoBehaviour
             }
         }
         SetCornerBlockPositions(bottom, left, right, top);
-        //bounds.Spawn(bottom, left, right, top);
     }
 
     void SetCornerBlockPositions(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top)
     {
         cornerBlocks = new CornerBlocks(bottom, left, right, top);
-        //Debug.Log($"left {cornerBlocks.left}");
     }
 
     public CornerBlocks GetCornerBlocks()

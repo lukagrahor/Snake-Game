@@ -14,14 +14,20 @@ public class Snake : MonoBehaviour
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
     //LinkedList<float> nextTorsoRotation;
+    enum Directions {
+        Up = 0,
+        Right = 90,
+        Down = 180,
+        Left = 270
+    }
 
-    float snakeYRotation = 0;
+    [SerializeField] Directions startingRotation = Directions.Up;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] ArenaBlock arenaBlock;
     Vector3 spawnPosition;
 
     [SerializeField] TMP_Text respawnTimerText;
-    float waitTime = 5f;
+    [SerializeField] float waitTime = 3f;
     float timer = 0f;
     //float nextTorsoRotation;
     // èe se kaèa obrne ko pobere pickup se odcepi
@@ -33,14 +39,14 @@ public class Snake : MonoBehaviour
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
 
-        snakeHead.Setup(moveSpeed, snakeYRotation, transform, this);
+        snakeHead.Setup(moveSpeed, (float)startingRotation, transform, this);
         //snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
     }
 
     void Start()
     {
-        //Application.targetFrameRate = 30;
+
     }
 
     // Update is called once per frame
@@ -52,7 +58,7 @@ public class Snake : MonoBehaviour
         }
     }
 
-    void RespawnCountdown()
+    void RespawnCountdown() // naredi timer interface in pol razliène timerje
     {
         timer -= Time.deltaTime;
         respawnTimerText.text = Math.Ceiling(timer).ToString();
@@ -70,7 +76,8 @@ public class Snake : MonoBehaviour
         //nextTorsoRotation = new LinkedList<float>();
 
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
-        snakeHead.Setup(moveSpeed, snakeYRotation, transform, this);
+        snakeHead.Setup(moveSpeed, (float)startingRotation, transform, this);
+        GetComponent<SnakeMovement>().OnSnakeRespawn();
         respawnTimerText.text = "";
     }
 
@@ -95,6 +102,22 @@ public class Snake : MonoBehaviour
         //SetTorsoRotation();
     }
 
+    public float GetNextHeadRotation()
+    {
+        if (snakeHead == null)
+        {
+            return -2f;
+        }
+        float currentRotation = snakeHead.GetRotation();
+        float nextRotation = currentRotation + snakeHead.GetNextRotation();
+        Debug.Log($"currentRotation kurentovanje: {currentRotation}");
+        Debug.Log($"nextRotation prev fest: {snakeHead.GetNextRotation()}");
+        Debug.Log($"nextRotation next fest: {nextRotation}");
+        nextRotation = GetAbsoluteRotation(nextRotation);
+
+        return nextRotation;
+    }
+
     // when the head reaches the position of the block it gives the position to the torso partsž
     public void SetTorsoRotation(float nextTorsoRotation)
     {
@@ -110,9 +133,9 @@ public class Snake : MonoBehaviour
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
             // bug --> nextTorsoRotation je null
-            Debug.Log($"nextTorsoRotation: {nextTorsoRotation}");
+            //Debug.Log($"nextTorsoRotation: {nextTorsoRotation}");
             torso.AddToRotationBuffer(nextTorsoRotation);
-            Debug.Log($"snakeHead: {snakeHead.transform.position}");
+            //Debug.Log($"snakeHead: {snakeHead.transform.position}");
             torso.AddToPositionBuffer(snakeHead.transform.position);
 
         }
@@ -169,7 +192,7 @@ public class Snake : MonoBehaviour
             newSnakeTorso.transform.SetParent(previousPart.getTransform());
             previousPart.unsetLast();
             float previousTorsoRotation = previousPart.GetRotation();
-            Debug.Log($"currentTorsoRotation: {previousTorsoRotation}");
+            //Debug.Log($"currentTorsoRotation: {previousTorsoRotation}");
 
             newSnakeTorso.Setup(moveSpeed, previousTorsoRotation, transform);
             // kopira pozicije, ki so v bufferju od njegovga predhodnika
@@ -181,11 +204,12 @@ public class Snake : MonoBehaviour
         
         snakeTorsoParts.Add(newSnakeTorso);
     }
-
-    public float GetAbsoluteRotation()
+    
+    public float GetAbsoluteRotation(float rotation)
     {
         // get rid of minuses and numbers bigger than 360
-        float absoluteMoveRotation = snakeYRotation % 360;
+        Debug.Log($"rotation: {rotation}");
+        float absoluteMoveRotation = rotation % 360;
         if (absoluteMoveRotation < 0)
         {
             absoluteMoveRotation = 360 + absoluteMoveRotation;
@@ -222,6 +246,7 @@ public class Snake : MonoBehaviour
         {
             Destroy(torso.gameObject);
         }
+        GetComponent<SnakeMovement>().OnSnakeDeath();
         StartRespawnTimer();
     }
 

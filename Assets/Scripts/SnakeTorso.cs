@@ -25,10 +25,15 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //showPositions();
+        
         Move();
+        //Debug.Log($"Pozicija tega dela: {transform.position}");
+        //Debug.Log($"Pozicija predhodnika: {previousPart.getTransform().position}");
+        //float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
+        //Debug.Log($"Razdalja od predhodnika: {distanceToPrevious}");
     }
 
     public void AddToRotationBuffer(float rotation)
@@ -62,16 +67,18 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         }*/
 
         //Debug.Log($"moveRotation: {transform.rotation.eulerAngles.y}");
-        
-        if (waitForTurn() == true)
+        // preveri ali je kocka pred predhodnikom ali za njim
+        // èe je pred, poèakej
+        // èe je za, pospeši
+        //Debug.Log($"[MOVE] First: {transform.position}");
+        /*if (waitForTurn() == true)
         {
             return;
-        }
-
+        }*/
         CheckForTurn();
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
-
     }
+    /*
     bool waitForTurn()
     {
         if (wait == true)
@@ -80,12 +87,14 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
             //Debug.Log($"distance to previous part: {distanceToPrevious}");
             if (distanceToPrevious <= size)
             {
+                //Debug.Log($"Ratalu mi je :DDD: {distanceToPrevious}");
                 return true;
             }
             wait = false;
         }
         return false;
     }
+    */
     /*
     void CheckAllAxis(float moveRotation)
     {
@@ -254,9 +263,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
                 */
                 SetRotation();
                 //Debug.Log($"roatatacija: {transform.rotation.eulerAngles.y}");
-                
+                // na sredino grid kocke
                 transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
-                
+                //snapToPrevious();
+
                 hasSnapped = true;
                 //moveSpeed -= 0.03f;
                 //Debug.Log($"previousPart: {previousPart}");
@@ -294,7 +304,29 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
        positionBuffer.RemoveFirst();
 
        wait = true;
+       
    }
+    /*
+    void snapToPrevious()
+    {
+        float distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
+        //Debug.Log($"Razdalja od predhodnika: {distanceToPrevious}");
+
+        if (distanceToPrevious == size)
+        {
+            return;
+        }
+
+        Debug.Log("Jupiiii");
+        Vector3 beforeSnap = transform.position;
+        transform.position = previousPart.getTransform().position - previousPart.getTransform().forward * size;
+        Vector3 afterSnap = transform.position;
+        distanceToPrevious = Vector3.Distance(transform.position, previousPart.getTransform().position);
+        Debug.Log("----------------------------------------------------------------------------------------------------");
+        Debug.Log($"Razdalja od predhodnika2: {distanceToPrevious}");
+        Debug.Log($"[SNAP] Before: {beforeSnap}, After: {afterSnap}, Expected: {previousPart.getTransform().position - previousPart.getTransform().forward * size}");
+        Debug.Log("----------------------------------------------------------------------------------------------------");
+    }*/
 
     public void SetPreviousPart(ISnakePart previousPart)
     {
@@ -387,7 +419,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     Vector3 RotationToMovementVector(float rotation)
     {
-        Debug.Log($"Torso {gameObject.name}, rotation: {rotation}");
+        //Debug.Log($"Torso {gameObject.name}, rotation: {rotation}");
         // rotacije niso zmeraj tako kot bi si želel
         // 90.000001 --> pri rotaciji pride do float precision errors, zato zaokorðim
         rotation = Mathf.Round(rotation);
