@@ -44,21 +44,16 @@ public class Arena : MonoBehaviour
         Vector3 right = Vector3.zero;
         Vector3 top = Vector3.zero;
 
-        float colNumber = 0f;
         float blockSize = GetBlockSize();
         for (int i = 0; i < size * size; i++)
         {
-            Vector3 location = Vector3.zero;
-            if (blockSize < 1f)
-            {
-                colNumber = (i * blockSize) % (size * blockSize);
-                location = new Vector3(colNumber - 5, 0f, ((i / size) * blockSize) - 5);
-            }
-            else
-            {
-                colNumber = i % size;
-                location = new Vector3(colNumber - 5, 0f, (i / size) - 5);
-            }
+            float colPosition;
+            float rowPosition;
+            Vector3 location;
+
+            rowPosition = ((i / size) * blockSize) -5;
+            colPosition = (i * blockSize) % (size * blockSize);
+            location = new Vector3(colPosition - 5, 0f, rowPosition);
 
             GameObject block = arenaBlock.Spawn(arenaBlock.gameObject, location, Quaternion.identity);
             block.transform.SetParent(transform);

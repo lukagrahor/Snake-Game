@@ -14,12 +14,12 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     float moveSpeed = 0f;
     bool lastSnakePart = true;
     private bool hasSnapped = false;
-    LinkedList<float> rotationBuffer;
-    // for debugging
-    int blocksPassed = 0;
+
     float time = 0f;
+
     Snake snake;
     GridObject nextBlock;
+    LinkedList<float> rotationBuffer;
 
     void Awake()
     {
@@ -33,11 +33,12 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         Move();
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Transform parentTransform, Snake snake)
+    public void Setup(float moveSpeed, float moveRotation, Transform parentTransform, Snake snake, Vector3 scale)
     {
         //onRotate += snake.SetTorsoRotation;
         this.snake = snake;
         transform.SetParent(parentTransform);
+        transform.localScale = scale;
 
         SetMoveSpeed(moveSpeed);
         //Debug.Log($"moveSpeed: {moveSpeed}");
@@ -57,7 +58,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             //Debug.Log($"other {other.GetComponent<GridObject>().getId()}");
             time = Time.realtimeSinceStartup;
             hasSnapped = false;
-            blocksPassed += 1;
             nextBlock = other.GetComponent<GridObject>();
         }
         else if (other.GetComponent<ArenaWall>() != null)
@@ -165,8 +165,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             return;
         }
         rotationBuffer.AddLast(rotation);
-        //moveSpeed += 0.03f;
-        blocksPassed = 0;
     }
 
     public float GetRotation()

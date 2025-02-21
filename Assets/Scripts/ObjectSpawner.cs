@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] Snake snake;
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] ArenaGrid grid;
+
+    [SerializeField] float objectScale = 0.4f;
 
     // preveri a se lahko 2 hrane spawnajo na istem mesti
     void Start()
@@ -28,7 +31,8 @@ public class ObjectSpawner : MonoBehaviour
         int upperLimit = emptyGridObjects.Count - 1;
         int gridObjectIndex = Random.Range(0, upperLimit);
         Vector3 gridObjectPosition = emptyGridObjects.ElementAt(gridObjectIndex).transform.position;
-        Vector3 objectPosition = new Vector3(gridObjectPosition.x, arenaBlock.GetBlockSize() - 0.05f, gridObjectPosition.z);
+        float yPosition = arenaBlock.GetBlockSize() / 2f + objectScale / 2f;
+        Vector3 objectPosition = new Vector3(gridObjectPosition.x, yPosition, gridObjectPosition.z);
         return objectPosition;
     }
 
@@ -38,6 +42,7 @@ public class ObjectSpawner : MonoBehaviour
         Vector3 objectPosition = GenerateObjectPosition(emptyGridObjects);
         Food food = Instantiate(pickup, objectPosition, Quaternion.identity);
         food.SetObjectSpawner(this);
+        food.transform.localScale = new Vector3(objectScale, objectScale, objectScale);
     }
 
     LinkedList<GridObject> GetEmptyGridObjects()
