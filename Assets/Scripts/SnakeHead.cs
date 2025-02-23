@@ -15,8 +15,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     bool lastSnakePart = true;
     private bool hasSnapped = false;
 
-    float time = 0f;
-
     Snake snake;
     GridObject nextBlock;
     LinkedList<float> rotationBuffer;
@@ -24,7 +22,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
-        //Debug.Log("Head attached");
     }
 
     // Update is called once per frame
@@ -33,11 +30,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         Move();
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Transform parentTransform, Snake snake, Vector3 scale)
+    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 scale)
     {
         //onRotate += snake.SetTorsoRotation;
         this.snake = snake;
-        transform.SetParent(parentTransform);
+        transform.SetParent(snake.transform);
         transform.localScale = scale;
 
         SetMoveSpeed(moveSpeed);
@@ -55,8 +52,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     {
         if (other.GetComponent<GridObject>() != null)
         {
-            //Debug.Log($"other {other.GetComponent<GridObject>().getId()}");
-            time = Time.realtimeSinceStartup;
             hasSnapped = false;
             nextBlock = other.GetComponent<GridObject>();
         }
@@ -90,23 +85,12 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
             Vector3 movementDirection = RotationToMovementVector(GetRotation());
             Vector3 directionToBlock = nextGridBlockPosition - transform.position;
-            //Debug.Log($"Head movementDirection: {movementDirection}");
-            //Debug.Log($"Head directionToBlock: {directionToBlock}");
             float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
-            //Debug.Log($"Head dotProduct: {dotProduct}");
-
-            //Debug.Log($"Distance: {Vector3.Distance(snakeHeadPosition, gridBlockPosition)}");
             // too small distance can cause the snake to not turn when needed
             if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f || dotProduct < 0) // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
             {
-                //Debug.Log($"rotationBuffer count: {rotationBuffer.Count}");
-                //Debug.Log("Jabadabadu1");
                 if (rotationBuffer.Count > 0)
                 {
-                    /*
-                    Debug.Log($"Ime bloka: {other.GetComponent<GridObject>()}");
-                    Debug.Log($"Head turn position: {gridBlockPosition}");
-                    */
                     // snap to the place of the grid block
                     transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
                     hasSnapped = true;
@@ -124,36 +108,14 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     public void SetRotation()
     {
-        //Debug.Log($"snakeheadRotation1: {transform.rotation.eulerAngles}");
         if (rotationBuffer.Count <= 0)
         {
             return;
         }
 
-        //Debug.Log("Rotiraj!");
-        //Debug.Log($"Prva rotacija v bufferju: {rotationBuffer.First.Value}");
         transform.Rotate(0, rotationBuffer.First.Value, 0);
-        time = Time.realtimeSinceStartup - time;
-        //Debug.Log($"Head speed: {moveSpeed}");
-        //Debug.Log($"Èas potreben, da head doseže lokacijo rotacije: {time}");
         transform.parent.GetComponent<Snake>().SetTorsoRotation(rotationBuffer.First.Value);
         rotationBuffer.RemoveFirst();
-        //transform.parent.GetComponent<Snake>().SetSnakeYRotation(GetRotation());
-        //transform.parent.GetComponent<Snake>().SetNextTorsoRotation(GetRotation());
-        
-
-        /*if (onRotate != null)
-        {
-            onRotate();
-        }*/
-
-        //moveSpeed -= 0.03f;
-        //Debug.Log($"blocksPassed: {blocksPassed}");
-
-        //Debug.Log($"Prva rotacija v bufferju po brisanju: {rotationBuffer.First.Value}");
-
-        //Debug.Log($"snakeheadRotation2: {transform.rotation.eulerAngles}");
-        //moveRotationY = rotation;
     }
 
     public void AddToRotationBuffer(float rotation)

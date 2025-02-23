@@ -75,20 +75,8 @@ public class SnakeMovement : MonoBehaviour
 
     private void TouchCompleted(InputAction.CallbackContext context)
     {
-        //if (swipeDirection.magnitude < minimumSwipeMagnitude) { return; }
         float snakeYRotation = snake.GetSnakeYRotation();
         float nextSnakeYRotation = snake.GetNextHeadRotation();
-        //Debug.Log("Huh1");
-        /*
-        if (swipeDirection.x > 0)
-        {
-            snake.SetNextYRotation(90f);
-        }
-        else if (swipeDirection.x < 0)
-        {
-            snake.SetNextYRotation(-90f);
-        }
-        */
         float turnLeft = -90f;
         float turnRight = 90f;
             
@@ -158,7 +146,6 @@ public class SnakeMovement : MonoBehaviour
         float nextSnakeYRotation = snake.GetNextHeadRotation();
         float turnLeft = -90f;
         float turnRight = 90f;
-        //Debug.Log($"MoveUp: {snakeYRotation}");
         if (snakeYRotation == (float)MoveDirection.Right || nextSnakeYRotation == (float)MoveDirection.Right)
         {
             snake.SetNextYRotation(turnLeft);
@@ -167,7 +154,6 @@ public class SnakeMovement : MonoBehaviour
         {
             snake.SetNextYRotation(turnRight);
         }
-        //Debug.Log("Huh2");
     }
     private void MoveRight(InputAction.CallbackContext context)
     {
@@ -175,8 +161,6 @@ public class SnakeMovement : MonoBehaviour
         float nextSnakeYRotation = snake.GetNextHeadRotation();
         float turnLeft = -90f;
         float turnRight = 90f;
-        //Debug.Log($"MoveRight: {snakeYRotation}");
-        //Debug.Log($"direkcija: {(float)MoveDirection.Up}");
         if (snakeYRotation == (float)MoveDirection.Up || nextSnakeYRotation == (float)MoveDirection.Up)
         {
             Debug.Log("Datarnjan");
@@ -186,7 +170,6 @@ public class SnakeMovement : MonoBehaviour
         {
             snake.SetNextYRotation(turnLeft);
         }
-        //Debug.Log("Huh3");
     }    
     private void MoveDown(InputAction.CallbackContext context)
     {
@@ -199,7 +182,6 @@ public class SnakeMovement : MonoBehaviour
         Debug.Log($"MoveDown: {snakeYRotation}");
         Debug.Log($"snakeYRotation: {snakeYRotation}");
         Debug.Log($"nextSnakeYRotation: {nextSnakeYRotation}");
-        //Debug.Log($"MoveDown: {snakeYRotation}");
         if (snakeYRotation == (float)MoveDirection.Right || nextSnakeYRotation == (float)MoveDirection.Right)
         {
             snake.SetNextYRotation(turnRight);
@@ -208,7 +190,6 @@ public class SnakeMovement : MonoBehaviour
         {
             snake.SetNextYRotation(turnLeft);
         }
-        //Debug.Log("Huh3");
     }
     private void MoveLeft(InputAction.CallbackContext context)
     {
@@ -229,6 +210,5 @@ public class SnakeMovement : MonoBehaviour
         {
             snake.SetNextYRotation(turnRight);
         }
-        //Debug.Log("Huh2");
     }
 }

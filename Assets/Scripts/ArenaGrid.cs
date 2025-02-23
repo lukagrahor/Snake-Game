@@ -34,24 +34,11 @@ public class ArenaGrid : MonoBehaviour
                 row++;
                 j = 0;
             }
-            float colNumber = 0;
-            Vector3 location = Vector3.zero;
-            if (blockSize < 1f)
-            {
-                colNumber = (i * blockSize) % (size * blockSize);
-                location = new Vector3(colNumber - 5, blockSize, ((i / size) * blockSize) - 5);
-            }
-            else
-            {
-                colNumber = i % size;
-                location = new Vector3(colNumber - 5, blockSize, (i / size) - 5);
-            }
-            /*
-            int colNumber = i % size;
 
-            Vector3 location = new Vector3(colNumber - 5, 1f, (i / size) - 5);
-            //Debug.Log($"i: {i} location: {location}");
-            */
+            float rowPosition = ((i / size) * blockSize) - 5;
+            float colPosition = (i * blockSize) % (size * blockSize);
+            Vector3 location = new Vector3(colPosition - 5, blockSize, rowPosition);
+
             GameObject block = Instantiate(gridObjectPrefab.gameObject, location, Quaternion.identity);
             block.transform.localScale = new Vector3(blockSize + 0.001f, blockSize + 0.001f, blockSize + 0.001f);
             block.transform.SetParent(transform);
@@ -61,7 +48,6 @@ public class ArenaGrid : MonoBehaviour
 
             int column = i % size;
             gridObject.Setup(i, column, row);
-            //Debug.Log($"Column:{column},  Row: {row}, objekt: {gridObject.name}");
 
             gridObjects[column, row] = gridObject;
             j++;

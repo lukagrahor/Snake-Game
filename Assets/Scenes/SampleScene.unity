@@ -340,13 +340,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311419180}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -11.262014, y: 5.0000005, z: -1.2914443}
+  m_LocalRotation: {x: 0.27984518, y: 0.3647056, z: -0.11591566, w: 0.88047725}
+  m_LocalPosition: {x: -10.911821, y: 5.773448, z: -0.9412508}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 284575320}
-  m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.264, y: 45, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,7 +410,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.7273064
+  orthographic size: 4.727306
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -434,13 +434,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -11.238479, y: 5.093696, z: -1.2384777}
+  m_LocalRotation: {x: 0.27984518, y: 0.3647056, z: -0.11591566, w: 0.88047725}
+  m_LocalPosition: {x: -10.875536, y: 5.8754516, z: -0.87553406}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 284575320}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.264, y: 45, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,8 +732,9 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   startingRotation: 90
-  moveSpeed: 2.5
+  moveSpeed: 0.5
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
+  snakeScale: 0.4
   respawnTimerText: {fileID: 1679419277}
   waitTime: 3
 --- !u!114 &545034465
@@ -1185,6 +1186,7 @@ MonoBehaviour:
   snake: {fileID: 545034464}
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
   grid: {fileID: 457970926}
+  objectScale: 0.4
 --- !u!4 &1379569881
 Transform:
   m_ObjectHideFlags: 0

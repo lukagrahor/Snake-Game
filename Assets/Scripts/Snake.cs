@@ -35,14 +35,11 @@ public class Snake : MonoBehaviour
     void Awake()
     {
         snakeTorsoParts = new List<SnakeTorso>();
-        //nextTorsoRotation = new LinkedList<float>();
+        // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         spawnPosition = new Vector3(0f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -2f);
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
-        // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
 
-        snakeHead.Setup(moveSpeed, (float)startingRotation, transform, this, new Vector3(snakeScale, snakeScale, snakeScale));
-        //snakeHead.Setup(moveSpeed, snakeYRotation, transform, arenaBlock.GetBlockSize(), this);
-        // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
+        snakeHead.Setup(moveSpeed, (float)startingRotation, this, new Vector3(snakeScale, snakeScale, snakeScale));
     }
 
     void Start()
@@ -77,7 +74,7 @@ public class Snake : MonoBehaviour
         //nextTorsoRotation = new LinkedList<float>();
 
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
-        snakeHead.Setup(moveSpeed, (float)startingRotation, transform, this, new Vector3(snakeScale, snakeScale, snakeScale));
+        snakeHead.Setup(moveSpeed, (float)startingRotation, this, new Vector3(snakeScale, snakeScale, snakeScale));
         GetComponent<SnakeMovement>().OnSnakeRespawn();
         respawnTimerText.text = "";
     }

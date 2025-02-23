@@ -47,7 +47,6 @@ public class GridObject : MonoBehaviour
        if (other.GetComponent<ISnakePart>() != null && other.GetComponent<ISnakePart>().isLast() == true)
        {
             occupied = false;
-            //Debug.Log($"not occupied: {occupied} {other}");
        }
 
         if (other.GetComponent<SnakeHead>() != null)

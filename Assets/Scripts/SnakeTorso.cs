@@ -17,7 +17,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     private bool hasSnapped = false;
     ISnakePart previousPart;
     float time = 0f;
-    bool wait = false;
+    //bool wait = false;
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
@@ -95,81 +95,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         return false;
     }
     */
-    /*
-    void CheckAllAxis(float moveRotation)
-    {
-        float absoluteMoveRotation = GetAbsoluteRotation(moveRotation);
-        float roundedRotation = Mathf.Round(absoluteMoveRotation / 90f) * 90f;
-        if (roundedRotation < 0)
-        {
-            roundedRotation = 360 + roundedRotation;
-        }
-
-        // check if a turn happened on the movement axis
-        if (roundedRotation == 0)
-        {
-            CheckForTurn(transform.position.z, turnPosition.z);
-        }
-
-        else if (roundedRotation == 180)
-        {
-            CheckForTurn(-transform.position.z, -turnPosition.z);
-        }
-
-        if (roundedRotation == 90)
-        {
-            CheckForTurn(transform.position.x, turnPosition.x);
-        }
-
-        else if (roundedRotation == 270)
-        {
-            CheckForTurn(-transform.position.x, -turnPosition.x);
-        }
-    }
-
-    void CheckForTurn(float currentPosition, float turnPositionOnRequiredAxis)
-    {
-        if (currentPosition >= turnPositionOnRequiredAxis)
-        {
-            currentPosition = turnPositionOnRequiredAxis;
-            //Debug.Log($"currentPosition: {currentPosition}");
-            //Debug.Log($"turnPositionOnRequireAxis: {turnPositionOnRequiredAxis}");
-            //Debug.Log("Obrat");
-            SetRotation(turnRotation);
-
-            turnRotation = 0f;
-            turnPosition = new Vector3(0f, 0f, 0f);
-            moveSpeed -= 0.02f;
-        }
-    }
-    */
-
-    /*
-    void CheckForTurnXAxis(float moveRotation)
-    {
-        if (moveRotation <= 0)
-        {
-            TurnCheck(-transform.position.x, -turnPosition.x);
-        }
-        else if (moveRotation >= 0)
-        {
-            TurnCheck(transform.position.x, turnPosition.x);
-        }
-    }
-
-    void CheckForTurnZAxis(float moveRotation)
-    {
-        if (moveRotation <= 0)
-        {
-            TurnCheck(-transform.position.z, -turnPosition.z);
-        }
-        else if (moveRotation >= 0)
-        {
-            TurnCheck(transform.position.z, turnPosition.z);
-        }
-    }
-    */
-
 
     public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform)
     {
@@ -221,55 +146,33 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     private void CheckForTurn()
     {
-        //Debug.Log($"Collision: {other.GetComponent<Food>()}");
-
-        //Debug.Log($"Kaèa glava pozicija {transform.position}");
         // ignore the y axis
         if (positionBuffer.Count == 0 || hasSnapped == true)
         {
             return;
         }
         Vector3 blockPositionWithY = positionBuffer.First.Value;
-        //Debug.Log($"blockPositionWithY: {blockPositionWithY}");
 
         Vector3 gridBlockPosition = new Vector3(blockPositionWithY.x, 0f, blockPositionWithY.z);
         Vector3 snakeTorsoPosition = new Vector3(transform.position.x, 0f, transform.position.z);
-
-        //Debug.Log($"Distance: {Vector3.Distance(snakeTorsoPosition, gridBlockPosition)}");
         float floatOffset = Vector3.Distance(snakeTorsoPosition, gridBlockPosition);
         
-        //Debug.Log($"Torso {gameObject.name} floatOffset: {floatOffset}");
-        //Debug.Log($"Torso {gameObject.name} hasSnapped: {hasSnapped}");
         
 
         Vector3 movementDirection = RotationToMovementVector(GetRotation());
         Vector3 directionToBlock = gridBlockPosition - transform.position;
-        //Debug.Log($"Torso {gameObject.name} movementDirection: {movementDirection}");
-        //Debug.Log($"Torso {gameObject.name} directionToBlock: {directionToBlock}");
-        float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized); // neki je narwbe
-        //Debug.Log($"Torso {gameObject.name} dotProdukt: {dotProduct}");
-        
-        
-        if (floatOffset <= 0.03f || dotProduct < 0) // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
+        float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
+
+        // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
+        if (floatOffset <= 0.03f || dotProduct < 0) 
         {
-            //Debug.Log($"aha torso {gameObject.name}");
             if (rotationBuffer.Count > 0)
             {
-                //Debug.Log($"Rotation is set {rotationBuffer.First.Value}");
-                /*
-                Debug.Log("------------------------------------------------");
-                Debug.Log($"Torso {gameObject.name}, turn position: {gridBlockPosition}");
-                Debug.Log("------------------------------------------------");
-                */
                 SetRotation();
-                //Debug.Log($"roatatacija: {transform.rotation.eulerAngles.y}");
                 // na sredino grid kocke
                 transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
-                //snapToPrevious();
 
                 hasSnapped = true;
-                //moveSpeed -= 0.03f;
-                //Debug.Log($"previousPart: {previousPart}");
             }
         }
         
@@ -277,33 +180,21 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     public void SetStartingRotation(float rotation)
     {
-        //Debug.Log("SETIRAM ROTACIJU");
         transform.eulerAngles = new Vector3(0f, rotation, 0f);
     }
 
    public void SetRotation()
    {
-       //Debug.Log("SETIRAM ROTACIJU2");
-       //transform.Rotate(0f, rotation, 0f);
-       //Debug.Log("Buraziru desu");
        if (rotationBuffer.Count <= 0)
        {
             return;
        }
-        //showPositions();
-        //Debug.Log("jadransko morje");
-        //Debug.Log($"Torso: {gameObject.name} Rotacija pred novo rotacijo: {GetRotation()}");
-        //Debug.Log($"Torso: {gameObject.name} Prva rotacija v torso rotation bufferju: {rotationBuffer.First.Value}");
-       //transform.Rotate(0, rotationBuffer.First.Value, 0);
-        transform.rotation = Quaternion.Euler(0, GetRotation() + rotationBuffer.First.Value, 0);
-        //Debug.Log($"Torso: {gameObject.name} Rotacija po novi rotaciji: {GetRotation()}");
-        time = Time.realtimeSinceStartup - time;
-       //Debug.Log($"Torso speed: {moveSpeed}");
-       //Debug.Log($"Èas potreben, da torso doseže lokacijo rotacije: {time}");
+       transform.rotation = Quaternion.Euler(0, GetRotation() + rotationBuffer.First.Value, 0);
+       time = Time.realtimeSinceStartup - time;
        rotationBuffer.RemoveFirst();
        positionBuffer.RemoveFirst();
 
-       wait = true;
+       //wait = true;
        
    }
     /*
@@ -336,17 +227,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         return transform.rotation.eulerAngles.y;
     }
-    /*
-    public float GetAbsoluteRotation(float rotation)
-    {
-        // get rid of minuses and numbers bigger than 360
-        float absoluteMoveRotation = rotation % 360;
-        if (absoluteMoveRotation < 0)
-        {
-            absoluteMoveRotation = 360 + absoluteMoveRotation;
-        }
-        return absoluteMoveRotation;
-    }*/
     public bool isLast()
     {
         return lastSnakePart;
@@ -366,34 +246,21 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         return transform;
     }
-
+    /*
     public void stopWaiting()
     {
         wait = false;
-    }
+    }*/
 
-    void showPositions()
+    /*void showPositions()
     {
-        /*
-        int i = 0;
-        if (positionBuffer.Count == 0)
-        {
-            //Debug.Log("Praznu!");
-            return;
-        }
-        foreach (Vector3 pos in positionBuffer)
-        {
-            //Debug.Log($"Toro position {i}: {pos}");
-            i++;
-        }
-        */
         int j = 0;
         foreach (float rotat in rotationBuffer)
         {
             Debug.Log($"Torso rotation buffer {j}: {rotat}");
             j++;
         }
-    }
+    }*/
 
     public void CopyBuffers (LinkedList<float> rotationBuffer, LinkedList<Vector3> positionBuffer)
     {
