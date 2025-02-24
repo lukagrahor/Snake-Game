@@ -18,8 +18,8 @@ public class SnakeMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Debug.Log("Barje");
         snake = gameObject.GetComponent<Snake>();
+
         _controls = new InputSystem_Actions();
         _controls.Player.Enable();
         _controls.Player.Touch.canceled += TouchCompleted;

@@ -118,7 +118,6 @@ public class ObjectSpawner : MonoBehaviour
     GridObject GetHeadPositionBlock(LinkedList<GridObject> occupiedByHead)
     {
         int snakeDirection = (int)snake.GetSnakeYRotation();
-        // kaj pa èe je kocka v koti al pr robi --> preveri
         // rotacija 0: col --> +
         // rotacija 90: row --> +
         // rotacija 180: col --> -

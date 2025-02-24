@@ -44,7 +44,7 @@ public class Snake : MonoBehaviour
 
     void Start()
     {
-
+        Application.targetFrameRate = 30;
     }
 
     // Update is called once per frame
@@ -182,6 +182,7 @@ public class Snake : MonoBehaviour
             snakeHead.unsetLast();
             newSnakeTorso.Setup(moveSpeed, snakeHead.GetRotation(), transform);
             newSnakeTorso.SetPreviousPart(snakeHead);
+            newSnakeTorso.name = "0";
         }
         else
         {

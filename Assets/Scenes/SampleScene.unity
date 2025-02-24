@@ -732,7 +732,7 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   startingRotation: 90
-  moveSpeed: 0.5
+  moveSpeed: 2.5
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
   snakeScale: 0.4
   respawnTimerText: {fileID: 1679419277}
