@@ -589,7 +589,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 4381
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -732,7 +732,7 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   startingRotation: 90
-  moveSpeed: 2.5
+  moveSpeed: 4
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
   snakeScale: 0.4
   respawnTimerText: {fileID: 1679419277}
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c90b821b039964199ad8f2e7298d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: -9021837510627038732, guid: 59b461ad23faeba49a6649705f8095b4, type: 3}
+  wall: {fileID: -9021837510627038732, guid: c7860a59328ad3644bc67e138106cd79, type: 3}
 --- !u!1 &709771913
 GameObject:
   m_ObjectHideFlags: 0
