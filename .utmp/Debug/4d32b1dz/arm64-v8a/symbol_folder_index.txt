@@ -1,0 +1,1 @@
+E:\Unity projekti\Snake-Game\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\4d32b1dz\obj\arm64-v8a

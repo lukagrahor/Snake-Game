@@ -11,11 +11,14 @@ public class FPSDisplay : MonoBehaviour
     {
     #if UNITY_ANDROID || UNITY_IOS
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = -1;
-    #elif UNITY_STANDALONE || UNITY_EDITOR
+        Application.targetFrameRate = 60;
+#elif UNITY_STANDALONE || UNITY_EDITOR
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = -1;
-    #endif
+#endif
+        Debug.Log("Supports R16 SFloat: " + SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.R16));
+        Debug.Log("Supports ARGBHalf: " + SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf));
+        Debug.Log("Supports Default Format: " + SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Default));
     }
     void Update()
     {
