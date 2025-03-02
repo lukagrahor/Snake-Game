@@ -32,13 +32,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 scale)
     {
-        //onRotate += snake.SetTorsoRotation;
         this.snake = snake;
         transform.SetParent(snake.transform);
         transform.localScale = scale;
 
         SetMoveSpeed(moveSpeed);
-        //Debug.Log($"moveSpeed: {moveSpeed}");
         AddToRotationBuffer(moveRotation);
         SetRotation();
     }
@@ -60,18 +58,9 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             snake.GetHit();
         }
     }
-    /*
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<GridObject>() != null)
-        {
-            //Debug.Log($"Izhod iz grid kocke: {other.GetComponent<GridObject>().getId()}");
-        }
-    }*/
 
     private void OnTriggerStay(Collider other)
     {
-        //Debug.Log($"Collision: {other.GetComponent<Food>()}");
         if (hasSnapped == true)
         {
             return;
