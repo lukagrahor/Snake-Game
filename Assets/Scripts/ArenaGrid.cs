@@ -9,7 +9,7 @@ public class ArenaGrid : MonoBehaviour
     [SerializeField] GridObject gridObjectPrefab;
     GridObject [,] gridObjects;
     int size;
-    void Start()
+    void Awake()
     {
         size = arena.GetSize();
         gridObjects = new GridObject[size, size];
