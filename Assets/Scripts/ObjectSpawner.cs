@@ -3,30 +3,17 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ObjectSpawner : MonoBehaviour
+public abstract class ObjectSpawner : MonoBehaviour
 {
-    [SerializeField] Food pickup;
-    [SerializeField] Snake snake;
-    [SerializeField] ArenaBlock arenaBlock;
-    [SerializeField] ArenaGrid grid;
+    [SerializeField] protected Snake snake;
+    [SerializeField] protected ArenaBlock arenaBlock;
+    [SerializeField] protected ArenaGrid grid;
 
-    [SerializeField] float objectScale = 0.4f;
+    [SerializeField] protected float objectScale = 0.4f;
 
-    // preveri a se lahko 2 hrane spawnajo na istem mesti
-    void Start()
-    {
-        GridObject[,] gridObjects = grid.GetGridObjects();
+    public abstract void Spawn();
 
-        Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
-        LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, gridObjects);
-
-        Vector3 objectPosition = GenerateObjectPosition(gridObjectsWithoutSpawnPoint);
-
-        Food food = Instantiate(pickup, objectPosition, Quaternion.identity);
-        food.SetObjectSpawner(this);
-    }
-
-    Vector3 GenerateObjectPosition(LinkedList<GridObject> emptyGridObjects)
+    protected Vector3 GenerateObjectPosition(LinkedList<GridObject> emptyGridObjects)
     {
         int upperLimit = emptyGridObjects.Count - 1;
         int gridObjectIndex = Random.Range(0, upperLimit);
@@ -35,17 +22,7 @@ public class ObjectSpawner : MonoBehaviour
         Vector3 objectPosition = new Vector3(gridObjectPosition.x, yPosition, gridObjectPosition.z);
         return objectPosition;
     }
-
-    public void SpawnFood()
-    {
-        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects();
-        Vector3 objectPosition = GenerateObjectPosition(emptyGridObjects);
-        Food food = Instantiate(pickup, objectPosition, Quaternion.identity);
-        food.SetObjectSpawner(this);
-        food.transform.localScale = new Vector3(objectScale, objectScale, objectScale);
-    }
-
-    LinkedList<GridObject> GetEmptyGridObjects()
+    protected LinkedList<GridObject> GetEmptyGridObjects()
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
         LinkedList<GridObject> noSpawnBlocks = GetBlocksAtTheHead(gridObjects);
@@ -64,18 +41,19 @@ public class ObjectSpawner : MonoBehaviour
         return emptyGridObjects;
     }
 
-    bool IsNextToHead(LinkedList<GridObject> noSpawnBlocks, GridObject obj)
+    protected bool IsNextToHead(LinkedList<GridObject> noSpawnBlocks, GridObject obj)
     {
         foreach (GridObject noSpawnBlock in noSpawnBlocks)
         {
-            if (obj.name == noSpawnBlock.name) {
+            if (obj.name == noSpawnBlock.name)
+            {
                 return true;
             }
         }
         return false;
     }
 
-    LinkedList<GridObject> GetBlocksAtTheHead(GridObject[,] gridObjects)
+    protected LinkedList<GridObject> GetBlocksAtTheHead(GridObject[,] gridObjects)
     {
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
         LinkedList<GridObject> occupiedByHead = new LinkedList<GridObject>();
@@ -115,7 +93,7 @@ public class ObjectSpawner : MonoBehaviour
         return noSpawnBlocks;
     }
 
-    GridObject GetHeadPositionBlock(LinkedList<GridObject> occupiedByHead)
+    protected GridObject GetHeadPositionBlock(LinkedList<GridObject> occupiedByHead)
     {
         int snakeDirection = (int)snake.GetSnakeYRotation();
         // rotacija 0: col --> +
@@ -135,10 +113,10 @@ public class ObjectSpawner : MonoBehaviour
         return headPositionBlock;
     }
     // To avoid spawning the food on the same spot as the snake, the spawn position is removed from the List of possible spawn locations
-    LinkedList<GridObject> RemoveSnakeSpawnPoint(Vector3 snakeSpawnPosition, GridObject[,] gridObjects)
+    protected LinkedList<GridObject> RemoveSnakeSpawnPoint(Vector3 snakeSpawnPosition, GridObject[,] gridObjects)
     {
         // the grid block and snake don't have the same y-axis
-        snakeSpawnPosition = new Vector3(snakeSpawnPosition.x, arenaBlock.GetBlockSize(), snakeSpawnPosition.z); 
+        snakeSpawnPosition = new Vector3(snakeSpawnPosition.x, arenaBlock.GetBlockSize(), snakeSpawnPosition.z);
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
         foreach (GridObject obj in gridObjects)
         {
@@ -148,11 +126,5 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
         return emptyGridObjects;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
