@@ -2,43 +2,26 @@ using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    bool occupied = false;
-    bool occupiedBySnakehead = false;
-    // for debugging
-    int id;
+    bool isOccupied = false;
+    bool isOccupiedBySnakehead = false;
     int col;
     int row;
-    //pozicija
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void Setup(int id, int col, int row)
-    {
-        SetId(id);
-        SetCol(col);
-        SetRow(row);
-    }
+    public int Col { get => col; set => col = value; }
+    public int Row { get => row; set => row = value; }
+    public bool IsOccupied { get => isOccupied; }
+    public bool IsOccupiedBySnakehead { get => isOccupiedBySnakehead; }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<ISnakePart>() != null)
         {
-            occupied = true;
-            //Debug.Log($"occupied: {occupied} {other}");
+            isOccupied = true;
         }
 
         if (other.GetComponent<SnakeHead>() != null)
         {
-            occupiedBySnakehead = true;
+            isOccupiedBySnakehead = true;
         }
     }
 
@@ -46,49 +29,12 @@ public class GridObject : MonoBehaviour
     {
        if (other.GetComponent<ISnakePart>() != null && other.GetComponent<ISnakePart>().isLast() == true)
        {
-            occupied = false;
+            isOccupied = false;
        }
 
         if (other.GetComponent<SnakeHead>() != null)
         {
-            occupiedBySnakehead = false;
+            isOccupiedBySnakehead = false;
         }
-    }
-
-    public bool isOccupied()
-    {
-        return occupied;
-    }
-
-    void SetId(int id)
-    {
-        this.id = id;
-    }
-    public int GetCol()
-    {
-        return col;
-    }
-    public int GetRow()
-    {
-        return row;
-    }
-    void SetCol(int col)
-    {
-        this.col = col;
-    }
-
-    void SetRow(int row)
-    {
-        this.row = row;
-    }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public bool IsOccupiedBySnakehead()
-    {
-        return occupiedBySnakehead;
     }
 }

@@ -33,7 +33,7 @@ public abstract class ObjectSpawner : MonoBehaviour
             {
                 continue;
             }
-            if (!obj.isOccupied())
+            if (!obj.IsOccupied)
             {
                 emptyGridObjects.AddLast(obj);
             }
@@ -60,7 +60,7 @@ public abstract class ObjectSpawner : MonoBehaviour
 
         foreach (GridObject obj in gridObjects)
         {
-            if (obj.IsOccupiedBySnakehead())
+            if (obj.IsOccupiedBySnakehead)
             {
                 occupiedByHead.AddLast(obj);
             }
@@ -70,8 +70,8 @@ public abstract class ObjectSpawner : MonoBehaviour
 
         // odstrani sosednje kocke
         LinkedList<GridObject> noSpawnBlocks = new LinkedList<GridObject>();
-        int col = headPositionBlock.GetCol();
-        int row = headPositionBlock.GetRow();
+        int col = headPositionBlock.Col;
+        int row = headPositionBlock.Row;
         int gridSize = grid.GetSize();
         if (col != gridSize - 1)
         {
