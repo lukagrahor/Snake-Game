@@ -16,11 +16,6 @@ public class ArenaGrid : MonoBehaviour
         SpawnGrid();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void SpawnGrid()
     {
         int size = arena.GetSize();
@@ -47,7 +42,8 @@ public class ArenaGrid : MonoBehaviour
             block.name = i.ToString();
 
             int column = i % size;
-            gridObject.Setup(i, column, row);
+            gridObject.Col = column;
+            gridObject.Row = row;
 
             gridObjects[column, row] = gridObject;
             j++;

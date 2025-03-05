@@ -7,7 +7,6 @@ public class FoodSpawner : ObjectSpawner
 {
     [SerializeField] Food foodPrefab;
     Food food;
-    // preveri a se lahko 2 hrane spawnajo na istem mesti
     void Start()
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
@@ -29,7 +28,5 @@ public class FoodSpawner : ObjectSpawner
         Debug.Log($"food: {food}");
         food.SetNewPosition(objectPosition);
         Debug.Log($"Food active: {gameObject.activeSelf}");
-        //food.SetFoodSpawner(this);
-        //food.transform.localScale = new Vector3(objectScale, objectScale, objectScale);
     }
 }
