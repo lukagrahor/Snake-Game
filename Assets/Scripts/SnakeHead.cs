@@ -57,6 +57,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         {
             snake.GetHit();
         }
+        else if (other.GetComponent<Food>() != null)
+        {
+            snake.Grow();
+            other.GetComponent<Food>().Use();
+        }
     }
 
     private void OnTriggerStay(Collider other)
