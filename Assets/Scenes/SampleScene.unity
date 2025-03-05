@@ -410,7 +410,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.9003673
+  orthographic size: 4.9116063
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1197,11 +1197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a35a0ee33c8df48b4dc4df9d321782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickup: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
   snake: {fileID: 545034464}
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
   grid: {fileID: 457970926}
   objectScale: 0.4
+  foodPrefab: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
 --- !u!1 &1559724428
 GameObject:
   m_ObjectHideFlags: 0
