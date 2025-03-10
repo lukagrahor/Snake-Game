@@ -10,6 +10,11 @@ public class ArenaBounds : MonoBehaviour
     ArenaWall topLeftWall;
     ArenaWall bottomRightWall;
 
+    private void Start()
+    {
+
+    }
+
     public float GetBoundsSize()
     {
         return boundsSize;
@@ -19,15 +24,12 @@ public class ArenaBounds : MonoBehaviour
         this.boundsSize = boundsSize;
     }
 
-    public void Setup(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top)
+    public void Setup(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top, float blockSize, float arenaSize)
     {
-        float blockSize = GetComponent<Arena>().GetBlockSize();
-        float arenaSize = GetComponent<Arena>().GetSize();
-        float overlapOffset = 2f * blockSize;
-        bottomLeftWall = SpawnBottomLeftTopRightWalls(left, bottom, -1f);
-        topRightWall = SpawnBottomLeftTopRightWalls(top, right, 1f);
-        topLeftWall = SpawnTopLeftBottomRightWalls(left, top, 1f);
-        bottomRightWall = SpawnTopLeftBottomRightWalls(bottom, right, -1f);
+        bottomLeftWall = SpawnBottomLeftTopRightWalls(left, bottom, -1f, blockSize, arenaSize);
+        topRightWall = SpawnBottomLeftTopRightWalls(top, right, 1f, blockSize, arenaSize);
+        topLeftWall = SpawnTopLeftBottomRightWalls(left, top, 1f, blockSize, arenaSize);
+        bottomRightWall = SpawnTopLeftBottomRightWalls(bottom, right, -1f, blockSize, arenaSize);
 
         bottomLeftWall.name = "bottom-left wall";
         topRightWall.name = "top-right wall";
@@ -35,10 +37,8 @@ public class ArenaBounds : MonoBehaviour
         bottomRightWall.name = "bottom-right wall";
     }
 
-    ArenaWall SpawnBottomLeftTopRightWalls(Vector3 leftEdge, Vector3 rightEdge, float xPositionDirection)
+    ArenaWall SpawnBottomLeftTopRightWalls(Vector3 leftEdge, Vector3 rightEdge, float xPositionDirection, float blockSize, float arenaSize)
     {
-        float blockSize = GetComponent<Arena>().GetBlockSize();
-        float arenaSize = GetComponent<Arena>().GetSize();
         float overlapOffset = 2f * blockSize;
 
         float zPosition = (Mathf.Abs(rightEdge.z) + Mathf.Abs(leftEdge.z)) / 2f;
@@ -51,12 +51,8 @@ public class ArenaBounds : MonoBehaviour
         return newWall;
     }
     
-    ArenaWall SpawnTopLeftBottomRightWalls(Vector3 leftEdge, Vector3 rightEdge, float zPositionDirection)
+    ArenaWall SpawnTopLeftBottomRightWalls(Vector3 leftEdge, Vector3 rightEdge, float zPositionDirection, float blockSize, float arenaSize)
     {
-        float blockSize = GetComponent<Arena>().GetBlockSize();
-        float arenaSize = GetComponent<Arena>().GetSize();
-        float overlapOffset = 2f * blockSize;
-
         float topLeftWallX = (Mathf.Abs(rightEdge.x) + Mathf.Abs(leftEdge.x)) / 2f;
         topLeftWallX += leftEdge.x;
 

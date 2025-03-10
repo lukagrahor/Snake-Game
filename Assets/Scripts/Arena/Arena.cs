@@ -21,12 +21,12 @@ public class Arena : MonoBehaviour
         }
     }
     private CornerBlocks cornerBlocks;
-    void Start()
+    void Awake()
     {
         SpawnArena();
 
         arenaBounds = GetComponent<ArenaBounds>();
-        arenaBounds.Setup(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top);
+        arenaBounds.Setup(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top, GetBlockSize(), size);
 
         cameraCornerSpawner = GetComponent<CameraCornerSpawner>();
         cameraCornerSpawner.Setup();
@@ -81,20 +81,11 @@ public class Arena : MonoBehaviour
         SetCornerBlockPositions(bottom, left, right, top);
     }
 
-    void SetCornerBlockPositions(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top)
-    {
-        cornerBlocks = new CornerBlocks(bottom, left, right, top);
-    }
+    void SetCornerBlockPositions(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top) { cornerBlocks = new CornerBlocks(bottom, left, right, top); }
 
-    public CornerBlocks GetCornerBlocks()
-    {
-        return cornerBlocks;
-    }
+    public CornerBlocks GetCornerBlocks() { return cornerBlocks; }
 
     public int GetSize() { return size; }
 
-    public float GetBlockSize()
-    {
-        return arenaBlock.GetBlockSize();
-    }
+    public float GetBlockSize() { return arenaBlock.GetBlockSize(); }
 }
