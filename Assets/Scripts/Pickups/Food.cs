@@ -9,9 +9,9 @@ public class Food : MonoBehaviour, IPickup
         spawner.Spawn();
     }
 
-    public void SetFoodSpawner(FoodSpawner spawner)
+    public void SetSpawner(ObjectSpawner spawner)
     {
-        this.spawner = spawner;
+        this.spawner = (FoodSpawner)spawner;
     }
 
     public void SetNewPosition(Vector3 position)

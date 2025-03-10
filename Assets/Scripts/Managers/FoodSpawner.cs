@@ -17,16 +17,13 @@ public class FoodSpawner : ObjectSpawner
         Vector3 objectPosition = GenerateObjectPosition(gridObjectsWithoutSpawnPoint);
 
         food = Instantiate(foodPrefab, objectPosition, Quaternion.identity);
-        Debug.Log($"food po instaciranju: {food}");
-        food.SetFoodSpawner(this);
+        food.SetSpawner(this);
     }
 
     public override void Spawn()
     {
         LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects();
         Vector3 objectPosition = GenerateObjectPosition(emptyGridObjects);
-        Debug.Log($"food: {food}");
         food.SetNewPosition(objectPosition);
-        Debug.Log($"Food active: {gameObject.activeSelf}");
     }
 }
