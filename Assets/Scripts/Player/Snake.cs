@@ -26,9 +26,10 @@ public class Snake : MonoBehaviour
     [SerializeField] float snakeScale = 0.4f;
     Vector3 spawnPosition;
 
-    [SerializeField] TMP_Text respawnTimerText;
+    //[SerializeField] TMP_Text respawnTimerText;
     [SerializeField] float waitTime = 3f;
-    float timer = 0f;
+    //float timer = 0f;
+    [SerializeField] CountDownTimer timer;
     void Awake()
     {
         snakeTorsoParts = new List<SnakeTorso>();
@@ -37,6 +38,7 @@ public class Snake : MonoBehaviour
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
 
         snakeHead.Setup(moveSpeed, (float)startingRotation, this, new Vector3(snakeScale, snakeScale, snakeScale));
+        timer.TimeRanOut += Respawn;
     }
 
     void Start()
@@ -46,20 +48,7 @@ public class Snake : MonoBehaviour
 
     void Update()
     {
-        if (timer > 0f)
-        {
-            RespawnCountdown();
-        }
-    }
 
-    void RespawnCountdown() // naredi timer interface in pol razliène timerje
-    {
-        timer -= Time.deltaTime;
-        respawnTimerText.text = Math.Ceiling(timer).ToString();
-        if (timer < 0f)
-        {
-            Respawn();
-        }
     }
 
     void Respawn()
@@ -72,7 +61,6 @@ public class Snake : MonoBehaviour
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         snakeHead.Setup(moveSpeed, (float)startingRotation, this, new Vector3(snakeScale, snakeScale, snakeScale));
         GetComponent<SnakeMovement>().OnSnakeRespawn();
-        respawnTimerText.text = "";
     }
 
     public float GetSnakeYRotation()
@@ -120,7 +108,7 @@ public class Snake : MonoBehaviour
         if(snakeTorsoParts.Count == 0)
         {
             newSnakeTorso.transform.SetParent(snakeHead.transform);
-            snakeHead.unsetLast();
+            snakeHead.UnsetLast();
             newSnakeTorso.Setup(moveSpeed, snakeHead.GetRotation(), transform);
             newSnakeTorso.SetPreviousPart(snakeHead);
             newSnakeTorso.name = "0";
@@ -128,8 +116,8 @@ public class Snake : MonoBehaviour
         else
         {
             ISnakePart previousPart = snakeTorsoParts[snakeTorsoParts.Count - 1];
-            newSnakeTorso.transform.SetParent(previousPart.getTransform());
-            previousPart.unsetLast();
+            newSnakeTorso.transform.SetParent(previousPart.GetTransform());
+            previousPart.UnsetLast();
             float previousTorsoRotation = previousPart.GetRotation();
 
             newSnakeTorso.Setup(moveSpeed, previousTorsoRotation, transform);
@@ -168,7 +156,7 @@ public class Snake : MonoBehaviour
 
     void StartRespawnTimer()
     {
-        timer = waitTime;
+        timer.SetDuration(waitTime);
     }
 
     public Vector3 GetSpawnPosition()

@@ -27,7 +27,7 @@ public class GridObject : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-       if (other.GetComponent<ISnakePart>() != null && other.GetComponent<ISnakePart>().isLast() == true)
+       if (other.GetComponent<ISnakePart>() != null && other.GetComponent<ISnakePart>().IsLast() == true)
        {
             isOccupied = false;
        }

@@ -127,22 +127,22 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     {
         return transform.rotation.eulerAngles.y;
     }
-    public bool isLast()
+    public bool IsLast()
     {
         return lastSnakePart;
     }
 
-    public void setLast()
+    public void SetLast()
     {
         lastSnakePart = true;
     }
 
-    public void unsetLast()
+    public void UnsetLast()
     {
         lastSnakePart = false;
     }
 
-    public Transform getTransform()
+    public Transform GetTransform()
     {
         return transform;
     }

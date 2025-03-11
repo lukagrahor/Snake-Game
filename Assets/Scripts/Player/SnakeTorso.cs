@@ -121,35 +121,25 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         return transform.rotation.eulerAngles.y;
     }
-    public bool isLast()
+    public bool IsLast()
     {
         return lastSnakePart;
     }
 
-    public void setLast()
+    public void SetLast()
     {
         lastSnakePart = true;
     }
 
-    public void unsetLast()
+    public void UnsetLast()
     {
         lastSnakePart = false;
     }
 
-    public Transform getTransform()
+    public Transform GetTransform()
     {
         return transform;
     }
-
-    /*void showPositions()
-    {
-        int j = 0;
-        foreach (float rotat in rotationBuffer)
-        {
-            Debug.Log($"Torso rotation buffer {j}: {rotat}");
-            j++;
-        }
-    }*/
 
     public void CopyBuffers (LinkedList<float> rotationBuffer, LinkedList<Vector3> positionBuffer)
     {
