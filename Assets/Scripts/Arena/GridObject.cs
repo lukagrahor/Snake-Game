@@ -1,40 +1,33 @@
 using UnityEngine;
 
-public class GridObject : MonoBehaviour
+public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler
 {
     bool isOccupied = false;
-    bool isOccupiedBySnakehead = false;
+    bool isOccupiedBySnakeHead = false;
     int col;
     int row;
 
     public int Col { get => col; set => col = value; }
     public int Row { get => row; set => row = value; }
-    public bool IsOccupied { get => isOccupied; }
-    public bool IsOccupiedBySnakehead { get => isOccupiedBySnakehead; }
+    public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
+    public bool IsOccupiedBySnakeHead { get => isOccupiedBySnakeHead; set => isOccupiedBySnakeHead = value; }
+
+    public void HandleTrigger(SnakeHead snakeHead)
+    {
+        snakeHead.SetHasSnapped(false);
+        snakeHead.SetNextBlock(this);
+        isOccupiedBySnakeHead = true;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<ISnakePart>() != null)
-        {
-            isOccupied = true;
-        }
-
-        if (other.GetComponent<SnakeHead>() != null)
-        {
-            isOccupiedBySnakehead = true;
-        }
+        IGridObjectTriggerHandler enteredObject = other.GetComponent<ISnakePart>();
+        enteredObject?.HandleTrigger(this);
     }
 
     private void OnTriggerExit(Collider other)
     {
-       if (other.GetComponent<ISnakePart>() != null && other.GetComponent<ISnakePart>().IsLast() == true)
-       {
-            isOccupied = false;
-       }
-
-        if (other.GetComponent<SnakeHead>() != null)
-        {
-            isOccupiedBySnakehead = false;
-        }
+        IGridObjectTriggerHandler enteredObject = other.GetComponent<ISnakePart>();
+        enteredObject?.HandleTriggerExit(this);
     }
 }

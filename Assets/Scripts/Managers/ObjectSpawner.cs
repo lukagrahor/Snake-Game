@@ -60,7 +60,7 @@ public abstract class ObjectSpawner : MonoBehaviour
 
         foreach (GridObject obj in gridObjects)
         {
-            if (obj.IsOccupiedBySnakehead)
+            if (obj.IsOccupiedBySnakeHead)
             {
                 occupiedByHead.AddLast(obj);
             }

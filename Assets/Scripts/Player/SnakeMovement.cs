@@ -179,9 +179,7 @@ public class SnakeMovement : MonoBehaviour
 
         float turnLeft = -90f;
         float turnRight = 90f;
-        Debug.Log($"MoveDown: {snakeYRotation}");
-        Debug.Log($"snakeYRotation: {snakeYRotation}");
-        Debug.Log($"nextSnakeYRotation: {nextSnakeYRotation}");
+
         if (snakeYRotation == (float)MoveDirection.Right || nextSnakeYRotation == (float)MoveDirection.Right)
         {
             snake.SetNextYRotation(turnRight);
@@ -197,11 +195,7 @@ public class SnakeMovement : MonoBehaviour
         float nextSnakeYRotation = snake.GetNextHeadRotation();
         float turnLeft = -90f;
         float turnRight = 90f;
-        Debug.Log("--------------------");
-        Debug.Log($"MoveLeft: {snakeYRotation}");
-        Debug.Log($"snakeYRotation: {snakeYRotation}");
-        Debug.Log($"nextSnakeYRotation: {nextSnakeYRotation}");
-        Debug.Log("--------------------");
+
         if (snakeYRotation == (float)MoveDirection.Up || nextSnakeYRotation == (float)MoveDirection.Up)
         {
             snake.SetNextYRotation(turnLeft);

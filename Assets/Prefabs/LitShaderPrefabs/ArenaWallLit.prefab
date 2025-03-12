@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -9021837510627038732}
   - component: {fileID: 2458362258556180347}
   m_Layer: 0
-  m_Name: ArenaWallTest
+  m_Name: ArenaWallLit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0495ac3f7dc6fb449a3435afa73ddb8c, type: 2}
+  - {fileID: -876546973899608171, guid: 42f4bda95250ea1478dccef1e76d193d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -5,7 +5,6 @@ using UnityEngine;
 public class SnakeTorso : MonoBehaviour, ISnakePart
 {
     float moveSpeed = 0f;
-    float size = 0.4f;
     bool lastSnakePart = true;
 
     LinkedList<float> rotationBuffer;
@@ -14,6 +13,21 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     private bool hasSnapped = false;
     ISnakePart previousPart;
     Timer timer;
+
+    public void HandleTrigger(GridObject gridObject)
+    {
+        gridObject.IsOccupied = true;
+        hasSnapped = false;
+        //timer.StartTimer();
+    }
+
+    public void HandleTriggerExit(GridObject gridObject)
+    {
+        if (lastSnakePart == true)
+        {
+            gridObject.IsOccupied = false;
+        }
+    }
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
@@ -51,15 +65,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         transform.SetParent(snakeTransform);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<GridObject>() != null)
-        {
-            timer.StartTimer();
-            hasSnapped = false;
-        }
-    }
-
     private void CheckForTurn()
     {
         // ignore the y axis
@@ -69,12 +74,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         }
         Vector3 blockPositionWithY = positionBuffer.First.Value;
 
-        Vector3 gridBlockPosition = new Vector3(blockPositionWithY.x, 0f, blockPositionWithY.z);
-        Vector3 snakeTorsoPosition = new Vector3(transform.position.x, 0f, transform.position.z);
+        Vector3 gridBlockPosition = new (blockPositionWithY.x, 0f, blockPositionWithY.z);
+        Vector3 snakeTorsoPosition = new (transform.position.x, 0f, transform.position.z);
         float floatOffset = Vector3.Distance(snakeTorsoPosition, gridBlockPosition);
         
-        
-
         Vector3 movementDirection = RotationToMovementVector(GetRotation());
         Vector3 directionToBlock = gridBlockPosition - transform.position;
         float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
@@ -82,7 +85,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
         if (floatOffset <= 0.03f || dotProduct < 0) 
         {
-            Debug.Log($"Torso: {gameObject.name}, floatOffset: {floatOffset}");
             if (rotationBuffer.Count > 0)
             {
                 SetRotation();
@@ -106,7 +108,9 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         {
             return;
         }
+
         transform.rotation = Quaternion.Euler(0, GetRotation() + rotationBuffer.First.Value, 0);
+
         //float timePassed = timer.StopTimer();
         //Debug.Log($"Torso: {gameObject.name}, timePassed: {timePassed}");
 
@@ -120,15 +124,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     public float GetRotation()
     {
         return transform.rotation.eulerAngles.y;
-    }
-    public bool IsLast()
-    {
-        return lastSnakePart;
-    }
-
-    public void SetLast()
-    {
-        lastSnakePart = true;
     }
 
     public void UnsetLast()

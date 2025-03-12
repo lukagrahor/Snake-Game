@@ -1,9 +1,16 @@
 using System;
 using UnityEngine;
 
-public class Food : MonoBehaviour, IPickup
+public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler
 {
     FoodSpawner spawner;
+
+    public void HandleTrigger(SnakeHead snakeHead)
+    {
+        snakeHead.Grow();
+        Use();
+    }
+
     public void Use() {
         gameObject.SetActive(false);
         spawner.Spawn();

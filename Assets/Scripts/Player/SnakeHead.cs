@@ -8,9 +8,8 @@ using UnityEngine.UIElements;
 
 public class SnakeHead : MonoBehaviour, ISnakePart
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    //public event Action onRotate;
-    //float moveRotationY = 0f;
+    [SerializeField] Directions startingRotation = Directions.Up;
+
     float moveSpeed = 0f;
     bool lastSnakePart = true;
     private bool hasSnapped = false;
@@ -19,49 +18,52 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     GridObject nextBlock;
     LinkedList<float> rotationBuffer;
 
+    enum Directions
+    {
+        Up = 0,
+        Right = 90,
+        Down = 180,
+        Left = 270
+    }
+
+    public void HandleTrigger(GridObject gridObject)
+    {
+        gridObject.IsOccupied = true;
+    }
+
+    public void HandleTriggerExit(GridObject gridObject)
+    {
+        gridObject.IsOccupied = false;
+        gridObject.IsOccupiedBySnakeHead = false;
+    }
+
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
     }
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        transform.rotation = Quaternion.Euler(0, (float)startingRotation, 0);
+    }
+
     void FixedUpdate()
     {
         Move();
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 scale)
+    public void Setup(float moveSpeed, Snake snake, Vector3 scale)
     {
         this.snake = snake;
         transform.SetParent(snake.transform);
         transform.localScale = scale;
-
-        SetMoveSpeed(moveSpeed);
-        AddToRotationBuffer(moveRotation);
-        SetRotation();
-    }
-
-    public void SetMoveSpeed(float moveSpeed)
-    {
         this.moveSpeed = moveSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<GridObject>() != null)
-        {
-            hasSnapped = false;
-            nextBlock = other.GetComponent<GridObject>();
-        }
-        else if (other.GetComponent<ArenaWall>() != null)
-        {
-            snake.GetHit();
-        }
-        else if (other.GetComponent<Food>() != null)
-        {
-            snake.Grow();
-            other.GetComponent<Food>().Use();
-        }
+        var enteredObject = other.GetComponent<ISnakeHeadTriggerHandler>();
+        enteredObject?.HandleTrigger(this);
     }
 
     private void OnTriggerStay(Collider other)
@@ -73,15 +75,16 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         if (other.GetComponent<GridObject>() != null)
         {
             // ignore the y axis
-            Vector3 gridBlockPosition = new Vector3(other.transform.position.x, 0f, other.transform.position.z);
-            Vector3 nextGridBlockPosition = new Vector3(nextBlock.transform.position.x, 0f, nextBlock.transform.position.z);
-            Vector3 snakeHeadPosition = new Vector3(transform.position.x, 0f, transform.position.z);
+            Vector3 gridBlockPosition = new (other.transform.position.x, 0f, other.transform.position.z);
+            Vector3 nextGridBlockPosition = new (nextBlock.transform.position.x, 0f, nextBlock.transform.position.z);
+            Vector3 snakeHeadPosition = new (transform.position.x, 0f, transform.position.z);
 
             Vector3 movementDirection = RotationToMovementVector(GetRotation());
             Vector3 directionToBlock = nextGridBlockPosition - transform.position;
             float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
             // too small distance can cause the snake to not turn when needed
-            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f || dotProduct < 0) // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
+            // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
+            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f || dotProduct < 0)
             {
                 if (rotationBuffer.Count > 0)
                 {
@@ -97,10 +100,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     public void Move()
     {
-        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward); // Vector3.forward --> local space, transform.forward --> world space
+        // Vector3.forward --> local space, transform.forward --> world space
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
     }
 
-    public void SetRotation()
+    void SetRotation()
     {
         if (rotationBuffer.Count <= 0)
         {
@@ -108,13 +112,12 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         }
 
         transform.Rotate(0, rotationBuffer.First.Value, 0);
-        transform.parent.GetComponent<Snake>().SetTorsoRotation(rotationBuffer.First.Value);
+        snake.SetTorsoRotation(rotationBuffer.First.Value);
         rotationBuffer.RemoveFirst();
     }
 
     public void AddToRotationBuffer(float rotation)
     {
-        //Debug.Log($"Dodaj v buffer: {rotation}");
         // to prevent spam
         if (rotationBuffer.Count == 2)
         {
@@ -126,15 +129,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public float GetRotation()
     {
         return transform.rotation.eulerAngles.y;
-    }
-    public bool IsLast()
-    {
-        return lastSnakePart;
-    }
-
-    public void SetLast()
-    {
-        lastSnakePart = true;
     }
 
     public void UnsetLast()
@@ -163,6 +157,26 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             return 0f;
         }
         return rotationBuffer.First.Value;
+    }
+
+    public void SetNextBlock(GridObject nextBlock)
+    {
+        this.nextBlock = nextBlock;
+    }
+
+    public void SetHasSnapped(bool hasSnapped)
+    {
+        this.hasSnapped = hasSnapped;
+    }
+
+    public void GetHit()
+    {
+        snake.GetHit();
+    }
+
+    public void Grow()
+    {
+        snake.Grow();
     }
 
     Vector3 RotationToMovementVector(float rotation)
