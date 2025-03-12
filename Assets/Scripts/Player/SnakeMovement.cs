@@ -163,7 +163,6 @@ public class SnakeMovement : MonoBehaviour
         float turnRight = 90f;
         if (snakeYRotation == (float)MoveDirection.Up || nextSnakeYRotation == (float)MoveDirection.Up)
         {
-            Debug.Log("Datarnjan");
             snake.SetNextYRotation(turnRight);
         }
         else if (snakeYRotation == (float)MoveDirection.Down || nextSnakeYRotation == (float)MoveDirection.Down)
