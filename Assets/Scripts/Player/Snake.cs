@@ -21,8 +21,10 @@ public class Snake : MonoBehaviour
 
     [SerializeField] float waitTime = 3f;
     [SerializeField] CountDownTimer timer;
+    ISnakeInput snakeInputManager;
     void Awake()
     {
+        snakeInputManager = CreateInputManager();
         snakeTorsoParts = new List<SnakeTorso>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         spawnPosition = new Vector3(0f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -2f);
@@ -43,7 +45,7 @@ public class Snake : MonoBehaviour
         snakeTorsoParts = new List<SnakeTorso>();
         snakeHead.transform.position = spawnPosition;
         snakeHead.gameObject.SetActive(true);
-        GetComponent<SnakeMovement>().OnSnakeRespawn();
+        snakeInputManager.OnSnakeRespawn();
     }
 
     public float GetSnakeYRotation()
@@ -135,7 +137,7 @@ public class Snake : MonoBehaviour
         {
             Destroy(torso.gameObject);
         }
-        GetComponent<SnakeMovement>().OnSnakeDeath();
+        snakeInputManager.OnSnakeDeath();
         StartRespawnTimer();
     }
 
@@ -147,5 +149,23 @@ public class Snake : MonoBehaviour
     public Vector3 GetSpawnPosition()
     {
         return spawnPosition;
+    }
+
+    private ISnakeInput CreateInputManager()
+    {
+        MobileInputManager mobileInput = new(this);
+        return mobileInput;
+        /*
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            MobileInputManager mobileInput = new(this);
+            return mobileInput;
+        }
+        else
+        {
+            DesktopInputManager desktopInput = new(this);
+            return desktopInput;
+        }
+        */
     }
 }
