@@ -731,7 +731,7 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
-  moveSpeed: 4
+  moveSpeed: 3.5
   snakeScale: 0.4
   waitTime: 3
   timer: {fileID: 1903296500}
@@ -766,7 +766,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e6b786200933843801c2c62534fcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
+  arenaBlockA: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
+  arenaBlockB: {fileID: -8586341943021454714, guid: 4fca60c592eb608458761c5c094f9962, type: 3}
   size: 20
 --- !u!4 &587043828
 Transform:

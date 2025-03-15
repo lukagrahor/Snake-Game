@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 5645658805008704787}
   - component: {fileID: 5236291518170755435}
   - component: {fileID: 1004091542689325667}
-  - component: {fileID: -9021837510627038732}
-  - component: {fileID: 2458362258556180347}
+  - component: {fileID: -8586341943021454714}
   m_Layer: 0
-  m_Name: ArenaWall
+  m_Name: ArenaBlockB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 50992536224b67c4b809ddf54aca4633, type: 2}
+  - {fileID: 2100000, guid: 74ca732992780f642b50cc3f3253c1ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-9021837510627038732
+--- !u!114 &-8586341943021454714
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,27 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2846418136867358055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef29e7f3295157940bcdca54e71a57a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 25aa808ea15373246b112a6489837f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2458362258556180347
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2846418136867358055}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  blockSize: 0.5

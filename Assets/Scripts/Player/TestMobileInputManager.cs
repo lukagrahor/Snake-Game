@@ -1,20 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MobileInputManager : ISnakeInput
+public class TestMobileInputManager : ISnakeInput
 {
     InputSystem_Actions _controls;
     Snake snake;
-    float minimumSwipeMagnitude = 10f;
+    //[SerializeField] float minimumSwipeMagnitude = 10f;
     private Vector2 swipeDirection;
-    bool waitNextSwipe = false;
 
     // mislm da je tle problem za delayed input na telefoni
-    public MobileInputManager (Snake snake)
+    public TestMobileInputManager(Snake snake)
     {
         this.snake = snake;
         _controls = new InputSystem_Actions();
-        _controls.PlayerMobile.Enable();
+        _controls.PlayerMobileTest.Enable();
         SubscribeToInput();
     }
 
@@ -28,8 +27,7 @@ public class MobileInputManager : ISnakeInput
 
     public void OnSnakeDeath()
     {
-        _controls.PlayerMobile.Touch.canceled -= TouchCompleted;
-        _controls.PlayerMobile.Swipe.performed -= SwipePerformed;
+        _controls.PlayerMobileTest.Touch.performed -= TouchPerformed;
     }
 
     public void OnSnakeRespawn()
@@ -39,26 +37,19 @@ public class MobileInputManager : ISnakeInput
 
     public void SubscribeToInput()
     {
-        _controls.PlayerMobile.Touch.canceled += TouchCompleted;
-        _controls.PlayerMobile.Swipe.performed += SwipePerformed;
+        _controls.PlayerMobileTest.Touch.performed += TouchPerformed;
     }
 
-    private void SwipePerformed(InputAction.CallbackContext context)
+    private void TouchPerformed(InputAction.CallbackContext context)
     {
-        if (waitNextSwipe == true)
-        {
-            return;
-        }
-        swipeDirection = context.ReadValue<Vector2>();
-        if (swipeDirection.magnitude < minimumSwipeMagnitude)
-        {
-            return;
-        }
-
+        Debug.Log("Touch performed");
+        snake.SetNextYRotation(90f);
+        /*
         float snakeYRotation = snake.GetSnakeYRotation();
         float nextSnakeYRotation = snake.GetNextHeadRotation();
         float turnLeft = -90f;
         float turnRight = 90f;
+
         if (snakeYRotation == (float)MoveDirection.Up || nextSnakeYRotation == (float)MoveDirection.Up)
         {
             // Gor desno
@@ -114,11 +105,10 @@ public class MobileInputManager : ISnakeInput
                 snake.SetNextYRotation(turnRight);
             }
         }
-        waitNextSwipe = true;
+        */
     }
-
-    void TouchCompleted(InputAction.CallbackContext context)
+    private void SwipePerformed(InputAction.CallbackContext context)
     {
-        waitNextSwipe = false;
+        swipeDirection = context.ReadValue<Vector2>();
     }
 }

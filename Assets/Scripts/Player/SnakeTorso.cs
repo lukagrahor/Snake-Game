@@ -85,6 +85,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
         if (floatOffset <= 0.03f || dotProduct < 0) 
         {
+            Debug.Log($"floatOffset: {floatOffset}");
             if (rotationBuffer.Count > 0)
             {
                 SetRotation();

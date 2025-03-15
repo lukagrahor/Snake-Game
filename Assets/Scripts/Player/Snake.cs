@@ -121,7 +121,6 @@ public class Snake : MonoBehaviour
     float GetAbsoluteRotation(float rotation)
     {
         // get rid of minuses and numbers bigger than 360
-        Debug.Log($"rotation: {rotation}");
         float absoluteMoveRotation = rotation % 360;
         if (absoluteMoveRotation < 0)
         {
@@ -153,8 +152,13 @@ public class Snake : MonoBehaviour
 
     private ISnakeInput CreateInputManager()
     {
+        /*
         MobileInputManager mobileInput = new(this);
         return mobileInput;
+        */
+
+        DesktopInputManager desktopInput = new(this);
+        return desktopInput;
         /*
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {

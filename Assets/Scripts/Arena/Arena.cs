@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class Arena : MonoBehaviour
 {
-    [SerializeField] ArenaBlock arenaBlock;
+    [SerializeField] ArenaBlock arenaBlockA;
+    [SerializeField] ArenaBlock arenaBlockB;
     [SerializeField] int size = 10;
     
     CameraCornerSpawner cameraCornerSpawner;
     ArenaBounds arenaBounds;
+    ArenaBlock arenaBlock;
 
     public struct CornerBlocks
     {
@@ -47,13 +49,11 @@ public class Arena : MonoBehaviour
         float blockSize = GetBlockSize();
         for (int i = 0; i < size * size; i++)
         {
-            float colPosition;
-            float rowPosition;
-            Vector3 location;
+            float rowPosition = ((i / size) * blockSize) - 5;
+            float colPosition = (i * blockSize) % (size * blockSize);
+            Vector3 location = new Vector3(colPosition - 5, 0f, rowPosition);
 
-            rowPosition = ((i / size) * blockSize) -5;
-            colPosition = (i * blockSize) % (size * blockSize);
-            location = new Vector3(colPosition - 5, 0f, rowPosition);
+            arenaBlock = ChooseArenaBlock(i);
 
             GameObject block = arenaBlock.Spawn(arenaBlock.gameObject, location, Quaternion.identity);
             block.transform.SetParent(transform);
@@ -81,11 +81,26 @@ public class Arena : MonoBehaviour
         SetCornerBlockPositions(bottom, left, right, top);
     }
 
+    ArenaBlock ChooseArenaBlock(int i)
+    {
+        int row = i / size;
+        int rowOffset = row % 2 == 0 ? 1 : 0;
+
+        if ((i + rowOffset) % 2 == 0)
+        {
+            return arenaBlockA;
+        }
+        else
+        {
+            return arenaBlockB;
+        }
+    }
+
     void SetCornerBlockPositions(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top) { cornerBlocks = new CornerBlocks(bottom, left, right, top); }
 
     public CornerBlocks GetCornerBlocks() { return cornerBlocks; }
 
     public int GetSize() { return size; }
 
-    public float GetBlockSize() { return arenaBlock.GetBlockSize(); }
+    public float GetBlockSize() { return arenaBlockA.GetBlockSize(); }
 }

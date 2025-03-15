@@ -652,6 +652,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerMobileTest",
+            "id": "70c33ec6-c60a-41f0-b495-476e275992a1",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "Button",
+                    "id": "a32ff464-9010-4a19-8ef0-c16860590f0f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ee35d338-6eea-406b-a392-f0b3f6ed779a",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

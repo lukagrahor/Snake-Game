@@ -674,6 +674,34 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerMobileTest"",
+            ""id"": ""70c33ec6-c60a-41f0-b495-476e275992a1"",
+            ""actions"": [
+                {
+                    ""name"": ""Touch"",
+                    ""type"": ""Button"",
+                    ""id"": ""a32ff464-9010-4a19-8ef0-c16860590f0f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ee35d338-6eea-406b-a392-f0b3f6ed779a"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touch"",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -761,6 +789,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_PlayerDesktop_MoveDown = m_PlayerDesktop.FindAction("MoveDown", throwIfNotFound: true);
         m_PlayerDesktop_MoveUp = m_PlayerDesktop.FindAction("MoveUp", throwIfNotFound: true);
         m_PlayerDesktop_MoveRight = m_PlayerDesktop.FindAction("MoveRight", throwIfNotFound: true);
+        // PlayerMobileTest
+        m_PlayerMobileTest = asset.FindActionMap("PlayerMobileTest", throwIfNotFound: true);
+        m_PlayerMobileTest_Touch = m_PlayerMobileTest.FindAction("Touch", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -768,6 +799,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_PlayerMobile.enabled, "This will cause a leak and performance issues, InputSystem_Actions.PlayerMobile.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_PlayerDesktop.enabled, "This will cause a leak and performance issues, InputSystem_Actions.PlayerDesktop.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_PlayerMobileTest.enabled, "This will cause a leak and performance issues, InputSystem_Actions.PlayerMobileTest.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -1067,6 +1099,52 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerDesktopActions @PlayerDesktop => new PlayerDesktopActions(this);
+
+    // PlayerMobileTest
+    private readonly InputActionMap m_PlayerMobileTest;
+    private List<IPlayerMobileTestActions> m_PlayerMobileTestActionsCallbackInterfaces = new List<IPlayerMobileTestActions>();
+    private readonly InputAction m_PlayerMobileTest_Touch;
+    public struct PlayerMobileTestActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+        public PlayerMobileTestActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Touch => m_Wrapper.m_PlayerMobileTest_Touch;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerMobileTest; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerMobileTestActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerMobileTestActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerMobileTestActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerMobileTestActionsCallbackInterfaces.Add(instance);
+            @Touch.started += instance.OnTouch;
+            @Touch.performed += instance.OnTouch;
+            @Touch.canceled += instance.OnTouch;
+        }
+
+        private void UnregisterCallbacks(IPlayerMobileTestActions instance)
+        {
+            @Touch.started -= instance.OnTouch;
+            @Touch.performed -= instance.OnTouch;
+            @Touch.canceled -= instance.OnTouch;
+        }
+
+        public void RemoveCallbacks(IPlayerMobileTestActions instance)
+        {
+            if (m_Wrapper.m_PlayerMobileTestActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerMobileTestActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerMobileTestActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerMobileTestActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerMobileTestActions @PlayerMobileTest => new PlayerMobileTestActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1136,5 +1214,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMoveDown(InputAction.CallbackContext context);
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
+    }
+    public interface IPlayerMobileTestActions
+    {
+        void OnTouch(InputAction.CallbackContext context);
     }
 }
