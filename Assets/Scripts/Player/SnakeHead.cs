@@ -47,7 +47,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         transform.rotation = Quaternion.Euler(0, (float)startingRotation, 0);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Move();
     }

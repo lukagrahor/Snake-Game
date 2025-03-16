@@ -42,7 +42,7 @@ public class TestMobileInputManager : ISnakeInput
 
     private void TouchPerformed(InputAction.CallbackContext context)
     {
-        Debug.Log("Touch performed");
+        //Debug.Log("Touch performed");
         snake.SetNextYRotation(90f);
         /*
         float snakeYRotation = snake.GetSnakeYRotation();

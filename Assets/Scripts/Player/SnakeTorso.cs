@@ -14,6 +14,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     ISnakePart previousPart;
     Timer timer;
 
+    bool hasTurned = false;
+
     public void HandleTrigger(GridObject gridObject)
     {
         gridObject.IsOccupied = true;
@@ -35,7 +37,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         timer = new Timer();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Move();
     }
@@ -52,7 +54,13 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     public void Move()
     {
         CheckForTurn();
+  
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
+
+        if (hasTurned == true)
+        {
+            FixGaps();
+        }
     }
 
     public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform)
@@ -85,7 +93,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
         if (floatOffset <= 0.03f || dotProduct < 0) 
         {
-            Debug.Log($"floatOffset: {floatOffset}");
+            Debug.Log($"name: {gameObject.name}, floatOffset: {floatOffset}, dotProduct: {dotProduct}");
             if (rotationBuffer.Count > 0)
             {
                 SetRotation();
@@ -117,7 +125,40 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
         rotationBuffer.RemoveFirst();
         positionBuffer.RemoveFirst();
+        hasTurned = true;
     }
+
+    void FixGaps()
+    {
+        if (rotationBuffer.Count != 0) { return; }
+        /*
+        float previousZ = previousPart.GetTransform().position.z;
+        Debug.Log($"previousZ: {previousZ}");
+        Debug.Log($"currentZ: {transform.position.z}");
+        float direction = Mathf.Sign(previousZ - transform.position.z);
+        Debug.Log($"direction: {direction}");
+        Debug.Log($" previousZ + (0.4f * direction): {previousZ + (0.4f * direction)}");
+        transform.position = new Vector3(transform.position.x, transform.position.y, previousZ - (0.4f * direction));
+        Debug.Log($"forward {transform.forward}");
+        */
+
+        /*
+        Vector3 previousPosition = previousPart.GetTransform().position;
+        transform.position += transform.forward;
+        */
+
+        Vector3 previous = previousPart.GetTransform().position;
+        Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * 0.4f);
+
+        Debug.Log($"previous {previous}");
+        Debug.Log($"forward {transform.forward}");
+        Debug.Log($"newCurrentPosition {newCurrentPosition}");
+
+
+        transform.position = newCurrentPosition;
+
+    }
+
     public void SetPreviousPart(ISnakePart previousPart)
     {
         this.previousPart = previousPart;

@@ -156,9 +156,10 @@ public class Snake : MonoBehaviour
         MobileInputManager mobileInput = new(this);
         return mobileInput;
         */
-
+        
         DesktopInputManager desktopInput = new(this);
         return desktopInput;
+        
         /*
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {

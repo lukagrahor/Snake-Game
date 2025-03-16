@@ -30,10 +30,8 @@ public class ArenaGrid : MonoBehaviour
             float colPosition = (i * blockSize) % (size * blockSize);
             Vector3 location = new Vector3(colPosition - blockPositionOffset, blockSize, rowPosition);
 
-            // blocks are made to overlap to reduce the black edges problem
-            float blockSizeOffset = 0.001f;
             GameObject block = Instantiate(gridObjectPrefab.gameObject, location, Quaternion.identity);
-            block.transform.localScale = new Vector3(blockSize + blockSizeOffset, blockSize + blockSizeOffset, blockSize + blockSizeOffset);
+            block.transform.localScale = new Vector3(blockSize, blockSize, blockSize);
             block.transform.SetParent(transform);
             GridObject gridObject = block.GetComponent<GridObject>();
 

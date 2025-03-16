@@ -8,7 +8,7 @@ public class ArenaBlock : MonoBehaviour
     public GameObject Spawn(GameObject blockPrefab, Vector3 location, Quaternion rotation)
     {
         GameObject block = Instantiate(blockPrefab, location, rotation);
-        block.transform.localScale = new Vector3(blockSize + 0.001f, blockSize + 0.001f, blockSize + 0.001f);
+        block.transform.localScale = new Vector3(blockSize, blockSize, blockSize);
         return block;
     }
 
