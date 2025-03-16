@@ -155,12 +155,13 @@ public class Snake : MonoBehaviour
         /*
         MobileInputManager mobileInput = new(this);
         return mobileInput;
-        */
+        
         
         DesktopInputManager desktopInput = new(this);
         return desktopInput;
+        */
+
         
-        /*
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
             MobileInputManager mobileInput = new(this);
@@ -171,6 +172,6 @@ public class Snake : MonoBehaviour
             DesktopInputManager desktopInput = new(this);
             return desktopInput;
         }
-        */
+        
     }
 }

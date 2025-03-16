@@ -91,7 +91,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
 
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
-        if (floatOffset <= 0.03f || dotProduct < 0) 
+        if (floatOffset <= 0.1f || dotProduct < 0) 
         {
             Debug.Log($"name: {gameObject.name}, floatOffset: {floatOffset}, dotProduct: {dotProduct}");
             if (rotationBuffer.Count > 0)
@@ -131,32 +131,9 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     void FixGaps()
     {
         if (rotationBuffer.Count != 0) { return; }
-        /*
-        float previousZ = previousPart.GetTransform().position.z;
-        Debug.Log($"previousZ: {previousZ}");
-        Debug.Log($"currentZ: {transform.position.z}");
-        float direction = Mathf.Sign(previousZ - transform.position.z);
-        Debug.Log($"direction: {direction}");
-        Debug.Log($" previousZ + (0.4f * direction): {previousZ + (0.4f * direction)}");
-        transform.position = new Vector3(transform.position.x, transform.position.y, previousZ - (0.4f * direction));
-        Debug.Log($"forward {transform.forward}");
-        */
-
-        /*
-        Vector3 previousPosition = previousPart.GetTransform().position;
-        transform.position += transform.forward;
-        */
-
         Vector3 previous = previousPart.GetTransform().position;
         Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * 0.4f);
-
-        Debug.Log($"previous {previous}");
-        Debug.Log($"forward {transform.forward}");
-        Debug.Log($"newCurrentPosition {newCurrentPosition}");
-
-
         transform.position = newCurrentPosition;
-
     }
 
     public void SetPreviousPart(ISnakePart previousPart)
