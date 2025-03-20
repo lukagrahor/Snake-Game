@@ -1,9 +1,11 @@
 using System;
+using System.Drawing;
 using UnityEngine;
 
 public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler
 {
     FoodSpawner spawner;
+    [SerializeField] float size = 0.5f;
 
     public void HandleTrigger(SnakeHead snakeHead)
     {
@@ -25,5 +27,10 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler
     {
         transform.position = position;
         gameObject.SetActive(true);
+    }
+
+    public void ApplyScale()
+    {
+        gameObject.transform.localScale = new Vector3(size, size, size);
     }
 }

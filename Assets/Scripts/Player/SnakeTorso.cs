@@ -132,7 +132,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         if (rotationBuffer.Count != 0) { return; }
         Vector3 previous = previousPart.GetTransform().position;
-        Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * 0.4f);
+        Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * 0.35f);
         transform.position = newCurrentPosition;
     }
 

@@ -730,9 +730,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
-  arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
+  arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   moveSpeed: 3.5
-  snakeScale: 0.4
+  snakeScale: 0.35
   waitTime: 3
   timer: {fileID: 1903296500}
 --- !u!1 &587043826
@@ -1254,9 +1254,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snake: {fileID: 545034464}
-  arenaBlock: {fileID: -8586341943021454714, guid: 0e1a86fa51b372346a013b73009d7d4b, type: 3}
+  arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
-  objectScale: 0.4
+  objectScale: 0.35
   foodPrefab: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
 --- !u!1 &1559724428
 GameObject:

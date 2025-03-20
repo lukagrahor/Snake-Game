@@ -17,6 +17,7 @@ public class FoodSpawner : ObjectSpawner
         Vector3 objectPosition = GenerateObjectPosition(gridObjectsWithoutSpawnPoint);
 
         food = Instantiate(foodPrefab, objectPosition, Quaternion.identity);
+        food.ApplyScale();
         food.SetSpawner(this);
     }
 
