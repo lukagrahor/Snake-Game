@@ -410,7 +410,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6075153
+  orthographic size: 4.975325
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -768,7 +768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaBlockA: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   arenaBlockB: {fileID: -8586341943021454714, guid: 4fca60c592eb608458761c5c094f9962, type: 3}
-  size: 30
+  size: 26
 --- !u!4 &587043828
 Transform:
   m_ObjectHideFlags: 0
@@ -958,7 +958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1176511432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,7 +1274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1559724429
 MonoBehaviour:
   m_ObjectHideFlags: 0
