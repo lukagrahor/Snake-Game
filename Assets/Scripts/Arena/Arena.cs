@@ -51,7 +51,7 @@ public class Arena : MonoBehaviour
         {
             float rowPosition = ((i / size) * blockSize) - 5;
             float colPosition = (i * blockSize) % (size * blockSize);
-            Vector3 location = new Vector3(colPosition - 5, 0f, rowPosition);
+            Vector3 location = new (colPosition - 5, 0f, rowPosition);
 
             arenaBlock = ChooseArenaBlock(i);
 
@@ -61,21 +61,26 @@ public class Arena : MonoBehaviour
             if (i == 0)
             {
                 bottom = location;
+                block.name = "bottom-corner";
+                Debug.Log($"botom location: {location}");
             }
 
             if (i == size-1)
             {
-               right = location;
+                right = location;
+                block.name = "right-corner";
             }
 
             if (i == (size * size) - size)
             {
                 left = location;
+                block.name = "left-corner";
             }
 
             if (i == (size * size) -1)
             {
                 top = location;
+                block.name = "top-corner";
             }
         }
         SetCornerBlockPositions(bottom, left, right, top);

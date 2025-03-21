@@ -109,7 +109,8 @@ public class Snake : MonoBehaviour
             
         newSnakeTorso.transform.SetParent(previousPart.GetTransform());
         previousPart.UnsetLast();
-        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), transform);
+        Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
+        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), transform, snakeScaleVector);
 
         // kopira pozicije, ki so v bufferju od njegovga predhodnika
         if (snakeTorsoParts.Count > 0)

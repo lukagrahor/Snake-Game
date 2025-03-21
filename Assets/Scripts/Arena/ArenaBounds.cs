@@ -26,6 +26,14 @@ public class ArenaBounds : MonoBehaviour
 
     public void Setup(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top, float blockSize, float arenaSize)
     {
+        Debug.Log("bottom");
+        Debug.Log(bottom);
+        Debug.Log("left");
+        Debug.Log(left);        
+        Debug.Log("right");
+        Debug.Log(right);        
+        Debug.Log("top");
+        Debug.Log(top);
         bottomLeftWall = SpawnBottomLeftTopRightWalls(left, bottom, -1f, blockSize, arenaSize);
         topRightWall = SpawnBottomLeftTopRightWalls(top, right, 1f, blockSize, arenaSize);
         topLeftWall = SpawnTopLeftBottomRightWalls(left, top, 1f, blockSize, arenaSize);
@@ -41,10 +49,10 @@ public class ArenaBounds : MonoBehaviour
     {
         float overlapOffset = 2f * blockSize;
 
-        float zPosition = (Mathf.Abs(rightEdge.z) + Mathf.Abs(leftEdge.z)) / 2f;
-        zPosition += rightEdge.z;
+        float halfDistance = (rightEdge.z - leftEdge.z) / 2f;
+        float zPosition = leftEdge.z + halfDistance;
 
-        Vector3 wallPosition = new Vector3(leftEdge.x + (blockSize * xPositionDirection), blockSize, zPosition);
+        Vector3 wallPosition = new (leftEdge.x + (blockSize * xPositionDirection), blockSize, zPosition);
         ArenaWall newWall = Instantiate(wall, wallPosition, Quaternion.identity);
         newWall.transform.localScale = new Vector3(blockSize, blockSize, arenaSize * blockSize + overlapOffset);
 
@@ -53,10 +61,13 @@ public class ArenaBounds : MonoBehaviour
     
     ArenaWall SpawnTopLeftBottomRightWalls(Vector3 leftEdge, Vector3 rightEdge, float zPositionDirection, float blockSize, float arenaSize)
     {
-        float topLeftWallX = (Mathf.Abs(rightEdge.x) + Mathf.Abs(leftEdge.x)) / 2f;
-        topLeftWallX += leftEdge.x;
+        Debug.Log($"blockSize: {blockSize}");
+        Debug.Log($"leftEdge: {leftEdge}");
+        Debug.Log($"rightEdge: {rightEdge}");
+        float halfDistance = (rightEdge.x - leftEdge.x) / 2f;
+        float topLeftWallX = leftEdge.x + halfDistance;
 
-        Vector3 wallPosition = new Vector3(topLeftWallX, blockSize, rightEdge.z + (blockSize * zPositionDirection));
+        Vector3 wallPosition = new (topLeftWallX, blockSize, rightEdge.z + (blockSize * zPositionDirection));
         ArenaWall newWall = Instantiate(wall, wallPosition, Quaternion.identity);
         newWall.transform.localScale = new Vector3(arenaSize * blockSize, blockSize, blockSize);
 

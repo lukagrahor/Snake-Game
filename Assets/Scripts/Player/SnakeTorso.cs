@@ -15,6 +15,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     Timer timer;
 
     bool hasTurned = false;
+    float size;
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -63,7 +64,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         }
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform)
+    public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform, Vector3 snakeScaleVector)
     {
         this.moveSpeed = moveSpeed;
 
@@ -71,6 +72,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snakeTransform);
+        transform.localScale = snakeScaleVector;
+        size = snakeScaleVector.x;
     }
 
     private void CheckForTurn()
@@ -132,7 +135,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
     {
         if (rotationBuffer.Count != 0) { return; }
         Vector3 previous = previousPart.GetTransform().position;
-        Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * 0.35f);
+        Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * size);
         transform.position = newCurrentPosition;
     }
 
