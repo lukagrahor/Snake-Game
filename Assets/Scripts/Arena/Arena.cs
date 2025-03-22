@@ -47,11 +47,13 @@ public class Arena : MonoBehaviour
         Vector3 top = Vector3.zero;
 
         float blockSize = GetBlockSize();
-        for (int i = 0; i < size * size; i++)
+        //float arenaSize = size * size;
+        /*
+        for (int i = 0; i < arenaSize; i++)
         {
-            float rowPosition = ((i / size) * blockSize) - 5;
+            float rowPosition = ((i / size) * blockSize) - 5f;
             float colPosition = (i * blockSize) % (size * blockSize);
-            Vector3 location = new (colPosition - 5, 0f, rowPosition);
+            Vector3 location = new (colPosition - 5f, 0f, rowPosition);
 
             arenaBlock = ChooseArenaBlock(i);
 
@@ -61,37 +63,81 @@ public class Arena : MonoBehaviour
             if (i == 0)
             {
                 bottom = location;
+                int test = i;
+                float rowPositionTest = ((i / size) * blockSize) - 5f;
+                float colPositionTest = (i * blockSize) % (size * blockSize);
                 block.name = "bottom-corner";
                 Debug.Log($"botom location: {location}");
+                Debug.Log($"colPosition: {colPosition}");
             }
 
-            if (i == size-1)
+            if (i == (size-1))
             {
                 right = location;
+                int test = i;
+                float rowPositionTest = ((i / size) * blockSize) - 5f;
+                float colPositionTest = (i * blockSize) % (size * blockSize);
                 block.name = "right-corner";
+                Debug.Log($"right location: {location}");
             }
 
-            if (i == (size * size) - size)
+            if (i == (arenaSize - size))
             {
                 left = location;
                 block.name = "left-corner";
             }
 
-            if (i == (size * size) -1)
+            if (i == (arenaSize - 1))
             {
                 top = location;
                 block.name = "top-corner";
             }
         }
+        */
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                float rowPosition = (i * blockSize) - 5f;
+                float colPosition = (j * blockSize) - 5f;
+                Vector3 location = new(colPosition, 0f, rowPosition);
+
+                arenaBlock = ChooseArenaBlock(i, j);
+
+                GameObject block = arenaBlock.Spawn(arenaBlock.gameObject, location, Quaternion.identity);
+                block.transform.SetParent(transform);
+
+                if (i == 0 && j == 0)
+                {
+                    bottom = location;
+                    block.name = "bottom-corner";
+                }
+
+                if (i == 0 &&  j == (size - 1))
+                {
+                    right = location;
+                    block.name = "right-corner";
+                }
+
+                if (i == (size - 1) && j == 0)
+                {
+                    left = location;
+                    block.name = "left-corner";
+                }
+
+                if (i == (size - 1) && j == (size - 1))
+                {
+                    top = location;
+                    block.name = "top-corner";
+                }
+            }
+        }
         SetCornerBlockPositions(bottom, left, right, top);
     }
 
-    ArenaBlock ChooseArenaBlock(int i)
+    ArenaBlock ChooseArenaBlock(int i, int j)
     {
-        int row = i / size;
-        int rowOffset = row % 2 == 0 ? 1 : 0;
-
-        if ((i + rowOffset) % 2 == 0)
+        if (i % 2 == 0 && j % 2 == 0)
         {
             return arenaBlockA;
         }
@@ -100,6 +146,23 @@ public class Arena : MonoBehaviour
             return arenaBlockB;
         }
     }
+
+    /*
+    ArenaBlock ChooseArenaBlock(int i)
+    {
+        int row = i / size;
+        int rowOffset = row % 2 == 0 ? 1 : 0;
+        int blockPosition = i + rowOffset;
+
+        if (blockPosition % 2 == 0)
+        {
+            return arenaBlockA;
+        }
+        else
+        {
+            return arenaBlockB;
+        }
+    }*/
 
     void SetCornerBlockPositions(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top) { cornerBlocks = new CornerBlocks(bottom, left, right, top); }
 

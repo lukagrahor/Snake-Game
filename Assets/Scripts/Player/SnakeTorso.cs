@@ -94,7 +94,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
 
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
-        if (floatOffset <= 0.1f || dotProduct < 0) 
+        if (floatOffset <= 0.05f || dotProduct < 0) 
         {
             Debug.Log($"name: {gameObject.name}, floatOffset: {floatOffset}, dotProduct: {dotProduct}");
             if (rotationBuffer.Count > 0)

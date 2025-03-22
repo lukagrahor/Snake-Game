@@ -84,7 +84,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
             // too small distance can cause the snake to not turn when needed
             // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
-            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.1f || dotProduct < 0)
+            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.05f || dotProduct < 0)
             {
                 if (rotationBuffer.Count > 0)
                 {
