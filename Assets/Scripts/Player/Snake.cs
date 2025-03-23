@@ -17,6 +17,7 @@ public class Snake : MonoBehaviour
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float snakeScale = 0.4f;
+    [SerializeField][Range(2,6)] int startingSize = 2;
     Vector3 spawnPosition;
 
     [SerializeField] float waitTime = 3f;
@@ -28,23 +29,27 @@ public class Snake : MonoBehaviour
         snakeTorsoParts = new List<SnakeTorso>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         spawnPosition = new Vector3(-1.015093f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -2.493592f);
-        Debug.Log("Velièina");
-        Debug.Log(arenaBlock.GetBlockSize() / 2f + snakeScale / 2f);
-        Debug.Log("GetBlockSize");
-        Debug.Log(arenaBlock.GetBlockSize());
-        Debug.Log("snakeScale");
-        Debug.Log(snakeScale);
         snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         Vector3 snakeScaleVector = new (snakeScale, snakeScale, snakeScale);
 
         snakeHead.Setup(moveSpeed, this, snakeScaleVector);
         timer.TimeRanOut += Respawn;
+
+        SpawnStartingTorsoBlocks();
+    }
+
+    void SpawnStartingTorsoBlocks()
+    {
+        for (int i = 0; i < startingSize; i++)
+        {
+            Grow();
+        }
     }
 
     void Start()
     {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 30;
+        //QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = 30;
     }
 
     void Respawn()
@@ -53,6 +58,7 @@ public class Snake : MonoBehaviour
         snakeHead.transform.position = spawnPosition;
         snakeHead.gameObject.SetActive(true);
         snakeInputManager.OnSnakeRespawn();
+        SpawnStartingTorsoBlocks();
     }
 
     public float GetSnakeYRotation()
@@ -111,7 +117,7 @@ public class Snake : MonoBehaviour
         newSnakeTorso.transform.SetParent(previousPart.GetTransform());
         previousPart.UnsetLast();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
-        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), transform, snakeScaleVector);
+        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector);
 
         // kopira pozicije, ki so v bufferju od njegovga predhodnika
         if (snakeTorsoParts.Count > 0)

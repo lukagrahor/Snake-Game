@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeTorso : MonoBehaviour, ISnakePart
+public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
 {
     float moveSpeed = 0f;
     bool lastSnakePart = true;
@@ -16,6 +16,14 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
 
     bool hasTurned = false;
     float size;
+
+    int konecJe = 1;
+
+    public void HandleFrontTrigger()
+    {
+        Debug.Log($"Konec je! {konecJe}");
+        konecJe++;
+    }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -64,14 +72,14 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         }
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Transform snakeTransform, Vector3 snakeScaleVector)
+    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector)
     {
         this.moveSpeed = moveSpeed;
 
         transform.localPosition = new Vector3(0, 0, -1f);
         SetStartingRotation(moveRotation);
 
-        transform.SetParent(snakeTransform);
+        transform.SetParent(snake.transform);
         transform.localScale = snakeScaleVector;
         size = snakeScaleVector.x;
     }
@@ -94,9 +102,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart
         float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
 
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
-        if (floatOffset <= 0.05f || dotProduct < 0) 
+        if (floatOffset <= 0.03f || dotProduct < 0) 
         {
-            Debug.Log($"name: {gameObject.name}, floatOffset: {floatOffset}, dotProduct: {dotProduct}");
             if (rotationBuffer.Count > 0)
             {
                 SetRotation();

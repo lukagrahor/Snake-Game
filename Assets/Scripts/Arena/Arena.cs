@@ -47,53 +47,7 @@ public class Arena : MonoBehaviour
         Vector3 top = Vector3.zero;
 
         float blockSize = GetBlockSize();
-        //float arenaSize = size * size;
-        /*
-        for (int i = 0; i < arenaSize; i++)
-        {
-            float rowPosition = ((i / size) * blockSize) - 5f;
-            float colPosition = (i * blockSize) % (size * blockSize);
-            Vector3 location = new (colPosition - 5f, 0f, rowPosition);
 
-            arenaBlock = ChooseArenaBlock(i);
-
-            GameObject block = arenaBlock.Spawn(arenaBlock.gameObject, location, Quaternion.identity);
-            block.transform.SetParent(transform);
-
-            if (i == 0)
-            {
-                bottom = location;
-                int test = i;
-                float rowPositionTest = ((i / size) * blockSize) - 5f;
-                float colPositionTest = (i * blockSize) % (size * blockSize);
-                block.name = "bottom-corner";
-                Debug.Log($"botom location: {location}");
-                Debug.Log($"colPosition: {colPosition}");
-            }
-
-            if (i == (size-1))
-            {
-                right = location;
-                int test = i;
-                float rowPositionTest = ((i / size) * blockSize) - 5f;
-                float colPositionTest = (i * blockSize) % (size * blockSize);
-                block.name = "right-corner";
-                Debug.Log($"right location: {location}");
-            }
-
-            if (i == (arenaSize - size))
-            {
-                left = location;
-                block.name = "left-corner";
-            }
-
-            if (i == (arenaSize - 1))
-            {
-                top = location;
-                block.name = "top-corner";
-            }
-        }
-        */
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
@@ -137,13 +91,27 @@ public class Arena : MonoBehaviour
 
     ArenaBlock ChooseArenaBlock(int i, int j)
     {
-        if (i % 2 == 0 && j % 2 == 0)
+        if (i % 2 == 0)
         {
-            return arenaBlockA;
+            if (j % 2 == 0)
+            {
+                return arenaBlockA;
+            }
+            else
+            {
+                return arenaBlockB;
+            }
         }
         else
         {
-            return arenaBlockB;
+            if (j % 2 == 0)
+            {
+                return arenaBlockB;
+            }
+            else
+            {
+                return arenaBlockA;
+            }
         }
     }
 

@@ -26,14 +26,6 @@ public class ArenaBounds : MonoBehaviour
 
     public void Setup(Vector3 bottom, Vector3 left, Vector3 right, Vector3 top, float blockSize, float arenaSize)
     {
-        Debug.Log("bottom");
-        Debug.Log(bottom);
-        Debug.Log("left");
-        Debug.Log(left);        
-        Debug.Log("right");
-        Debug.Log(right);        
-        Debug.Log("top");
-        Debug.Log(top);
         bottomLeftWall = SpawnBottomLeftTopRightWalls(left, bottom, -1f, blockSize, arenaSize);
         topRightWall = SpawnBottomLeftTopRightWalls(top, right, 1f, blockSize, arenaSize);
         topLeftWall = SpawnTopLeftBottomRightWalls(left, top, 1f, blockSize, arenaSize);
@@ -61,9 +53,6 @@ public class ArenaBounds : MonoBehaviour
     
     ArenaWall SpawnTopLeftBottomRightWalls(Vector3 leftEdge, Vector3 rightEdge, float zPositionDirection, float blockSize, float arenaSize)
     {
-        Debug.Log($"blockSize: {blockSize}");
-        Debug.Log($"leftEdge: {leftEdge}");
-        Debug.Log($"rightEdge: {rightEdge}");
         float halfDistance = (rightEdge.x - leftEdge.x) / 2f;
         float topLeftWallX = leftEdge.x + halfDistance;
 

@@ -6,6 +6,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler
     bool isOccupiedBySnakeHead = false;
     int col;
     int row;
+    bool canTurn = true;
 
     public int Col { get => col; set => col = value; }
     public int Row { get => row; set => row = value; }
@@ -30,4 +31,6 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler
         IGridObjectTriggerHandler enteredObject = other.GetComponent<ISnakePart>();
         enteredObject?.HandleTriggerExit(this);
     }
+
+    //public bool allowTurn() { return canTurn; }
 }
