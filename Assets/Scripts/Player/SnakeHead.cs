@@ -66,6 +66,12 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         enteredObject?.HandleTrigger(this);
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        var enteredObject = other.GetComponent<ISnakeHeadExitTriggerHandler>();
+        enteredObject?.HandleSnakeheadTriggerExit(this);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (hasSnapped == true)
@@ -110,6 +116,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         {
             return;
         }
+
+        Debug.Log("Turn");
 
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         snake.SetTorsoRotation(rotationBuffer.First.Value);
