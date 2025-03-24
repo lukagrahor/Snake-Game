@@ -12,10 +12,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     float moveSpeed = 0f;
     bool lastSnakePart = true;
-    private bool hasSnapped = false;
 
     Snake snake;
     GridObject nextBlock;
+    GridObject alreadyTurned;
     LinkedList<float> rotationBuffer;
 
     enum Directions
@@ -74,7 +74,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     private void OnTriggerStay(Collider other)
     {
-        if (hasSnapped == true)
+        if (alreadyTurned != null && other.gameObject.name == alreadyTurned.gameObject.name)
         {
             return;
         }
@@ -96,9 +96,9 @@ public class SnakeHead : MonoBehaviour, ISnakePart
                 {
                     // snap to the place of the grid block
                     transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
-                    hasSnapped = true;
 
                     SetRotation();
+                    alreadyTurned = other.GetComponent<GridObject>();
                 }
             }
         }
@@ -170,11 +170,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public void SetNextBlock(GridObject nextBlock)
     {
         this.nextBlock = nextBlock;
-    }
-
-    public void SetHasSnapped(bool hasSnapped)
-    {
-        this.hasSnapped = hasSnapped;
     }
 
     public void GetHit()

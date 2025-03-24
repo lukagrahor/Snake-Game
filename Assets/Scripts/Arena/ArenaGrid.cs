@@ -20,26 +20,28 @@ public class ArenaGrid : MonoBehaviour
     {
         int size = arena.GetSize();
         float blockSize = arena.GetBlockSize();
-        for (int i = 0; i < size * size; i++)
+
+        for (int i = 0; i < size; i++)
         {
-            int row = i / size;
-            int column = i % size;
+            for (int j = 0; j < size; j++)
+            {
+                float blockPositionOffset = 5f;
+                float rowPosition = (i * blockSize) - blockPositionOffset;
+                float colPosition = (j * blockSize) - blockPositionOffset;
+                Vector3 location = new(colPosition, blockSize, rowPosition);
 
-            int blockPositionOffset = 5;
-            float rowPosition = ((i / size) * blockSize) - blockPositionOffset;
-            float colPosition = (i * blockSize) % (size * blockSize);
-            Vector3 location = new Vector3(colPosition - blockPositionOffset, blockSize, rowPosition);
+                GameObject block = Instantiate(gridObjectPrefab.gameObject, location, Quaternion.identity);
+                block.transform.localScale = new Vector3(blockSize, blockSize, blockSize);
+                block.transform.SetParent(transform);
+                GridObject gridObject = block.GetComponent<GridObject>();
 
-            GameObject block = Instantiate(gridObjectPrefab.gameObject, location, Quaternion.identity);
-            block.transform.localScale = new Vector3(blockSize, blockSize, blockSize);
-            block.transform.SetParent(transform);
-            GridObject gridObject = block.GetComponent<GridObject>();
+                block.name =$"Row: {i} Col: {j}";
+                gridObject.Col = j;
+                gridObject.Row = i;
 
-            block.name = i.ToString();
-            gridObject.Col = column;
-            gridObject.Row = row;
+                gridObjects[j, i] = gridObject;
 
-            gridObjects[column, row] = gridObject;
+            }
         }
     }
 

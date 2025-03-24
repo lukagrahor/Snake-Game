@@ -15,14 +15,16 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     public void HandleTrigger(SnakeHead snakeHead)
     {
         //snakeHead.SetHasSnapped(false);
+        Debug.Log($"Enter: {gameObject.name} {transform.position}");
         snakeHead.SetNextBlock(this);
         isOccupiedBySnakeHead = true;
     }
 
     public void HandleSnakeheadTriggerExit(SnakeHead snakeHead)
     {
-        snakeHead.SetHasSnapped(false);
-        Debug.Log($"Exit: {gameObject.name}");
+        //snakeHead.SetHasSnapped(false);
+        //Debug.Log($"Exit: {gameObject.name} {transform.position}");
+        Debug.Log("");
     }
 
     private void OnTriggerEnter(Collider other)
