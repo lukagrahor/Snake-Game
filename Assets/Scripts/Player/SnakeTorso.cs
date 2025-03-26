@@ -10,7 +10,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
     LinkedList<float> rotationBuffer;
     LinkedList<Vector3> positionBuffer;
 
-    private bool hasSnapped = false;
+    //private bool hasSnapped = false;
     ISnakePart previousPart;
     Timer timer;
 
@@ -28,7 +28,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
     public void HandleTrigger(GridObject gridObject)
     {
         gridObject.IsOccupied = true;
-        hasSnapped = false;
+        //hasSnapped = false;
         //timer.StartTimer();
     }
 
@@ -87,7 +87,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
     private void CheckForTurn()
     {
         // ignore the y axis
-        if (positionBuffer.Count == 0 || hasSnapped == true)
+        // if (positionBuffer.Count == 0 || hasSnapped == true)
+        if (positionBuffer.Count == 0)
         {
             return;
         }
@@ -104,13 +105,18 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
         if (floatOffset <= 0.03f || dotProduct < 0) 
         {
+            /*if (gameObject.name == "Torso 0")
+            {
+                Debug.Log($"floatOffset: {floatOffset}");
+                Debug.Log($"dotProduct: {dotProduct}");
+            }*/
             if (rotationBuffer.Count > 0)
             {
                 SetRotation();
                 // na sredino grid kocke
                 transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
 
-                hasSnapped = true;
+                // hasSnapped = true;
             }
         }
         
@@ -144,6 +150,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
         Vector3 previous = previousPart.GetTransform().position;
         Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * size);
         transform.position = newCurrentPosition;
+        hasTurned = false;
     }
 
     public void SetPreviousPart(ISnakePart previousPart)
