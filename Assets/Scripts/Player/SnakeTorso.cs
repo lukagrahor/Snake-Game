@@ -11,18 +11,21 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
     LinkedList<Vector3> positionBuffer;
 
     //private bool hasSnapped = false;
+    Snake snake;
     ISnakePart previousPart;
     Timer timer;
 
     bool hasTurned = false;
     float size;
-
-    int konecJe = 1;
+    bool stop = false;
 
     public void HandleFrontTrigger()
     {
-        Debug.Log($"Konec je! {konecJe}");
-        konecJe++;
+        if (gameObject.name == "Torso 0" || gameObject.name == "Torso 1")
+        {
+            return;
+        }
+        snake.GetHit();
     }
 
     public void HandleTrigger(GridObject gridObject)
@@ -48,6 +51,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
 
     void Update()
     {
+        if (stop == true)
+        {
+            return;
+        }
         Move();
     }
 
@@ -60,6 +67,12 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
     {
         positionBuffer.AddLast(position);
     }
+
+    public void Stop()
+    {
+        stop = true;
+    }
+
     public void Move()
     {
         CheckForTurn();
@@ -82,6 +95,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
         transform.SetParent(snake.transform);
         transform.localScale = snakeScaleVector;
         size = snakeScaleVector.x;
+
+        this.snake = snake;
     }
 
     private void CheckForTurn()

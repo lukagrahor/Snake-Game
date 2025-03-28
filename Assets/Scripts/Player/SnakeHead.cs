@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class SnakeHead : MonoBehaviour, ISnakePart
@@ -18,6 +19,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     GridObject alreadyTurned;
     LinkedList<float> rotationBuffer;
 
+    bool stop = false;
     enum Directions
     {
         Up = 0,
@@ -49,7 +51,16 @@ public class SnakeHead : MonoBehaviour, ISnakePart
 
     void Update()
     {
+        if (stop == true)
+        {
+            return;
+        }
         Move();
+    }
+
+    public void Stop()
+    {
+        stop = true;
     }
 
     public void Setup(float moveSpeed, Snake snake, Vector3 scale)
@@ -90,8 +101,12 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
             // too small distance can cause the snake to not turn when needed
             // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
-            if (Vector3.Distance(snakeHeadPosition, gridBlockPosition) <= 0.03f || dotProduct < 0)
+            // && distance <= 0.1f, brez tega se je kocka obrnila ko je bila že na robu kocke, kar je izgledalo èudno
+            float distance = Vector3.Distance(snakeHeadPosition, gridBlockPosition);
+            if (distance <= 0.03f || (dotProduct < 0 && distance <= 0.1f))
             {
+                //Debug.Log($"dotProduct: {dotProduct}");
+                //Debug.Log($"distance: {distance}");
                 if (rotationBuffer.Count > 0)
                 {
                     // snap to the place of the grid block
@@ -117,7 +132,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             return;
         }
 
-        Debug.Log("Turn");
+        //Debug.Log("Turn");
 
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         snake.SetTorsoRotation(rotationBuffer.First.Value);
