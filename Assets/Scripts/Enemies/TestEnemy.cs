@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestEnemy : MonoBehaviour
+public class TestEnemy : MonoBehaviour, IFrontTriggerHandler
 {
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     enum Directions
@@ -9,6 +9,11 @@ public class TestEnemy : MonoBehaviour
         Right = 90,
         Down = 180,
         Left = 270
+    }
+
+    public void HandleFrontTrigger()
+    {
+        GetHit();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,6 +53,12 @@ public class TestEnemy : MonoBehaviour
             transform.Rotate(0f, (float)Directions.Down, 0f);
         }
     }
+
+    void GetHit()
+    {
+        Destroy(gameObject);
+    }
+
     void Start()
     {
         

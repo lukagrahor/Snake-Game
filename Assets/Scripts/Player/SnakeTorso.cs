@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
+public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, ITestEnemyFrontTrigger
 {
     float moveSpeed = 0f;
     bool lastSnakePart = true;
@@ -25,6 +25,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler
         {
             return;
         }
+        snake.GetHit();
+    }
+
+    public void HandleEnemyFrontTrigger(TestEnemy enemy)
+    {
         snake.GetHit();
     }
 
