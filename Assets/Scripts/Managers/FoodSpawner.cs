@@ -14,7 +14,8 @@ public class FoodSpawner : ObjectSpawner
         Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
         LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, gridObjects);
 
-        Vector3 objectPosition = GenerateObjectPosition(gridObjectsWithoutSpawnPoint);
+        GridObject selectedBlock = PickARandomBlock(gridObjectsWithoutSpawnPoint);
+        Vector3 objectPosition = GenerateObjectPosition(selectedBlock);
 
         food = Instantiate(foodPrefab, objectPosition, Quaternion.identity);
         food.ApplyScale();
@@ -23,8 +24,11 @@ public class FoodSpawner : ObjectSpawner
 
     public override void Spawn()
     {
-        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects();
-        Vector3 objectPosition = GenerateObjectPosition(emptyGridObjects);
+        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(grid.GetGridObjects());
+
+        GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
+        Vector3 objectPosition = GenerateObjectPosition(selectedBlock);
+
         food.SetNewPosition(objectPosition);
     }
 }

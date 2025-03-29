@@ -13,18 +13,23 @@ public abstract class ObjectSpawner : MonoBehaviour
 
     public abstract void Spawn();
 
-    protected Vector3 GenerateObjectPosition(LinkedList<GridObject> emptyGridObjects)
+    protected GridObject PickARandomBlock(LinkedList<GridObject> emptyGridObjects)
     {
         int upperLimit = emptyGridObjects.Count - 1;
         int gridObjectIndex = Random.Range(0, upperLimit);
-        Vector3 gridObjectPosition = emptyGridObjects.ElementAt(gridObjectIndex).transform.position;
+        GridObject gridObject = emptyGridObjects.ElementAt(gridObjectIndex);
+        return gridObject;
+    }
+
+    protected Vector3 GenerateObjectPosition(GridObject gridObject)
+    {
+        Vector3 gridObjectPosition = gridObject.transform.position;
         float yPosition = arenaBlock.GetBlockSize() / 2f + objectScale / 2f;
-        Vector3 objectPosition = new Vector3(gridObjectPosition.x, yPosition, gridObjectPosition.z);
+        Vector3 objectPosition = new (gridObjectPosition.x, yPosition, gridObjectPosition.z);
         return objectPosition;
     }
-    protected LinkedList<GridObject> GetEmptyGridObjects()
+    protected LinkedList<GridObject> GetEmptyGridObjects(GridObject[,] gridObjects)
     {
-        GridObject[,] gridObjects = grid.GetGridObjects();
         LinkedList<GridObject> noSpawnBlocks = GetBlocksAtTheHead(gridObjects);
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
         foreach (GridObject obj in gridObjects)
@@ -64,6 +69,11 @@ public abstract class ObjectSpawner : MonoBehaviour
             {
                 occupiedByHead.AddLast(obj);
             }
+        }
+
+        if (occupiedByHead.Count == 0)
+        {
+            return new LinkedList<GridObject>();
         }
 
         GridObject headPositionBlock = GetHeadPositionBlock(occupiedByHead);

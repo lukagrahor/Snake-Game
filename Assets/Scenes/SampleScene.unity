@@ -119,6 +119,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9674570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9674572}
+  - component: {fileID: 9674571}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &9674571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9674570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58a2a0e1c987d749bcb741ddda3f2c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snake: {fileID: 545034464}
+  arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
+  grid: {fileID: 457970926}
+  objectScale: 0.19
+  enemyPrefab: {fileID: 1055173254773622347, guid: 0c570945cedeeb146b7ffd73e677772a, type: 3}
+--- !u!4 &9674572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9674570}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.82334805, y: 0.10218607, z: -1.9464041}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &192789368
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,8 +780,8 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
-  moveSpeed: 2.1
   snakeScale: 0.19
+  moveSpeed: 2.1
   startingSize: 2
   waitTime: 3
   timer: {fileID: 1903296500}
@@ -1221,7 +1270,7 @@ GameObject:
   - component: {fileID: 1379569881}
   - component: {fileID: 1379569882}
   m_Layer: 0
-  m_Name: ObjectSpawner
+  m_Name: FoodSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1750,3 +1799,4 @@ SceneRoots:
   - {fileID: 1224407579}
   - {fileID: 1492990272963984441}
   - {fileID: 1903296501}
+  - {fileID: 9674572}

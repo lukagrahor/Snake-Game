@@ -15,8 +15,8 @@ public class Snake : MonoBehaviour
     //SnakeCorner snakeCorner;
 
     [SerializeField] ArenaBlock arenaBlock;
-    [SerializeField] float moveSpeed = 2f;
     [SerializeField] float snakeScale = 0.4f;
+    [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     [SerializeField][Range(2,6)] int startingSize = 2;
     Vector3 spawnPosition;
 
