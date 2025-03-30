@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using UnityEngine;
 
-public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler
+public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnableObject
 {
     FoodSpawner spawner;
     [SerializeField] float size = 0.5f;

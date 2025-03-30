@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestEnemy : MonoBehaviour, IFrontTriggerHandler
+public class TestEnemy : MonoBehaviour, IFrontTriggerHandler, ISpawnableObject
 {
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     enum Directions

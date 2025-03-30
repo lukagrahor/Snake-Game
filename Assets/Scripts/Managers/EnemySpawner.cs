@@ -7,10 +7,6 @@ public class EnemySpawner : ObjectSpawner
     [SerializeField] TestEnemy enemyPrefab;
     TestEnemy enemy;
 
-    void Start()
-    {
-        FirstSpawn();
-    }
     public override void Spawn()
     {
         GridObject[,] gridObjects = GetEdgeBlocks();
@@ -22,18 +18,25 @@ public class EnemySpawner : ObjectSpawner
         enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
     }
 
-    void FirstSpawn()
+    public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
     {
         /* Trenutno je možno, da se nasprotnik pojavi na hrani */
         GridObject[,] gridObjects = GetEdgeBlocks();
+        LinkedList<GridObject> emptyGridObjects = RemoveOccupiedBlocks(gridObjects, occupiedBlocks);
+
         Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
-        LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, gridObjects);
+        LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, emptyGridObjects);
 
         GridObject selectedBlock = PickARandomBlock(gridObjectsWithoutSpawnPoint);
         Vector3 enemyPosition = GenerateObjectPosition(selectedBlock);
 
         enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
         enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
+
+        LinkedList<GridObject> newBlocks = new LinkedList<GridObject>();
+        newBlocks.AddLast(selectedBlock);
+
+        return newBlocks;
     }
 
     GridObject[,] GetEdgeBlocks()

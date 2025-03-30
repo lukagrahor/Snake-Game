@@ -7,12 +7,14 @@ public class FoodSpawner : ObjectSpawner
 {
     [SerializeField] Food foodPrefab;
     Food food;
-    void Start()
+
+    public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
+        LinkedList<GridObject> emptyGridObjects = RemoveOccupiedBlocks(gridObjects, occupiedBlocks);
 
         Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
-        LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, gridObjects);
+        LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, emptyGridObjects);
 
         GridObject selectedBlock = PickARandomBlock(gridObjectsWithoutSpawnPoint);
         Vector3 objectPosition = GenerateObjectPosition(selectedBlock);
@@ -20,6 +22,11 @@ public class FoodSpawner : ObjectSpawner
         food = Instantiate(foodPrefab, objectPosition, Quaternion.identity);
         food.ApplyScale();
         food.SetSpawner(this);
+
+        LinkedList<GridObject> newBlocks = new LinkedList<GridObject>();
+        newBlocks.AddLast(selectedBlock);
+
+        return newBlocks;
     }
 
     public override void Spawn()

@@ -11,6 +11,7 @@ public abstract class ObjectSpawner : MonoBehaviour
 
     [SerializeField] protected float objectScale = 0.4f;
 
+    public abstract LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks);
     public abstract void Spawn();
 
     protected GridObject PickARandomBlock(LinkedList<GridObject> emptyGridObjects)
@@ -34,16 +35,40 @@ public abstract class ObjectSpawner : MonoBehaviour
         LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
         foreach (GridObject obj in gridObjects)
         {
+            if (obj.IsOccupied)
+            {
+                continue;
+            }
             if (IsNextToHead(noSpawnBlocks, obj) == true)
             {
                 continue;
             }
-            if (!obj.IsOccupied)
-            {
-                emptyGridObjects.AddLast(obj);
-            }
+            emptyGridObjects.AddLast(obj);
         }
         return emptyGridObjects;
+    }
+    /// <summary>
+    /// A method used for the first spawn of objects. At the start different spawners each spawn their objects and to prevent overlap we use this method.
+    /// </summary>
+    protected LinkedList<GridObject> RemoveOccupiedBlocks(GridObject[,] gridObjects, LinkedList<GridObject> occupiedBlocks)
+    {
+        LinkedList<GridObject> emptyBlocks = new LinkedList<GridObject>();
+        bool isOccupied = false;
+        foreach (GridObject obj in gridObjects)
+        {
+            foreach (GridObject occupied in occupiedBlocks)
+            {
+                if (obj.name == occupied.name)
+                {
+                    isOccupied = true;
+                }
+            }
+            if (!isOccupied)
+            {
+                emptyBlocks.AddLast(obj);
+            }
+        }
+        return emptyBlocks;
     }
 
     protected bool IsNextToHead(LinkedList<GridObject> noSpawnBlocks, GridObject obj)
@@ -123,7 +148,7 @@ public abstract class ObjectSpawner : MonoBehaviour
         return headPositionBlock;
     }
     // To avoid spawning the food on the same spot as the snake, the spawn position is removed from the List of possible spawn locations
-    protected LinkedList<GridObject> RemoveSnakeSpawnPoint(Vector3 snakeSpawnPosition, GridObject[,] gridObjects)
+    protected LinkedList<GridObject> RemoveSnakeSpawnPoint(Vector3 snakeSpawnPosition, LinkedList<GridObject> gridObjects)
     {
         // the grid block and snake don't have the same y-axis
         snakeSpawnPosition = new Vector3(snakeSpawnPosition.x, arenaBlock.GetBlockSize(), snakeSpawnPosition.z);
