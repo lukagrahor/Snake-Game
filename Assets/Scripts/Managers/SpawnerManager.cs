@@ -4,7 +4,8 @@ using UnityEngine;
 public class SpawnerManager : MonoBehaviour
 {
     [SerializeField] FoodSpawner foodSpawner;
-    [SerializeField] EnemySpawner EnemySpawner;
+    [SerializeField] EnemySpawner enemySpawner;
+    [SerializeField] StationaryEnemySpawner stationaryEnemySpawner;
     void Start()
     {
         ManageFirstSpawns();
@@ -16,7 +17,9 @@ public class SpawnerManager : MonoBehaviour
         LinkedList<GridObject> newBlocks = foodSpawner.FirstSpawn(occupiedBlocks);
 
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
-        newBlocks = EnemySpawner.FirstSpawn(occupiedBlocks);
+        newBlocks = enemySpawner.FirstSpawn(occupiedBlocks);
+        occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+        newBlocks = stationaryEnemySpawner.FirstSpawn(occupiedBlocks);
     }
 
     LinkedList<GridObject> AddBlocks(LinkedList<GridObject> occupiedBlocks, LinkedList<GridObject> newBlocks)

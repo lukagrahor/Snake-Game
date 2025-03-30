@@ -6,18 +6,6 @@ public class EnemySpawner : ObjectSpawner
 {
     [SerializeField] TestEnemy enemyPrefab;
     TestEnemy enemy;
-
-    public override void Spawn()
-    {
-        GridObject[,] gridObjects = GetEdgeBlocks();
-        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(grid.GetGridObjects());
-
-        GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
-        Vector3 enemyPosition = GenerateObjectPosition(selectedBlock);
-
-        enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
-    }
-
     public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
     {
         /* Trenutno je možno, da se nasprotnik pojavi na hrani */
@@ -37,6 +25,18 @@ public class EnemySpawner : ObjectSpawner
         newBlocks.AddLast(selectedBlock);
 
         return newBlocks;
+    }
+
+    public override void Spawn()
+    {
+        GridObject[,] gridObjects = grid.GetGridObjects();
+        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(gridObjects);
+
+        GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
+        Vector3 enemyPosition = GenerateObjectPosition(selectedBlock);
+
+        enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
+        enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
     }
 
     GridObject[,] GetEdgeBlocks()

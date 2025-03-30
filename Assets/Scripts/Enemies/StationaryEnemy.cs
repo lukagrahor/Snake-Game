@@ -1,7 +1,11 @@
 using UnityEngine;
 
-public class StationaryEnemy : MonoBehaviour, ISpawnableObject
+public class StationaryEnemy : MonoBehaviour, ISpawnableObject, IEnemy
 {
+    public void GetHit()
+    {
+
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

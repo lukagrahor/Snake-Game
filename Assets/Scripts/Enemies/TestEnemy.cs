@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestEnemy : MonoBehaviour, IFrontTriggerHandler, ISpawnableObject
+public class TestEnemy : MonoBehaviour, IFrontTriggerHandler, ISpawnableObject, IEnemy
 {
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     enum Directions
@@ -54,7 +54,7 @@ public class TestEnemy : MonoBehaviour, IFrontTriggerHandler, ISpawnableObject
         }
     }
 
-    void GetHit()
+    public void GetHit()
     {
         Destroy(gameObject);
     }
