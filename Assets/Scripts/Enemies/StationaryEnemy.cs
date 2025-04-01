@@ -1,11 +1,17 @@
 using UnityEngine;
 
-public class StationaryEnemy : MonoBehaviour, ISpawnableObject, IEnemy
+public class StationaryEnemy : MonoBehaviour, ISpawnableObject, IEnemy, IFrontTriggerHandler
 {
     public void GetHit()
     {
-
+        Destroy(gameObject);
     }
+
+    public void HandleFrontTrigger()
+    {
+        GetHit();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

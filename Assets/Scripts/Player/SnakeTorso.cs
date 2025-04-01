@@ -47,6 +47,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, ITest
             gridObject.IsOccupied = false;
         }
     }
+
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();

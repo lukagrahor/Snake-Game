@@ -211,4 +211,9 @@ public class SnakeHead : MonoBehaviour, ISnakePart
             _ => new Vector3(0f, 0f, 0f),
         };
     }
+
+    public Snake GetSnake()
+    {
+        return snake;
+    }
 }
