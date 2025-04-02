@@ -9,7 +9,7 @@ public class FPSDisplay : MonoBehaviour
     {
     #if UNITY_ANDROID || UNITY_IOS
         //QualitySettings.vSyncCount = 0;
-        //Application.targetFrameRate = 30;
+        //Application.targetFrameRate = -1;
     #elif UNITY_STANDALONE || UNITY_EDITOR
         //QualitySettings.vSyncCount = 0;
         //pplication.targetFrameRate = 30;
