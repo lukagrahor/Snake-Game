@@ -186,6 +186,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     {
         this.nextBlock = nextBlock;
     }
+    public GridObject GetNextBlock()
+    {
+        return nextBlock;
+    }
 
     public void GetHit()
     {

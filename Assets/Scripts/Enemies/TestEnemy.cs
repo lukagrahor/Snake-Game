@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class TestEnemy : MonoBehaviour, IFrontTriggerHandler, ISpawnableObject, IEnemy
-{
+public class TestEnemy : Enemy, IFrontTriggerHandler, ISpawnableObject
+{ 
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     enum Directions
     {
@@ -17,9 +17,9 @@ public class TestEnemy : MonoBehaviour, IFrontTriggerHandler, ISpawnableObject, 
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void Setup(int col, int row, int gridSize)
+    public override void Setup(int col, int row, int gridSize)
     {
-        Debug.Log($"col: {col}, row: {row}");
+        //Debug.Log($"col: {col}, row: {row}");
         if (row == 0 && col == 0)
         {
             int random = Random.Range(1, 3);
@@ -54,7 +54,7 @@ public class TestEnemy : MonoBehaviour, IFrontTriggerHandler, ISpawnableObject, 
         }
     }
 
-    public void GetHit()
+    protected override void GetHit()
     {
         Destroy(gameObject);
     }

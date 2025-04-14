@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StationaryEnemy : MonoBehaviour, ISpawnableObject, IEnemy, IFrontTriggerHandler
+public class StationaryEnemy : MonoBehaviour, ISpawnableObject, IFrontTriggerHandler
 {
     public void GetHit()
     {

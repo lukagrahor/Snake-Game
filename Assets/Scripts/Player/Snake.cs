@@ -10,29 +10,29 @@ public class Snake : MonoBehaviour
     [SerializeField] SnakeHead snakeHeadPrefab;
     [SerializeField] SnakeTorso snakeTorsoPrefab;
     //[SerializeField] SnakeCorner snakeCornerPrefab;
-    SnakeHead snakeHead;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
 
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] float snakeScale = 0.4f;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
-    [SerializeField][Range(2,6)] int startingSize = 2;
+    [SerializeField][Range(2, 6)] int startingSize = 2;
     Vector3 spawnPosition;
 
     [SerializeField] float waitTime = 3f;
     [SerializeField] CountDownTimer timer;
     ISnakeInput snakeInputManager;
+    public SnakeHead SnakeHead { get; set; }
     void Awake()
     {
         snakeInputManager = CreateInputManager();
         snakeTorsoParts = new List<SnakeTorso>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         spawnPosition = new Vector3(-1f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -2.493592f);
-        snakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
+        SnakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         Vector3 snakeScaleVector = new (snakeScale, snakeScale, snakeScale);
 
-        snakeHead.Setup(moveSpeed, this, snakeScaleVector);
+        SnakeHead.Setup(moveSpeed, this, snakeScaleVector);
         timer.TimeRanOut += Respawn;
 
         SpawnStartingTorsoBlocks();
@@ -55,20 +55,20 @@ public class Snake : MonoBehaviour
     void Respawn()
     {
         snakeTorsoParts = new List<SnakeTorso>();
-        snakeHead.transform.position = spawnPosition;
-        snakeHead.gameObject.SetActive(true);
+        SnakeHead.transform.position = spawnPosition;
+        SnakeHead.gameObject.SetActive(true);
         snakeInputManager.OnSnakeRespawn();
         SpawnStartingTorsoBlocks();
     }
 
     public float GetSnakeYRotation()
     {
-        return snakeHead.GetRotation();
+        return SnakeHead.GetRotation();
     }
 
     public void SetNextYRotation(float turnRotation)
     {
-        snakeHead.AddToRotationBuffer(turnRotation);
+        SnakeHead.AddToRotationBuffer(turnRotation);
     }
 
     /**
@@ -77,12 +77,12 @@ public class Snake : MonoBehaviour
      * **/
     public float GetNextHeadRotation()
     {
-        if (snakeHead == null)
+        if (SnakeHead == null)
         {
             return -2f;
         }
-        float currentRotation = snakeHead.GetRotation();
-        float nextRotation = currentRotation + snakeHead.GetNextRotation();
+        float currentRotation = SnakeHead.GetRotation();
+        float nextRotation = currentRotation + SnakeHead.GetNextRotation();
         nextRotation = GetAbsoluteRotation(nextRotation);
 
         return nextRotation;
@@ -97,7 +97,7 @@ public class Snake : MonoBehaviour
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
             torso.AddToRotationBuffer(nextTorsoRotation);
-            torso.AddToPositionBuffer(snakeHead.transform.position);
+            torso.AddToPositionBuffer(SnakeHead.transform.position);
         }
     }
 
@@ -107,7 +107,7 @@ public class Snake : MonoBehaviour
         ISnakePart previousPart;
         if (snakeTorsoParts.Count == 0)
         {
-             previousPart = snakeHead;
+             previousPart = SnakeHead;
         }
         else
         {
@@ -145,7 +145,7 @@ public class Snake : MonoBehaviour
 
     public void GetHit()
     {
-        snakeHead.gameObject.SetActive(false);
+        SnakeHead.gameObject.SetActive(false);
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
             Destroy(torso.gameObject);
@@ -186,6 +186,5 @@ public class Snake : MonoBehaviour
             DesktopInputManager desktopInput = new(this);
             return desktopInput;
         }
-        
     }
 }

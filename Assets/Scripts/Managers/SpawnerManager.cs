@@ -6,6 +6,7 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] FoodSpawner foodSpawner;
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] StationaryEnemySpawner stationaryEnemySpawner;
+    [SerializeField] EnemySpawner chaseEnemySpawner;
     void Start()
     {
         ManageFirstSpawns();
@@ -20,6 +21,8 @@ public class SpawnerManager : MonoBehaviour
         newBlocks = enemySpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
         newBlocks = stationaryEnemySpawner.FirstSpawn(occupiedBlocks);
+        occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+        newBlocks = chaseEnemySpawner.FirstSpawn(occupiedBlocks);
     }
 
     LinkedList<GridObject> AddBlocks(LinkedList<GridObject> occupiedBlocks, LinkedList<GridObject> newBlocks)
