@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class BaseEnemySpawner<T> : ObjectSpawner where T : Enemy
 {
-    protected T enemyPrefab;
+    [SerializeField] protected T enemyPrefab;
     protected T enemy;
 
     protected abstract void SetupEnemy(T enemy, GridObject selectedBlock);

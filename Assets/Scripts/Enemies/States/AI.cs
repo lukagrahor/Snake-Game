@@ -10,8 +10,6 @@ public class AI : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Hueh?");
-        player = GameObject.FindWithTag("player").transform;
         Debug.Log("player");
         Debug.Log(player);
         if (player == null)

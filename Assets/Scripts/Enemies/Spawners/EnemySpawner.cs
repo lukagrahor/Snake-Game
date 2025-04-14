@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemySpawner : BaseEnemySpawner<Enemy>
 {
+    /*
     [SerializeField] Enemy enemyPrefab;
     // al nrdi da je generic al pa da je interface
-    protected Enemy enemy;
+    protected Enemy enemy;*/
 
     protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
     {
