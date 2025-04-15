@@ -7,6 +7,6 @@ public class AIEnemySpawner : BaseEnemySpawner<ChaseEnemy>
         enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
         Debug.Log("tle je player");
         Debug.Log(snake);
-        enemy.SetupAI(snake);
+        enemy.SetupAI(snake, grid);
     }
 }

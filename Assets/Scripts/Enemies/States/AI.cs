@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class AI : MonoBehaviour
 {
     StateMachine stateMachine;
-    Transform player;
+    SnakeHead player;
+    ArenaGrid grid;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class AI : MonoBehaviour
             return;
         }
         Debug.Log("naštimej state machine");
-        stateMachine = new StateMachine(this.gameObject, player);
+        stateMachine = new StateMachine(this.gameObject, player, grid);
         stateMachine.Intialize(stateMachine.idleState);
     }
 
@@ -29,6 +30,11 @@ public class AI : MonoBehaviour
 
     public void SetPlayer(Snake player)
     {
-        this.player = player.transform;
+        this.player = player.SnakeHead;
+    }
+
+    public void SetGrid(ArenaGrid grid)
+    {
+        this.grid = grid;
     }
 }

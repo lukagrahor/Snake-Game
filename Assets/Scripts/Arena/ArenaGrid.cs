@@ -54,4 +54,31 @@ public class ArenaGrid : MonoBehaviour
     {
         return size;
     }
+
+    public List<GridObject> GetNeighbours(GridObject gObject)
+    {
+        List<GridObject> neighbours = new List<GridObject>();
+        int col = gObject.Col;
+        int row = gObject.Row;
+        for (int i = -1; i < 2; i++)
+        {
+            if (i == 0) continue;
+            for (int j = -1; j < 2; j++)
+            {
+                if (j == 0) continue;
+
+                int newCol = gObject.Col;
+                int newRow = gObject.Row;
+
+                // èe je izven dosega arene
+                if (newCol < 0 || newCol >= size || newCol < 0 || newRow >= size) continue;
+
+                GridObject neighbour = gridObjects[col + i, row + j];
+                neighbours.Add(neighbour);
+                Debug.Log("Lepo je biti sosed: " + neighbour.name);
+            }
+        }
+        
+        return neighbours;
+    }
 }

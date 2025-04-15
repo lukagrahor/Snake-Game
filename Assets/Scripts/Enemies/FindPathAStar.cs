@@ -12,17 +12,13 @@ public class PathMarker
     public float G;
     public float H;
     public float F;
-    public GameObject marker;
-    public PathMarker parent;
 
-    public PathMarker(GridObject locationBlock, float g, float h, float f, GameObject marker, PathMarker parent)
+    public PathMarker(GridObject locationBlock, float g, float h, float f)
     {
         this.locationBlock = locationBlock;
         G = g;
         H = h;
         F = f;
-        this.marker = marker;
-        this.parent = parent;
     }
 
     /// <summary>
@@ -42,8 +38,52 @@ public class PathMarker
         return 0;
     }
 }
+public class FindPathAStar
+{
+    private ArenaGrid grid;
+    public FindPathAStar(ArenaGrid grid)
+    {
+        this.grid = grid;
+    }
 
-public class FindPathAStar : MonoBehaviour
+    public List<Vector3> FindPath(GridObject startBlock, GridObject endBlock)
+    {
+        PathMarker start = new PathMarker(startBlock, 0, 0, 0);
+        PathMarker goal = new PathMarker(endBlock, 0, 0, 0);
+
+        List<PathMarker> open = new List<PathMarker>();
+        List<PathMarker> closed = new List<PathMarker>();
+
+        while (open.Count > 0)
+        {
+            open.Sort((a, b) => a.F.CompareTo(b.F));
+            PathMarker selectedMarker = open[0];
+
+            if (selectedMarker.Equals(goal))
+            {
+                return ReconstructPath(selectedMarker);
+            }
+
+            open.Remove(selectedMarker);
+            closed.Add(selectedMarker);
+
+            List<GridObject> neighbours = grid.GetNeighbours(selectedMarker.locationBlock);
+            // dobi vse sosede izbrane kocke, ustvari njihove path markerje, izraèunaj njihove vrednosti in jih dodaj v open
+            // dodaj logiko v ChaseEnemy ki ti dobi nextBlock kukr v snakeHead!!! rabm za zaèetno lokacijo
+        }
+        return new List<Vector3>();
+    }
+
+    private List<Vector3> ReconstructPath(PathMarker end)
+    {
+        return new List<Vector3>();
+    }
+}
+
+
+
+/*
+public class FindPathAStar
 {
     [SerializeField] Snake player;
     [SerializeField] Enemy enemy;
@@ -77,42 +117,6 @@ public class FindPathAStar : MonoBehaviour
         }
     }
 
-    void BeginSearch()
-    {
-        done = false;
-        RemoveAllMArkers();
-
-        List<GridObject> locations = new List<GridObject>();
-        /* dobi zaèetne lokcaije */
-        foreach (GridObject gridObject in grid.GetGridObjects())
-        {
-            if (!gridObject.IsOccupied || gridObject.IsOccupiedBySnakeHead)
-            {
-                locations.Add(gridObject);
-            }
-        }
-
-        /* Ker lokacije premešamo lahko vzamemo prvo kot zaèetek */
-        /* pozicije moramo skalirat na podlagi skale labirinta */
-        //ShuffleList(locations);
-        //GridObject enemyPositionBlock = 
-        Vector3 startLocation = enemy.transform.position;
-        // rabim grid kocko na kateri stoji nasprotnik
-        //startNode = new PathMarker(new MapLocation(locations[0].x, locations[0].z), 0, 0, 0, Instantiate(start, startLocation, Quaternion.identity), null);
-
-        /* drugaa lokacija pa naj bo cilj */
-        GridObject playerPositionBlock = player.SnakeHead.GetNextBlock();
-        Vector3 goalLocation = playerPositionBlock.transform.position;
-        
-        goalNode = new PathMarker(playerPositionBlock, 0, 0, 0, Instantiate(end, goalLocation, Quaternion.identity), null);
-
-        open.Clear();
-        closed.Clear();
-
-        open.Add(startNode);
-        lastPos = startNode;
-    }
-
     void Search(PathMarker thisNode)
     {
         if (thisNode == null) {
@@ -121,12 +125,12 @@ public class FindPathAStar : MonoBehaviour
         }
         if (thisNode.Equals(goalNode))
         {
-            /* dosegli smo konec */
+            //dosegli smo konec
             done = true; return;
         }
 
-        /* maze ima to znotraj directions vse možne smeri */
-        /* foreach(MapLocation dir in maze.directions)
+        //maze ima to znotraj directions vse možne smeri
+        //foreach(MapLocation dir in maze.directions)
          {
              MapLocation neighbour = dir + thisNode.location;
              // èe je sosednje polje zid, ga ne upoštevamo
@@ -161,9 +165,9 @@ public class FindPathAStar : MonoBehaviour
          pm.marker.GetComponent<Renderer>().material = closedNodeMaterial;
 
          lastPos = pm;
-        */
+
     }
-    /*
+    //
     public List<GridObject> ShuffleList(List<GridObject> list)
     {
         for (int i = list.Count - 1; i > 0; i--)
@@ -234,7 +238,7 @@ public class FindPathAStar : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -254,4 +258,3 @@ public class FindPathAStar : MonoBehaviour
         }
     }
     */
-}

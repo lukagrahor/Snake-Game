@@ -1,11 +1,5 @@
-using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 public class SnakeHead : MonoBehaviour, ISnakePart
 {
@@ -122,7 +116,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public void Move()
     {
         // Vector3.forward --> local space, transform.forward --> world space
-        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
+        //transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
     }
 
     void SetRotation()

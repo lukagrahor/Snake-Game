@@ -3,15 +3,17 @@ using UnityEngine;
 public class ChaseEnemy : Enemy
 {
     [SerializeField] AI ai;
+    public GridObject NextBlock {get; set;}
 
     public override void Setup(int col, int row, int gridSize)
     {
         Debug.Log("Niè");
     }
 
-    public void SetupAI(Snake player)
+    public void SetupAI(Snake player, ArenaGrid grid)
     {
         ai.SetPlayer(player);
+        ai.SetGrid(grid);
     }
 
     protected override void GetHit()

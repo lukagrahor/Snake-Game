@@ -4,13 +4,16 @@ using UnityEngine.AI;
 public class PursueState : IState
 {
     protected GameObject npc;
-    protected Transform player;
+    protected SnakeHead player;
     protected StateMachine stateMachine;
-    public PursueState(GameObject npc, Transform player, StateMachine stateMachine)
+    FindPathAStar pathfinding;
+
+    public PursueState(GameObject npc, SnakeHead player, StateMachine stateMachine, ArenaGrid grid)
     {
         this.npc = npc;
         this.player = player;
         this.stateMachine = stateMachine;
+        pathfinding = new FindPathAStar(grid);
     }
     public void Enter()
     {
