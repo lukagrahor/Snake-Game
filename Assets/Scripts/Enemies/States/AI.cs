@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
+    [SerializeField] ChaseEnemy npc;
     StateMachine stateMachine;
     SnakeHead player;
     ArenaGrid grid;
-
     void Start()
     {
         Debug.Log("player");
@@ -19,7 +19,7 @@ public class AI : MonoBehaviour
             return;
         }
         Debug.Log("naštimej state machine");
-        stateMachine = new StateMachine(this.gameObject, player, grid);
+        stateMachine = new StateMachine(npc, player, grid);
         stateMachine.Intialize(stateMachine.idleState);
     }
 

@@ -12,10 +12,12 @@ public class PathMarker
     public float G;
     public float H;
     public float F;
+    public PathMarker parent;
 
-    public PathMarker(GridObject locationBlock, float g, float h, float f)
+    public PathMarker(GridObject locationBlock, PathMarker parent, float g, float h, float f)
     {
         this.locationBlock = locationBlock;
+        this.parent = parent;
         G = g;
         H = h;
         F = f;
@@ -31,7 +33,13 @@ public class PathMarker
         if ((obj == null) || !this.GetType().Equals(obj.GetType()))
             return false;
         else
-            return locationBlock.Equals(((PathMarker)obj).locationBlock);
+        {
+            Debug.Log("locationBlock.name");
+            Debug.Log(locationBlock.name);
+            Debug.Log("obj name");
+            Debug.Log(((PathMarker)obj).locationBlock.name);
+            return locationBlock.name == ((PathMarker)obj).locationBlock.name;
+        }
     }
     public override int GetHashCode()
     {
@@ -48,11 +56,17 @@ public class FindPathAStar
 
     public List<Vector3> FindPath(GridObject startBlock, GridObject endBlock)
     {
-        PathMarker start = new PathMarker(startBlock, 0, 0, 0);
-        PathMarker goal = new PathMarker(endBlock, 0, 0, 0);
+        PathMarker start = new PathMarker(startBlock, null, 0, 0, 0);
+        PathMarker goal = new PathMarker(endBlock, null, 0, 0, 0);
 
         List<PathMarker> open = new List<PathMarker>();
         List<PathMarker> closed = new List<PathMarker>();
+        open.Add(start);
+        Debug.Log("Gorazd");
+        Debug.Log("start");
+        Debug.Log(start.locationBlock.name);
+        Debug.Log("goal");
+        Debug.Log(goal);
 
         while (open.Count > 0)
         {
@@ -69,14 +83,40 @@ public class FindPathAStar
 
             List<GridObject> neighbours = grid.GetNeighbours(selectedMarker.locationBlock);
             // dobi vse sosede izbrane kocke, ustvari njihove path markerje, izraèunaj njihove vrednosti in jih dodaj v open
-            // dodaj logiko v ChaseEnemy ki ti dobi nextBlock kukr v snakeHead!!! rabm za zaèetno lokacijo
+            foreach(GridObject neighbour in neighbours)
+            {
+                if (neighbour.IsOccupied && !neighbour.IsOccupiedBySnakeHead) continue;
+                if (closed.Exists(x => x.locationBlock == neighbour)) continue;
+
+                float g = selectedMarker.G + Vector3.Distance(selectedMarker.locationBlock.transform.position, neighbour.transform.position);
+                float h = Vector3.Distance(neighbour.transform.position, endBlock.transform.position);
+                float f = g + h;
+
+                PathMarker existing = open.Find(x => x.locationBlock == neighbour);
+                if (existing == null)
+                {
+                    open.Add(new PathMarker(neighbour, selectedMarker, g, h, f));
+                }
+                else if (g < existing.G)
+                {
+                    existing.G = g;
+                    existing.F = f;
+                }
+            }
         }
         return new List<Vector3>();
     }
 
     private List<Vector3> ReconstructPath(PathMarker end)
     {
-        return new List<Vector3>();
+        List<Vector3> path = new();
+        PathMarker current = end;
+        while (current != null)
+        {
+            path.Insert(0, current.locationBlock.transform.position);
+            current = current.parent;
+        }
+        return path;
     }
 }
 

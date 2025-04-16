@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExitTriggerHandler
+public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExitTriggerHandler, IChaseEnemytrigger
 {
     bool isOccupied = false;
     bool isOccupiedBySnakeHead = false;
@@ -18,6 +18,13 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
         //Debug.Log($"Enter: {gameObject.name} {transform.position}");
         snakeHead.SetNextBlock(this);
         isOccupiedBySnakeHead = true;
+        Debug.Log("Kaèa");
+    }
+
+    public void HandleChaseEnemyTrigger(ChaseEnemy enemy)
+    {
+        enemy.NextBlock = this;
+        Debug.Log("Nasprotnik");
     }
 
     public void HandleSnakeheadTriggerExit(SnakeHead snakeHead)

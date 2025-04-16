@@ -459,7 +459,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.7812023
+  orthographic size: 5.5157976
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -780,7 +780,7 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
-  snakeScale: 0.19
+  snakeScale: 0.18
   moveSpeed: 2.1
   startingSize: 2
   waitTime: 3
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   snake: {fileID: 545034464}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
-  objectScale: 0.19
+  objectScale: 0.18
   foodPrefab: {fileID: 1568400605195760424, guid: c0d7d85318958db46925a1623261b5d2, type: 3}
 --- !u!1 &1559724428
 GameObject:

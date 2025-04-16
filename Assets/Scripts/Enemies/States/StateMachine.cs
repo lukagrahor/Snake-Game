@@ -10,11 +10,11 @@ public class StateMachine
     public IdleState idleState;
     public PursueState pursueState;
 
-    protected GameObject npc;
+    protected ChaseEnemy npc;
     protected SnakeHead player;
     protected ArenaGrid grid;
 
-    public StateMachine(GameObject npc, SnakeHead player, ArenaGrid grid)
+    public StateMachine(ChaseEnemy npc, SnakeHead player, ArenaGrid grid)
     {
         this.idleState = new IdleState(npc, player, this);
         this.pursueState = new PursueState(npc, player, this, grid);

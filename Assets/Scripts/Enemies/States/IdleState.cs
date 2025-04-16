@@ -3,12 +3,12 @@ using UnityEngine.AI;
 
 public class IdleState : IState
 {
-    protected GameObject npc;
+    protected ChaseEnemy npc;
     protected SnakeHead player;
     protected StateMachine stateMachine;
     CountDown timer;
-    float waitTime = 3.0f;
-    public IdleState(GameObject npc, SnakeHead player, StateMachine stateMachine)
+    float waitTime = 1.0f;
+    public IdleState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine)
     {
         this.npc = npc;
         this.player = player;

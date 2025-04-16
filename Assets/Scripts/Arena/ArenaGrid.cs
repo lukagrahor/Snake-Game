@@ -62,18 +62,17 @@ public class ArenaGrid : MonoBehaviour
         int row = gObject.Row;
         for (int i = -1; i < 2; i++)
         {
-            if (i == 0) continue;
             for (int j = -1; j < 2; j++)
             {
-                if (j == 0) continue;
+                if ((i == 0 && j == 0) || (i == -1 && j == -1) || (i == 1 && j == 1) || (i == 1 && j == -1) || (i == -1 && j == 1)) continue;
 
-                int newCol = gObject.Col;
-                int newRow = gObject.Row;
+                int newCol = gObject.Col + j;
+                int newRow = gObject.Row + i;
 
                 // èe je izven dosega arene
-                if (newCol < 0 || newCol >= size || newCol < 0 || newRow >= size) continue;
+                if (newCol < 0 || newCol >= size || newRow < 0 || newRow >= size) continue;
 
-                GridObject neighbour = gridObjects[col + i, row + j];
+                GridObject neighbour = gridObjects[newCol, newRow];
                 neighbours.Add(neighbour);
                 Debug.Log("Lepo je biti sosed: " + neighbour.name);
             }

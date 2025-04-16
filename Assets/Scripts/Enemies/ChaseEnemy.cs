@@ -10,6 +10,11 @@ public class ChaseEnemy : Enemy
         Debug.Log("Niè");
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        other.GetComponent<IChaseEnemytrigger>()?.HandleChaseEnemyTrigger(this);
+    }
+
     public void SetupAI(Snake player, ArenaGrid grid)
     {
         ai.SetPlayer(player);
