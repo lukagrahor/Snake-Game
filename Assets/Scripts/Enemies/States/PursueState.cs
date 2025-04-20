@@ -26,7 +26,13 @@ public class PursueState : IState
     {
         Debug.Log("Pursue");
         CalculatePath();
-
+        Debug.Log("npc.transform.forward1: " + npc.transform.forward);
+        Vector3 targetPos = new Vector3 (path[1].x, 0f, path[1].z);
+        Vector3 npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
+        Vector3 dir = (targetPos - npcPos).normalized;
+        Debug.Log("dir1: " + dir);
+        Debug.Log("dir1 npc.transform.right: " + npc.transform.right);
+        Debug.Log("dir1 dot product: " + Vector3.Dot(npc.transform.right, dir));
     }
     public void Update()
     {
@@ -36,13 +42,17 @@ public class PursueState : IState
 
         Vector3 dir = (targetPos - npc.transform.position).normalized;
         Debug.Log("targetPos: " + targetPos);
-        Debug.Log("npc.transform.position: " + npc.transform.position);
+        Debug.Log("npc.transform.forward: " + npc.transform.forward);
         Debug.Log("dir: " + dir);
-        npc.transform.position += speed * Time.deltaTime * dir;
+        npc.transform.Translate(speed * Time.deltaTime * Vector3.forward);
 
         if (Vector3.Distance(new Vector3(npc.transform.position.x, 0f, npc.transform.position.z), new Vector3(targetPos.x, 0f, targetPos.z)) < 0.1f)
         {
             // rotiraj v pravo smer
+
+            float rotationAngle = Vector3.Angle(npc.transform.forward, dir);
+            Debug.Log("Smer: " + rotationAngle);
+            npc.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
             npc.transform.position = targetPos;
             pathIndex++;
         }
