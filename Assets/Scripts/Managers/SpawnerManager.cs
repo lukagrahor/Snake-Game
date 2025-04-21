@@ -7,6 +7,7 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] StationaryEnemySpawner stationaryEnemySpawner;
     [SerializeField] AIEnemySpawner chaseEnemySpawner;
+    [SerializeField] PathSpawner pathSpawner;
     void Start()
     {
         ManageFirstSpawns();

@@ -62,11 +62,8 @@ public class FindPathAStar
         List<PathMarker> open = new List<PathMarker>();
         List<PathMarker> closed = new List<PathMarker>();
         open.Add(start);
-        Debug.Log("Gorazd");
-        Debug.Log("start");
+        Debug.Log("start pathfinding");
         Debug.Log(start.locationBlock.name);
-        Debug.Log("goal");
-        Debug.Log(goal);
 
         while (open.Count > 0)
         {
@@ -113,6 +110,7 @@ public class FindPathAStar
         PathMarker current = end;
         while (current != null)
         {
+            Debug.Log("Del poti: " + current.locationBlock.name);
             path.Insert(0, current.locationBlock.transform.position);
             current = current.parent;
         }

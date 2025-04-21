@@ -4,6 +4,7 @@ public class ChaseEnemy : Enemy
 {
     [SerializeField] AI ai;
     public GridObject NextBlock {get; set;}
+    public PathSpawner PathSpawner {get; set;}
 
     public override void Setup(int col, int row, int gridSize)
     {

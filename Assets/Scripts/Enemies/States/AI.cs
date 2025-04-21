@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class AI : MonoBehaviour
 {
     [SerializeField] ChaseEnemy npc;
+    [SerializeField] PathSpawner pathSpawner;
     StateMachine stateMachine;
     SnakeHead player;
     ArenaGrid grid;
@@ -19,7 +20,8 @@ public class AI : MonoBehaviour
             return;
         }
         Debug.Log("naštimej state machine");
-        stateMachine = new StateMachine(npc, player, grid);
+        pathSpawner.transform.parent = null;
+        stateMachine = new StateMachine(npc, player, grid, pathSpawner);
         stateMachine.Intialize(stateMachine.idleState);
     }
 

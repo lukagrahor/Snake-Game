@@ -14,10 +14,10 @@ public class StateMachine
     protected SnakeHead player;
     protected ArenaGrid grid;
 
-    public StateMachine(ChaseEnemy npc, SnakeHead player, ArenaGrid grid)
+    public StateMachine(ChaseEnemy npc, SnakeHead player, ArenaGrid grid, PathSpawner pathSpawner)
     {
         this.idleState = new IdleState(npc, player, this);
-        this.pursueState = new PursueState(npc, player, this, grid);
+        this.pursueState = new PursueState(npc, player, this, grid, pathSpawner);
 
         this.npc = npc;
         this.player = player;
