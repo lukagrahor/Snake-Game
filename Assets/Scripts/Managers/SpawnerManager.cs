@@ -21,8 +21,10 @@ public class SpawnerManager : MonoBehaviour
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
         newBlocks = enemySpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+        Debug.Log("Occupied 1: " + occupiedBlocks.Count);
         newBlocks = stationaryEnemySpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+        Debug.Log("Occupied 2: " + occupiedBlocks.Count);
         newBlocks = chaseEnemySpawner.FirstSpawn(occupiedBlocks);
     }
 

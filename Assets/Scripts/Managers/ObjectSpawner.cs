@@ -26,6 +26,8 @@ public abstract class ObjectSpawner : MonoBehaviour
             Debug.Log("objekt: " + gO.name);
         }
         */
+        Debug.Log("gridObjectIndex: " + gridObjectIndex);
+        Debug.Log("gridObjectCount: " + emptyGridObjects.Count);
         GridObject gridObject = emptyGridObjects.ElementAt(gridObjectIndex); // tle uèasih gre out of range --> prazn emptyGridObjects
         return gridObject;
     }
@@ -160,7 +162,7 @@ public abstract class ObjectSpawner : MonoBehaviour
     {
         // the grid block and snake don't have the same y-axis
         snakeSpawnPosition = new Vector3(snakeSpawnPosition.x, arenaBlock.GetBlockSize(), snakeSpawnPosition.z);
-        LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
+        LinkedList<GridObject> emptyGridObjects = new();
         foreach (GridObject obj in gridObjects)
         {
             if (obj.transform.position != snakeSpawnPosition)
