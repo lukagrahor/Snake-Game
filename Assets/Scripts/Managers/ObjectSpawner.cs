@@ -25,9 +25,10 @@ public abstract class ObjectSpawner : MonoBehaviour
         {
             Debug.Log("objekt: " + gO.name);
         }
-        */
+
         Debug.Log("gridObjectIndex: " + gridObjectIndex);
         Debug.Log("gridObjectCount: " + emptyGridObjects.Count);
+        */
         GridObject gridObject = emptyGridObjects.ElementAt(gridObjectIndex); // tle uèasih gre out of range --> prazn emptyGridObjects
         return gridObject;
     }

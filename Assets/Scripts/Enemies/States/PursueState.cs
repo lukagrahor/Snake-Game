@@ -15,9 +15,9 @@ public class PursueState : IState
     FindPathAStar pathfinder;
     List<Vector3> path;
     int pathIndex;
-    private float repathCooldown = 0.5f;
+    private float repathCooldown = 1.5f;
     private float repathTimer = 0f;
-    private float rotationSpeed = 360f;
+    private float rotationSpeed = 400f;
 
     Vector3 targetPos = Vector3.zero;
     Vector3 npcPos = Vector3.zero;
@@ -38,7 +38,6 @@ public class PursueState : IState
     public void Enter()
     {
         CalculatePath();
-        pathSpawner.SpawnMarkers(path);
 
         npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
         targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
@@ -51,12 +50,25 @@ public class PursueState : IState
     public void Update()
     {
         if (path == null || path.Count == 0 || pathIndex >= path.Count) return;
+        repathTimer += Time.deltaTime;
         if (isRotating)
         {
             Rotate();
         }
         else
         {
+            if (repathTimer >= repathCooldown)
+            {
+                CalculatePath();
+                if (path.Count > 0)
+                {
+                    targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+                    targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+                    isRotating = true;
+                }
+                return;
+            }
+
             npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
             float distance = Vector3.Distance(npcPos, targetPos);
             Vector3 moveDirection = (targetPos - npcPos).normalized;
@@ -66,7 +78,7 @@ public class PursueState : IState
                 //Debug.Log("dot Sm blizi:" + distance);
                 //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
                 pathIndex++;
-
+                if (pathIndex >= path.Count) return;
                 targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
                 npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
                 moveDirection = Vector3.Normalize(targetPos - npcPos);
@@ -147,7 +159,9 @@ public class PursueState : IState
     void CalculatePath()
     {
         path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
+        //pathSpawner.SpawnMarkers(path);
         pathIndex = 1;
+        repathTimer = 0;
     }
 
     public void Exit()

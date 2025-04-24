@@ -116,7 +116,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public void Move()
     {
         // Vector3.forward --> local space, transform.forward --> world space
-        //transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
     }
 
     void SetRotation()

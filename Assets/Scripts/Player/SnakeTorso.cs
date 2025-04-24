@@ -81,7 +81,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, ITest
 
     public void Move()
     {
-        /*
         CheckForTurn();
   
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
@@ -90,7 +89,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, ITest
         {
             FixGaps();
         }
-        */
     }
 
     public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector)

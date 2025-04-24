@@ -11,12 +11,9 @@ public abstract class BaseEnemySpawner<T> : ObjectSpawner where T : Enemy
     public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
     {
         GridObject[,] gridObjects = GetEdgeBlocks();
-        Debug.Log("gridObjects count 1: " + gridObjects.Length);
         LinkedList<GridObject> emptyGridObjects = RemoveOccupiedBlocks(gridObjects, occupiedBlocks);
-        Debug.Log("gridObjects count 2: " + emptyGridObjects.Count);
         Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
         LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, emptyGridObjects);
-        Debug.Log("gridObjects count 3: " + gridObjectsWithoutSpawnPoint.Count);
         GridObject selectedBlock = PickARandomBlock(gridObjectsWithoutSpawnPoint);
         Vector3 enemyPosition = GenerateObjectPosition(selectedBlock);
 
