@@ -34,10 +34,10 @@ public class PathMarker
             return false;
         else
         {
-            Debug.Log("locationBlock.name");
+            /*Debug.Log("locationBlock.name");
             Debug.Log(locationBlock.name);
             Debug.Log("obj name");
-            Debug.Log(((PathMarker)obj).locationBlock.name);
+            Debug.Log(((PathMarker)obj).locationBlock.name);*/
             return locationBlock.name == ((PathMarker)obj).locationBlock.name;
         }
     }
@@ -62,8 +62,8 @@ public class FindPathAStar
         List<PathMarker> open = new List<PathMarker>();
         List<PathMarker> closed = new List<PathMarker>();
         open.Add(start);
-        Debug.Log("start pathfinding");
-        Debug.Log(start.locationBlock.name);
+        //Debug.Log("start pathfinding");
+        //Debug.Log(start.locationBlock.name);
 
         while (open.Count > 0)
         {
@@ -110,7 +110,7 @@ public class FindPathAStar
         PathMarker current = end;
         while (current != null)
         {
-            Debug.Log("Del poti: " + current.locationBlock.name);
+            //Debug.Log("Del poti: " + current.locationBlock.name);
             path.Insert(0, current.locationBlock.transform.position);
             current = current.parent;
         }

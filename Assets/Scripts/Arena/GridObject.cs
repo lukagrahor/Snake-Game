@@ -18,13 +18,13 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
         //Debug.Log($"Enter: {gameObject.name} {transform.position}");
         snakeHead.SetNextBlock(this);
         isOccupiedBySnakeHead = true;
-        Debug.Log("Kaèa");
+        //Debug.Log("Kaèa");
     }
 
     public void HandleChaseEnemyTrigger(ChaseEnemy enemy)
     {
         enemy.NextBlock = this;
-        Debug.Log("Nasprotnik");
+        //Debug.Log("Nasprotnik");
     }
 
     public void HandleSnakeheadTriggerExit(SnakeHead snakeHead)

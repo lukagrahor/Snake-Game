@@ -12,14 +12,14 @@ public class AI : MonoBehaviour
     ArenaGrid grid;
     void Start()
     {
-        Debug.Log("player");
-        Debug.Log(player);
+        //Debug.Log("player");
+        //Debug.Log(player);
         if (player == null)
         {
             Debug.Log("Ne najdem glave!");
             return;
         }
-        Debug.Log("naštimej state machine");
+        //Debug.Log("naštimej state machine");
         pathSpawner.transform.parent = null;
         stateMachine = new StateMachine(npc, player, grid, pathSpawner);
         stateMachine.Intialize(stateMachine.idleState);
