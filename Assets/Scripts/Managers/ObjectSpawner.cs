@@ -76,8 +76,8 @@ public abstract class ObjectSpawner : MonoBehaviour
             if (!isOccupied)
             {
                 emptyBlocks.AddLast(obj);
-                isOccupied = false;
             }
+            isOccupied = false;
         }
         return emptyBlocks;
     }
