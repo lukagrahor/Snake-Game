@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class PursueState : IState
 {
@@ -26,6 +27,7 @@ public class PursueState : IState
     float speed = 0.7f;
     private float rotationThreshold = 5f;
     Quaternion targetRotation = Quaternion.identity;
+    private bool pathExpired = false;
 
     public PursueState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
     {
@@ -37,6 +39,7 @@ public class PursueState : IState
     }
     public void Enter()
     {
+        /*
         CalculatePath();
 
         npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
@@ -46,12 +49,17 @@ public class PursueState : IState
         npc.transform.rotation = targetRotation;
         //Debug.Log("dot npc.transform.forward: " + npc.transform.forward);
         isRotating = false;
+        */
+        CalculatePath();
+        targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
     }
     public void Update()
     {
-        if (path == null || path.Count == 0) return;
-
-        if (pathIndex >= path.Count) CalculatePath();
+        if (pathIndex >= path.Count || path == null || path.Count == 0)
+        {
+            CalculatePath();
+            repathTimer = 0f;
+        }
 
         repathTimer += Time.deltaTime;
         if (isRotating)
@@ -60,9 +68,9 @@ public class PursueState : IState
         }
         else
         {
-            if (repathTimer >= repathCooldown)
+            if (repathTimer >= repathCooldown && pathExpired)
             {
-                CalculatePath(); // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
+                CalculatePath(); 
                 if (path.Count > 0)
                 {
                     targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
@@ -71,14 +79,16 @@ public class PursueState : IState
                 }
                 return;
             }
-
+            pathExpired = false;
             npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
             float distance = Vector3.Distance(npcPos, targetPos);
             Vector3 moveDirection = (targetPos - npcPos).normalized;
             float dotProduct = Vector3.Dot(npc.transform.forward, moveDirection);
+            Debug.Log("distance:" + distance);
+            Debug.Log("dotProduct:" + dotProduct);
             if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
             {
-                //Debug.Log("dot Sm blizi:" + distance);
+                Debug.Log("pathIndex:" + pathIndex);
                 //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
                 pathIndex++;
                 if (pathIndex >= path.Count) return;
@@ -86,9 +96,16 @@ public class PursueState : IState
                 npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
                 moveDirection = Vector3.Normalize(targetPos - npcPos);
 
-                targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-                if(targetRotation != npc.transform.rotation) isRotating = true;
-                if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].x, npc.transform.position.y, path[pathIndex - 1].z);
+                if (repathTimer >= repathCooldown)
+                {
+                    pathExpired = true;
+                }
+                else
+                {
+                    targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+                    if (targetRotation != npc.transform.rotation) isRotating = true;
+                    if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].x, npc.transform.position.y, path[pathIndex - 1].z);
+                }
             }
             Move();
         }
@@ -161,9 +178,11 @@ public class PursueState : IState
 
     void CalculatePath()
     {
+        // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
+        // upošteva se, da je že na zaèetki poti, lahko se pa zgodi, da ni
         path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
         pathSpawner.SpawnMarkers(path);
-        pathIndex = 1;
+        pathIndex = 0;
         repathTimer = 0;
     }
 
