@@ -54,7 +54,7 @@ public class FindPathAStar
         this.grid = grid;
     }
 
-    public List<Vector3> FindPath(GridObject startBlock, GridObject endBlock)
+    public async Awaitable<List<Vector3>> FindPath(GridObject startBlock, GridObject endBlock)
     {
         PathMarker start = new PathMarker(startBlock, null, 0, 0, 0);
         PathMarker goal = new PathMarker(endBlock, null, 0, 0, 0);
@@ -100,6 +100,8 @@ public class FindPathAStar
                     existing.F = f;
                 }
             }
+            // vsako toèko predela v enem frame-u
+            await Awaitable.NextFrameAsync();
         }
         return new List<Vector3>();
     }

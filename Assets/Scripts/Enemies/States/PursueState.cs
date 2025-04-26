@@ -26,6 +26,7 @@ public class PursueState : IState
     float speed = 0.7f;
     private float rotationThreshold = 5f;
     Quaternion targetRotation = Quaternion.identity;
+    private Awaitable<List<Vector3>> pathfindingTask;
 
     public PursueState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
     {
@@ -37,16 +38,35 @@ public class PursueState : IState
     }
     public void Enter()
     {
-        CalculatePath();
+        PrepareFirstPath();
+    }
+
+    async void PrepareFirstPath()
+    {
+        //path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
+        pathfindingTask = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
+        path = await pathfindingTask;
+        //pathSpawner.SpawnMarkers(path);
+
+        if (path.Count > 0 && path != null)
+        {
+            pathIndex = 1;
+            targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+            targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+            isRotating = true;
+        }
 
         npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
+        Debug.Log("npcPos: " + npcPos);
         targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+        Debug.Log("targetPos: " + targetPos);
 
         targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
         npc.transform.rotation = targetRotation;
         //Debug.Log("dot npc.transform.forward: " + npc.transform.forward);
         isRotating = false;
     }
+
     public void Update()
     {
         if (path == null || path.Count == 0 || pathIndex >= path.Count) return;
@@ -59,14 +79,9 @@ public class PursueState : IState
         {
             if (repathTimer >= repathCooldown)
             {
+                repathTimer = 0;
                 CalculatePath();
-                if (path.Count > 0)
-                {
-                    targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
-                    targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-                    isRotating = true;
-                }
-                return;
+                //return;
             }
 
             npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
@@ -156,12 +171,20 @@ public class PursueState : IState
         return newTargetRotation;
     }
 
-    void CalculatePath()
+    async void CalculatePath()
     {
-        path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
+        //path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
+        pathfindingTask = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
+        path = await pathfindingTask;
         //pathSpawner.SpawnMarkers(path);
-        pathIndex = 1;
-        repathTimer = 0;
+
+        if (path.Count > 0 && path != null)
+        {
+            pathIndex = 1;
+            targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+            targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+            isRotating = true;
+        }
     }
 
     public void Exit()
