@@ -1,0 +1,2 @@
+C:\Users\Zoran\Desktop\Snake-Game\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\Zoran\Desktop\Snake-Game\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

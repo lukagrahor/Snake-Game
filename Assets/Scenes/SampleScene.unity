@@ -459,7 +459,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9.116325
+  orthographic size: 4.6075153
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -781,7 +781,7 @@ MonoBehaviour:
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   snakeScale: 0.18
-  moveSpeed: 0.5
+  moveSpeed: 0.7
   startingSize: 2
   waitTime: 3
   timer: {fileID: 1903296500}
