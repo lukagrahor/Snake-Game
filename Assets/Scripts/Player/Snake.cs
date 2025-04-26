@@ -50,7 +50,7 @@ public class Snake : MonoBehaviour
     void Start()
     {
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = -1;
     }
 
     void Respawn()

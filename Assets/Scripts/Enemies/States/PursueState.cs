@@ -81,7 +81,7 @@ public class PursueState : IState
             {
                 repathTimer = 0;
                 CalculatePath();
-                //return;
+                return;
             }
 
             npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
