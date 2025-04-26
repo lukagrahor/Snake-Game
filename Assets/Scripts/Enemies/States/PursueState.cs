@@ -49,7 +49,10 @@ public class PursueState : IState
     }
     public void Update()
     {
-        if (path == null || path.Count == 0 || pathIndex >= path.Count) return;
+        if (path == null || path.Count == 0) return;
+
+        if (pathIndex >= path.Count) CalculatePath();
+
         repathTimer += Time.deltaTime;
         if (isRotating)
         {
@@ -59,7 +62,7 @@ public class PursueState : IState
         {
             if (repathTimer >= repathCooldown)
             {
-                CalculatePath();
+                CalculatePath(); // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
                 if (path.Count > 0)
                 {
                     targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
@@ -159,7 +162,7 @@ public class PursueState : IState
     void CalculatePath()
     {
         path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
-        //pathSpawner.SpawnMarkers(path);
+        pathSpawner.SpawnMarkers(path);
         pathIndex = 1;
         repathTimer = 0;
     }
