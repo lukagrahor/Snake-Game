@@ -7,14 +7,13 @@ public class IdleState : IState
     protected SnakeHead player;
     protected StateMachine stateMachine;
     CountDown timer;
-    float waitTime = 1.0f;
+    public float WaitTime { get; set; }
     public IdleState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine)
     {
         this.npc = npc;
         this.player = player;
         this.stateMachine = stateMachine;
-        timer = new CountDown(waitTime);
-        timer.TimeRanOut += StopWaiting;
+        WaitTime = 1f;
     }
     
     void StopWaiting()
@@ -24,6 +23,9 @@ public class IdleState : IState
 
     public void Enter()
     {
+        Debug.Log("Player Idle");
+        timer = new CountDown(WaitTime);
+        timer.TimeRanOut += StopWaiting;
         timer.Start();
     }
     public void Update()

@@ -23,11 +23,13 @@ public class PursueState : IState
     Vector3 targetPos = Vector3.zero;
     Vector3 npcPos = Vector3.zero;
     Vector3 moveDirection = Vector3.zero;
-    private bool isRotating = false;
+    private bool isRotating;
     float speed = 0.7f;
     private float rotationThreshold = 5f;
     Quaternion targetRotation = Quaternion.identity;
-    private bool pathExpired = false;
+    private bool pathExpired;
+    private bool stopChasing;
+    private float idleWaitTime = 5f;
 
     public PursueState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
     {
@@ -52,6 +54,10 @@ public class PursueState : IState
         */
         CalculatePath();
         targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+        isRotating = false;
+        stopChasing = false;
+        pathExpired = false;
+        PlayerActions.PlayerDeath += PlayerDied;
     }
     public void Update()
     {
@@ -84,17 +90,24 @@ public class PursueState : IState
             float distance = Vector3.Distance(npcPos, targetPos);
             Vector3 moveDirection = (targetPos - npcPos).normalized;
             float dotProduct = Vector3.Dot(npc.transform.forward, moveDirection);
-            Debug.Log("distance:" + distance);
-            Debug.Log("dotProduct:" + dotProduct);
+            //Debug.Log("distance:" + distance);
+            //Debug.Log("dotProduct:" + dotProduct);
             if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
             {
-                Debug.Log("pathIndex:" + pathIndex);
+                Debug.Log("dot pathIndex:" + pathIndex);
                 //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
                 pathIndex++;
                 if (pathIndex >= path.Count) return;
                 targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
                 npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
                 moveDirection = Vector3.Normalize(targetPos - npcPos);
+
+                if (stopChasing)
+                {
+                    Debug.Log("Player go idle");
+                    stateMachine.idleState.WaitTime = idleWaitTime;
+                    stateMachine.TransitionTo(stateMachine.idleState);
+                }
 
                 if (repathTimer >= repathCooldown)
                 {
@@ -117,6 +130,7 @@ public class PursueState : IState
 
         if (Quaternion.Angle(npc.transform.rotation, targetRotation) < rotationThreshold)
         {
+            Debug.Log("targetRotation: " + targetRotation);
             npc.transform.rotation = targetRotation;
             targetRotation = Quaternion.identity;
             //Debug.Log("dot Zarotirano");
@@ -130,6 +144,29 @@ public class PursueState : IState
         npc.transform.Translate(speed * Time.deltaTime * Vector3.forward, Space.Self);
     }
 
+    void PlayerDied()
+    {
+        Debug.Log("Player died");
+        stopChasing = true;
+    }
+
+    Quaternion RotateTowardsNextPoint(Vector3 currentPoint, Vector3 nextPoint)
+    {
+        if (path == null || path.Count <= pathIndex) return Quaternion.identity;
+
+        Vector3 currentForward = npc.transform.forward;
+        currentForward.y = 0f;
+        currentForward.Normalize();
+
+        Vector3 directionToNext = (nextPoint - currentPoint).normalized;
+        directionToNext.y = 0f;
+
+        Quaternion newTargetRotation = Quaternion.LookRotation(directionToNext, Vector3.up);
+
+        return newTargetRotation;
+    }
+
+    /*
     Quaternion RotateTowardsNextPoint(Vector3 currentPoint, Vector3 nextPoint)
     {
         if (path == null || path.Count <= pathIndex) return Quaternion.identity;
@@ -147,12 +184,16 @@ public class PursueState : IState
         //Debug.Log("dot crossProduct: " + crossProduct);
         Quaternion newTargetRotation = npc.transform.rotation;
 
-        if (crossProduct.y > 0.1f) // Next point is to the left (cross product points up)
+        Debug.Log("dot currentForward:" + currentForward);
+        Debug.Log("dot directionToNext:" + directionToNext);
+        Debug.Log("dot crossProduct:" + crossProduct);
+
+        if (crossProduct.y > 0.13f) // Next point is to the left (cross product points up)
         {
             newTargetRotation *= Quaternion.Euler(0f, 90f, 0f);
             isRotating = true;
         }
-        else if (crossProduct.y < -0.1f) // Next point is to the right (cross product points down)
+        else if (crossProduct.y < -0.13f) // Next point is to the right (cross product points down)
         {
             newTargetRotation *= Quaternion.Euler(0f, -90f, 0f);
             isRotating = true;
@@ -166,16 +207,16 @@ public class PursueState : IState
                 isRotating = true;
             }
         }
-        /*
+
         Debug.Log("dot Current Forward: " + currentForward);
         Debug.Log("dot Direction to Next: " + directionToNext);
         Debug.Log("dot Cross Product Y: " + crossProduct.y);
         Debug.Log("dot Angle: " + Vector3.Angle(currentForward, directionToNext));
-        */
+
 
         return newTargetRotation;
     }
-
+    */
     void CalculatePath()
     {
         // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
@@ -189,5 +230,10 @@ public class PursueState : IState
     public void Exit()
     {
 
+    }
+
+    public void HandleSnakeDeath()
+    {
+        throw new System.NotImplementedException();
     }
 }

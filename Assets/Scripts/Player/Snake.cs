@@ -152,6 +152,9 @@ public class Snake : MonoBehaviour
             Destroy(torso.gameObject);
         }
         snakeInputManager.OnSnakeDeath();
+
+        PlayerActions.PlayerDeath();
+
         StartRespawnTimer();
     }
 

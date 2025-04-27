@@ -459,7 +459,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6075153
+  orthographic size: 5.5106015
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -783,7 +783,7 @@ MonoBehaviour:
   snakeScale: 0.18
   moveSpeed: 0.7
   startingSize: 2
-  waitTime: 3
+  waitTime: 5
   timer: {fileID: 1903296500}
 --- !u!1 &587043826
 GameObject:
