@@ -24,7 +24,7 @@ public class PursueState : IState
     Vector3 npcPos = Vector3.zero;
     Vector3 moveDirection = Vector3.zero;
     private bool isRotating;
-    float speed = 0.7f;
+    float speed = 0.9f;
     private float rotationThreshold = 5f;
     Quaternion targetRotation = Quaternion.identity;
     private bool pathExpired;
@@ -83,9 +83,9 @@ public class PursueState : IState
                     targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
                     isRotating = true;
                 }
+                pathExpired = false;
                 return;
             }
-            pathExpired = false;
             npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
             float distance = Vector3.Distance(npcPos, targetPos);
             Vector3 moveDirection = (targetPos - npcPos).normalized;
@@ -94,34 +94,37 @@ public class PursueState : IState
             //Debug.Log("dotProduct:" + dotProduct);
             if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
             {
-                Debug.Log("dot pathIndex:" + pathIndex);
-                //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
-                pathIndex++;
-                if (pathIndex >= path.Count) return;
-                targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
-                npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
-                moveDirection = Vector3.Normalize(targetPos - npcPos);
-
-                if (stopChasing)
-                {
-                    Debug.Log("Player go idle");
-                    stateMachine.idleState.WaitTime = idleWaitTime;
-                    stateMachine.TransitionTo(stateMachine.idleState);
-                }
-
-                if (repathTimer >= repathCooldown)
-                {
-                    pathExpired = true;
-                }
-                else
-                {
-                    targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-                    if (targetRotation != npc.transform.rotation) isRotating = true;
-                    if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].x, npc.transform.position.y, path[pathIndex - 1].z);
-                }
+                SetNextPoint();
             }
             Move();
         }
+    }
+
+    void SetNextPoint()
+    {
+        Debug.Log("dot pathIndex:" + pathIndex);
+        if (stopChasing)
+        {
+            stateMachine.idleState.WaitTime = idleWaitTime;
+            stateMachine.TransitionTo(stateMachine.idleState);
+        }
+        //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
+        pathIndex++;
+        if (pathIndex >= path.Count) return;
+
+        targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+        npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
+        moveDirection = Vector3.Normalize(targetPos - npcPos);
+
+        if (repathTimer >= repathCooldown)
+        {
+            pathExpired = true;
+            return;
+        }
+
+        targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+        if (targetRotation != npc.transform.rotation) isRotating = true;
+        if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].x, npc.transform.position.y, path[pathIndex - 1].z);
     }
 
     void Rotate()
@@ -146,7 +149,6 @@ public class PursueState : IState
 
     void PlayerDied()
     {
-        Debug.Log("Player died");
         stopChasing = true;
     }
 
