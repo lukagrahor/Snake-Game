@@ -54,10 +54,11 @@ public class FindPathAStar
         this.grid = grid;
     }
 
-    public List<Vector3> FindPath(GridObject startBlock, GridObject endBlock)
+    public async Awaitable<List<GridObject>> FindPathAsync(GridObject startBlock, GridObject endBlock)
     {
         PathMarker start = new PathMarker(startBlock, null, 0, 0, 0);
         PathMarker goal = new PathMarker(endBlock, null, 0, 0, 0);
+        Debug.Log("goal: " + goal.locationBlock.name);
 
         List<PathMarker> open = new List<PathMarker>();
         List<PathMarker> closed = new List<PathMarker>();
@@ -100,18 +101,72 @@ public class FindPathAStar
                     existing.F = f;
                 }
             }
+
+            // vsako tocko predela v enem frame-u
+            await Awaitable.NextFrameAsync();
         }
-        return new List<Vector3>();
+        return new List<GridObject>();
     }
 
-    private List<Vector3> ReconstructPath(PathMarker end)
+
+    public List<GridObject> FindPath(GridObject startBlock, GridObject endBlock)
     {
-        List<Vector3> path = new();
+        PathMarker start = new PathMarker(startBlock, null, 0, 0, 0);
+        PathMarker goal = new PathMarker(endBlock, null, 0, 0, 0);
+
+        List<PathMarker> open = new List<PathMarker>();
+        List<PathMarker> closed = new List<PathMarker>();
+        open.Add(start);
+        //Debug.Log("start pathfinding");
+        //Debug.Log(start.locationBlock.name);
+
+        while (open.Count > 0)
+        {
+            open.Sort((a, b) => a.F.CompareTo(b.F));
+            PathMarker selectedMarker = open[0];
+
+            if (selectedMarker.Equals(goal))
+            {
+                return ReconstructPath(selectedMarker);
+            }
+
+            open.Remove(selectedMarker);
+            closed.Add(selectedMarker);
+
+            List<GridObject> neighbours = grid.GetNeighbours(selectedMarker.locationBlock);
+            // dobi vse sosede izbrane kocke, ustvari njihove path markerje, izraèunaj njihove vrednosti in jih dodaj v open
+            foreach (GridObject neighbour in neighbours)
+            {
+                if (neighbour.IsOccupied && !neighbour.IsOccupiedBySnakeHead) continue;
+                if (closed.Exists(x => x.locationBlock == neighbour)) continue;
+
+                float g = selectedMarker.G + Vector3.Distance(selectedMarker.locationBlock.transform.position, neighbour.transform.position);
+                float h = Vector3.Distance(neighbour.transform.position, endBlock.transform.position);
+                float f = g + h;
+
+                PathMarker existing = open.Find(x => x.locationBlock == neighbour);
+                if (existing == null)
+                {
+                    open.Add(new PathMarker(neighbour, selectedMarker, g, h, f));
+                }
+                else if (g < existing.G)
+                {
+                    existing.G = g;
+                    existing.F = f;
+                }
+            }
+        }
+        return new List<GridObject>();
+    }
+
+    private List<GridObject> ReconstructPath(PathMarker end)
+    {
+        List<GridObject> path = new();
         PathMarker current = end;
         while (current != null)
         {
             //Debug.Log("Del poti: " + current.locationBlock.name);
-            path.Insert(0, current.locationBlock.transform.position);
+            path.Insert(0, current.locationBlock);
             current = current.parent;
         }
         return path;

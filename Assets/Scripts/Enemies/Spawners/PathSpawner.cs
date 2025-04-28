@@ -5,7 +5,7 @@ public class PathSpawner : MonoBehaviour
     [SerializeField] GameObject pathMarkerPrefab;
     List<GameObject> pathMarkers;
 
-    public void SpawnMarkers(List<Vector3> path)
+    public void SpawnMarkers(List<GridObject> path)
     {
         if (pathMarkers != null) RemoveMarkers();
 
@@ -17,9 +17,10 @@ public class PathSpawner : MonoBehaviour
             return;
         }
 
-        foreach (Vector3 position in path)
+        foreach (GridObject gridBlock in path)
         {
-            GameObject pathMarker = Instantiate(pathMarkerPrefab, new Vector3(position.x, 0.25f, position.z), Quaternion.identity);
+            Vector3 position = new Vector3(gridBlock.transform.position.x, 0.25f, gridBlock.transform.position.z);
+            GameObject pathMarker = Instantiate(pathMarkerPrefab, position, Quaternion.identity);
             pathMarker.transform.parent = transform;
             pathMarkers.Add(pathMarker);
         }

@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using UnityEngine.LowLevel;
 using static UnityEngine.UI.GridLayoutGroup;
 
 public class PursueState : IState
@@ -14,7 +15,7 @@ public class PursueState : IState
     protected StateMachine stateMachine;
     protected PathSpawner pathSpawner;
     FindPathAStar pathfinder;
-    List<Vector3> path;
+    List<GridObject> path;
     int pathIndex;
     private float repathCooldown = 1.5f;
     private float repathTimer = 0f;
@@ -27,9 +28,11 @@ public class PursueState : IState
     float speed = 0.9f;
     private float rotationThreshold = 5f;
     Quaternion targetRotation = Quaternion.identity;
-    private bool pathExpired;
+    //private bool pathExpired;
     private bool stopChasing;
     private float idleWaitTime = 5f;
+    private Awaitable<List<GridObject>> pathfindingTask;
+    //private bool pathCalculated;
 
     public PursueState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
     {
@@ -53,18 +56,22 @@ public class PursueState : IState
         isRotating = false;
         */
         CalculatePath();
-        targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+        Debug.Log("First path " + path[0]);
+        targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         isRotating = false;
         stopChasing = false;
-        pathExpired = false;
         PlayerActions.PlayerDeath += PlayerDied;
     }
+
     public void Update()
     {
-        if (pathIndex >= path.Count || path == null || path.Count == 0)
+        if (path == null || path.Count == 0)
         {
-            CalculatePath();
-            repathTimer = 0f;
+
+            Debug.Log("Bernard");
+            Debug.Log("Bernard Count " + path.Count);
+            Debug.Log("Bernard path " + path);
+            CalculatePathAsync();
         }
 
         repathTimer += Time.deltaTime;
@@ -74,18 +81,12 @@ public class PursueState : IState
         }
         else
         {
-            if (repathTimer >= repathCooldown && pathExpired)
+            if (repathTimer >= repathCooldown)
             {
-                CalculatePath(); 
-                if (path.Count > 0)
-                {
-                    targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
-                    targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-                    isRotating = true;
-                }
-                pathExpired = false;
-                return;
+                Debug.Log("Repath");
+                CalculatePathAsync();
             }
+
             npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
             float distance = Vector3.Distance(npcPos, targetPos);
             Vector3 moveDirection = (targetPos - npcPos).normalized;
@@ -110,11 +111,104 @@ public class PursueState : IState
         }
         //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
         pathIndex++;
+
+        if (pathIndex >= path.Count)
+        {
+            Debug.Log("Bogdan nextBlock:" + npc.NextBlock.name);
+            stateMachine.idleState.WaitTime = idleWaitTime;
+            stateMachine.TransitionTo(stateMachine.idleState);
+        }
+
+        targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
+        npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
+
+        moveDirection = Vector3.Normalize(targetPos - npcPos);
+        targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+
+        if (moveDirection.magnitude > 0.01f)
+        {
+            float targetAngleY = Mathf.Round(Quaternion.LookRotation(moveDirection, Vector3.up).eulerAngles.y / 90f) * 90f;
+            targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
+            isRotating = true;
+        }
+        else
+        {
+            isRotating = false;
+        }
+
+        if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].transform.position.x, npc.transform.position.y, path[pathIndex - 1].transform.position.z);
+    }
+
+    /*
+    public void Update()
+    {
+        if (path == null || path.Count == 0)
+        {
+
+            Debug.Log("Bernard");
+            Debug.Log("Bernard Count " + path.Count);
+            Debug.Log("Bernard path " + path);
+            CalculatePathAsync();
+        }
+
+        repathTimer += Time.deltaTime;
+        if (isRotating)
+        {
+            Rotate();
+        }
+        else
+        {
+            if (repathTimer >= repathCooldown && pathExpired)
+            {
+                Debug.Log("Repath");
+                CalculatePathAsync();
+
+                if (path.Count > 0)
+                {
+                    targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
+                    targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+                    isRotating = true;
+                }
+                return;
+            }
+
+            npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
+            float distance = Vector3.Distance(npcPos, targetPos);
+            Vector3 moveDirection = (targetPos - npcPos).normalized;
+            float dotProduct = Vector3.Dot(npc.transform.forward, moveDirection);
+            //Debug.Log("distance:" + distance);
+            //Debug.Log("dotProduct:" + dotProduct);
+            if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
+            {
+                SetNextPoint();
+            }
+            Move();
+        }
+    }
+
+    void SetNextPoint()
+    {
+        Debug.Log("dot pathIndex:" + pathIndex);
+        if (stopChasing)
+        {
+            stateMachine.idleState.WaitTime = idleWaitTime;
+            stateMachine.TransitionTo(stateMachine.idleState);
+        }
+        //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
+        pathIndex++;
+
+        if (pathIndex >= path.Count)
+        {
+            pathExpired = true;
+
+            Debug.Log("Bogdan nextBlock:" + npc.NextBlock.name);
+            return;
+        }
+
         if (pathIndex >= path.Count) return;
 
-        targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
+        targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
-        moveDirection = Vector3.Normalize(targetPos - npcPos);
 
         if (repathTimer >= repathCooldown)
         {
@@ -122,10 +216,23 @@ public class PursueState : IState
             return;
         }
 
+        moveDirection = Vector3.Normalize(targetPos - npcPos);
         targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-        if (targetRotation != npc.transform.rotation) isRotating = true;
-        if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].x, npc.transform.position.y, path[pathIndex - 1].z);
+
+        if (moveDirection.magnitude > 0.01f)
+        {
+            float targetAngleY = Mathf.Round(Quaternion.LookRotation(moveDirection, Vector3.up).eulerAngles.y / 90f) * 90f;
+            targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
+            isRotating = true;
+        }
+        else
+        {
+            isRotating = false;
+        }
+
+        if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].transform.position.x, npc.transform.position.y, path[pathIndex - 1].transform.position.z);
     }
+    */
 
     void Rotate()
     {
@@ -133,10 +240,8 @@ public class PursueState : IState
 
         if (Quaternion.Angle(npc.transform.rotation, targetRotation) < rotationThreshold)
         {
-            Debug.Log("targetRotation: " + targetRotation);
             npc.transform.rotation = targetRotation;
             targetRotation = Quaternion.identity;
-            //Debug.Log("dot Zarotirano");
             isRotating = false;
         }
     }
@@ -225,7 +330,17 @@ public class PursueState : IState
         // upošteva se, da je že na zaèetki poti, lahko se pa zgodi, da ni
         path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
         pathSpawner.SpawnMarkers(path);
-        pathIndex = 0;
+        repathTimer = 0;
+    }
+
+    private async void CalculatePathAsync()
+    {
+        pathfindingTask = pathfinder.FindPathAsync(path[path.Count - 1], player.GetNextBlock());
+        List<GridObject> newPath = await pathfindingTask;
+        newPath.RemoveAt(0); // ta prva toèka na novi poti je ta zadnja toèka na že obstojeèi poti
+        path.AddRange(newPath);
+        Debug.Log("Gorazd path " + path.Count);
+        pathSpawner.SpawnMarkers(path);
         repathTimer = 0;
     }
 
