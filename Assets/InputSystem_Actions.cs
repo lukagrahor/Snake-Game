@@ -626,6 +626,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrimaryAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f6d35d4-901f-457c-80e7-5c735d75382a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -670,6 +679,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a105b8eb-dbfa-4020-a62f-d161150ce2fb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PrimaryAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -789,6 +809,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_PlayerDesktop_MoveDown = m_PlayerDesktop.FindAction("MoveDown", throwIfNotFound: true);
         m_PlayerDesktop_MoveUp = m_PlayerDesktop.FindAction("MoveUp", throwIfNotFound: true);
         m_PlayerDesktop_MoveRight = m_PlayerDesktop.FindAction("MoveRight", throwIfNotFound: true);
+        m_PlayerDesktop_PrimaryAttack = m_PlayerDesktop.FindAction("PrimaryAttack", throwIfNotFound: true);
         // PlayerMobileTest
         m_PlayerMobileTest = asset.FindActionMap("PlayerMobileTest", throwIfNotFound: true);
         m_PlayerMobileTest_Touch = m_PlayerMobileTest.FindAction("Touch", throwIfNotFound: true);
@@ -1037,6 +1058,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerDesktop_MoveDown;
     private readonly InputAction m_PlayerDesktop_MoveUp;
     private readonly InputAction m_PlayerDesktop_MoveRight;
+    private readonly InputAction m_PlayerDesktop_PrimaryAttack;
     public struct PlayerDesktopActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1045,6 +1067,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @MoveDown => m_Wrapper.m_PlayerDesktop_MoveDown;
         public InputAction @MoveUp => m_Wrapper.m_PlayerDesktop_MoveUp;
         public InputAction @MoveRight => m_Wrapper.m_PlayerDesktop_MoveRight;
+        public InputAction @PrimaryAttack => m_Wrapper.m_PlayerDesktop_PrimaryAttack;
         public InputActionMap Get() { return m_Wrapper.m_PlayerDesktop; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1066,6 +1089,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MoveRight.started += instance.OnMoveRight;
             @MoveRight.performed += instance.OnMoveRight;
             @MoveRight.canceled += instance.OnMoveRight;
+            @PrimaryAttack.started += instance.OnPrimaryAttack;
+            @PrimaryAttack.performed += instance.OnPrimaryAttack;
+            @PrimaryAttack.canceled += instance.OnPrimaryAttack;
         }
 
         private void UnregisterCallbacks(IPlayerDesktopActions instance)
@@ -1082,6 +1108,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MoveRight.started -= instance.OnMoveRight;
             @MoveRight.performed -= instance.OnMoveRight;
             @MoveRight.canceled -= instance.OnMoveRight;
+            @PrimaryAttack.started -= instance.OnPrimaryAttack;
+            @PrimaryAttack.performed -= instance.OnPrimaryAttack;
+            @PrimaryAttack.canceled -= instance.OnPrimaryAttack;
         }
 
         public void RemoveCallbacks(IPlayerDesktopActions instance)
@@ -1214,6 +1243,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMoveDown(InputAction.CallbackContext context);
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
+        void OnPrimaryAttack(InputAction.CallbackContext context);
     }
     public interface IPlayerMobileTestActions
     {

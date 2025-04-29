@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a4d012dfd072b844855d02ecec611a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathMarkerPrefab: {fileID: 4901021269444581151, guid: a15b102adb4dfb049ac02da2de51bef8, type: 3}
+  pathMarkerPrefab1: {fileID: 4901021269444581151, guid: 6da0e25951a05e643aab438107691854, type: 3}
+  pathMarkerPrefab2: {fileID: 4901021269444581151, guid: a15b102adb4dfb049ac02da2de51bef8, type: 3}

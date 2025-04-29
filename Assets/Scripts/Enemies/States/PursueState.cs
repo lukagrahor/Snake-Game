@@ -32,7 +32,7 @@ public class PursueState : IState
     private bool stopChasing;
     private float idleWaitTime = 5f;
     private Awaitable<List<GridObject>> pathfindingTask;
-    //private bool pathCalculated;
+    private bool pathCalculating = false;
 
     public PursueState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
     {
@@ -56,10 +56,11 @@ public class PursueState : IState
         isRotating = false;
         */
         CalculatePath();
-        Debug.Log("First path " + path[0]);
+        //Debug.Log("First path " + path[0]);
         targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         isRotating = false;
         stopChasing = false;
+        pathCalculating = false;
         PlayerActions.PlayerDeath += PlayerDied;
     }
 
@@ -68,9 +69,10 @@ public class PursueState : IState
         if (path == null || path.Count == 0)
         {
 
-            Debug.Log("Bernard");
+            /*Debug.Log("Bernard");
             Debug.Log("Bernard Count " + path.Count);
-            Debug.Log("Bernard path " + path);
+            Debug.Log("Bernard path " + path);*/
+            Debug.Log("Bernard");
             CalculatePathAsync();
         }
 
@@ -81,7 +83,7 @@ public class PursueState : IState
         }
         else
         {
-            if (repathTimer >= repathCooldown)
+            if (repathTimer >= repathCooldown && pathCalculating == false)
             {
                 Debug.Log("Repath");
                 CalculatePathAsync();
@@ -104,6 +106,7 @@ public class PursueState : IState
     void SetNextPoint()
     {
         Debug.Log("dot pathIndex:" + pathIndex);
+        Debug.Log("dot pathBlock:" + path[pathIndex]);
         if (stopChasing)
         {
             stateMachine.idleState.WaitTime = idleWaitTime;
@@ -114,7 +117,7 @@ public class PursueState : IState
 
         if (pathIndex >= path.Count)
         {
-            Debug.Log("Bogdan nextBlock:" + npc.NextBlock.name);
+            //Debug.Log("Bogdan nextBlock:" + npc.NextBlock.name);
             stateMachine.idleState.WaitTime = idleWaitTime;
             stateMachine.TransitionTo(stateMachine.idleState);
         }
@@ -329,19 +332,29 @@ public class PursueState : IState
         // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
         // upošteva se, da je že na zaèetki poti, lahko se pa zgodi, da ni
         path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
-        pathSpawner.SpawnMarkers(path);
+        //pathSpawner.RemoveMarkers();
+        //pathSpawner.SpawnMarkers(path);
         repathTimer = 0;
+        pathIndex = 0;
     }
 
     private async void CalculatePathAsync()
     {
-        pathfindingTask = pathfinder.FindPathAsync(path[path.Count - 1], player.GetNextBlock());
+        pathCalculating = true;
+        GridObject playerLocation = player.GetNextBlock();
+        pathfindingTask = pathfinder.FindPathAsync(path[path.Count - 1], playerLocation);
         List<GridObject> newPath = await pathfindingTask;
-        newPath.RemoveAt(0); // ta prva toèka na novi poti je ta zadnja toèka na že obstojeèi poti
+
+        //newPath.RemoveAt(0); // ta prva toèka na novi poti je ta zadnja toèka na že obstojeèi poti
+        foreach (GridObject newPathItem in newPath)
+        {
+            Debug.Log("newPathItem " + newPathItem.name);
+        }
         path.AddRange(newPath);
-        Debug.Log("Gorazd path " + path.Count);
-        pathSpawner.SpawnMarkers(path);
+        //Debug.Log("Gorazd path " + path.Count);
+        //pathSpawner.SpawnMarkers(newPath);
         repathTimer = 0;
+        pathCalculating = false;
     }
 
     public void Exit()

@@ -53,7 +53,7 @@ public class FindPathAStar
     {
         this.grid = grid;
     }
-
+    // nekej je narobe. Namesto da samo doda trenutni poti, gre vse znova in tu veèkrat.
     public async Awaitable<List<GridObject>> FindPathAsync(GridObject startBlock, GridObject endBlock)
     {
         PathMarker start = new PathMarker(startBlock, null, 0, 0, 0);
@@ -70,9 +70,11 @@ public class FindPathAStar
         {
             open.Sort((a, b) => a.F.CompareTo(b.F));
             PathMarker selectedMarker = open[0];
-
+            // tu se je tku 7x poklicalu
             if (selectedMarker.Equals(goal))
             {
+                Debug.Log("async1 selectedMarker.locationBlock.name " + selectedMarker.locationBlock.name);
+                Debug.Log("async1 goal.locationBlock.name " + goal.locationBlock.name);
                 return ReconstructPath(selectedMarker);
             }
 
@@ -124,7 +126,6 @@ public class FindPathAStar
         {
             open.Sort((a, b) => a.F.CompareTo(b.F));
             PathMarker selectedMarker = open[0];
-
             if (selectedMarker.Equals(goal))
             {
                 return ReconstructPath(selectedMarker);
@@ -158,7 +159,7 @@ public class FindPathAStar
         }
         return new List<GridObject>();
     }
-
+    // toliko toèk kot je v novi poti, tolikokrat gre v to metodo
     private List<GridObject> ReconstructPath(PathMarker end)
     {
         List<GridObject> path = new();
@@ -169,6 +170,7 @@ public class FindPathAStar
             path.Insert(0, current.locationBlock);
             current = current.parent;
         }
+        Debug.Log("async1 new Reconstruct " + path.Count);
         return path;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, ITestEnemyFrontTrigger
 {
-    float moveSpeed = 0f;
+    public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
 
     LinkedList<float> rotationBuffer;
@@ -83,7 +83,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, ITest
     {
         CheckForTurn();
   
-        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
+        transform.Translate(MoveSpeed * Time.deltaTime * Vector3.forward);
 
         if (hasTurned == true)
         {
@@ -93,7 +93,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, ITest
 
     public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector)
     {
-        this.moveSpeed = moveSpeed;
+        this.MoveSpeed = moveSpeed;
 
         transform.localPosition = new Vector3(0, 0, -1f);
         SetStartingRotation(moveRotation);

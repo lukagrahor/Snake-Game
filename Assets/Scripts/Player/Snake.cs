@@ -23,6 +23,16 @@ public class Snake : MonoBehaviour
     [SerializeField] CountDownTimer timer;
     ISnakeInput snakeInputManager;
     public SnakeHead SnakeHead { get; set; }
+    public float MoveSpeed
+    {
+        get => moveSpeed;
+        set
+        {
+            moveSpeed = value;
+            SnakeHead.MoveSpeed = value;
+            SetTorsoSpeed();
+        }
+    }
     void Awake()
     {
         snakeInputManager = CreateInputManager();
@@ -99,6 +109,14 @@ public class Snake : MonoBehaviour
         {
             torso.AddToRotationBuffer(nextTorsoRotation);
             torso.AddToPositionBuffer(SnakeHead.transform.position);
+        }
+    }
+
+    private void SetTorsoSpeed()
+    {
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            torso.MoveSpeed = MoveSpeed;
         }
     }
 
