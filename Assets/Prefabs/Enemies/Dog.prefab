@@ -109,10 +109,10 @@ GameObject:
   - component: {fileID: 6598230635959550433}
   - component: {fileID: -3362794133423620334}
   - component: {fileID: 1538063464904830449}
+  - component: {fileID: 132758263888510857}
   - component: {fileID: 1386015639096836267}
-  - component: {fileID: 746728916334170843}
   m_Layer: 9
-  m_Name: ChaseEnemy
+  m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 51f3294b9ac553e41b3f69a50a3102f4, type: 2}
+  - {fileID: 2100000, guid: 4d58eeb65802ec44a855131bae4a1e9f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -234,7 +234,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1063c4496efbca429eab9f12591c1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ai: {fileID: 746728916334170843}
+  ai: {fileID: 132758263888510857}
+--- !u!114 &132758263888510857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2236185388331233293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196621cf31a0ed542b72d206f479b9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc: {fileID: 1538063464904830449}
+  pathSpawner: {fileID: 2244278259536540801}
 --- !u!54 &1386015639096836267
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -262,20 +276,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &746728916334170843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2236185388331233293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb4e8cf72c563b74fb63364c9a75bad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npc: {fileID: 1538063464904830449}
-  pathSpawner: {fileID: 2244278259536540801}
 --- !u!1 &7207953140204328259
 GameObject:
   m_ObjectHideFlags: 0

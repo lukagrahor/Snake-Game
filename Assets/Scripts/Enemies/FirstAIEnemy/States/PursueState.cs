@@ -12,7 +12,7 @@ public class PursueState : IState
 {
     protected ChaseEnemy npc;
     protected SnakeHead player;
-    protected StateMachine stateMachine;
+    protected ChaseEnemyStateMachine stateMachine;
     protected PathSpawner pathSpawner;
     FindPathAStar pathfinder;
     List<GridObject> path;
@@ -34,7 +34,7 @@ public class PursueState : IState
     private Awaitable<List<GridObject>> pathfindingTask;
     private bool pathCalculating = false;
 
-    public PursueState(ChaseEnemy npc, SnakeHead player, StateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
+    public PursueState(ChaseEnemy npc, SnakeHead player, ChaseEnemyStateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
     {
         this.npc = npc;
         this.player = player;
@@ -44,17 +44,6 @@ public class PursueState : IState
     }
     public void Enter()
     {
-        /*
-        CalculatePath();
-
-        npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
-        targetPos = new Vector3(path[pathIndex].x, 0f, path[pathIndex].z);
-
-        targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-        npc.transform.rotation = targetRotation;
-        //Debug.Log("dot npc.transform.forward: " + npc.transform.forward);
-        isRotating = false;
-        */
         CalculatePath();
         //Debug.Log("First path " + path[0]);
         targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
@@ -141,102 +130,6 @@ public class PursueState : IState
 
         if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].transform.position.x, npc.transform.position.y, path[pathIndex - 1].transform.position.z);
     }
-
-    /*
-    public void Update()
-    {
-        if (path == null || path.Count == 0)
-        {
-
-            Debug.Log("Bernard");
-            Debug.Log("Bernard Count " + path.Count);
-            Debug.Log("Bernard path " + path);
-            CalculatePathAsync();
-        }
-
-        repathTimer += Time.deltaTime;
-        if (isRotating)
-        {
-            Rotate();
-        }
-        else
-        {
-            if (repathTimer >= repathCooldown && pathExpired)
-            {
-                Debug.Log("Repath");
-                CalculatePathAsync();
-
-                if (path.Count > 0)
-                {
-                    targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
-                    targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-                    isRotating = true;
-                }
-                return;
-            }
-
-            npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
-            float distance = Vector3.Distance(npcPos, targetPos);
-            Vector3 moveDirection = (targetPos - npcPos).normalized;
-            float dotProduct = Vector3.Dot(npc.transform.forward, moveDirection);
-            //Debug.Log("distance:" + distance);
-            //Debug.Log("dotProduct:" + dotProduct);
-            if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
-            {
-                SetNextPoint();
-            }
-            Move();
-        }
-    }
-
-    void SetNextPoint()
-    {
-        Debug.Log("dot pathIndex:" + pathIndex);
-        if (stopChasing)
-        {
-            stateMachine.idleState.WaitTime = idleWaitTime;
-            stateMachine.TransitionTo(stateMachine.idleState);
-        }
-        //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
-        pathIndex++;
-
-        if (pathIndex >= path.Count)
-        {
-            pathExpired = true;
-
-            Debug.Log("Bogdan nextBlock:" + npc.NextBlock.name);
-            return;
-        }
-
-        if (pathIndex >= path.Count) return;
-
-        targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
-        npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
-
-        if (repathTimer >= repathCooldown)
-        {
-            pathExpired = true;
-            return;
-        }
-
-        moveDirection = Vector3.Normalize(targetPos - npcPos);
-        targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-
-        if (moveDirection.magnitude > 0.01f)
-        {
-            float targetAngleY = Mathf.Round(Quaternion.LookRotation(moveDirection, Vector3.up).eulerAngles.y / 90f) * 90f;
-            targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
-            isRotating = true;
-        }
-        else
-        {
-            isRotating = false;
-        }
-
-        if (isRotating) npc.transform.position = new Vector3(path[pathIndex - 1].transform.position.x, npc.transform.position.y, path[pathIndex - 1].transform.position.z);
-    }
-    */
-
     void Rotate()
     {
         npc.transform.rotation = Quaternion.RotateTowards(npc.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -275,58 +168,6 @@ public class PursueState : IState
 
         return newTargetRotation;
     }
-
-    /*
-    Quaternion RotateTowardsNextPoint(Vector3 currentPoint, Vector3 nextPoint)
-    {
-        if (path == null || path.Count <= pathIndex) return Quaternion.identity;
-
-        Vector3 currentForward = npc.transform.forward;
-        currentForward.y = 0f;
-        currentForward.Normalize();
-
-        Vector3 directionToNext = (nextPoint - currentPoint).normalized;
-        directionToNext.y = 0f;
-        directionToNext.Normalize();
-
-        // Use the cross product to determine left or right
-        Vector3 crossProduct = Vector3.Cross(currentForward, directionToNext);
-        //Debug.Log("dot crossProduct: " + crossProduct);
-        Quaternion newTargetRotation = npc.transform.rotation;
-
-        Debug.Log("dot currentForward:" + currentForward);
-        Debug.Log("dot directionToNext:" + directionToNext);
-        Debug.Log("dot crossProduct:" + crossProduct);
-
-        if (crossProduct.y > 0.13f) // Next point is to the left (cross product points up)
-        {
-            newTargetRotation *= Quaternion.Euler(0f, 90f, 0f);
-            isRotating = true;
-        }
-        else if (crossProduct.y < -0.13f) // Next point is to the right (cross product points down)
-        {
-            newTargetRotation *= Quaternion.Euler(0f, -90f, 0f);
-            isRotating = true;
-        }
-        else
-        {
-            float angle = Vector3.Angle(currentForward, directionToNext);
-            if (angle > 5f)
-            {
-                newTargetRotation = Quaternion.LookRotation(directionToNext, Vector3.up);
-                isRotating = true;
-            }
-        }
-
-        Debug.Log("dot Current Forward: " + currentForward);
-        Debug.Log("dot Direction to Next: " + directionToNext);
-        Debug.Log("dot Cross Product Y: " + crossProduct.y);
-        Debug.Log("dot Angle: " + Vector3.Angle(currentForward, directionToNext));
-
-
-        return newTargetRotation;
-    }
-    */
     void CalculatePath()
     {
         // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
