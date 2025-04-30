@@ -3,9 +3,18 @@ using UnityEngine;
 public class DogStateMachine : FiniteStateMachine
 {
     DogIdleState IdleState { get; set; }
-    public DogStateMachine ()
+    Dog npc;
+    SnakeHead player;
+    ArenaGrid grid;
+    PathSpawner pathSpawner;
+
+    public DogStateMachine (Dog npc, SnakeHead player, ArenaGrid grid, PathSpawner pathSpawner)
     {
-        this.IdleState = IdleState = new DogIdleState(this);
+        this.npc = npc;
+        this.player = player;
+        this.grid = grid;
+        this.pathSpawner = pathSpawner;
+        IdleState = new DogIdleState(this);
     }
 
     public override void Intialize()

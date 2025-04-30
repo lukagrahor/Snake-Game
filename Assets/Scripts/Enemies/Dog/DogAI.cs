@@ -1,11 +1,8 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.AI;
 
-public class ChaseEnemyAI : AI
+public class DogAI : AI
 {
-    [SerializeField] ChaseEnemy npc;
+    [SerializeField] Dog npc;
     [SerializeField] PathSpawner pathSpawner;
     void Start()
     {
@@ -18,7 +15,7 @@ public class ChaseEnemyAI : AI
         }
         //Debug.Log("naštimej state machine");
         pathSpawner.transform.parent = null;
-        stateMachine = new ChaseEnemyStateMachine(npc, player, grid, pathSpawner);
+        stateMachine = new DogStateMachine(npc, player, grid, pathSpawner);
         stateMachine.Intialize();
     }
 }
