@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public abstract class AI : MonoBehaviour
 {
-    protected FiniteStateMachine stateMachine;
+    public FiniteStateMachine stateMachine;
     protected SnakeHead player;
     protected ArenaGrid grid;
 

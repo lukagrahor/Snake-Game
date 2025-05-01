@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExitTriggerHandler, IChaseEnemytrigger
+public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExitTriggerHandler, IChaseEnemytrigger, IDogTriggerHandler
 {
     bool isOccupied = false;
     bool isOccupiedBySnakeHead = false;
@@ -44,5 +44,10 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     {
         IGridObjectTriggerHandler enteredObject = other.GetComponent<ISnakePart>();
         enteredObject?.HandleTriggerExit(this);
+    }
+
+    public void HandleTrigger(DogPatrolState patrolState)
+    {
+        Debug.Log("hej hej hej");
     }
 }

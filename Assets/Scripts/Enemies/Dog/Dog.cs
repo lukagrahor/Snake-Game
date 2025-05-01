@@ -39,4 +39,10 @@ public class Dog : Enemy
     {
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IDogTriggerHandler enteredObject = other.GetComponent<IDogTriggerHandler>();
+        if (ai.DogStateMachine != null) enteredObject?.HandleTrigger(ai.DogStateMachine.PatrolState);
+    }
 }

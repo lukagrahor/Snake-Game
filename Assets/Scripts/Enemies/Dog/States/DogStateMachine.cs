@@ -16,7 +16,7 @@ public class DogStateMachine : FiniteStateMachine
         this.grid = grid;
         this.pathSpawner = pathSpawner;
         IdleState = new DogIdleState(this);
-        PatrolState = new DogPatrolState(this);
+        PatrolState = new DogPatrolState(npc, player, this);
     }
 
     public override void Intialize()
