@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class DogStateMachine : FiniteStateMachine
 {
-    DogIdleState IdleState { get; set; }
+    public DogIdleState IdleState { get; set; }
+    public DogPatrolState PatrolState { get; set; }
     Dog npc;
     SnakeHead player;
     ArenaGrid grid;
@@ -15,6 +16,7 @@ public class DogStateMachine : FiniteStateMachine
         this.grid = grid;
         this.pathSpawner = pathSpawner;
         IdleState = new DogIdleState(this);
+        PatrolState = new DogPatrolState(this);
     }
 
     public override void Intialize()

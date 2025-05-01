@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ee4619567435b4e82964af47dc8762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: -3362794133423620334}
+  enemy: {fileID: 0}
 --- !u!1 &2236185388331233293
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,10 +107,9 @@ GameObject:
   - component: {fileID: 1275329826720881947}
   - component: {fileID: 3299517122445052641}
   - component: {fileID: 6598230635959550433}
-  - component: {fileID: -3362794133423620334}
-  - component: {fileID: 1538063464904830449}
-  - component: {fileID: 132758263888510857}
   - component: {fileID: 1386015639096836267}
+  - component: {fileID: 176585611563766650}
+  - component: {fileID: 172039597497667391}
   m_Layer: 9
   m_Name: Dog
   m_TagString: Untagged
@@ -210,45 +209,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.85, y: 0.85, z: 0.85}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3362794133423620334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2236185388331233293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62250cced7be9e0488711960085bf120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1538063464904830449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2236185388331233293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1063c4496efbca429eab9f12591c1c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ai: {fileID: 132758263888510857}
---- !u!114 &132758263888510857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2236185388331233293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 196621cf31a0ed542b72d206f479b9c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npc: {fileID: 1538063464904830449}
-  pathSpawner: {fileID: 2244278259536540801}
 --- !u!54 &1386015639096836267
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -276,6 +236,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &176585611563766650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2236185388331233293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d2df41afd628144a7b7921fcf027a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ai: {fileID: 172039597497667391}
+--- !u!114 &172039597497667391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2236185388331233293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d76b918791ad2d4dbff1f5944f6333b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc: {fileID: 176585611563766650}
+  pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
 --- !u!1 &7207953140204328259
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,17 +406,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
---- !u!114 &2244278259536540801 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
-  m_PrefabInstance: {fileID: 2520244680549930199}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a4d012dfd072b844855d02ecec611a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5859578467093991042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8334142820370963029, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}

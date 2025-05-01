@@ -14,7 +14,7 @@ public class DogAI : AI
             return;
         }
         //Debug.Log("naštimej state machine");
-        pathSpawner.transform.parent = null;
+        //pathSpawner.transform.parent = null;
         stateMachine = new DogStateMachine(npc, player, grid, pathSpawner);
         stateMachine.Intialize();
     }

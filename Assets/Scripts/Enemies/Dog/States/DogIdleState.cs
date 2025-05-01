@@ -2,23 +2,33 @@ using UnityEngine;
 
 public class DogIdleState : IState
 {
-    DogStateMachine stateMachine;
+    protected DogStateMachine stateMachine;
+    CountDown timer;
+    public float WaitTime { get; set; }
     public DogIdleState(DogStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
+        WaitTime = 1f;
     }
+
+    void StopWaiting()
+    {
+        stateMachine.TransitionTo(stateMachine.PatrolState);
+    }
+
     public void Enter()
     {
-        Debug.Log("Entered the idle state");
+        Debug.Log("Dog Idle");
+        timer = new CountDown(WaitTime);
+        timer.TimeRanOut += StopWaiting;
+        timer.Start();
     }
-
     public void Update()
     {
-        Debug.Log("Dog idling");
+        timer.Update();
     }
-
     public void Exit()
     {
-        Debug.Log("Dog stopping idle");
+
     }
 }

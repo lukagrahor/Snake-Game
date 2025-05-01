@@ -168,6 +168,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1259437600}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &92366185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92366186}
+  - component: {fileID: 92366188}
+  m_Layer: 0
+  m_Name: DogSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &92366186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92366185}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1259437600}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &92366188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92366185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee303873e5fc25a4985d5bdf7a34c6da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snake: {fileID: 545034464}
+  arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
+  grid: {fileID: 457970926}
+  objectScale: 0.18
+  enemyPrefab: {fileID: 176585611563766650, guid: b1967f98af537554b8b90258907f7bd5, type: 3}
 --- !u!1 &192789368
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +508,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.9166636
+  orthographic size: 4.6075153
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1342,6 +1391,7 @@ Transform:
   - {fileID: 9674572}
   - {fileID: 1311046228}
   - {fileID: 786172748}
+  - {fileID: 92366186}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1259437601
@@ -1360,6 +1410,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 9674571}
   stationaryEnemySpawner: {fileID: 1311046229}
   chaseEnemySpawner: {fileID: 786172749}
+  dogSpawner: {fileID: 92366188}
   pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
 --- !u!1 &1311046227
 GameObject:
