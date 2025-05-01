@@ -459,7 +459,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6075153
+  orthographic size: 6.9166636
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -783,7 +783,7 @@ MonoBehaviour:
   snakeScale: 0.18
   moveSpeed: 0.7
   startingSize: 2
-  waitTime: 3
+  waitTime: 5
   timer: {fileID: 1903296500}
 --- !u!1 &587043826
 GameObject:
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 9674571}
   stationaryEnemySpawner: {fileID: 1311046229}
   chaseEnemySpawner: {fileID: 786172749}
-  pathSpawner: {fileID: 0}
+  pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
 --- !u!1 &1311046227
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ public class DesktopInputManager : ISnakeInput
 {
     InputSystem_Actions _controls;
     Snake snake;
+    float defaultSnakeSpeed = 0f;
     public DesktopInputManager (Snake snake)
     {
         this.snake = snake;
@@ -40,6 +41,7 @@ public class DesktopInputManager : ISnakeInput
         _controls.PlayerDesktop.MoveRight.performed += MoveRight;
         _controls.PlayerDesktop.MoveDown.performed += MoveDown;
         _controls.PlayerDesktop.MoveLeft.performed += MoveLeft;
+        _controls.PlayerDesktop.PrimaryAttack.performed += PrimaryAttack;
     }
 
     private void MoveUp(InputAction.CallbackContext context)
@@ -105,5 +107,24 @@ public class DesktopInputManager : ISnakeInput
         {
             snake.SetNextYRotation(turnRight);
         }
+    }
+
+    private void PrimaryAttack(InputAction.CallbackContext context)
+    {
+        float snakeSpeed = snake.MoveSpeed;
+        if (snakeSpeed != 0f)
+        {
+            defaultSnakeSpeed = snakeSpeed;
+            snake.MoveSpeed = 0f;
+            return;
+        }
+
+        if (defaultSnakeSpeed == 0f)
+        {
+            Debug.Log("Ups, defaultSnakeSpeed je niè");
+            return;
+        }
+
+        snake.MoveSpeed = defaultSnakeSpeed;
     }
 }

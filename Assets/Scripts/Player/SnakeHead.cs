@@ -4,8 +4,7 @@ using UnityEngine;
 public class SnakeHead : MonoBehaviour, ISnakePart
 {
     [SerializeField] Directions startingRotation = Directions.Up;
-
-    float moveSpeed = 0f;
+    public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
 
     Snake snake;
@@ -62,7 +61,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
         this.snake = snake;
         transform.SetParent(snake.transform);
         transform.localScale = scale;
-        this.moveSpeed = moveSpeed;
+        this.MoveSpeed = moveSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -116,7 +115,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public void Move()
     {
         // Vector3.forward --> local space, transform.forward --> world space
-        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
+        transform.Translate(MoveSpeed * Time.deltaTime * Vector3.forward);
     }
 
     void SetRotation()

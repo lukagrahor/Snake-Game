@@ -2,20 +2,47 @@ using UnityEngine;
 using System.Collections.Generic;
 public class PathSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject pathMarkerPrefab;
+    [SerializeField] GameObject pathMarkerPrefab1;
+    [SerializeField] GameObject pathMarkerPrefab2;
+    GameObject pathMarkerPrefab;
+    List<GameObject> pathMarkers;
 
-    public void SpawnMarkers(List<Vector3> path)
+    void Start()
     {
-        if (pathMarkerPrefab == null)
+        pathMarkerPrefab = pathMarkerPrefab2;
+        pathMarkers = new List<GameObject>();
+    }
+    // nekej je narobe. Namesto da samo doda trenutni poti, gre vse znova in tu veèkrat.
+    public void SpawnMarkers(List<GridObject> path)
+    {
+        //if (pathMarkers != null) RemoveMarkers();
+
+        if (pathMarkerPrefab == pathMarkerPrefab2) pathMarkerPrefab = pathMarkerPrefab1;
+        else if (pathMarkerPrefab == pathMarkerPrefab1) pathMarkerPrefab = pathMarkerPrefab2;
+
+        //pathMarkers = new List<GameObject>();
+
+        if (pathMarkerPrefab1 == null || pathMarkerPrefab2 == null)
         {
             Debug.LogError("Path Marker Prefab is not assigned in the Inspector!");
             return;
         }
 
-        foreach (Vector3 position in path)
+        foreach (GridObject gridBlock in path)
         {
-            GameObject pathMarker = Instantiate(pathMarkerPrefab, new Vector3(position.x, 0.25f, position.z), Quaternion.identity);
+            Vector3 position = new (gridBlock.transform.position.x, 0.25f, gridBlock.transform.position.z);
+            GameObject pathMarker = Instantiate(pathMarkerPrefab, position, Quaternion.identity);
             pathMarker.transform.parent = transform;
+            pathMarkers.Add(pathMarker);
+        }
+    }
+
+    public void RemoveMarkers()
+    {
+        if (pathMarkers == null) return;
+        foreach (GameObject pathMarker in pathMarkers)
+        {
+            Destroy(pathMarker);
         }
     }
 }
