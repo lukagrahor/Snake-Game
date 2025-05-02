@@ -46,8 +46,8 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
         enteredObject?.HandleTriggerExit(this);
     }
 
-    public void HandleTrigger(DogPatrolState patrolState)
+    public void HandleTrigger(DogPatrolState patrolState, Dog dog)
     {
-        Debug.Log("hej hej hej");
+        dog.NextBlock = this;
     }
 }

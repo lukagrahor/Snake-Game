@@ -104,7 +104,7 @@ public class PursueState : IState
         //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
         pathIndex++;
 
-        if (pathIndex >= path.Count)
+        if (pathIndex >= path.Count || pathIndex < 0)
         {
             //Debug.Log("Bogdan nextBlock:" + npc.NextBlock.name);
             stateMachine.idleState.WaitTime = idleWaitTime;

@@ -1,4 +1,4 @@
 public interface IDogTriggerHandler
 {
-    public void HandleTrigger(DogPatrolState patrolState);
+    public void HandleTrigger(DogPatrolState patrolState, Dog dog);
 }

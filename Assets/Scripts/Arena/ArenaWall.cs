@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, ITestEnemyFrontTrigger, IDogTriggerHandler
+public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, ITestEnemyFrontTrigger
 {
     public void HandleEnemyFrontTrigger(TestEnemy enemy)
     {
@@ -11,9 +11,10 @@ public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, ITestEnemyFron
     {
         snakeHead.GetHit();
     }
-
-    public void HandleTrigger(DogPatrolState patrolState)
+    /*
+    public void HandleTrigger(DogPatrolState patrolState, Dog dog)
     {
         patrolState.ChangeLane();
     }
+    */
 }

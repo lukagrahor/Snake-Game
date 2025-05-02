@@ -3,24 +3,29 @@ using UnityEngine;
 public class Dog : Enemy
 {
     [SerializeField] DogAI ai;
-    public GridObject NextBlock { get; set; }
+    ArenaGrid grid;
+    public GridObject NextBlock { get; set; } // je null takoj ob spawnu --> popravi
     public PathSpawner PathSpawner { get; set; }
+    public GridObject StartBlock { get; set; }
 
     public override void Setup(int col, int row, int gridSize)
     {
-        Debug.Log("Niè");
+        StartBlock = grid.GetGridObjects()[col, row];
+        NextBlock = StartBlock;
+        Debug.Log("Dog startBlock " + StartBlock);
     }
-    /* ne tu pozabt !!!
+
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<IChaseEnemytrigger>()?.HandleChaseEnemyTrigger(this);
+        IDogTriggerHandler enteredObject = other.GetComponent<IDogTriggerHandler>();
+        if (ai.DogStateMachine != null) enteredObject?.HandleTrigger(ai.DogStateMachine.PatrolState, this);
     }
-    */
 
     public void SetupAI(Snake player, ArenaGrid grid)
     {
         ai.SetPlayer(player);
         ai.SetGrid(grid);
+        this.grid = grid;
     }
 
     protected override void GetHit()
@@ -38,11 +43,5 @@ public class Dog : Enemy
     void Update()
     {
 
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        IDogTriggerHandler enteredObject = other.GetComponent<IDogTriggerHandler>();
-        if (ai.DogStateMachine != null) enteredObject?.HandleTrigger(ai.DogStateMachine.PatrolState);
     }
 }
