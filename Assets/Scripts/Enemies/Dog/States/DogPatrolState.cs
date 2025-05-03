@@ -17,7 +17,10 @@ public class DogPatrolState : IState
     GridObject currentBlock;
     GridObject nextBlock;
     GridObject lastLaneBlock;
-    float currentRotation = -1f;
+    //float currentRotation = -1f;
+    bool changedLane = false;
+    bool isRotatingPrimary = false;
+    bool isRotatingSecondary = false;
 
     enum Directions
     {
@@ -69,7 +72,7 @@ public class DogPatrolState : IState
 
     public void Update()
     {
-        if (currentRotation >= 0f)
+        if (isRotatingPrimary || isRotatingSecondary)
         {
             //Debug.Log("Dog 1");
             Rotate();
@@ -79,38 +82,54 @@ public class DogPatrolState : IState
         if (isChangingLane) CheckForLaneStart();
         else CheckForLaneEnd();
 
+        if (isRotatingPrimary || isRotatingSecondary) return;
         //Debug.Log("Dog 3");
         Move();
     }
 
     void Rotate()
     {
-        Quaternion targetRotation = Quaternion.Euler(0f, secondaryDirection, 0f);
+        float currentRotation;
+        if (isRotatingPrimary) currentRotation = primaryDirection;
+        else if (isRotatingSecondary) currentRotation = secondaryDirection;
+        else return;
+
+        Quaternion targetRotation = Quaternion.Euler(0f, currentRotation, 0f);
         npc.transform.rotation = Quaternion.RotateTowards(npc.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        SetNewLane();
         if (Quaternion.Angle(npc.transform.rotation, targetRotation) < rotationThreshold)
         {
             npc.transform.rotation = targetRotation;
-            targetRotation = Quaternion.identity;
-            SetNewLane();
-            currentRotation = -1f;
-            //SetLastLaneBlock();
+
+            isRotatingPrimary = false;
+            isRotatingSecondary = false;
+            //currentBlock = npc.NextBlock;
+            Debug.Log("Dog currentBlock " + currentBlock.name);
+            if (changedLane)
+            {
+                SetLastLaneBlock();
+                changedLane = false;
+            }
         }
     }
 
     void ChangeLane()
     {
-        if (currentRotation > 0f) return;
+        if (isRotatingPrimary || isRotatingSecondary) return;
         Debug.Log("Menjej pas");
-        currentRotation = secondaryDirection;
-        currentBlock = npc.NextBlock;
-        Debug.Log("Dog currentBlock " + currentBlock.name);
+        //currentBlock = npc.NextBlock;
+        //Debug.Log("Dog currentBlock " + currentBlock.name);
+        isRotatingSecondary = true;
         isChangingLane = true;
     }
 
     void SetNewLane()
     {
+        Debug.Log("Dog currentBlock " + currentBlock.name);
         int i = currentBlock.Row;
         int j = currentBlock.Col;
+        Debug.Log("Dog prej i " + i + "j " + j);
+        Debug.Log("secondaryDirection prej " + secondaryDirection);
         switch (secondaryDirection)
         {
             case (float)Directions.Up:
@@ -126,8 +145,32 @@ public class DogPatrolState : IState
                 j += 1;
                 break;
         }
+        Debug.Log("Dog sredina i " + i + "j " + j);
+        int gridSize = grid.GetSize();
+        if (i < 0)
+        {
+            i = 1;
+            secondaryDirection = (float)Directions.Up;
+        }
+        if (j < 0)
+        {
+            j = 1;
+            secondaryDirection = (float)Directions.Right;
+        }
+        if (i > gridSize - 1)
+        {
+            i = gridSize - 2;
+            secondaryDirection = (float)Directions.Down;
+        }
+        if (j > gridSize - 1)
+        {
+            j = gridSize - 2;
+            secondaryDirection = (float)Directions.Left;
+        }
+
+        Debug.Log("secondaryDirection pol " + secondaryDirection);
         nextBlock = gridObjects[j, i];
-        Debug.Log("Dog i " + i + "j " + j);
+        Debug.Log("Dog pol i " + i + "j " + j);
         Debug.Log("Dog nextBlock " + nextBlock.name);
     }
 
@@ -158,7 +201,7 @@ public class DogPatrolState : IState
     void CheckForLaneStart()
     {
         if (nextBlock == null) return;
-        //Debug.Log("Dog 2");
+        Debug.Log("CheckForLaneStart");
         Vector3 npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
         Vector3 nextBlockPos = new Vector3(nextBlock.transform.position.x, 0f, nextBlock.transform.position.z);
         float distance = Vector3.Distance(npcPos, nextBlockPos);
@@ -170,22 +213,28 @@ public class DogPatrolState : IState
         {
             npc.transform.position = new Vector3(nextBlockPos.x, npc.transform.position.y, nextBlockPos.z);
 
-            currentRotation = primaryDirection;
+            float currentRotation = primaryDirection;
             if (currentRotation - 180f >= 0)
             {
-                currentRotation -= 180f;
-            } else
+                primaryDirection -= 180f;
+            }
+            else
             {
-                currentRotation += 180f;
+                primaryDirection += 180f;
             }
 
             isChangingLane = false;
+            changedLane = true;
+            isRotatingPrimary = true;
+            currentBlock = nextBlock;
             Debug.Log("Dog lane start reached");
+            Debug.Log("Dog currentRotation " + currentRotation);
         }
     }
 
     void CheckForLaneEnd()
     {
+        //Debug.Log("Dog CheckForLaneEnd");
         if (lastLaneBlock == null)
         {
             Debug.Log("Dog error lastLaneBlock is null");
@@ -202,6 +251,7 @@ public class DogPatrolState : IState
         if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
         {
             npc.transform.position = new Vector3(lastLaneBlockPos.x, npc.transform.position.y, lastLaneBlockPos.z);
+            currentBlock = lastLaneBlock;
             ChangeLane();
         }
         
