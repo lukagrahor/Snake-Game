@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public interface IBeeFrontTrigger
+public interface IBeeFrontTriggerHandler
 {
     public void HandleEnemyFrontTrigger(Bee enemy);
 }

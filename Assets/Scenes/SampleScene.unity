@@ -508,7 +508,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.866305
+  orthographic size: 6.446103
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1089,6 +1089,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &929081954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 929081955}
+  - component: {fileID: 929081956}
+  m_Layer: 0
+  m_Name: WaspSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &929081955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929081954}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1259437600}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &929081956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929081954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4534354e5679cec4aaceec05ab04c5f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snake: {fileID: 545034464}
+  arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
+  grid: {fileID: 457970926}
+  objectScale: 0.18
+  enemyPrefab: {fileID: 8837778402620649376, guid: 95595233456c3ac4a986ce33a8cab03d, type: 3}
 --- !u!1 &1176511431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,6 +1441,7 @@ Transform:
   - {fileID: 1311046228}
   - {fileID: 786172748}
   - {fileID: 92366186}
+  - {fileID: 929081955}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1259437601
@@ -1412,6 +1462,7 @@ MonoBehaviour:
   chaseEnemySpawner: {fileID: 786172749}
   dogSpawner: {fileID: 92366188}
   pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
+  waspSpawner: {fileID: 929081956}
 --- !u!1 &1311046227
 GameObject:
   m_ObjectHideFlags: 0

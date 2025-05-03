@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeFrontTrigger
+public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeFrontTriggerHandler, IWaspFrontTriggerHandler
 {
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
@@ -38,6 +38,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
         gridObject.IsOccupied = true;
         //hasSnapped = false;
         //timer.StartTimer();
+    }
+
+    public void HandleTrigger(Wasp wasp)
+    {
+        snake.GetHit();
     }
 
     public void HandleTriggerExit(GridObject gridObject)

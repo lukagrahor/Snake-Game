@@ -1,4 +1,4 @@
-public interface IWaspTriggerHandler
+public interface IWaspFrontTriggerHandler
 {
     public void HandleTrigger(Wasp wasp);
 }

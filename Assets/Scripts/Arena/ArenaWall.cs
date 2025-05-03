@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFrontTrigger
+public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFrontTriggerHandler, IWaspFrontTriggerHandler
 {
     public void HandleEnemyFrontTrigger(Bee enemy)
     {
@@ -10,6 +10,11 @@ public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFrontTrigg
     public void HandleTrigger(SnakeHead snakeHead)
     {
         snakeHead.GetHit();
+    }
+
+    public void HandleTrigger(Wasp wasp)
+    {
+        wasp.Turn();
     }
     /*
     public void HandleTrigger(DogPatrolState patrolState, Dog dog)

@@ -77,11 +77,6 @@ public class WaspPatrolState : IState
         }
     }
 
-    public void Turn()
-    {
-        npc.transform.Rotate(0f, 180f, 0f);
-    }
-
     void Move()
     {
         npc.transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
