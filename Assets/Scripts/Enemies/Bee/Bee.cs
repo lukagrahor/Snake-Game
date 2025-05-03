@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestEnemy : Enemy, IFrontTriggerHandler, ISpawnableObject
+public class Bee : Enemy, IFrontTriggerHandler, ISpawnableObject
 { 
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     enum Directions
@@ -16,7 +16,6 @@ public class TestEnemy : Enemy, IFrontTriggerHandler, ISpawnableObject
         GetHit();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Setup(int col, int row, int gridSize)
     {
         //Debug.Log($"col: {col}, row: {row}");

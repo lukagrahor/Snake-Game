@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 9674572}
   - component: {fileID: 9674571}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: BeeSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,7 +508,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6075153
+  orthographic size: 5.866305
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
