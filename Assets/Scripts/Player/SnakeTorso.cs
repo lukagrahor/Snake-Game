@@ -42,6 +42,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
 
     public void HandleTrigger(Wasp wasp)
     {
+        WaspStateMachine stateMachine = wasp.Ai.waspStateMachine;
+        if (stateMachine.CurrentState == stateMachine.ChargeState)
+        {
+            stateMachine.ChargeState.CoolDown();
+        }
         snake.GetHit();
     }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Dog : Enemy
+public class Dog : Enemy, IWaspFrontTriggerHandler
 {
     [SerializeField] DogAI ai;
     ArenaGrid grid;
@@ -43,5 +43,15 @@ public class Dog : Enemy
     void Update()
     {
 
+    }
+
+    public void HandleTrigger(Wasp wasp)
+    {
+        WaspStateMachine stateMachine = wasp.Ai.waspStateMachine;
+        if (stateMachine.CurrentState == stateMachine.ChargeState)
+        {
+            stateMachine.ChargeState.CoolDown();
+        }
+        GetHit();
     }
 }

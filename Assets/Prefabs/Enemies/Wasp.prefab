@@ -554,6 +554,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 4369859857760575735}
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 896
 --- !u!114 &4369859857760575735
 MonoBehaviour:
   m_ObjectHideFlags: 0

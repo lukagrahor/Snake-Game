@@ -15,6 +15,14 @@ public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFrontTrigg
     public void HandleTrigger(Wasp wasp)
     {
         wasp.Turn();
+        WaspStateMachine stateMachine = wasp.Ai.waspStateMachine;
+
+        if (stateMachine == null || stateMachine.CurrentState == null) return;
+
+        if (stateMachine.CurrentState == stateMachine.ChargeState)
+        {
+            stateMachine.ChargeState.CoolDown();
+        }
     }
     /*
     public void HandleTrigger(DogPatrolState patrolState, Dog dog)

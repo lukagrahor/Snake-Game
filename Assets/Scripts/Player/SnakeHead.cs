@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeHead : MonoBehaviour, ISnakePart
+public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 {
     [SerializeField] Directions startingRotation = Directions.Up;
     public float MoveSpeed { get; set; }
@@ -212,5 +212,15 @@ public class SnakeHead : MonoBehaviour, ISnakePart
     public Snake GetSnake()
     {
         return snake;
+    }
+
+    public void HandleTrigger(Wasp wasp)
+    {
+        WaspStateMachine stateMachine = wasp.Ai.waspStateMachine;
+        if (stateMachine.CurrentState == stateMachine.ChargeState)
+        {
+            stateMachine.ChargeState.CoolDown();
+        }
+        snake.GetHit();
     }
 }
