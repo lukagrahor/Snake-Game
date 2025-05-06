@@ -143,6 +143,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
             }*/
             if (rotationBuffer.Count > 0)
             {
+                AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
                 SetRotation();
                 // na sredino grid kocke
                 transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
@@ -238,5 +239,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
             270 => new Vector3(-1f, 0f, 0f),
             _ => new Vector3(0f, 0f, 0f),
         };
+    }
+    void AddMarkerToPath(Vector3 position, float rotation)
+    {
+        if (gameObject.name != "Torso 0") return;
+        snake.SetSnakePath(position, rotation);
     }
 }

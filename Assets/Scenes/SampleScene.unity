@@ -508,7 +508,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.446103
+  orthographic size: 7.8313093
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -792,6 +792,8 @@ GameObject:
   m_Component:
   - component: {fileID: 545034463}
   - component: {fileID: 545034464}
+  - component: {fileID: 545034465}
+  - component: {fileID: 545034466}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Untagged
@@ -834,6 +836,34 @@ MonoBehaviour:
   startingSize: 2
   waitTime: 5
   timer: {fileID: 1903296500}
+  snakePath: {fileID: 545034465}
+--- !u!114 &545034465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4934c2b068af3f1458fabe765e1a1760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathSpawner: {fileID: 545034466}
+--- !u!114 &545034466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4d012dfd072b844855d02ecec611a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathMarkerPrefab1: {fileID: 4901021269444581151, guid: 6da0e25951a05e643aab438107691854, type: 3}
+  pathMarkerPrefab2: {fileID: 4901021269444581151, guid: a15b102adb4dfb049ac02da2de51bef8, type: 3}
 --- !u!1 &587043826
 GameObject:
   m_ObjectHideFlags: 0

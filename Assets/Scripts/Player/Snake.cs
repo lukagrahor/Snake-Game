@@ -23,6 +23,7 @@ public class Snake : MonoBehaviour
     [SerializeField] CountDownTimer timer;
     ISnakeInput snakeInputManager;
     public SnakeHead SnakeHead { get; set; }
+    public SnakePath snakePath;
     public float MoveSpeed
     {
         get => moveSpeed;
@@ -208,5 +209,9 @@ public class Snake : MonoBehaviour
             DesktopInputManager desktopInput = new(this);
             return desktopInput;
         }
+    }
+    public void SetSnakePath(Vector3 location, float rotation)
+    {
+        snakePath.AddToPath(location, rotation);
     }
 }
