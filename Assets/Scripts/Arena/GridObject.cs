@@ -4,6 +4,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
 {
     bool isOccupied = false;
     bool isOccupiedBySnakeHead = false;
+    bool hasPathMarker = false;
     int col;
     int row;
 
@@ -11,6 +12,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     public int Row { get => row; set => row = value; }
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public bool IsOccupiedBySnakeHead { get => isOccupiedBySnakeHead; set => isOccupiedBySnakeHead = value; }
+    public bool HasPathMarker { get => hasPathMarker; set => hasPathMarker = value; }
 
     public void HandleTrigger(SnakeHead snakeHead)
     {
@@ -18,6 +20,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
         //Debug.Log($"Enter: {gameObject.name} {transform.position}");
         snakeHead.SetNextBlock(this);
         isOccupiedBySnakeHead = true;
+        HasPathMarker = false;
         //Debug.Log("Kaèa");
     }
 
@@ -38,6 +41,12 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     {
         IGridObjectTriggerHandler enteredObject = other.GetComponent<ISnakePart>();
         enteredObject?.HandleTrigger(this);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        IGridObjectStayTriggerHandler enteredObject = other.GetComponent<IGridObjectStayTriggerHandler>();
+        enteredObject?.HandleStayTrigger(this);
     }
 
     private void OnTriggerExit(Collider other)

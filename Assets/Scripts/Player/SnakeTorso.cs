@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeFrontTriggerHandler, IWaspFrontTriggerHandler
+public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeFrontTriggerHandler, IWaspFrontTriggerHandler, IGridObjectStayTriggerHandler
 {
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
@@ -91,7 +91,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
 
     public void Move()
     {
-        CheckForTurn();
+        //CheckForTurn();
   
         transform.Translate(MoveSpeed * Time.deltaTime * Vector3.forward);
 
@@ -114,7 +114,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
 
         this.snake = snake;
     }
-
+    /*
     private void CheckForTurn()
     {
         // ignore the y axis
@@ -136,15 +136,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
         if (floatOffset <= 0.03f || dotProduct < 0) 
         {
-            /*if (gameObject.name == "Torso 0")
-            {
-                Debug.Log($"floatOffset: {floatOffset}");
-                Debug.Log($"dotProduct: {dotProduct}");
-            }*/
             if (rotationBuffer.Count > 0)
             {
-                AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
+                //AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
                 SetRotation();
+                AddMarkerToPath(gridBlockPosition, 0f);
                 // na sredino grid kocke
                 transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
 
@@ -152,7 +148,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
             }
         }
         
-    }
+    }*/
 
     public void SetStartingRotation(float rotation)
     {
@@ -244,5 +240,62 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
     {
         if (gameObject.name != "Torso 0") return;
         snake.SetSnakePath(position, rotation);
+    }
+
+    public void HandleStayTrigger(GridObject gridObject)
+    {
+        if (positionBuffer.Count > 0) CheckForTurn(gridObject);
+        if (gameObject.name == "Torso 0") CheckForMarker(gridObject);
+    }
+
+    void CheckForTurn(GridObject gridObject)
+    {
+        Vector3 blockPositionWithY = positionBuffer.First.Value;
+
+        Vector3 gridBlockPosition = new(blockPositionWithY.x, 0f, blockPositionWithY.z);
+        Vector3 snakeTorsoPosition = new(transform.position.x, 0f, transform.position.z);
+        float floatOffset = Vector3.Distance(snakeTorsoPosition, gridBlockPosition);
+
+        Vector3 movementDirection = RotationToMovementVector(GetRotation());
+        Vector3 directionToBlock = gridBlockPosition - transform.position;
+        float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
+
+        // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
+        if (floatOffset <= 0.03f || dotProduct < 0)
+        {
+            if (rotationBuffer.Count > 0)
+            {
+                //AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
+                if (gameObject.name == "Torso 0" && gridObject.HasPathMarker == false)
+                {
+                    AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
+                    gridObject.HasPathMarker = true;
+                    Debug.Log("Dodan marker 1 " + gridObject.name);
+                }
+                SetRotation();
+                // na sredino grid kocke
+                transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
+
+                // hasSnapped = true;
+            }
+        }
+    }
+
+    void CheckForMarker(GridObject gridObject)
+    {
+        if (gridObject.HasPathMarker == true) return;
+        Vector3 gridBlockPosition = new(gridObject.transform.position.x, 0f, gridObject.transform.position.z);
+        Vector3 snakeTorsoPosition = new(transform.position.x, 0f, transform.position.z);
+        float floatOffset = Vector3.Distance(snakeTorsoPosition, gridBlockPosition);
+
+        Vector3 movementDirection = RotationToMovementVector(GetRotation());
+        Vector3 directionToBlock = gridBlockPosition - transform.position;
+        float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
+        if (floatOffset <= 0.03f || (dotProduct < 0 && floatOffset <= 0.1f))
+        {
+            AddMarkerToPath(gridBlockPosition, 0f);
+            gridObject.HasPathMarker = true;
+            Debug.Log("Dodan marker 1 " + gridObject.name);
+        }
     }
 }
