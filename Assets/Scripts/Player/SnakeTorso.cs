@@ -270,7 +270,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
                 {
                     AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
                     gridObject.HasPathMarker = true;
-                    Debug.Log("Dodan marker 1 " + gridObject.name);
                 }
                 SetRotation();
                 // na sredino grid kocke
