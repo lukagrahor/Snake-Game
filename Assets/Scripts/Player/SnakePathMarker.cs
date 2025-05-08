@@ -1,13 +1,7 @@
 using UnityEngine;
 
-public class SnakePathMarker
+public class SnakePathMarker : MonoBehaviour
 {
-    Vector3 location;
     float nextRotation;
-
-    public SnakePathMarker(Vector3 location, float nextRotation)
-    {
-        this.location = location;
-        this.nextRotation = nextRotation;
-    }
+    public float NextRotation { get => nextRotation; set => nextRotation = value; }
 }
