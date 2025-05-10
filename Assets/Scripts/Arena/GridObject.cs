@@ -7,12 +7,14 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     bool hasPathMarker = false;
     int col;
     int row;
+    SnakePathMarker marker;
 
     public int Col { get => col; set => col = value; }
     public int Row { get => row; set => row = value; }
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public bool IsOccupiedBySnakeHead { get => isOccupiedBySnakeHead; set => isOccupiedBySnakeHead = value; }
     public bool HasPathMarker { get => hasPathMarker; set => hasPathMarker = value; }
+    public SnakePathMarker Marker { get => marker; set => marker = value; }
 
     public void HandleTrigger(SnakeHead snakeHead)
     {

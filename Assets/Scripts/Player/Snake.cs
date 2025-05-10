@@ -210,8 +210,8 @@ public class Snake : MonoBehaviour
             return desktopInput;
         }
     }
-    public void SetSnakePath(Vector3 location, float rotation)
+    public void SetSnakePath(GridObject gridObject, Vector3 location, float rotation)
     {
-        Path.SpawnMarker(location, rotation);
+        Path.SpawnMarker(gridObject, location, rotation);
     }
 }

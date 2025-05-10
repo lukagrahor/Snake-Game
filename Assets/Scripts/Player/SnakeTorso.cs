@@ -236,14 +236,16 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
             _ => new Vector3(0f, 0f, 0f),
         };
     }
-    void AddMarkerToPath(Vector3 position, float rotation)
+    void AddMarkerToPath(GridObject gridObject, Vector3 position, float rotation)
     {
         if (gameObject.name != "Torso 0") return;
-        snake.SetSnakePath(position, rotation);
+        snake.SetSnakePath(gridObject, position, rotation);
     }
 
     public void HandleStayTrigger(GridObject gridObject)
     {
+        Debug.Log("Dodan marker  --------------------------------------");
+        Debug.Log("Dodan marker  positionBuffer count: " + positionBuffer.Count);
         if (positionBuffer.Count > 0) CheckForTurn(gridObject);
         if (gameObject.name == "Torso 0") CheckForMarker(gridObject);
     }
@@ -261,15 +263,23 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
         float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
 
         // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
-        if (floatOffset <= 0.03f || dotProduct < 0)
+        if (floatOffset <= 0.03f || (dotProduct < 0 && floatOffset <= 0.1f))
         {
+            Debug.Log("Dodan marker 1 " + gridObject.name);
             if (rotationBuffer.Count > 0)
             {
+                Debug.Log("Dodan marker 2 " + gridObject.name);
+                Debug.Log("Dodan marker 2 gridObject.HasPathMarker " + gridObject.HasPathMarker);
                 //AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
                 if (gameObject.name == "Torso 0" && gridObject.HasPathMarker == false)
                 {
-                    AddMarkerToPath(gridBlockPosition, rotationBuffer.First.Value);
+                    AddMarkerToPath(gridObject, gridBlockPosition, rotationBuffer.First.Value);
                     gridObject.HasPathMarker = true;
+                    Debug.Log("Dodan marker 3 " + gridObject.name);
+                } else if (gameObject.name == "Torso 0" && gridObject.HasPathMarker == true)
+                {
+                    gridObject.Marker.NextRotation = rotationBuffer.First.Value; // zaradi nekga razloga spremeni rotacijo na markerji enemu nazaj
+                    Debug.Log("Dodan marker 3-1 " + gridObject.name + "marker ime " + gridObject.Marker.name);
                 }
                 SetRotation();
                 // na sredino grid kocke
@@ -292,9 +302,9 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
         float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
         if (floatOffset <= 0.03f || (dotProduct < 0 && floatOffset <= 0.1f))
         {
-            AddMarkerToPath(gridBlockPosition, 0f);
+            AddMarkerToPath(gridObject, gridBlockPosition, 0f);
             gridObject.HasPathMarker = true;
-            Debug.Log("Dodan marker 1 " + gridObject.name);
+            Debug.Log("Dodan marker 2 ture je true je true je èevelj se sam obuje in zato žaluje buje kuje tuga " + gridObject.name);
         }
     }
 }

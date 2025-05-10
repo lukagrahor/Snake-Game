@@ -40,7 +40,7 @@ public class SnakePath : MonoBehaviour
         }
     }
     */
-    public void SpawnMarker(Vector3 position, float nextRotation)
+    public void SpawnMarker(GridObject gridObject, Vector3 position, float nextRotation)
     {
         //if (pathMarkers != null) RemoveMarkers();
 
@@ -62,6 +62,7 @@ public class SnakePath : MonoBehaviour
         pathMarker.name = "Markus " + index;
         index++;
         Path.Add(pathMarker);
+        gridObject.Marker = pathMarker;
         Debug.Log("rotacija: " + nextRotation);
     }
 
