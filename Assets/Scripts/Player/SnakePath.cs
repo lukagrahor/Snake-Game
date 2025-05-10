@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ public class SnakePath : MonoBehaviour
     [SerializeField] SnakePathMarker pathMarkerPrefab1;
     [SerializeField] SnakePathMarker pathMarkerPrefab2;
     SnakePathMarker pathMarkerPrefab;
-    List<SnakePathMarker> Path { get; set; }
+    public List<SnakePathMarker> Path { get; set; }
+    int index = 0;
 
     void Start()
     {
@@ -57,7 +59,10 @@ public class SnakePath : MonoBehaviour
         SnakePathMarker pathMarker = Instantiate(pathMarkerPrefab, location, Quaternion.identity);
         pathMarker.transform.parent = transform;
         pathMarker.NextRotation = nextRotation;
+        pathMarker.name = "Markus " + index;
+        index++;
         Path.Add(pathMarker);
+        Debug.Log("rotacija: " + nextRotation);
     }
 
     public void RemoveMarkers()

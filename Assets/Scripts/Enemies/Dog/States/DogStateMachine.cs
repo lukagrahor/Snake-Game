@@ -4,6 +4,7 @@ public class DogStateMachine : FiniteStateMachine
 {
     public DogIdleState IdleState { get; set; }
     public DogPatrolState PatrolState { get; set; }
+    public DogPursueState PursueState { get; set; }
     Dog npc;
     SnakeHead player;
     ArenaGrid grid;
@@ -17,6 +18,7 @@ public class DogStateMachine : FiniteStateMachine
         this.pathSpawner = pathSpawner;
         IdleState = new DogIdleState(this);
         PatrolState = new DogPatrolState(npc, player, this, grid);
+        PursueState = new DogPursueState(npc, player, this, grid);
     }
 
     public override void Intialize()

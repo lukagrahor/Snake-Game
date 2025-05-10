@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class Dog : Enemy, IWaspFrontTriggerHandler
+public class Dog : Enemy, IWaspFrontTriggerHandler, IPathTrigger
 {
     [SerializeField] DogAI ai;
+    SnakePathMarker firstMarker;
     ArenaGrid grid;
     public GridObject NextBlock { get; set; } // je null takoj ob spawnu --> popravi
     public PathSpawner PathSpawner { get; set; }
     public GridObject StartBlock { get; set; }
+    public SnakePathMarker FirstMarker { get => firstMarker; set => firstMarker = value; }
 
     public override void Setup(int col, int row, int gridSize)
     {
@@ -53,5 +55,15 @@ public class Dog : Enemy, IWaspFrontTriggerHandler
             stateMachine.ChargeState.CoolDown();
         }
         GetHit();
+    }
+
+    public void HandlePathTrigger(SnakePathMarker marker)
+    {
+        DogStateMachine stateMachine = (DogStateMachine)ai.stateMachine;
+        if (stateMachine.CurrentState == stateMachine.PatrolState)
+        {
+            firstMarker = marker;
+            stateMachine.TransitionTo(stateMachine.PursueState);
+        }
     }
 }
