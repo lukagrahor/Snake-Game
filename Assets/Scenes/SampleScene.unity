@@ -831,7 +831,7 @@ MonoBehaviour:
   snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   snakeScale: 0.18
-  moveSpeed: 2
+  moveSpeed: 1
   startingSize: 2
   waitTime: 5
   timer: {fileID: 1903296500}
