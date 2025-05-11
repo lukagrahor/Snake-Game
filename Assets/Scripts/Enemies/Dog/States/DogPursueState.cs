@@ -52,6 +52,8 @@ public class DogPursueState : IState
     {
         Debug.Log("Konec pursue");
         // centrirej ga na kocko
+        npc.transform.position = npc.NextBlock.transform.position;
+        npc.StartBlock = npc.NextBlock;
     }
 
     public void Update()
