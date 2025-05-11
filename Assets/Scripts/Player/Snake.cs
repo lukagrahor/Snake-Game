@@ -170,6 +170,8 @@ public class Snake : MonoBehaviour
         {
             Destroy(torso.gameObject);
         }
+        Debug.Log("dej nrdi nekej no odstranitev");
+        Path.RemoveMarkers();
         snakeInputManager.OnSnakeDeath();
 
         PlayerActions.PlayerDeath();

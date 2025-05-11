@@ -19,7 +19,7 @@ public class SpawnerManager : MonoBehaviour
     {
         LinkedList<GridObject> occupiedBlocks = new LinkedList<GridObject>();
         LinkedList<GridObject> newBlocks = foodSpawner.FirstSpawn(occupiedBlocks);
-
+        /*
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
         newBlocks = enemySpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
@@ -29,9 +29,10 @@ public class SpawnerManager : MonoBehaviour
         //Debug.Log("Occupied 2: " + occupiedBlocks.Count);
         newBlocks = chaseEnemySpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+        */
         newBlocks = dogSpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
-        newBlocks = waspSpawner.FirstSpawn(occupiedBlocks);
+        //newBlocks = waspSpawner.FirstSpawn(occupiedBlocks);
     }
 
     LinkedList<GridObject> AddBlocks(LinkedList<GridObject> occupiedBlocks, LinkedList<GridObject> newBlocks)

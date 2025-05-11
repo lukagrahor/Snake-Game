@@ -35,7 +35,7 @@ public class DogPursueState : IState
         Debug.Log("First index " + index);
         Debug.Log("Prvi marker " + npc.FirstMarker);
         index++;
-        if(index >= path.Count)
+        if(index >= path.Count || index < 0)
         {
             stateMachine.TransitionTo(stateMachine.PatrolState);
         }
@@ -43,12 +43,15 @@ public class DogPursueState : IState
         Vector3 directionToNext = (nextMarker.transform.position - npc.transform.position).normalized;
         npc.transform.forward = directionToNext;
 
+        PlayerActions.PlayerDeath += TransitionToPatrol;
+
         Debug.Log("directionToNext " + directionToNext);
     }
 
     public void Exit()
     {
         Debug.Log("Konec pursue");
+        // centrirej ga na kocko
     }
 
     public void Update()
@@ -109,5 +112,10 @@ public class DogPursueState : IState
             nextRotation = Quaternion.identity;
             isRotating = false;
         }
+    }
+
+    void TransitionToPatrol()
+    {
+        stateMachine.TransitionTo(stateMachine.PatrolState);
     }
 }

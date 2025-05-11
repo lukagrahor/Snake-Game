@@ -69,10 +69,13 @@ public class SnakePath : MonoBehaviour
     public void RemoveMarkers()
     {
         if (Path == null) return;
+        Debug.Log("odstranitev");
         foreach (SnakePathMarker pathMarker in Path)
         {
-            Destroy(pathMarker);
+            Debug.Log($"odstranitev {pathMarker.name}");
+            Destroy(pathMarker.gameObject);
         }
+        Path = new List<SnakePathMarker>();
     }
     //[SerializeField] PathSpawner pathSpawner;
 
