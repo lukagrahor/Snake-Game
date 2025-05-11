@@ -12,7 +12,7 @@ public class DogPursueState : IState
     SnakePath pathObject;
 
     float speed = 1f;
-    float rotationSpeed = 370f;
+    float rotationSpeed = 10f;
     bool isRotating = false;
     int index;
     Quaternion nextRotation;
@@ -68,6 +68,11 @@ public class DogPursueState : IState
     {
         if (isRotating) return;
         List<SnakePathMarker> path = pathObject.Path;
+        if (index >= path.Count)
+        {
+            stateMachine.TransitionTo(stateMachine.PatrolState);
+            return;
+        }
         SnakePathMarker currentMarker = path[index];
         Vector3 targetPos = new Vector3(currentMarker.transform.position.x, 0f, currentMarker.transform.position.z);
         Vector3 npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
@@ -96,7 +101,7 @@ public class DogPursueState : IState
         if (!isRotating) return;
         Debug.Log("O moj bog!");
         //Quaternion.RotateTowards(npc.transform.rotation, Quaternion.Euler(0f, nextRotation, 0f);
-        npc.transform.rotation = Quaternion.Lerp(npc.transform.rotation, nextRotation, 3f * Time.deltaTime);
+        npc.transform.rotation = Quaternion.Lerp(npc.transform.rotation, nextRotation, rotationSpeed * Time.deltaTime);
         if (Quaternion.Angle(npc.transform.rotation, nextRotation) < rotationTreshold)
         {
             Debug.Log("NextRotation zadwasti");
