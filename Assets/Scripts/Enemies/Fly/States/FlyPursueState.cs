@@ -13,6 +13,7 @@ public class FlyPursueState : IState
     protected Fly npc;
     protected SnakeHead player;
     protected FlyStateMachine stateMachine;
+    protected ArenaGrid grid;
     protected PathSpawner pathSpawner;
     FindPathAStar pathfinder;
     List<GridObject> path;
@@ -39,6 +40,7 @@ public class FlyPursueState : IState
         this.npc = npc;
         this.player = player;
         this.stateMachine = stateMachine;
+        this.grid = grid;
         this.pathSpawner = pathSpawner;
         pathfinder = new FindPathAStar(grid);
     }
@@ -172,18 +174,25 @@ public class FlyPursueState : IState
     {
         // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
         // upošteva se, da je že na zaèetki poti, lahko se pa zgodi, da ni
-        path = pathfinder.FindPath(npc.NextBlock, player.GetNextBlock());
-        //pathSpawner.RemoveMarkers();
-        //pathSpawner.SpawnMarkers(path);
+        List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
+        if (gridObjectsWithFood.Count <= 0) return;
+        int randomIndex = Random.Range(0, gridObjectsWithFood.Count);
+        GridObject foodPositionObject = gridObjectsWithFood[randomIndex];
+        path = pathfinder.FindPath(npc.NextBlock, foodPositionObject);
+        pathSpawner.RemoveMarkers();
+        pathSpawner.SpawnMarkers(path);
         repathTimer = 0;
         pathIndex = 0;
     }
 
     private async void CalculatePathAsync()
     {
+        List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
+        if (gridObjectsWithFood.Count <= 0) return;
         pathCalculating = true;
-        GridObject playerLocation = player.GetNextBlock();
-        pathfindingTask = pathfinder.FindPathAsync(path[path.Count - 1], playerLocation);
+        int randomIndex = Random.Range(0, gridObjectsWithFood.Count);
+        GridObject foodPositionObject = gridObjectsWithFood[randomIndex];
+        pathfindingTask = pathfinder.FindPathAsync(path[path.Count - 1], foodPositionObject);
         List<GridObject> newPath = await pathfindingTask;
 
         //newPath.RemoveAt(0); // ta prva toèka na novi poti je ta zadnja toèka na že obstojeèi poti
@@ -193,7 +202,7 @@ public class FlyPursueState : IState
         }
         path.AddRange(newPath);
         //Debug.Log("Gorazd path " + path.Count);
-        //pathSpawner.SpawnMarkers(newPath);
+        pathSpawner.SpawnMarkers(newPath);
         repathTimer = 0;
         pathCalculating = false;
     }
