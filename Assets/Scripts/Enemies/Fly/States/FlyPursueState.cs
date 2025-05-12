@@ -8,11 +8,11 @@ using UnityEngine.UIElements;
 using UnityEngine.LowLevel;
 using static UnityEngine.UI.GridLayoutGroup;
 
-public class PursueState : IState
+public class FlyPursueState : IState
 {
-    protected ChaseEnemy npc;
+    protected Fly npc;
     protected SnakeHead player;
-    protected ChaseEnemyStateMachine stateMachine;
+    protected FlyStateMachine stateMachine;
     protected PathSpawner pathSpawner;
     FindPathAStar pathfinder;
     List<GridObject> path;
@@ -34,7 +34,7 @@ public class PursueState : IState
     private Awaitable<List<GridObject>> pathfindingTask;
     private bool pathCalculating = false;
 
-    public PursueState(ChaseEnemy npc, SnakeHead player, ChaseEnemyStateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
+    public FlyPursueState(Fly npc, SnakeHead player, FlyStateMachine stateMachine, ArenaGrid grid, PathSpawner pathSpawner)
     {
         this.npc = npc;
         this.player = player;

@@ -27,12 +27,14 @@ public class SpawnerManager : MonoBehaviour
         newBlocks = stationaryEnemySpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
         //Debug.Log("Occupied 2: " + occupiedBlocks.Count);
+        */
         newBlocks = chaseEnemySpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
-        */
+        /*
         newBlocks = dogSpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
-        //newBlocks = waspSpawner.FirstSpawn(occupiedBlocks);
+        newBlocks = waspSpawner.FirstSpawn(occupiedBlocks);
+        */
     }
 
     LinkedList<GridObject> AddBlocks(LinkedList<GridObject> occupiedBlocks, LinkedList<GridObject> newBlocks)

@@ -43,7 +43,7 @@ public class SnakePath : MonoBehaviour
     public void SpawnMarker(GridObject gridObject, Vector3 position, float nextRotation)
     {
         //if (pathMarkers != null) RemoveMarkers();
-
+        return; // pol odstrani
         if (pathMarkerPrefab == pathMarkerPrefab2) pathMarkerPrefab = pathMarkerPrefab1;
         else if (pathMarkerPrefab == pathMarkerPrefab1) pathMarkerPrefab = pathMarkerPrefab2;
 

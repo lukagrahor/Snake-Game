@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IChaseEnemytrigger
 {
-    public void HandleChaseEnemyTrigger(ChaseEnemy enemy);
+    public void HandleChaseEnemyTrigger(Fly enemy);
 }

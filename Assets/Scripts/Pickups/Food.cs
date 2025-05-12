@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnableObject
 {
-    FoodSpawner spawner;
     [SerializeField] float size = 0.5f;
+    FoodSpawner spawner;
+    GridObject locationObject;
+    public GridObject LocationObject { get => locationObject; set => locationObject = value; }
+    private void OnEnable()
+    {
+        Debug.Log("Jabolk!");
+    }
 
     public void HandleTrigger(SnakeHead snakeHead)
     {
@@ -15,6 +21,7 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
 
     public void Use() {
         gameObject.SetActive(false);
+        spawner.RemovePreviousObject(locationObject);
         spawner.Spawn();
     }
 

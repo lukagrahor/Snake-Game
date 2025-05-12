@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ChaseEnemy : Enemy
+public class Fly : Enemy
 {
-    [SerializeField] ChaseEnemyAI ai;
+    [SerializeField] FlyAI ai;
     public GridObject NextBlock {get; set;}
     public PathSpawner PathSpawner {get; set;}
 
@@ -24,7 +24,7 @@ public class ChaseEnemy : Enemy
 
     protected override void GetHit()
     {
-        Debug.Log("Niè");
+        Debug.Log("Niè2");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

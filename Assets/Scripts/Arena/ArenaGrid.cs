@@ -8,11 +8,14 @@ public class ArenaGrid : MonoBehaviour
     [SerializeField] Arena arena;
     [SerializeField] GridObject gridObjectPrefab;
     GridObject [,] gridObjects;
+    List<GridObject> objectsWithFood;
+    public List<GridObject> ObjectsWithFood { get => objectsWithFood; set => objectsWithFood = value; }
     int size;
     void Awake()
     {
         size = arena.GetSize();
         gridObjects = new GridObject[size, size];
+        objectsWithFood = new List<GridObject>();
         SpawnGrid();
     }
 

@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IdleState : IState
+public class FlyIdleState : IState
 {
-    protected ChaseEnemy npc;
+    protected Fly npc;
     protected SnakeHead player;
-    protected ChaseEnemyStateMachine stateMachine;
+    protected FlyStateMachine stateMachine;
     CountDown timer;
     public float WaitTime { get; set; }
-    public IdleState(ChaseEnemy npc, SnakeHead player, ChaseEnemyStateMachine stateMachine)
+    public FlyIdleState(Fly npc, SnakeHead player, FlyStateMachine stateMachine)
     {
         this.npc = npc;
         this.player = player;

@@ -26,6 +26,15 @@ public class FoodSpawner : ObjectSpawner
         LinkedList<GridObject> newBlocks = new LinkedList<GridObject>();
         newBlocks.AddLast(selectedBlock);
 
+        selectedBlock.Food = food;
+        food.LocationObject = selectedBlock;
+        grid.ObjectsWithFood.Add(selectedBlock);
+
+        foreach (GridObject gridObject in grid.ObjectsWithFood)
+        {
+            Debug.Log("objekt s hrano " + gridObject.name);
+        }
+
         return newBlocks;
     }
 
@@ -37,5 +46,29 @@ public class FoodSpawner : ObjectSpawner
         Vector3 objectPosition = GenerateObjectPosition(selectedBlock);
 
         food.SetNewPosition(objectPosition);
+        selectedBlock.Food = food;
+        food.LocationObject = selectedBlock;
+        grid.ObjectsWithFood.Add(selectedBlock);
+
+        foreach (GridObject gridObject in grid.ObjectsWithFood)
+        {
+            Debug.Log("objekt s hrano " + gridObject.name);
+        }
+    }
+
+    public void RemovePreviousObject(GridObject locationObject)
+    {
+        List<GridObject> objectsWithFood = grid.ObjectsWithFood;
+        int i = 0;
+        while(i < objectsWithFood.Count)
+        {
+            GridObject gridObject = objectsWithFood[i];
+            if (locationObject.name == gridObject.name)
+            {
+                objectsWithFood.Remove(gridObject);
+                continue;
+            }
+            i++;
+        }
     }
 }

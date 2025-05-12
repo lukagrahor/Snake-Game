@@ -8,6 +8,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     int col;
     int row;
     SnakePathMarker marker;
+    Food food;
 
     public int Col { get => col; set => col = value; }
     public int Row { get => row; set => row = value; }
@@ -15,6 +16,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     public bool IsOccupiedBySnakeHead { get => isOccupiedBySnakeHead; set => isOccupiedBySnakeHead = value; }
     public bool HasPathMarker { get => hasPathMarker; set => hasPathMarker = value; }
     public SnakePathMarker Marker { get => marker; set => marker = value; }
+    public Food Food { get => food; set => food = value; }
 
     public void HandleTrigger(SnakeHead snakeHead)
     {
@@ -26,7 +28,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
         //Debug.Log("Kaèa");
     }
 
-    public void HandleChaseEnemyTrigger(ChaseEnemy enemy)
+    public void HandleChaseEnemyTrigger(Fly enemy)
     {
         enemy.NextBlock = this;
         //Debug.Log("Nasprotnik");
