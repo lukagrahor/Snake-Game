@@ -17,6 +17,7 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
     {
         snakeHead.Grow();
         Use();
+        FoodActions.EatenByPlayer();
     }
 
     public void Use() {

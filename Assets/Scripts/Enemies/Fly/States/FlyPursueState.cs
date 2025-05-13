@@ -18,8 +18,6 @@ public class FlyPursueState : IState
     FindPathAStar pathfinder;
     List<GridObject> path;
     int pathIndex;
-    //private float repathCooldown = 1.5f;
-    //private float repathTimer = 0f;
     private float rotationSpeed = 400f;
 
     Vector3 targetPos = Vector3.zero;
@@ -29,8 +27,6 @@ public class FlyPursueState : IState
     float speed = 0.9f;
     private float rotationThreshold = 5f;
     Quaternion targetRotation = Quaternion.identity;
-    //private bool pathExpired;
-    private float idleWaitTime = 5f;
     private Awaitable<List<GridObject>> pathfindingTask;
     private bool pathCalculating = false;
 
@@ -45,16 +41,18 @@ public class FlyPursueState : IState
     }
     public void Enter()
     {
-        CalculatePath();
+        CalculatePathAsync();
         //Debug.Log("First path " + path[0]);
-        targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
+        //targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         isRotating = false;
-        pathCalculating = false;
+        pathCalculating = true;
         //PlayerActions.PlayerDeath += PlayerDied;
+        FoodActions.EatenByPlayer += CalculatePathAsync;
     }
 
     public void Update()
     {
+        if (pathCalculating) return;
         if (path == null || path.Count == 0)
         {
 
@@ -95,8 +93,8 @@ public class FlyPursueState : IState
 
     void SetNextPoint()
     {
-        Debug.Log("dot pathIndex:" + pathIndex);
-        Debug.Log("dot pathBlock:" + path[pathIndex]);
+        //Debug.Log("dot pathIndex:" + pathIndex);
+        //Debug.Log("dot pathBlock:" + path[pathIndex]);
         //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
         pathIndex++;
 
@@ -164,6 +162,7 @@ public class FlyPursueState : IState
 
         return newTargetRotation;
     }
+    /*
     void CalculatePath()
     {
         // problem je, da ne pride do svoje prejšnje tarèe, ampak se kar zaène premikat po novi poti --> pade iz poti
@@ -178,8 +177,34 @@ public class FlyPursueState : IState
         //repathTimer = 0;
         pathIndex = 0;
     }
+    */
 
     private async void CalculatePathAsync()
+    {
+        List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
+        if (gridObjectsWithFood.Count <= 0) return;
+        pathCalculating = true;
+        int randomIndex = Random.Range(0, gridObjectsWithFood.Count);
+        GridObject foodPositionObject = gridObjectsWithFood[randomIndex];
+        pathfindingTask = pathfinder.FindPathAsync(npc.NextBlock, foodPositionObject);
+        List<GridObject> newPath = await pathfindingTask;
+
+        //newPath.RemoveAt(0); // ta prva toèka na novi poti je ta zadnja toèka na že obstojeèi poti
+        foreach (GridObject newPathItem in newPath)
+        {
+            Debug.Log("newPathItem " + newPathItem.name);
+        }
+        path = newPath;
+        //Debug.Log("Gorazd path " + path.Count);
+        pathSpawner.SpawnMarkers(newPath);
+        //repathTimer = 0;
+        pathCalculating = false;
+        pathIndex = 0;
+        targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
+    }
+
+    /*
+          private async void CalculatePathAsync()
     {
         List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
         if (gridObjectsWithFood.Count <= 0) return;
@@ -200,6 +225,7 @@ public class FlyPursueState : IState
         //repathTimer = 0;
         pathCalculating = false;
     }
+    */
 
     public void Exit()
     {

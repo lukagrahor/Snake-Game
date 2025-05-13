@@ -8,7 +8,7 @@ public class FlyIdleState : IState
     protected FlyStateMachine stateMachine;
     protected ArenaGrid grid;
     CountDown timer;
-    float waitTime = 2f;
+    float waitTime = 1f;
     bool timerRunOut = false;
     //public float WaitTime { get; set; }
     public FlyIdleState(Fly npc, SnakeHead player, FlyStateMachine stateMachine, ArenaGrid grid)
