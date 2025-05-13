@@ -18,8 +18,8 @@ public class FlyPursueState : IState
     FindPathAStar pathfinder;
     List<GridObject> path;
     int pathIndex;
-    private float repathCooldown = 1.5f;
-    private float repathTimer = 0f;
+    //private float repathCooldown = 1.5f;
+    //private float repathTimer = 0f;
     private float rotationSpeed = 400f;
 
     Vector3 targetPos = Vector3.zero;
@@ -30,7 +30,6 @@ public class FlyPursueState : IState
     private float rotationThreshold = 5f;
     Quaternion targetRotation = Quaternion.identity;
     //private bool pathExpired;
-    private bool stopChasing;
     private float idleWaitTime = 5f;
     private Awaitable<List<GridObject>> pathfindingTask;
     private bool pathCalculating = false;
@@ -50,9 +49,8 @@ public class FlyPursueState : IState
         //Debug.Log("First path " + path[0]);
         targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         isRotating = false;
-        stopChasing = false;
         pathCalculating = false;
-        PlayerActions.PlayerDeath += PlayerDied;
+        //PlayerActions.PlayerDeath += PlayerDied;
     }
 
     public void Update()
@@ -67,18 +65,19 @@ public class FlyPursueState : IState
             CalculatePathAsync();
         }
 
-        repathTimer += Time.deltaTime;
+        //repathTimer += Time.deltaTime;
         if (isRotating)
         {
             Rotate();
         }
         else
         {
-            if (repathTimer >= repathCooldown && pathCalculating == false)
+            /*
+            if (pathCalculating == false)
             {
                 Debug.Log("Repath");
                 CalculatePathAsync();
-            }
+            }*/
 
             npcPos = new Vector3(npc.transform.position.x, 0f, npc.transform.position.z);
             float distance = Vector3.Distance(npcPos, targetPos);
@@ -98,18 +97,13 @@ public class FlyPursueState : IState
     {
         Debug.Log("dot pathIndex:" + pathIndex);
         Debug.Log("dot pathBlock:" + path[pathIndex]);
-        if (stopChasing)
-        {
-            stateMachine.idleState.WaitTime = idleWaitTime;
-            stateMachine.TransitionTo(stateMachine.idleState);
-        }
         //npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
         pathIndex++;
 
         if (pathIndex >= path.Count || pathIndex < 0)
         {
             //Debug.Log("Bogdan nextBlock:" + npc.NextBlock.name);
-            stateMachine.idleState.WaitTime = idleWaitTime;
+            //stateMachine.idleState.WaitTime = idleWaitTime;
             stateMachine.TransitionTo(stateMachine.idleState);
         }
 
@@ -149,12 +143,12 @@ public class FlyPursueState : IState
         //npc.transform.Translate(speed * Time.deltaTime * npc.transform.forward, Space.World);
         npc.transform.Translate(speed * Time.deltaTime * Vector3.forward, Space.Self);
     }
-
+    /*
     void PlayerDied()
     {
         stopChasing = true;
     }
-
+    */
     Quaternion RotateTowardsNextPoint(Vector3 currentPoint, Vector3 nextPoint)
     {
         if (path == null || path.Count <= pathIndex) return Quaternion.identity;
@@ -181,7 +175,7 @@ public class FlyPursueState : IState
         path = pathfinder.FindPath(npc.NextBlock, foodPositionObject);
         pathSpawner.RemoveMarkers();
         pathSpawner.SpawnMarkers(path);
-        repathTimer = 0;
+        //repathTimer = 0;
         pathIndex = 0;
     }
 
@@ -203,7 +197,7 @@ public class FlyPursueState : IState
         path.AddRange(newPath);
         //Debug.Log("Gorazd path " + path.Count);
         pathSpawner.SpawnMarkers(newPath);
-        repathTimer = 0;
+        //repathTimer = 0;
         pathCalculating = false;
     }
 

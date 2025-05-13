@@ -12,7 +12,7 @@ public class FlyStateMachine : FiniteStateMachine
 
     public FlyStateMachine(Fly npc, SnakeHead player, ArenaGrid grid, PathSpawner pathSpawner)
     {
-        this.idleState = new FlyIdleState(npc, player, this);
+        this.idleState = new FlyIdleState(npc, player, this, grid);
         this.pursueState = new FlyPursueState(npc, player, this, grid, pathSpawner);
 
         this.npc = npc;

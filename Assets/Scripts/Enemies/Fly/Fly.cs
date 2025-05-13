@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Fly : Enemy
 {
-    [SerializeField] FlyAI ai;
+    public FlyAI ai;
     public GridObject NextBlock {get; set;}
     public PathSpawner PathSpawner {get; set;}
 

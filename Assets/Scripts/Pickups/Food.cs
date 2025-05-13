@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using UnityEngine;
 
-public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnableObject
+public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnableObject, IFlyFrontTriggerHandler
 {
     [SerializeField] float size = 0.5f;
     FoodSpawner spawner;
@@ -39,5 +39,15 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
     public void ApplyScale()
     {
         gameObject.transform.localScale = new Vector3(size, size, size);
+    }
+
+    public void HandleFlyTrigger(Fly fly)
+    {
+        Use();
+        FlyStateMachine stateMachine = (FlyStateMachine) fly.ai.stateMachine;
+        if (stateMachine.CurrentState == stateMachine.pursueState)
+        {
+            fly.ai.stateMachine.TransitionTo(stateMachine.idleState);
+        }
     }
 }
