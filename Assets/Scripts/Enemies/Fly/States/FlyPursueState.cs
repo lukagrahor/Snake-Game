@@ -42,11 +42,8 @@ public class FlyPursueState : IState
     public void Enter()
     {
         CalculatePathAsync();
-        //Debug.Log("First path " + path[0]);
-        //targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         isRotating = false;
         pathCalculating = true;
-        //PlayerActions.PlayerDeath += PlayerDied;
         FoodActions.EatenByPlayer += CalculatePathAsync;
     }
 
@@ -55,11 +52,6 @@ public class FlyPursueState : IState
         if (pathCalculating) return;
         if (path == null || path.Count == 0)
         {
-
-            /*Debug.Log("Bernard");
-            Debug.Log("Bernard Count " + path.Count);
-            Debug.Log("Bernard path " + path);*/
-            Debug.Log("Bernard");
             CalculatePathAsync();
         }
 
@@ -81,11 +73,17 @@ public class FlyPursueState : IState
             float distance = Vector3.Distance(npcPos, targetPos);
             Vector3 moveDirection = (targetPos - npcPos).normalized;
             float dotProduct = Vector3.Dot(npc.transform.forward, moveDirection);
-            //Debug.Log("distance:" + distance);
+            Debug.Log("distance:" + distance);
             //Debug.Log("dotProduct:" + dotProduct);
             if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
             {
                 SetNextPoint();
+            }
+
+            if (distance > 1.7f)
+            {
+                CalculatePathAsync();
+                return;
             }
             Move();
         }
@@ -181,6 +179,7 @@ public class FlyPursueState : IState
 
     private async void CalculatePathAsync()
     {
+        // èe se zraèuna nova pot med tem ko se je muha rotirala, jo tu totalnu zmede
         List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
         if (gridObjectsWithFood.Count <= 0) return;
         pathCalculating = true;

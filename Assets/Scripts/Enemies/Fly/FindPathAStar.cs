@@ -66,6 +66,7 @@ public class FindPathAStar
         //Debug.Log("start pathfinding");
         //Debug.Log(start.locationBlock.name);
 
+        int i = 0;
         while (open.Count > 0)
         {
             open.Sort((a, b) => a.F.CompareTo(b.F));
@@ -104,8 +105,9 @@ public class FindPathAStar
                 }
             }
 
-            // vsako tocko predela v enem frame-u
-            await Awaitable.NextFrameAsync();
+            // stiri tocke predela v enem frame-u
+            if (i % 4 == 0) await Awaitable.NextFrameAsync();
+            i++;
         }
         return new List<GridObject>();
     }
