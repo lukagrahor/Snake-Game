@@ -10,7 +10,6 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
     public GridObject LocationObject { get => locationObject; set => locationObject = value; }
     private void OnEnable()
     {
-        Debug.Log("Jabolk!");
     }
 
     public void HandleTrigger(SnakeHead snakeHead)
