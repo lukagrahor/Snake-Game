@@ -13,6 +13,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     LinkedList<float> rotationBuffer;
     Quaternion biteMoveRotation;
     Vector3 biteMoveDirecton;
+    SnakeHeadStateMachine stateMachine;
 
     bool stop = false;
     enum Directions
