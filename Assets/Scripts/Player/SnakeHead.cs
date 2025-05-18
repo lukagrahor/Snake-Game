@@ -11,6 +11,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     GridObject nextBlock;
     GridObject alreadyTurned;
     LinkedList<float> rotationBuffer;
+    Quaternion biteMoveRotation;
+    Vector3 biteMoveDirecton;
 
     bool stop = false;
     enum Directions
@@ -20,6 +22,9 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         Down = 180,
         Left = 270
     }
+
+    bool isBiting;
+    public bool IsBiting { get => isBiting; set => isBiting = value; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -48,7 +53,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         {
             return;
         }
-        Move();
+        if (isBiting) MoveWhileBiting();
+        else Move();
     }
 
     public void Stop()
@@ -113,6 +119,23 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     {
         // Vector3.forward --> local space, transform.forward --> world space
         transform.Translate(MoveSpeed * Time.deltaTime * Vector3.forward);
+    }
+    // neodvisno od rotacije glave --> glava se lahko rotira, ampak kaèa potuje naprej
+    void MoveWhileBiting()
+    {
+        // ne sme se takoj prekinit, ker èe ne gre kaèa off the grid --> mogoèe buljše vrnt igralca nazaj na prejšnjo rotacijo
+        if (biteMoveDirecton == null) return;
+        transform.Translate(MoveSpeed * Time.deltaTime * biteMoveDirecton, Space.World);
+    }
+    public void SetBiteMovementDirection()
+    {
+        biteMoveRotation = Quaternion.Euler(0f, GetRotation(), 0f);
+        biteMoveDirecton = RotationToMovementVector(GetRotation());
+    }
+
+    public void StopBiting()
+    {
+        transform.forward = biteMoveDirecton;
     }
 
     void SetRotation()

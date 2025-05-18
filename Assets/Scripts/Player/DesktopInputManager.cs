@@ -41,7 +41,8 @@ public class DesktopInputManager : ISnakeInput
         _controls.PlayerDesktop.MoveRight.performed += MoveRight;
         _controls.PlayerDesktop.MoveDown.performed += MoveDown;
         _controls.PlayerDesktop.MoveLeft.performed += MoveLeft;
-        _controls.PlayerDesktop.PrimaryAttack.performed += PrimaryAttack;
+        _controls.PlayerDesktop.PrimaryAttack.performed += PrimaryAttackPerformed;
+        _controls.PlayerDesktop.PrimaryAttack.canceled += PrimaryAttackCanceled;
     }
 
     private void MoveUp(InputAction.CallbackContext context)
@@ -109,9 +110,31 @@ public class DesktopInputManager : ISnakeInput
         }
     }
 
+    private void PrimaryAttackPerformed(InputAction.CallbackContext context)
+    {
+        snake.MoveSpeed = snake.ChargingMoveSpeed;
+        snake.SnakeHead.SetBiteMovementDirection();
+        snake.IsBiting = true;
+        // onemogoèi spreminjanje smeri cele kaèe - le od glave
+    }
+
+    private void PrimaryAttackCanceled(InputAction.CallbackContext context)
+    {
+        // preveri ali bite timer potekel --> èe je ne naredi niè
+        snake.MoveSpeed = snake.DefaultSpeed;
+        snake.IsBiting = false;
+        snake.SnakeHead.StopBiting();
+        // nastavi smer na shranjeno smer
+
+        // izvedi ugriz --> ugrizni pred kaèo
+        // omogoèi nazaj spreminjanje smeri --> al daj nazaj na prejšnjo smer al pa upoštevaj smer po ugrizu
+    }
+
+    /*
     private void PrimaryAttack(InputAction.CallbackContext context)
     {
         float snakeSpeed = snake.MoveSpeed;
+        // To ustavi kaèo
         if (snakeSpeed != 0f)
         {
             defaultSnakeSpeed = snakeSpeed;
@@ -127,4 +150,5 @@ public class DesktopInputManager : ISnakeInput
 
         snake.MoveSpeed = defaultSnakeSpeed;
     }
+    */
 }

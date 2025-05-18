@@ -15,7 +15,9 @@ public class Snake : MonoBehaviour
 
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] float snakeScale = 0.4f;
+    float defaultSpeed;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
+    [SerializeField][Range(0, 7)] float chargingMoveSpeed = 0.5f;
     [SerializeField][Range(2, 6)] int startingSize = 2;
     Vector3 spawnPosition;
 
@@ -24,6 +26,7 @@ public class Snake : MonoBehaviour
     ISnakeInput snakeInputManager;
     public SnakeHead SnakeHead { get; set; }
     public SnakePath Path;
+    public float DefaultSpeed { get => defaultSpeed; set => defaultSpeed = value; }
     public float MoveSpeed
     {
         get => moveSpeed;
@@ -34,8 +37,21 @@ public class Snake : MonoBehaviour
             SetTorsoSpeed();
         }
     }
+    public float ChargingMoveSpeed { get => chargingMoveSpeed; set => chargingMoveSpeed = value; }
+
+    bool isBiting = false;
+    public bool IsBiting
+    {
+        get => isBiting;
+        set
+        {
+            isBiting = value;
+            SnakeHead.IsBiting = value;
+        }
+    }
     void Awake()
     {
+        defaultSpeed = moveSpeed;
         snakeInputManager = CreateInputManager();
         snakeTorsoParts = new List<SnakeTorso>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
@@ -61,7 +77,7 @@ public class Snake : MonoBehaviour
     void Start()
     {
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = -1;
     }
 
     void Respawn()

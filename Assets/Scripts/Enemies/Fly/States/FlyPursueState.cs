@@ -153,7 +153,7 @@ public class FlyPursueState : IState
         List<GridObject> newPath = await pathfindingTask;
 
         path = newPath;
-        pathSpawner.SpawnMarkers(newPath);
+        //pathSpawner.SpawnMarkers(newPath);
         pathIndex = 0;
         targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         pathCalculating = false;
