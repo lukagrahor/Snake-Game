@@ -1,19 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SnakeNormalState : IState
 {
-    SnakeHead player;
-    ArenaGrid grid;
-    PathSpawner pathSpawner;
-    public SnakeNormalState(SnakeHead player, ArenaGrid grid, SnakeHeadStateMachine stateMachine)
+    SnakeHead snakeHead;
+    SnakeHeadStateMachine stateMachine;
+    LinkedList<float> rotationBuffer;
+    public SnakeNormalState(SnakeHead snakeHead, SnakeHeadStateMachine stateMachine)
     {
-        this.player = player;
-        this.grid = grid;
+        this.snakeHead = snakeHead;
     }
 
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        rotationBuffer = new LinkedList<float>();
     }
 
     public void Exit()

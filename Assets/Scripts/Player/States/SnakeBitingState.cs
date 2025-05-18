@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class SnakeBitingState : IState
 {
-    SnakeHead player;
-    ArenaGrid grid;
-    PathSpawner pathSpawner;
-    public SnakeBitingState(SnakeHead player, ArenaGrid grid, SnakeHeadStateMachine stateMachine)
+    SnakeHead snakeHead;
+    SnakeHeadStateMachine stateMachine;
+    public SnakeBitingState(SnakeHead snakeHead, SnakeHeadStateMachine stateMachine)
     {
-        this.player = player;
-        this.grid = grid;
+        this.snakeHead = snakeHead;
     }
 
     public void Enter()

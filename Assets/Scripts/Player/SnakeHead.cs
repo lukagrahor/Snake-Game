@@ -15,7 +15,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     Vector3 biteMoveDirecton;
     SnakeHeadStateMachine stateMachine;
 
-    bool stop = false;
+    //bool stop = false;
     enum Directions
     {
         Up = 0,
@@ -41,6 +41,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     void Awake()
     {
         rotationBuffer = new LinkedList<float>();
+        stateMachine = new SnakeHeadStateMachine(this);
     }
 
     void OnEnable()
@@ -50,18 +51,21 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     void Update()
     {
+        /*
         if (stop == true)
         {
             return;
         }
+        */
         if (isBiting) MoveWhileBiting();
         else Move();
     }
-
+    /*
     public void Stop()
     {
         stop = true;
     }
+    */
 
     public void Setup(float moveSpeed, Snake snake, Vector3 scale)
     {
