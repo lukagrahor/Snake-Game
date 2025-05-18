@@ -18,7 +18,6 @@ public class DogIdleState : IState
 
     public void Enter()
     {
-        Debug.Log("Dog Idle");
         timer = new CountDown(WaitTime);
         timer.TimeRanOut += StopWaiting;
         timer.Start();

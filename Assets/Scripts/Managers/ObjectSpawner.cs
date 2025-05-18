@@ -18,18 +18,8 @@ public abstract class ObjectSpawner : MonoBehaviour
     {
         int upperLimit = emptyGridObjects.Count - 1;
         int gridObjectIndex = Random.Range(0, upperLimit);
-        /*
-        Debug.Log("gridObjectIndex: " + gridObjectIndex);
-        Debug.Log("gridObjectIndex: " + emptyGridObjects.Count);
-        foreach(GridObject gO in emptyGridObjects)
-        {
-            Debug.Log("objekt: " + gO.name);
-        }
 
-        Debug.Log("gridObjectIndex: " + gridObjectIndex);
-        Debug.Log("gridObjectCount: " + emptyGridObjects.Count);
-        */
-        GridObject gridObject = emptyGridObjects.ElementAt(gridObjectIndex); // tle uèasih gre out of range --> prazn emptyGridObjects
+        GridObject gridObject = emptyGridObjects.ElementAt(gridObjectIndex);
         return gridObject;
     }
 

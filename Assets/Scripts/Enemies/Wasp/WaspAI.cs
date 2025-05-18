@@ -14,8 +14,6 @@ public class WaspAI : AI
             Debug.Log("Ne najdem glave!");
             return;
         }
-        //Debug.Log("naštimej state machine");
-        //pathSpawner.transform.parent = null;
         stateMachine = new WaspStateMachine(npc, player, grid, pathSpawner, LayersToHit);
         stateMachine.Intialize();
         waspStateMachine = (WaspStateMachine)stateMachine;

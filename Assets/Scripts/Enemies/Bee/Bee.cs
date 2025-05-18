@@ -18,7 +18,6 @@ public class Bee : Enemy, IFrontTriggerHandler, ISpawnableObject, IWaspFrontTrig
 
     public override void Setup(int col, int row, int gridSize)
     {
-        //Debug.Log($"col: {col}, row: {row}");
         if (row == 0 && col == 0)
         {
             int random = Random.Range(1, 3);

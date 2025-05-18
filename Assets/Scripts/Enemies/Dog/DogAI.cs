@@ -8,15 +8,12 @@ public class DogAI : AI
     
     void Start()
     {
-        //Debug.Log("player");
-        //Debug.Log(player);
         if (player == null)
         {
             Debug.Log("Ne najdem glave!");
             return;
         }
-        //Debug.Log("naštimej state machine");
-        //pathSpawner.transform.parent = null;
+
         stateMachine = new DogStateMachine(npc, player, grid, pathSpawner);
         stateMachine.Intialize();
         DogStateMachine = (DogStateMachine)stateMachine;

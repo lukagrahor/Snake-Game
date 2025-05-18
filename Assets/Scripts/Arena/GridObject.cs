@@ -20,25 +20,18 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
 
     public void HandleTrigger(SnakeHead snakeHead)
     {
-        //snakeHead.SetHasSnapped(false);
-        //Debug.Log($"Enter: {gameObject.name} {transform.position}");
         snakeHead.SetNextBlock(this);
         isOccupiedBySnakeHead = true;
         HasPathMarker = false;
-        //Debug.Log("Kaèa");
     }
 
     public void HandleChaseEnemyTrigger(Fly enemy)
     {
-        enemy.NextBlock = this;
-        //Debug.Log("Nasprotnik");
+        if (!enemy.IsRotating) enemy.NextBlock = this;
     }
 
     public void HandleSnakeheadTriggerExit(SnakeHead snakeHead)
     {
-        //snakeHead.SetHasSnapped(false);
-        //Debug.Log($"Exit: {gameObject.name} {transform.position}");
-        //Debug.Log("");
     }
 
     private void OnTriggerEnter(Collider other)

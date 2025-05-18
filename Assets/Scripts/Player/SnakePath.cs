@@ -47,8 +47,6 @@ public class SnakePath : MonoBehaviour
         if (pathMarkerPrefab == pathMarkerPrefab2) pathMarkerPrefab = pathMarkerPrefab1;
         else if (pathMarkerPrefab == pathMarkerPrefab1) pathMarkerPrefab = pathMarkerPrefab2;
 
-        //pathMarkers = new List<GameObject>();
-
         if (pathMarkerPrefab1 == null || pathMarkerPrefab2 == null)
         {
             Debug.LogError("Path Marker Prefab is not assigned in the Inspector!");
@@ -69,19 +67,10 @@ public class SnakePath : MonoBehaviour
     public void RemoveMarkers()
     {
         if (Path == null) return;
-        Debug.Log("odstranitev");
         foreach (SnakePathMarker pathMarker in Path)
         {
-            Debug.Log($"odstranitev {pathMarker.name}");
             Destroy(pathMarker.gameObject);
         }
         Path = new List<SnakePathMarker>();
-    }
-    //[SerializeField] PathSpawner pathSpawner;
-
-    public void AddToPath(Vector3 location, float nextRotation)
-    {
-        //Path.Add();
-        //pathSpawner.SpawnMarker(location);
     }
 }

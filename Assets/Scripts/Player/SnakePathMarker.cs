@@ -13,6 +13,6 @@ public class SnakePathMarker : MonoBehaviour
 
     private void Start()
     {
-        if (nextRotation > 0f) Debug.Log("NextRotation marker " + this.name + " rotation " + nextRotation);
+
     }
 }

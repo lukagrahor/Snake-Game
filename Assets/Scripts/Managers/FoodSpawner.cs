@@ -30,11 +30,6 @@ public class FoodSpawner : ObjectSpawner
         food.LocationObject = selectedBlock;
         grid.ObjectsWithFood.Add(selectedBlock);
 
-        foreach (GridObject gridObject in grid.ObjectsWithFood)
-        {
-            Debug.Log("objekt s hrano " + gridObject.name);
-        }
-
         return newBlocks;
     }
 
@@ -49,11 +44,6 @@ public class FoodSpawner : ObjectSpawner
         selectedBlock.Food = food;
         food.LocationObject = selectedBlock;
         grid.ObjectsWithFood.Add(selectedBlock);
-
-        foreach (GridObject gridObject in grid.ObjectsWithFood)
-        {
-            Debug.Log("objekt s hrano " + gridObject.name);
-        }
     }
 
     public void RemovePreviousObject(GridObject locationObject)

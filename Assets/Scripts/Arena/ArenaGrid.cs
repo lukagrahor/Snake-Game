@@ -77,7 +77,6 @@ public class ArenaGrid : MonoBehaviour
 
                 GridObject neighbour = gridObjects[newCol, newRow];
                 neighbours.Add(neighbour);
-                //Debug.Log("Lepo je biti sosed: " + neighbour.name);
             }
         }
         

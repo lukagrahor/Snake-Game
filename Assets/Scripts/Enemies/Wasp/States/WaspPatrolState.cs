@@ -31,8 +31,6 @@ public class WaspPatrolState : IState
     {
         previousColor = npc.WaspRenderer.material.color;
         baseColor = npc.WaspColor;
-        Debug.Log("previousColor " + previousColor);
-        Debug.Log("baseColor " + baseColor);
     }
     public void Update()
     {
@@ -50,7 +48,6 @@ public class WaspPatrolState : IState
 
     void Setup()
     {
-        //Debug.Log($"col: {col}, row: {row}");
         GridObject startBlock = npc.StartBlock;
         int gridSize = grid.GetSize();
         int col = startBlock.Col;
@@ -94,15 +91,15 @@ public class WaspPatrolState : IState
         Ray ray = new Ray(npc.transform.position, npc.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, rayMaxDistance, layersToHit))
         {
-            Debug.Log(hit.collider.gameObject.name + " je bil zdnjen na razdalji " + hit.distance + " layer " + hit.collider.gameObject.layer);
+            //Debug.Log(hit.collider.gameObject.name + " je bil zdnjen na razdalji " + hit.distance + " layer " + hit.collider.gameObject.layer);
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SnakeHead") || hit.collider.gameObject.layer == LayerMask.NameToLayer("SnakeBody"))
             {
-                Debug.Log("Zdnjen igralc!");
+                //Debug.Log("Zdnjen igralc!");
                 stateMachine.TransitionTo(stateMachine.ChargeState);
             }
             else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && hit.distance < 0.3f)
             {
-                Debug.Log("Zdnjen nasprotnik!");
+                //Debug.Log("Zdnjen nasprotnik!");
                 npc.Turn();
             }
         }

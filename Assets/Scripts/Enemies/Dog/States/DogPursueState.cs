@@ -27,13 +27,10 @@ public class DogPursueState : IState
     }
     public void Enter()
     {
-        Debug.Log("Pursue");
         npc.transform.position = npc.FirstMarker.transform.position;
         pathObject = player.GetSnake().Path;
         List<SnakePathMarker> path = pathObject.Path;
         index = path.IndexOf(npc.FirstMarker);
-        Debug.Log("First index " + index);
-        Debug.Log("Prvi marker " + npc.FirstMarker);
         index++;
         if(index >= path.Count || index < 0)
         {
@@ -44,13 +41,10 @@ public class DogPursueState : IState
         npc.transform.forward = directionToNext;
 
         PlayerActions.PlayerDeath += TransitionToPatrol;
-
-        Debug.Log("directionToNext " + directionToNext);
     }
 
     public void Exit()
     {
-        Debug.Log("Konec pursue");
         // centrirej ga na kocko
         npc.transform.position = npc.NextBlock.transform.position;
         npc.StartBlock = npc.NextBlock;
@@ -85,17 +79,11 @@ public class DogPursueState : IState
         Vector3 moveDirection = (targetPos - npcPos).normalized;
         float dotProduct = Vector3.Dot(npc.transform.forward, moveDirection);
         float distance = Vector3.Distance(npcPos, targetPos);
-        //Debug.Log("distance:" + distance);
-        //Debug.Log("dotProduct:" + dotProduct);
         if (distance <= 0.01f || (dotProduct < 0 && distance <= 0.1f))
         {
-            Debug.Log("NextRotation current index " + index);
             index++;
             if (currentMarker.NextRotation == 0f) return;
-            Debug.Log("NextRotation " + currentMarker.NextRotation);
-            //nextRotation = Quaternion.AngleAxis(currentMarker.NextRotation, Vector3.up);
             nextRotation = npc.transform.rotation * Quaternion.Euler(0f, currentMarker.NextRotation, 0f);
-            Debug.Log("NextRotation Angle axis" + currentMarker.NextRotation);
             npc.transform.position = new Vector3(targetPos.x, npc.transform.position.y, targetPos.z);
             isRotating = true;
         }
@@ -104,12 +92,9 @@ public class DogPursueState : IState
     void Rotate()
     {
         if (!isRotating) return;
-        Debug.Log("O moj bog!");
-        //Quaternion.RotateTowards(npc.transform.rotation, Quaternion.Euler(0f, nextRotation, 0f);
         npc.transform.rotation = Quaternion.Lerp(npc.transform.rotation, nextRotation, rotationSpeed * Time.deltaTime);
         if (Quaternion.Angle(npc.transform.rotation, nextRotation) < rotationTreshold)
         {
-            Debug.Log("NextRotation zadwasti");
             npc.transform.rotation = nextRotation;
             nextRotation = Quaternion.identity;
             isRotating = false;

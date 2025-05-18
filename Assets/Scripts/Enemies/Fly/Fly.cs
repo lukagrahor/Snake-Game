@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class Fly : Enemy
 {
+    bool isRotating = false;
     public FlyAI ai;
     public GridObject NextBlock {get; set;}
     public PathSpawner PathSpawner {get; set;}
+    public bool IsRotating { get => isRotating; set => isRotating = value; }
 
     public override void Setup(int col, int row, int gridSize)
     {
-        Debug.Log("Niè");
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +26,7 @@ public class Fly : Enemy
 
     protected override void GetHit()
     {
-        Debug.Log("Niè2");
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

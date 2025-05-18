@@ -92,14 +92,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             Vector3 movementDirection = RotationToMovementVector(GetRotation());
             Vector3 directionToBlock = nextGridBlockPosition - transform.position;
             float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
-            // too small distance can cause the snake to not turn when needed
             // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
             // && distance <= 0.1f, brez tega se je kocka obrnila ko je bila že na robu kocke, kar je izgledalo èudno
             float distance = Vector3.Distance(snakeHeadPosition, gridBlockPosition);
             if (distance <= 0.03f || (dotProduct < 0 && distance <= 0.1f))
             {
-                //Debug.Log($"dotProduct: {dotProduct}");
-                //Debug.Log($"distance: {distance}");
                 if (rotationBuffer.Count > 0)
                 {
                     // snap to the place of the grid block
@@ -124,8 +121,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         {
             return;
         }
-
-        //Debug.Log("Turn");
 
         transform.Rotate(0, rotationBuffer.First.Value, 0);
         snake.SetTorsoRotation(rotationBuffer.First.Value);

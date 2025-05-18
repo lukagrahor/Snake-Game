@@ -14,7 +14,6 @@ public class Dog : Enemy, IWaspFrontTriggerHandler, IPathTrigger
     {
         StartBlock = grid.GetGridObjects()[col, row];
         NextBlock = StartBlock;
-        Debug.Log("Dog startBlock " + StartBlock);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,7 +31,7 @@ public class Dog : Enemy, IWaspFrontTriggerHandler, IPathTrigger
 
     protected override void GetHit()
     {
-        Debug.Log("Niè");
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -27,7 +27,6 @@ public class FlyIdleState : IState
 
     public void Enter()
     {
-        Debug.Log("Fly Idle");
         timerRunOut = false;
         timer = new CountDown(waitTime);
         timer.TimeRanOut += CheckForFood;
