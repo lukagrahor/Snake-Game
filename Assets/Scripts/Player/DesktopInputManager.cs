@@ -113,8 +113,8 @@ public class DesktopInputManager : ISnakeInput
     private void PrimaryAttackPerformed(InputAction.CallbackContext context)
     {
         snake.MoveSpeed = snake.ChargingMoveSpeed;
-        snake.SnakeHead.SetBiteMovementDirection();
-        snake.IsBiting = true;
+        //snake.SnakeHead.SetBiteMovementDirection();
+        snake.SnakeHead.StartBiting();
         // onemogoèi spreminjanje smeri cele kaèe - le od glave
     }
 
@@ -122,7 +122,6 @@ public class DesktopInputManager : ISnakeInput
     {
         // preveri ali bite timer potekel --> èe je ne naredi niè
         snake.MoveSpeed = snake.DefaultSpeed;
-        snake.IsBiting = false;
         snake.SnakeHead.StopBiting();
         // nastavi smer na shranjeno smer
 

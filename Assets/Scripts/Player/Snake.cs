@@ -38,17 +38,6 @@ public class Snake : MonoBehaviour
         }
     }
     public float ChargingMoveSpeed { get => chargingMoveSpeed; set => chargingMoveSpeed = value; }
-
-    bool isBiting = false;
-    public bool IsBiting
-    {
-        get => isBiting;
-        set
-        {
-            isBiting = value;
-            SnakeHead.IsBiting = value;
-        }
-    }
     void Awake()
     {
         defaultSpeed = moveSpeed;
@@ -96,7 +85,9 @@ public class Snake : MonoBehaviour
 
     public void SetNextYRotation(float turnRotation)
     {
-        SnakeHead.AddToRotationBuffer(turnRotation);
+        ISnakeState snakeState = (ISnakeState)SnakeHead.StateMachine.CurrentState;
+        snakeState.SetRotation(turnRotation);
+        //SnakeHead.AddToRotationBuffer(turnRotation);
     }
 
     /**

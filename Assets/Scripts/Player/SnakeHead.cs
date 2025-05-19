@@ -9,10 +9,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     Snake snake;
     GridObject nextBlock;
-    GridObject alreadyTurned;
-    LinkedList<float> rotationBuffer;
+    GridObject lastRotationBlock;
     Quaternion biteMoveRotation;
     Vector3 biteMoveDirecton;
+    LinkedList<float> rotationBuffer;
     SnakeHeadStateMachine stateMachine;
 
     //bool stop = false;
@@ -24,8 +24,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         Left = 270
     }
 
-    bool isBiting;
-    public bool IsBiting { get => isBiting; set => isBiting = value; }
+    public GridObject NextBlock { get => nextBlock; set => nextBlock = value; }
+    public GridObject LastRotationBlock { get => lastRotationBlock; set => lastRotationBlock = value; }
+    public Snake Snake { get => snake; }
+    public LinkedList<float> RotationBuffer { get => rotationBuffer; set => rotationBuffer = value; }
+    public SnakeHeadStateMachine StateMachine { get => stateMachine;}
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -42,6 +45,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     {
         rotationBuffer = new LinkedList<float>();
         stateMachine = new SnakeHeadStateMachine(this);
+        stateMachine.Intialize();
     }
 
     void OnEnable()
@@ -57,8 +61,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             return;
         }
         */
+        stateMachine.Update();
+        /*
         if (isBiting) MoveWhileBiting();
         else Move();
+        */
     }
     /*
     public void Stop()
@@ -89,33 +96,17 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     private void OnTriggerStay(Collider other)
     {
-        if (alreadyTurned != null && other.gameObject.name == alreadyTurned.gameObject.name)
+        if (stateMachine.CurrentState == stateMachine.NormalState)
         {
-            return;
-        }
-        if (other.GetComponent<GridObject>() != null)
-        {
-            // ignore the y axis
-            Vector3 gridBlockPosition = new (other.transform.position.x, 0f, other.transform.position.z);
-            Vector3 nextGridBlockPosition = new (nextBlock.transform.position.x, 0f, nextBlock.transform.position.z);
-            Vector3 snakeHeadPosition = new (transform.position.x, 0f, transform.position.z);
-
-            Vector3 movementDirection = RotationToMovementVector(GetRotation());
-            Vector3 directionToBlock = nextGridBlockPosition - transform.position;
-            float dotProduct = Vector3.Dot(movementDirection, directionToBlock.normalized);
-            // dot product nam pove ali vektorja kažeta v isto ali nasprotno smer
-            // && distance <= 0.1f, brez tega se je kocka obrnila ko je bila že na robu kocke, kar je izgledalo èudno
-            float distance = Vector3.Distance(snakeHeadPosition, gridBlockPosition);
-            if (distance <= 0.03f || (dotProduct < 0 && distance <= 0.1f))
+            Debug.Log("NormalState");
+            if (lastRotationBlock != null && other.gameObject.name == lastRotationBlock.gameObject.name)
             {
-                if (rotationBuffer.Count > 0)
-                {
-                    // snap to the place of the grid block
-                    transform.position = new Vector3(gridBlockPosition.x, transform.position.y, gridBlockPosition.z);
-
-                    SetRotation();
-                    alreadyTurned = other.GetComponent<GridObject>();
-                }
+                return;
+            }
+            if (other.GetComponent<GridObject>() != null)
+            {
+                SnakeNormalState normalState = (SnakeNormalState)stateMachine.CurrentState;
+                normalState.OnGridBlockStay(other);
             }
         }
     }
@@ -126,44 +117,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         transform.Translate(MoveSpeed * Time.deltaTime * Vector3.forward);
     }
     // neodvisno od rotacije glave --> glava se lahko rotira, ampak kaèa potuje naprej
-    void MoveWhileBiting()
-    {
-        // ne sme se takoj prekinit, ker èe ne gre kaèa off the grid --> mogoèe buljše vrnt igralca nazaj na prejšnjo rotacijo
-        if (biteMoveDirecton == null) return;
-        transform.Translate(MoveSpeed * Time.deltaTime * biteMoveDirecton, Space.World);
-    }
-    public void SetBiteMovementDirection()
-    {
-        biteMoveRotation = Quaternion.Euler(0f, GetRotation(), 0f);
-        biteMoveDirecton = RotationToMovementVector(GetRotation());
-    }
-
-    public void StopBiting()
-    {
-        transform.forward = biteMoveDirecton;
-    }
-
-    void SetRotation()
-    {
-        if (rotationBuffer.Count <= 0)
-        {
-            return;
-        }
-
-        transform.Rotate(0, rotationBuffer.First.Value, 0);
-        snake.SetTorsoRotation(rotationBuffer.First.Value);
-        rotationBuffer.RemoveFirst();
-    }
-
-    public void AddToRotationBuffer(float rotation)
-    {
-        // to prevent spam
-        if (rotationBuffer.Count == 2)
-        {
-            return;
-        }
-        rotationBuffer.AddLast(rotation);
-    }
 
     public float GetRotation()
     {
@@ -198,15 +151,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         return rotationBuffer.First.Value;
     }
 
-    public void SetNextBlock(GridObject nextBlock)
-    {
-        this.nextBlock = nextBlock;
-    }
-    public GridObject GetNextBlock()
-    {
-        return nextBlock;
-    }
-
     public void GetHit()
     {
         snake.GetHit();
@@ -216,7 +160,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     {
         snake.Grow();
     }
-
+    /*
     Vector3 RotationToMovementVector(float rotation)
     {
         // rotacije niso zmeraj tako kot bi si želel
@@ -231,7 +175,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             _ => new Vector3(0f, 0f, 0f),
         };
     }
-
+    */
     public Snake GetSnake()
     {
         return snake;
@@ -245,5 +189,22 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             stateMachine.ChargeState.CoolDown();
         }
         snake.GetHit();
+    }
+
+    /*
+    public void SetBiteMovementDirection()
+    {
+        biteMoveRotation = Quaternion.Euler(0f, GetRotation(), 0f);
+        biteMoveDirecton = RotationToMovementVector(GetRotation());
+    }*/
+
+    public void StartBiting()
+    {
+        stateMachine.TransitionTo(stateMachine.BitingState);
+    }
+
+    public void StopBiting()
+    {
+        stateMachine.TransitionTo(stateMachine.NormalState);
     }
 }

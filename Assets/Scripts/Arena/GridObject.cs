@@ -20,7 +20,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
 
     public void HandleTrigger(SnakeHead snakeHead)
     {
-        snakeHead.SetNextBlock(this);
+        snakeHead.NextBlock = this;
         isOccupiedBySnakeHead = true;
         HasPathMarker = false;
     }
