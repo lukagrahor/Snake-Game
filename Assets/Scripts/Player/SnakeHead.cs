@@ -4,6 +4,7 @@ using UnityEngine;
 public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 {
     [SerializeField] Directions startingRotation = Directions.Up;
+    Canvas abilityChargeCanvas;
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
 
@@ -29,6 +30,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public Snake Snake { get => snake; }
     public LinkedList<float> RotationBuffer { get => rotationBuffer; set => rotationBuffer = value; }
     public SnakeHeadStateMachine StateMachine { get => stateMachine;}
+    public Canvas AbilityChargeCanvas { get => abilityChargeCanvas; set => abilityChargeCanvas = value; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -80,6 +82,17 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         transform.SetParent(snake.transform);
         transform.localScale = scale;
         this.MoveSpeed = moveSpeed;
+        if (abilityChargeCanvas != null)
+        {
+            Transform canvasTransform = abilityChargeCanvas.transform;
+            canvasTransform.SetParent(transform);
+            canvasTransform.localPosition = new Vector3(0f, 0f, canvasTransform.localPosition.z);
+            GameObject arrow = canvasTransform.Find("Arrow").gameObject;
+            RectTransform ArrowTransform = arrow.GetComponent<RectTransform>();
+            ArrowTransform.localPosition = new Vector3(0f, 0f, -0.748f);
+            ArrowTransform.sizeDelta = new Vector2(2f, 0.1f);
+            //arrow.local = new Vector3(0, 8f, 0);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

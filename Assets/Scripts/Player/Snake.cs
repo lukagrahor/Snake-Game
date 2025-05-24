@@ -9,6 +9,7 @@ public class Snake : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] SnakeHead snakeHeadPrefab;
     [SerializeField] SnakeTorso snakeTorsoPrefab;
+    [SerializeField] Canvas abilityChargeCanvas;
     //[SerializeField] SnakeCorner snakeCornerPrefab;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
@@ -49,7 +50,9 @@ public class Snake : MonoBehaviour
         SnakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         Vector3 snakeScaleVector = new (snakeScale, snakeScale, snakeScale);
 
+        SnakeHead.AbilityChargeCanvas = abilityChargeCanvas;
         SnakeHead.Setup(moveSpeed, this, snakeScaleVector);
+
         timer.TimeRanOut += Respawn;
 
         SpawnStartingTorsoBlocks();
