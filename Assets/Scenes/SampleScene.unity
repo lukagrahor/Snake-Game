@@ -886,7 +886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaBlockA: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   arenaBlockB: {fileID: -8586341943021454714, guid: 4fca60c592eb608458761c5c094f9962, type: 3}
-  size: 20
+  size: 22
 --- !u!4 &587043828
 Transform:
   m_ObjectHideFlags: 0
