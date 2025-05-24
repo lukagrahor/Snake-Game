@@ -31,6 +31,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public LinkedList<float> RotationBuffer { get => rotationBuffer; set => rotationBuffer = value; }
     public SnakeHeadStateMachine StateMachine { get => stateMachine;}
     public Canvas AbilityChargeCanvas { get => abilityChargeCanvas; set => abilityChargeCanvas = value; }
+    public GameObject Arrow { get; set; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -87,8 +88,8 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             Transform canvasTransform = abilityChargeCanvas.transform;
             canvasTransform.SetParent(transform);
             canvasTransform.localPosition = new Vector3(0f, 0f, canvasTransform.localPosition.z);
-            GameObject arrow = canvasTransform.Find("Arrow").gameObject;
-            RectTransform ArrowTransform = arrow.GetComponent<RectTransform>();
+            Arrow = canvasTransform.Find("Arrow").gameObject;
+            RectTransform ArrowTransform = Arrow.GetComponent<RectTransform>();
             ArrowTransform.localPosition = new Vector3(0f, 0f, -0.748f);
             ArrowTransform.sizeDelta = new Vector2(2f, 0.1f);
             //arrow.local = new Vector3(0, 8f, 0);
