@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Wasp : Enemy, IFrontTriggerHandler
+public class Wasp : Enemy
 {
     [SerializeField] WaspAI ai;
     [SerializeField] LayerMask layersToHit;
@@ -11,11 +11,6 @@ public class Wasp : Enemy, IFrontTriggerHandler
     public WaspAI Ai { get => ai; set => ai = value; }
     public Renderer WaspRenderer { get; set; }
     public Color WaspColor { get; set; }
-
-    public void HandleFrontTrigger()
-    {
-        GetHit();
-    }
 
     public override void Setup(int col, int row, int gridSize)
     {

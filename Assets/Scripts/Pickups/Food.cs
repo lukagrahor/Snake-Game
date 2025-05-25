@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using UnityEngine;
 
-public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnableObject, IFlyFrontTriggerHandler
+public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnableObject, IFlyFrontTriggerHandler, IBiteTriggerHandler
 {
     [SerializeField] float size = 0.5f;
     FoodSpawner spawner;
@@ -12,11 +12,21 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
     {
     }
 
-    public void HandleTrigger(SnakeHead snakeHead)
+    void EatenByPlayer(SnakeHead snakeHead)
     {
         snakeHead.Grow();
         Use();
         FoodActions.EatenByPlayer();
+    }
+
+    public void HandleTrigger(SnakeHead snakeHead)
+    {
+        EatenByPlayer(snakeHead);
+    }
+
+    public void HandleBiteTrigger(SnakeHead snakeHead)
+    {
+        EatenByPlayer(snakeHead);
     }
 
     public void Use() {

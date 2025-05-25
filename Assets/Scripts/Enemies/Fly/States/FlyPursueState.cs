@@ -1,13 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UIElements;
-using UnityEngine.LowLevel;
-using static UnityEngine.UI.GridLayoutGroup;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using System;
 
 public class FlyPursueState : IState
 {
@@ -88,25 +81,31 @@ public class FlyPursueState : IState
         {
             stateMachine.TransitionTo(stateMachine.idleState);
         }
-
-        targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
-        npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
-
-        moveDirection = Vector3.Normalize(targetPos - npcPos);
-        targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
-
-        if (moveDirection.magnitude > 0.01f)
+        try
         {
-            float targetAngleY = Mathf.Round(Quaternion.LookRotation(moveDirection, Vector3.up).eulerAngles.y / 90f) * 90f;
-            targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
-            npc.IsRotating = true;
-        }
-        else
-        {
-            npc.IsRotating = false;
-        }
+            targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
+            npcPos = new Vector3(npcPos.x, 0f, npcPos.z);
 
-        if (npc.IsRotating) npc.transform.position = new Vector3(path[pathIndex - 1].transform.position.x, npc.transform.position.y, path[pathIndex - 1].transform.position.z);
+            moveDirection = Vector3.Normalize(targetPos - npcPos);
+            targetRotation = RotateTowardsNextPoint(npcPos, targetPos);
+
+            if (moveDirection.magnitude > 0.01f)
+            {
+                float targetAngleY = Mathf.Round(Quaternion.LookRotation(moveDirection, Vector3.up).eulerAngles.y / 90f) * 90f;
+                targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
+                npc.IsRotating = true;
+            }
+            else
+            {
+                npc.IsRotating = false;
+            }
+
+            if (npc.IsRotating) npc.transform.position = new Vector3(path[pathIndex - 1].transform.position.x, npc.transform.position.y, path[pathIndex - 1].transform.position.z);
+        } catch(ArgumentOutOfRangeException e)
+        {
+            Debug.LogException(e);
+            return;
+        }
     }
     void Rotate()
     {
@@ -147,7 +146,7 @@ public class FlyPursueState : IState
         List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
         if (gridObjectsWithFood.Count <= 0) return;
         pathCalculating = true;
-        int randomIndex = Random.Range(0, gridObjectsWithFood.Count);
+        int randomIndex = UnityEngine.Random.Range(0, gridObjectsWithFood.Count);
         GridObject foodPositionObject = gridObjectsWithFood[randomIndex];
         pathfindingTask = pathfinder.FindPathAsync(npc.NextBlock, foodPositionObject);
         List<GridObject> newPath = await pathfindingTask;

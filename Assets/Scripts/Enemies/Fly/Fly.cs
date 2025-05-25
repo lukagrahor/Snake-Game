@@ -15,7 +15,7 @@ public class Fly : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<IChaseEnemytrigger>()?.HandleChaseEnemyTrigger(this);
+        other.GetComponent<IFlytrigger>()?.HandleFlyTrigger(this);
     }
 
     public void SetupAI(Snake player, ArenaGrid grid)
@@ -26,7 +26,7 @@ public class Fly : Enemy
 
     protected override void GetHit()
     {
-
+        Destroy(gameObject);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

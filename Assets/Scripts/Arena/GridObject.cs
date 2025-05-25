@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExitTriggerHandler, IChaseEnemytrigger, IDogTriggerHandler
+public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExitTriggerHandler, IFlytrigger, IDogTriggerHandler
 {
     bool isOccupied = false;
     bool isOccupiedBySnakeHead = false;
@@ -25,7 +25,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
         HasPathMarker = false;
     }
 
-    public void HandleChaseEnemyTrigger(Fly enemy)
+    public void HandleFlyTrigger(Fly enemy)
     {
         if (!enemy.IsRotating) enemy.NextBlock = this;
     }

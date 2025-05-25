@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeFrontTriggerHandler, IWaspFrontTriggerHandler, IGridObjectStayTriggerHandler
+public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWaspFrontTriggerHandler, IGridObjectStayTriggerHandler
 {
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
@@ -19,17 +19,18 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
     float size;
     bool stop = false;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        ISnakeTorsoTriggerHandler enteredObject = other.GetComponent<ISnakeTorsoTriggerHandler>();
+        enteredObject?.HandleTorsoTrigger(this);
+    }
+
     public void HandleFrontTrigger()
     {
         if (gameObject.name == "Torso 0" || gameObject.name == "Torso 1")
         {
             return;
         }
-        snake.GetHit();
-    }
-
-    public void HandleEnemyFrontTrigger(Bee enemy)
-    {
         snake.GetHit();
     }
 
@@ -47,7 +48,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
         {
             stateMachine.ChargeState.CoolDown();
         }
-        snake.GetHit();
     }
 
     public void HandleTriggerExit(GridObject gridObject)
@@ -296,5 +296,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IBeeF
             AddMarkerToPath(gridObject, gridBlockPosition, 0f);
             gridObject.HasPathMarker = true;
         }
+    }
+
+    public void GetHit()
+    {
+        snake.GetHit();
     }
 }

@@ -18,7 +18,6 @@ public class Snake : MonoBehaviour
     [SerializeField] float snakeScale = 0.4f;
     float defaultSpeed;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
-    [SerializeField][Range(0, 7)] float chargingMoveSpeed = 0.5f;
     [SerializeField][Range(2, 6)] int startingSize = 2;
     Vector3 spawnPosition;
 
@@ -38,7 +37,6 @@ public class Snake : MonoBehaviour
             SetTorsoSpeed();
         }
     }
-    public float ChargingMoveSpeed { get => chargingMoveSpeed; set => chargingMoveSpeed = value; }
     void Awake()
     {
         defaultSpeed = moveSpeed;

@@ -9,6 +9,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     Canvas abilityChargeCanvas;
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
+    bool biteCancelled = true;
 
     Snake snake;
     GridObject nextBlock;
@@ -35,6 +36,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public Canvas AbilityChargeCanvas { get => abilityChargeCanvas; set => abilityChargeCanvas = value; }
     public GameObject Arrow { get; set; }
     public LineRenderer LineRenderer { get => lineRenderer; set => lineRenderer = value; }
+    public bool BiteCancelled { get => biteCancelled; set => biteCancelled = value; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -218,11 +220,17 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void StartBiting()
     {
-        stateMachine.TransitionTo(stateMachine.BitingState);
+        if (biteCancelled == true)
+        {
+            stateMachine.TransitionTo(stateMachine.BitingState);
+            biteCancelled = false;
+        }
     }
 
     public void StopBiting()
     {
+        biteCancelled = true;
+        if (stateMachine.CurrentState == stateMachine.NormalState) return;
         stateMachine.TransitionTo(stateMachine.NormalState);
     }
 }

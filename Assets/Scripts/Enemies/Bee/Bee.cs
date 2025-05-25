@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bee : Enemy, IFrontTriggerHandler, ISpawnableObject, IWaspFrontTriggerHandler
+public class Bee : Enemy, ISpawnableObject, IWaspFrontTriggerHandler
 { 
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     enum Directions
@@ -9,11 +9,6 @@ public class Bee : Enemy, IFrontTriggerHandler, ISpawnableObject, IWaspFrontTrig
         Right = 90,
         Down = 180,
         Left = 270
-    }
-
-    public void HandleFrontTrigger()
-    {
-        GetHit();
     }
 
     public override void Setup(int col, int row, int gridSize)

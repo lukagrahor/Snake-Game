@@ -13,7 +13,9 @@ public class SnakeBitingState : ISnakeState
     float maxArrowLength = 0.8f;
     float currentChargeTime;
     float maxChargeTime = 0.8f;
+    float chargeTimeLimit = 3f;
     float currentCalculatedBiteRange;
+    float moveSpeed = 0.5f;
     LineRenderer lineRenderer;
 
     //Quaternion biteMoveRotation;
@@ -22,10 +24,13 @@ public class SnakeBitingState : ISnakeState
     {
         this.snakeHead = snakeHead;
         this.layersToHit = layersToHit;
+        this.stateMachine = stateMachine;
     }
 
     public void Enter()
     {
+        Debug.Log("Pozdravljeni!");
+        snakeHead.Snake.MoveSpeed = moveSpeed;
         currentChargeTime = 0f;
         SetBiteMovementDirection();
         arrow = snakeHead.Arrow;
@@ -44,8 +49,10 @@ public class SnakeBitingState : ISnakeState
     public void Update()
     {
         currentChargeTime += Time.deltaTime;
-        currentChargeTime = Mathf.Min(currentChargeTime, maxChargeTime);
-        currentCalculatedBiteRange = Mathf.Lerp(minArrowLength, maxArrowLength, currentChargeTime / maxChargeTime);
+        if (currentChargeTime >= chargeTimeLimit) stateMachine.TransitionTo(stateMachine.NormalState);
+        float limitedChargeTime = Mathf.Min(currentChargeTime, maxChargeTime);
+
+        currentCalculatedBiteRange = Mathf.Lerp(minArrowLength, maxArrowLength, limitedChargeTime / maxChargeTime);
         MoveWhileBiting();
         UpdateIndicator();
     }
@@ -60,7 +67,7 @@ public class SnakeBitingState : ISnakeState
     {
         // ne sme se takoj prekinit, ker èe ne gre kaèa off the grid --> mogoèe buljše vrnt igralca nazaj na prejšnjo rotacijo
         if (biteMoveDirecton == null) return;
-        snakeHead.transform.Translate(snakeHead.MoveSpeed * Time.deltaTime * biteMoveDirecton, Space.World);
+        snakeHead.transform.Translate(moveSpeed * Time.deltaTime * biteMoveDirecton, Space.World);
     }
 
     public void SetRotation(float turnRotation)
@@ -138,6 +145,8 @@ public class SnakeBitingState : ISnakeState
         if (Physics.BoxCast(startPoint, halfExtents, direction, out hit, boxOrientation, maxDistance, layersToHit))
         {
             Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
+            IBiteTriggerHandler hitObject = hit.collider.gameObject.GetComponent<IBiteTriggerHandler>();
+            hitObject?.HandleBiteTrigger(snakeHead);
         }
     }
 }
