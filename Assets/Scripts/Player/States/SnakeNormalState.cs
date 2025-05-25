@@ -12,7 +12,7 @@ public class SnakeNormalState : ISnakeState
 
     public void Enter()
     {
-        
+        snakeHead.Snake.MoveSpeed = snakeHead.Snake.DefaultSpeed;
     }
 
     public void Exit()

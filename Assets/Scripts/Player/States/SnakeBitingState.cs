@@ -77,7 +77,6 @@ public class SnakeBitingState : ISnakeState
         //Debug.Log("biteMoveRotation " + biteMoveRotation);
         //Debug.Log("currentRotation " + currentRotation);
         float nextRotation = currentRotation + turnRotation;
-        Debug.Log("abraham nextRotation " + nextRotation);
         //if (biteMoveRotation - 180 >= 0) { wrongDirection = biteMoveRotation - 180f; Debug.Log("abraham wrong direction " + wrongDirection); }
         //else if (biteMoveRotation + 180 <= 360f) wrongDirection = biteMoveRotation + 180f;
         // don't allow the snake head to rotate into its tail

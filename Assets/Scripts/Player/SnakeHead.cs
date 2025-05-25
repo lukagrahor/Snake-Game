@@ -55,7 +55,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         lineRenderer.enabled = false;
         rotationBuffer = new LinkedList<float>();
         stateMachine = new SnakeHeadStateMachine(this, layersToHit);
-        stateMachine.Intialize();
     }
 
     void OnEnable()
@@ -100,6 +99,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             ArrowTransform.localPosition = new Vector3(0f, -0.03f, -0.748f);
             ArrowTransform.sizeDelta = new Vector2(2f, 0.1f);
         }
+        stateMachine.Intialize();
     }
 
     private void OnTriggerEnter(Collider other)
