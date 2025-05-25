@@ -29,14 +29,16 @@ public class SnakeBitingState : ISnakeState
         currentChargeTime = 0f;
         SetBiteMovementDirection();
         arrow = snakeHead.Arrow;
+        arrow.SetActive(true);
         arrow.GetComponent<RectTransform>().sizeDelta = new Vector2(arrowWidth, minArrowLength);
         lineRenderer = snakeHead.LineRenderer;
     }
 
     public void Exit()
     {
-        PerformBiteLinecast();
+        PerfromBiteBoxCast();
         snakeHead.transform.forward = biteMoveDirecton;
+        arrow.SetActive(false);
     }
 
     public void Update()
@@ -110,20 +112,6 @@ public class SnakeBitingState : ISnakeState
     /*
     void PerformBiteLinecast()
     {
-        Vector3 startPoint = Vector3.zero;
-        Vector3 endPoint = startPoint + Vector3.forward * currentCalculatedBiteRange;
-        Debug.Log("currentCalculatedBiteRange " + currentCalculatedBiteRange);
-        lineRenderer.SetPosition(0, startPoint);
-        lineRenderer.SetPosition(1, endPoint);
-        RaycastHit hit;
-        if(Physics.Linecast(startPoint, endPoint, out hit))
-        {
-            Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
-        }
-    }
-    */
-    void PerformBiteLinecast()
-    {
         Vector3 startPoint = snakeHead.transform.position;
         Vector3 endPoint = startPoint + snakeHead.transform.forward * currentCalculatedBiteRange;
 
@@ -133,6 +121,21 @@ public class SnakeBitingState : ISnakeState
 
         RaycastHit hit;
         if (Physics.Linecast(startPoint, endPoint, out hit, layersToHit))
+        {
+            Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
+        }
+    }
+    */
+    void PerfromBiteBoxCast()
+    {
+        Vector3 halfExtents = new Vector3 (0.07f, 0.07f, 0.07f);
+        Vector3 startPoint = snakeHead.transform.position;
+        Vector3 endPoint = startPoint + snakeHead.transform.forward * currentCalculatedBiteRange;
+        Vector3 direction = (endPoint - startPoint).normalized;
+        float maxDistance = Vector3.Distance(startPoint, endPoint);
+        Quaternion boxOrientation = snakeHead.transform.rotation;
+        RaycastHit hit;
+        if (Physics.BoxCast(startPoint, halfExtents, direction, out hit, boxOrientation, maxDistance, layersToHit))
         {
             Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
         }
