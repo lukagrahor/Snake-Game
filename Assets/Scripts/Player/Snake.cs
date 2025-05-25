@@ -175,6 +175,12 @@ public class Snake : MonoBehaviour
 
     public void GetHit()
     {
+        SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
+        if (stateMachine.CurrentState == stateMachine.BitingState)
+        {
+            stateMachine.TransitionTo(stateMachine.NormalState);
+        }
+
         SnakeHead.gameObject.SetActive(false);
         foreach (SnakeTorso torso in snakeTorsoParts)
         {

@@ -4,6 +4,8 @@ using UnityEngine;
 public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 {
     [SerializeField] Directions startingRotation = Directions.Up;
+    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] LayerMask layersToHit;
     Canvas abilityChargeCanvas;
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
@@ -32,6 +34,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public SnakeHeadStateMachine StateMachine { get => stateMachine;}
     public Canvas AbilityChargeCanvas { get => abilityChargeCanvas; set => abilityChargeCanvas = value; }
     public GameObject Arrow { get; set; }
+    public LineRenderer LineRenderer { get => lineRenderer; set => lineRenderer = value; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -46,8 +49,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     void Awake()
     {
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.enabled = false;
         rotationBuffer = new LinkedList<float>();
-        stateMachine = new SnakeHeadStateMachine(this);
+        stateMachine = new SnakeHeadStateMachine(this, layersToHit);
         stateMachine.Intialize();
     }
 
@@ -90,7 +95,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             canvasTransform.localPosition = new Vector3(0f, 0f, canvasTransform.localPosition.z);
             Arrow = canvasTransform.Find("Arrow").gameObject;
             RectTransform ArrowTransform = Arrow.GetComponent<RectTransform>();
-            ArrowTransform.localPosition = new Vector3(0f, 0f, -0.748f);
+            ArrowTransform.localPosition = new Vector3(0f, -0.03f, -0.748f);
             ArrowTransform.sizeDelta = new Vector2(2f, 0.1f);
             //arrow.local = new Vector3(0, 8f, 0);
         }

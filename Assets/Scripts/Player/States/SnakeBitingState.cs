@@ -5,20 +5,23 @@ using System.IO.Pipes;
 public class SnakeBitingState : ISnakeState
 {
     SnakeHead snakeHead;
+    LayerMask layersToHit;
     SnakeHeadStateMachine stateMachine;
     GameObject arrow;
     float arrowWidth = 2f;
     float minArrowLength = 0.1f;
-    float maxArrowLength = 0.7f;
+    float maxArrowLength = 0.8f;
     float currentChargeTime;
-    float maxChargeTime = 1f;
+    float maxChargeTime = 0.8f;
     float currentCalculatedBiteRange;
+    LineRenderer lineRenderer;
 
     //Quaternion biteMoveRotation;
     Vector3 biteMoveDirecton;
-    public SnakeBitingState(SnakeHead snakeHead, SnakeHeadStateMachine stateMachine)
+    public SnakeBitingState(SnakeHead snakeHead, LayerMask layersToHit, SnakeHeadStateMachine stateMachine)
     {
         this.snakeHead = snakeHead;
+        this.layersToHit = layersToHit;
     }
 
     public void Enter()
@@ -27,6 +30,7 @@ public class SnakeBitingState : ISnakeState
         SetBiteMovementDirection();
         arrow = snakeHead.Arrow;
         arrow.GetComponent<RectTransform>().sizeDelta = new Vector2(arrowWidth, minArrowLength);
+        lineRenderer = snakeHead.LineRenderer;
     }
 
     public void Exit()
@@ -60,15 +64,17 @@ public class SnakeBitingState : ISnakeState
     public void SetRotation(float turnRotation)
     {
         float biteMoveRotation = MovementVectorToRotation(biteMoveDirecton);
-        float wrongDirection = -1f;
         float currentRotation = snakeHead.GetRotation();
         //Debug.Log("biteMoveRotation " + biteMoveRotation);
         //Debug.Log("currentRotation " + currentRotation);
         float nextRotation = currentRotation + turnRotation;
-        if (biteMoveRotation - 180 >= 0) { wrongDirection = biteMoveRotation - 180f; Debug.Log("wrong direction " + wrongDirection); }
-        else if (biteMoveRotation + 180 <= 360f) wrongDirection = biteMoveRotation + 180f;
+        Debug.Log("abraham nextRotation " + nextRotation);
+        //if (biteMoveRotation - 180 >= 0) { wrongDirection = biteMoveRotation - 180f; Debug.Log("abraham wrong direction " + wrongDirection); }
+        //else if (biteMoveRotation + 180 <= 360f) wrongDirection = biteMoveRotation + 180f;
         // don't allow the snake head to rotate into its tail
-        if(nextRotation != wrongDirection) snakeHead.transform.Rotate(0, turnRotation, 0);
+        float wrongDirection1 = biteMoveRotation - 180f;
+        float wrongDirection2 = biteMoveRotation + 180f;
+        if (nextRotation != wrongDirection1 && nextRotation != wrongDirection2) snakeHead.transform.Rotate(0, turnRotation, 0);
     }
 
     Vector3 RotationToMovementVector(float rotation)
@@ -101,13 +107,32 @@ public class SnakeBitingState : ISnakeState
         RectTransform arrowRect = arrow.GetComponent<RectTransform>();
         arrowRect.sizeDelta = new Vector2(arrowRect.sizeDelta.x, currentCalculatedBiteRange);
     }
-
+    /*
+    void PerformBiteLinecast()
+    {
+        Vector3 startPoint = Vector3.zero;
+        Vector3 endPoint = startPoint + Vector3.forward * currentCalculatedBiteRange;
+        Debug.Log("currentCalculatedBiteRange " + currentCalculatedBiteRange);
+        lineRenderer.SetPosition(0, startPoint);
+        lineRenderer.SetPosition(1, endPoint);
+        RaycastHit hit;
+        if(Physics.Linecast(startPoint, endPoint, out hit))
+        {
+            Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
+        }
+    }
+    */
     void PerformBiteLinecast()
     {
         Vector3 startPoint = snakeHead.transform.position;
         Vector3 endPoint = startPoint + snakeHead.transform.forward * currentCalculatedBiteRange;
+
+        lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, startPoint);
+        lineRenderer.SetPosition(1, endPoint);
+
         RaycastHit hit;
-        if(Physics.Linecast(startPoint, endPoint, out hit))
+        if (Physics.Linecast(startPoint, endPoint, out hit, layersToHit))
         {
             Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
         }
