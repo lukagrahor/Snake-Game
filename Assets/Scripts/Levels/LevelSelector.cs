@@ -7,7 +7,7 @@ public class LevelSelector
     public List<Level> easyLevels;
     public List<Level> mediumLevels;
     public List<Level> hardLevels;
-    LevelSelector()
+    public LevelSelector()
     {
 
     }
