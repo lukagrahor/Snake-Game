@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865531123d0350a4e9f1c5b7efdbb29a, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  arenaSize: 10
+  arenaSize: 24
   difficulty: 0
   wallObjectIndexes:
   - '"0-1"'

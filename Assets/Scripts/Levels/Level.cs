@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Level", menuName = "Scriptable Objects/Level")]
 public class Level : ScriptableObject
 {
-    public float arenaSize;
+    public int arenaSize;
     public Difficulty difficulty;
     public List<string> wallObjectIndexes;
     public enum Difficulty

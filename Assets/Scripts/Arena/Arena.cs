@@ -5,11 +5,13 @@ public class Arena : MonoBehaviour
 {
     [SerializeField] ArenaBlock arenaBlockA;
     [SerializeField] ArenaBlock arenaBlockB;
-    [SerializeField] int size = 10;
+    int size = 10;
     
     CameraCornerSpawner cameraCornerSpawner;
     ArenaBounds arenaBounds;
     ArenaBlock arenaBlock;
+
+    public int Size { get => size; set => size = value; }
 
     public struct CornerBlocks
     {
@@ -23,10 +25,9 @@ public class Arena : MonoBehaviour
         }
     }
     private CornerBlocks cornerBlocks;
-    void Awake()
-    {
-        SpawnArena();
 
+    void SetBoundsAndCamera()
+    {
         arenaBounds = GetComponent<ArenaBounds>();
         arenaBounds.Setup(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top, GetBlockSize(), size);
 
@@ -39,7 +40,7 @@ public class Arena : MonoBehaviour
         
     }
 
-    void SpawnArena()
+    public void SpawnArena()
     {
         Vector3 bottom = Vector3.zero;
         Vector3 left = Vector3.zero;
@@ -87,6 +88,7 @@ public class Arena : MonoBehaviour
             }
         }
         SetCornerBlockPositions(bottom, left, right, top);
+        SetBoundsAndCamera();
     }
 
     ArenaBlock ChooseArenaBlock(int i, int j)
