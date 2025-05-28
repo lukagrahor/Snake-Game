@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arena: {fileID: 587043827}
+  grid: {fileID: 457970926}
 --- !u!4 &184481910
 Transform:
   m_ObjectHideFlags: 0

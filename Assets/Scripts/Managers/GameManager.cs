@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] Arena arena;
+    [SerializeField] ArenaGrid grid;
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("velikost arene " + level.arenaSize);
         arena.Size = level.arenaSize;
         arena.SpawnArena();
+        grid.SpawnWalls(level.wallObjectIndexes);
     }
 
     // Update is called once per frame

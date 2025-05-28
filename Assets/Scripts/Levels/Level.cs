@@ -7,7 +7,7 @@ public class Level : ScriptableObject
 {
     public int arenaSize;
     public Difficulty difficulty;
-    public List<string> wallObjectIndexes;
+    public List<IntPair> wallObjectIndexes;
     public enum Difficulty
     {
         Easy = 0,

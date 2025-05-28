@@ -82,4 +82,13 @@ public class ArenaGrid : MonoBehaviour
         
         return neighbours;
     }
+
+
+    public void SpawnWalls(List<IntPair> wallLocations)
+    {
+        foreach (var item in wallLocations)
+        {
+            Debug.Log("wall location, Col: " + item.Col + ", Row: " + item.Row);
+        }
+    }
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   arenaSize: 28
   difficulty: 0
   wallObjectIndexes:
-  - 2-3
+  - Row: 3
+    Col: 4
