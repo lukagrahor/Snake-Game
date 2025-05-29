@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("velikost arene " + level.arenaSize);
         arena.Size = level.arenaSize;
         arena.SpawnArena();
+        grid.SetupGrid();
         grid.SpawnWalls(level.wallObjectIndexes);
     }
 

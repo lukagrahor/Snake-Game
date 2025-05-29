@@ -7,11 +7,13 @@ public class ArenaGrid : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Arena arena;
     [SerializeField] GridObject gridObjectPrefab;
+    [SerializeField] GameObject WallBlock;
     GridObject [,] gridObjects;
     List<GridObject> objectsWithFood;
+    Vector3 wallSize = new Vector3(0.2f, 0.2f, 0.2f);
     public List<GridObject> ObjectsWithFood { get => objectsWithFood; set => objectsWithFood = value; }
     int size;
-    void Awake()
+    public void SetupGrid()
     {
         size = arena.GetSize();
         gridObjects = new GridObject[size, size];
@@ -89,6 +91,15 @@ public class ArenaGrid : MonoBehaviour
         foreach (var item in wallLocations)
         {
             Debug.Log("wall location, Col: " + item.Col + ", Row: " + item.Row);
+            if (gridObjects == null)
+            {
+                Debug.Log("gridObjects kriza");
+                return;
+            }
+            Debug.Log("gridObjects length " + gridObjects.Length);
+            GridObject wallGridObject = gridObjects[item.Col, item.Row];
+            GameObject wall = Instantiate(WallBlock, wallGridObject.transform.position, Quaternion.identity);
+            wall.transform.localScale = wallSize;
         }
     }
 }

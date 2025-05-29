@@ -555,7 +555,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6075153
+  orthographic size: 6.5944943
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -783,6 +783,50 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &415246871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 415246872}
+  - component: {fileID: 415246873}
+  m_Layer: 0
+  m_Name: PlayerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &415246872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415246871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1259437600}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &415246873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415246871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e82e3952f9f0224b81ca42a0551eb87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &457970925
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arena: {fileID: 587043827}
   gridObjectPrefab: {fileID: 5107840659102063939, guid: d855a86e23ffaa549bc15badc826d5ec, type: 3}
+  WallBlock: {fileID: 2846418136867358055, guid: 00dbdc539cfa549438493f050a63977e, type: 3}
 --- !u!4 &457970927
 Transform:
   m_ObjectHideFlags: 0
@@ -1537,6 +1582,7 @@ Transform:
   - {fileID: 786172748}
   - {fileID: 92366186}
   - {fileID: 929081955}
+  - {fileID: 415246872}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1259437601
