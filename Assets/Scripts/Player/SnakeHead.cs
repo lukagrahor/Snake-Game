@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using GlobalEnums;
 
 public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 {
-    [SerializeField] Directions startingRotation = Directions.Up;
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] LayerMask layersToHit;
     Canvas abilityChargeCanvas;
+    Directions startingDirection = Directions.Up;
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
     bool biteCancelled = true;
@@ -20,13 +21,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     SnakeHeadStateMachine stateMachine;
 
     //bool stop = false;
-    enum Directions
-    {
-        Up = 0,
-        Right = 90,
-        Down = 180,
-        Left = 270
-    }
 
     public GridObject NextBlock { get => nextBlock; set => nextBlock = value; }
     public GridObject LastRotationBlock { get => lastRotationBlock; set => lastRotationBlock = value; }
@@ -37,6 +31,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public GameObject Arrow { get; set; }
     public LineRenderer LineRenderer { get => lineRenderer; set => lineRenderer = value; }
     public bool BiteCancelled { get => biteCancelled; set => biteCancelled = value; }
+    public Directions StartingDirection { get => startingDirection; set => startingDirection = value; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -59,7 +54,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     void OnEnable()
     {
-        transform.rotation = Quaternion.Euler(0, (float)startingRotation, 0);
+        transform.rotation = Quaternion.Euler(0, (float)startingDirection, 0);
     }
 
     void Update()

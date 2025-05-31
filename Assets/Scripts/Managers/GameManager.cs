@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] Arena arena;
     [SerializeField] ArenaGrid grid;
+    [SerializeField] SpawnerManager spawnerManager;
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
 
         Level newLevel = ChooseALevel(levels);
         ArenaSetup(newLevel);
+        spawnerManager.ManageFirstSpawns();
     }
 
     void CheckIfOnlyInstance()

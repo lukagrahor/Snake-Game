@@ -14,7 +14,9 @@ public class FlyAI : AI
         }
         //Debug.Log("naštimej state machine");
         pathSpawner.transform.parent = null;
+        Debug.Log("tle sm 1");
         stateMachine = new FlyStateMachine(npc, player, grid, pathSpawner);
+        Debug.Log("tle sm 2");
         stateMachine.Intialize();
     }
 }

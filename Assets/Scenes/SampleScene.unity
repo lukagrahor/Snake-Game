@@ -248,6 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arena: {fileID: 587043827}
   grid: {fileID: 457970926}
+  spawnerManager: {fileID: 1259437601}
 --- !u!4 &184481910
 Transform:
   m_ObjectHideFlags: 0
@@ -262,6 +263,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 587043828}
+  - {fileID: 1259437600}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &192789368
@@ -555,7 +557,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.5944943
+  orthographic size: 6.699776
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -827,6 +829,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e82e3952f9f0224b81ca42a0551eb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snake: {fileID: 545034464}
+  arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
+  grid: {fileID: 457970926}
+  objectScale: 0.18
+  distanceFromWall: 5
 --- !u!1 &457970925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,7 +1578,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259437599}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1583,7 +1590,7 @@ Transform:
   - {fileID: 92366186}
   - {fileID: 929081955}
   - {fileID: 415246872}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 184481910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1259437601
 MonoBehaviour:
@@ -1604,6 +1611,7 @@ MonoBehaviour:
   dogSpawner: {fileID: 92366188}
   pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
   waspSpawner: {fileID: 929081956}
+  playerSpawner: {fileID: 415246873}
 --- !u!1 &1294393573
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,5 +2242,4 @@ SceneRoots:
   - {fileID: 709771916}
   - {fileID: 1559724430}
   - {fileID: 1903296501}
-  - {fileID: 1259437600}
   - {fileID: 184481910}

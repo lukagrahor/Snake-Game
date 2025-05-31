@@ -37,16 +37,19 @@ public class Snake : MonoBehaviour
             SetTorsoSpeed();
         }
     }
-    void Awake()
+
+    public int SnakeSize { get => snakeTorsoParts.Count; }
+
+    public void FirstSpawn(Vector3 spawnPosition)
     {
         defaultSpeed = moveSpeed;
         snakeInputManager = CreateInputManager();
         snakeTorsoParts = new List<SnakeTorso>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         //spawnPosition = new Vector3(-4.2f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -0.5999999f);
-        spawnPosition = new Vector3(-1f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -2.493592f);
+        spawnPosition.y = arenaBlock.GetBlockSize() / 2f + snakeScale / 2f;
         SnakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
-        Vector3 snakeScaleVector = new (snakeScale, snakeScale, snakeScale);
+        Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
 
         SnakeHead.AbilityChargeCanvas = abilityChargeCanvas;
         SnakeHead.Setup(moveSpeed, this, snakeScaleVector);
