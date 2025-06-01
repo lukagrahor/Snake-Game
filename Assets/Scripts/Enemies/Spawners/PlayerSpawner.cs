@@ -6,7 +6,7 @@ using System;
 
 public class PlayerSpawner : ObjectSpawner
 {
-    [SerializeField] int distanceFromWall = 4;
+    [SerializeField] int distanceFromWall = 2;
     List<GridObject>SnakePositions = new List<GridObject>();
     int snakeSize;
     public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
@@ -65,7 +65,7 @@ public class PlayerSpawner : ObjectSpawner
             Directions dir = snake.StartingDirection;
             Debug.Log("Dimitrij dir " + dir);
             Debug.Log("Dimitrij dir int " + (int)dir);
-            Debug.Log("huh objekt" + gridObject.name);
+            Debug.Log("huh objekt " + gridObject.name);
 
             if (IsNearAWall(row)) continue;
             snakeBlocks = BoolCheckForOccupiedBlocks(col, row);
@@ -113,9 +113,15 @@ public class PlayerSpawner : ObjectSpawner
         Debug.Log("huh distanceFromWall " + distanceFromWall);
         int headOffset = cellIndex + distanceFromWall;
         int tailOffset = cellIndex - snakeSize;
-        if (headOffset >= gridSize) return false;
-        if (tailOffset - snakeSize < 0) return false;
-        return true;
+
+        Debug.Log("huh headOffset " + headOffset + " row: " + cellIndex);
+        Debug.Log("huh tailOffset " + tailOffset + " row: " + cellIndex);
+        Debug.Log("huh gridSize " + gridSize + " row: " + cellIndex);
+
+        if (headOffset >= gridSize) return true;
+        if (tailOffset - snakeSize < 0) return true;
+        Debug.Log("huh uspelo mi je row: " + cellIndex);
+        return false;
     }
 
     LinkedList<GridObject> BoolCheckForOccupiedBlocks(int col, int row)
@@ -130,11 +136,13 @@ public class PlayerSpawner : ObjectSpawner
         }
         */
         LinkedList<GridObject> snakeBlocks = new LinkedList<GridObject>();
+        Debug.Log("row: 6" + row + "  col " + col);
+        Debug.Log("ej hej row: " + row);
         // spredej
         for (int i = 1; i <= distanceFromWall; i++)
         {
             int currentRow = row + i;
-            Debug.Log("huh 1 row: " + currentRow + " col: " + col);
+            Debug.Log("huh spredej row: " + row + " currentRow: " + currentRow);
             if (currentRow >= grid.GetSize()) return new LinkedList<GridObject>();
             GridObject obj = gridObjects[col, currentRow];
             if (obj.IsOccupied) return new LinkedList<GridObject>();
@@ -145,7 +153,7 @@ public class PlayerSpawner : ObjectSpawner
         for (int i = 1; i <= snakeSize; i++)
         {
             int currentRow = row - i;
-            Debug.Log("huh 2 row: " + currentRow + " col: " + col);
+            Debug.Log("huh zadej row: " + row + " currentRow: " + currentRow);
             if (currentRow < 0) return new LinkedList<GridObject>();
             GridObject obj = gridObjects[col, currentRow];
             if (obj.IsOccupied) return new LinkedList<GridObject>();

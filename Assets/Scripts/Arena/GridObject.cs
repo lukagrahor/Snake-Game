@@ -9,6 +9,8 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     int row;
     SnakePathMarker marker;
     Food food;
+    [SerializeField] GameObject occupiedMarkerPrefab;
+    GameObject occupiedMarker;
 
     public int Col { get => col; set => col = value; }
     public int Row { get => row; set => row = value; }
@@ -55,5 +57,15 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     public void HandleTrigger(DogPatrolState patrolState, Dog dog)
     {
         dog.NextBlock = this;
+    }
+
+    public void SetMarker()
+    {
+        occupiedMarker = Instantiate(occupiedMarkerPrefab, transform.position, Quaternion.identity);
+    }
+
+    public void RemoveMarker()
+    {
+        if (occupiedMarker != null) Destroy(occupiedMarker);
     }
 }

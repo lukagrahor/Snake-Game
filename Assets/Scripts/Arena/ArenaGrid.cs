@@ -101,6 +101,7 @@ public class ArenaGrid : MonoBehaviour
             GridObject wallGridObject = gridObjects[item.Col, item.Row];
             GameObject wall = Instantiate(WallBlock, wallGridObject.transform.position, Quaternion.identity);
             wallGridObject.IsOccupied = true;
+            wallGridObject.SetMarker();
             wall.transform.localScale = wallSize;
             wallBlocks.AddLast(wallGridObject);
         }

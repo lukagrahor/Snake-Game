@@ -66,3 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a57cac75b6b2549a33c1c1b173afd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupiedMarkerPrefab: {fileID: 2655494780766216947, guid: 9e91cccf9815d574593dbda56d024d0c, type: 3}
