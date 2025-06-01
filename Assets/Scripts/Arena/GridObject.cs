@@ -61,13 +61,20 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
 
     public void SetMarker()
     { // sprobej
-        Debug.Log("huraaa evo mene" + gameObject.name);
-        occupiedMarker = Instantiate(occupiedMarkerPrefab, transform.position, Quaternion.identity);
+        Debug.Log("huraaa evo mene " + gameObject.name);
+        if (occupiedMarker == null)
+        {
+            occupiedMarker = Instantiate(occupiedMarkerPrefab, transform.position, Quaternion.identity);
+        }
     }
 
     public void RemoveMarker()
     {
-        if (occupiedMarker != null) Destroy(occupiedMarker);
-        Debug.Log("huraaa" + gameObject.name);
+        if (occupiedMarker != null)
+        {
+            Debug.Log("hip hip " + gameObject.name);
+            Destroy(occupiedMarker);
+        }
+        Debug.Log("huraaa " + gameObject.name);
     }
 }

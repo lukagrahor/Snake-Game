@@ -43,7 +43,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         gridObject.IsOccupied = false;
         gridObject.IsOccupiedBySnakeHead = false;
         startingDirection = snake.StartingDirection;
-        gridObject.RemoveMarker();
+        //gridObject.RemoveMarker();
     }
 
     void Awake()
