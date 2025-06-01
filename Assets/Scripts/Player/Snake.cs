@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UIElements;
+using GlobalEnums;
 
 public class Snake : MonoBehaviour
 {
@@ -19,11 +20,13 @@ public class Snake : MonoBehaviour
     float defaultSpeed;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     [SerializeField][Range(2, 6)] int startingSize = 2;
+    Directions startingDirection = Directions.Up;
     Vector3 spawnPosition;
 
     [SerializeField] float waitTime = 3f;
     [SerializeField] CountDownTimer timer;
     ISnakeInput snakeInputManager;
+
     public SnakeHead SnakeHead { get; set; }
     public SnakePath Path;
     public float DefaultSpeed { get => defaultSpeed; set => defaultSpeed = value; }
@@ -39,6 +42,8 @@ public class Snake : MonoBehaviour
     }
 
     public int SnakeSize { get => snakeTorsoParts.Count; }
+    public int StartingSize { get => startingSize; }
+    public Directions StartingDirection { get => startingDirection; set => startingDirection = value; }
 
     public void FirstSpawn(Vector3 spawnPosition)
     {

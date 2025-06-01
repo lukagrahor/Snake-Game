@@ -557,7 +557,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.699776
+  orthographic size: 6.622878
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -833,7 +833,7 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
   objectScale: 0.18
-  distanceFromWall: 5
+  distanceFromWall: 2
 --- !u!1 &457970925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,7 +1639,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294393573}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 14}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:

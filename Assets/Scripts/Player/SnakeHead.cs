@@ -31,7 +31,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public GameObject Arrow { get; set; }
     public LineRenderer LineRenderer { get => lineRenderer; set => lineRenderer = value; }
     public bool BiteCancelled { get => biteCancelled; set => biteCancelled = value; }
-    public Directions StartingDirection { get => startingDirection; set => startingDirection = value; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -42,6 +41,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     {
         gridObject.IsOccupied = false;
         gridObject.IsOccupiedBySnakeHead = false;
+        startingDirection = snake.StartingDirection;
     }
 
     void Awake()
@@ -88,7 +88,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         {
             Transform canvasTransform = abilityChargeCanvas.transform;
             canvasTransform.SetParent(transform);
-            canvasTransform.localPosition = new Vector3(0f, 0f, canvasTransform.localPosition.z);
+            canvasTransform.localPosition = new Vector3(0f, 0f, 14f);
             Arrow = canvasTransform.Find("Arrow").gameObject;
             RectTransform ArrowTransform = Arrow.GetComponent<RectTransform>();
             ArrowTransform.localPosition = new Vector3(0f, -0.03f, -0.748f);

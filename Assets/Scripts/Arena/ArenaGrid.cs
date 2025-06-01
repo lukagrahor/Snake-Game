@@ -86,20 +86,24 @@ public class ArenaGrid : MonoBehaviour
     }
 
 
-    public void SpawnWalls(List<IntPair> wallLocations)
+    public LinkedList<GridObject> SpawnWalls(List<IntPair> wallLocations)
     {
+        LinkedList <GridObject> wallBlocks = new LinkedList<GridObject>();
         foreach (var item in wallLocations)
         {
             Debug.Log("wall location, Col: " + item.Col + ", Row: " + item.Row);
             if (gridObjects == null)
             {
                 Debug.Log("gridObjects kriza");
-                return;
+                return new LinkedList<GridObject>();
             }
             Debug.Log("gridObjects length " + gridObjects.Length);
             GridObject wallGridObject = gridObjects[item.Col, item.Row];
             GameObject wall = Instantiate(WallBlock, wallGridObject.transform.position, Quaternion.identity);
+            wallGridObject.IsOccupied = true;
             wall.transform.localScale = wallSize;
+            wallBlocks.AddLast(wallGridObject);
         }
+        return wallBlocks;
     }
 }

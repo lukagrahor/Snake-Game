@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
         else if (CurrentDifficulty == Difficulty.Hard) levels = levelSelector.hardLevels;
 
         Level newLevel = ChooseALevel(levels);
-        ArenaSetup(newLevel);
-        spawnerManager.ManageFirstSpawns();
+        LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
+        spawnerManager.ManageFirstSpawns(wallBlocks);
     }
 
     void CheckIfOnlyInstance()
@@ -46,16 +46,23 @@ public class GameManager : MonoBehaviour
     }
     Level ChooseALevel(List<Level> levels)
     {
+        /*
+        foreach (Level level in levels)
+        {
+            Debug.Log("andrej: " + level.name);
+        }
+        */
         int index = Random.Range(0, levels.Count);
         return levels[index];
     }
-    void ArenaSetup(Level level)
+    LinkedList<GridObject> ArenaSetup(Level level)
     {
         Debug.Log("velikost arene " + level.arenaSize);
         arena.Size = level.arenaSize;
         arena.SpawnArena();
         grid.SetupGrid();
-        grid.SpawnWalls(level.wallObjectIndexes);
+        LinkedList<GridObject> wallBlocks = grid.SpawnWalls(level.wallObjectIndexes);
+        return wallBlocks;
     }
 
     // Update is called once per frame
