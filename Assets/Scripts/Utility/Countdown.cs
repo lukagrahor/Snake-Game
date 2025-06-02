@@ -11,11 +11,6 @@ public class CountDown
         this.timer = timer;
     }
 
-    public void SetDuration(float duration)
-    {
-        timer = duration;
-    }
-
     public void Start()
     {
         isRunning = true;

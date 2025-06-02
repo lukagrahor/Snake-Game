@@ -113,7 +113,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     private void OnTriggerStay(Collider other)
     {
-        if (stateMachine.CurrentState == stateMachine.NormalState)
+        if (stateMachine.CurrentState != stateMachine.BitingState)
         {
             Debug.Log("NormalState");
             if (lastRotationBlock != null && other.gameObject.name == lastRotationBlock.gameObject.name)
@@ -122,7 +122,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             }
             if (other.GetComponent<GridObject>() != null)
             {
-                SnakeNormalState normalState = (SnakeNormalState)stateMachine.CurrentState;
+                IRegularMovement normalState = (IRegularMovement)stateMachine.CurrentState;
                 normalState.OnGridBlockStay(other);
             }
         }
@@ -227,7 +227,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public void StopBiting()
     {
         biteCancelled = true;
-        if (stateMachine.CurrentState == stateMachine.NormalState) return;
+        if (stateMachine.CurrentState != stateMachine.BitingState) return;
         stateMachine.TransitionTo(stateMachine.NormalState);
     }
 }

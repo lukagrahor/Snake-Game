@@ -16,7 +16,7 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
     {
         snakeHead.Grow();
         Use();
-        FoodActions.EatenByPlayer();
+        FoodActions.EatenByPlayer?.Invoke();
     }
 
     public void HandleTrigger(SnakeHead snakeHead)

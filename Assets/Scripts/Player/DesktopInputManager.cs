@@ -21,6 +21,25 @@ public class DesktopInputManager : ISnakeInput
         Down = 180,
         Left = 270
     }
+    /*
+    private void OnEnable()
+    {
+        _controls.PlayerDesktop.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _controls.PlayerDesktop.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if (_controls != null)
+        {
+            _controls.Dispose();
+        }
+    }
+    */
 
     public void OnSnakeDeath()
     {
@@ -124,7 +143,7 @@ public class DesktopInputManager : ISnakeInput
         // nastavi smer na shranjeno smer
 
         // izvedi ugriz --> ugrizni pred kaèo
-        // omogoèi nazaj spreminjanje smeri --> al daj nazaj na prejšnjo smer al pa upoštevaj smer po ugrizu
+
     }
 
     /*

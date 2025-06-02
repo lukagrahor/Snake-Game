@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865531123d0350a4e9f1c5b7efdbb29a, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  arenaSize: 10
+  arenaSize: 14
   difficulty: 0
   wallObjectIndexes:
   - Row: 3
@@ -20,4 +20,8 @@ MonoBehaviour:
   - Row: 3
     Col: 2
   - Row: 3
-    Col: 3
+    Col: 4
+  - Row: 3
+    Col: 5
+  - Row: 3
+    Col: 6

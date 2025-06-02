@@ -4,6 +4,7 @@ using UnityEngine;
 //[Serializable]
 public class SnakeHeadStateMachine : FiniteStateMachine
 {
+    public SnakeSpawnedState SpawnedState;
     public SnakeNormalState NormalState;
     public SnakeBitingState BitingState;
 
@@ -11,6 +12,7 @@ public class SnakeHeadStateMachine : FiniteStateMachine
 
     public SnakeHeadStateMachine(SnakeHead player, LayerMask layersToHit)
     {
+        this.SpawnedState = new SnakeSpawnedState(player, this);
         this.NormalState = new SnakeNormalState(player, this);
         this.BitingState = new SnakeBitingState(player, layersToHit, this);
 
@@ -19,7 +21,7 @@ public class SnakeHeadStateMachine : FiniteStateMachine
     
     public override void Intialize()
     {
-        CurrentState = this.NormalState;
+        CurrentState = this.SpawnedState;
         CurrentState.Enter();
     }
 }

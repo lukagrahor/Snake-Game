@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeNormalState : ISnakeState, IRegularMovement
+public class SnakeSpawnedState : ISnakeState, IRegularMovement
 {
     SnakeHead snakeHead;
     SnakeHeadStateMachine stateMachine;
-    public SnakeNormalState(SnakeHead snakeHead, SnakeHeadStateMachine stateMachine)
+    float startingMoveSpeed = 0.5f;
+    float transitionDuration = 2f;
+    CountDown timer;
+    public SnakeSpawnedState(SnakeHead snakeHead, SnakeHeadStateMachine stateMachine)
     {
         this.snakeHead = snakeHead;
         this.stateMachine = stateMachine;
@@ -13,7 +16,10 @@ public class SnakeNormalState : ISnakeState, IRegularMovement
 
     public void Enter()
     {
-        snakeHead.Snake.MoveSpeed = snakeHead.Snake.DefaultSpeed;
+        snakeHead.Snake.MoveSpeed = startingMoveSpeed;
+        timer = new CountDown(transitionDuration);
+        timer.TimeRanOut += TransitionToNormalState;
+        timer.Start();
     }
 
     public void Exit()
@@ -23,6 +29,7 @@ public class SnakeNormalState : ISnakeState, IRegularMovement
 
     public void Update()
     {
+        timer.Update();
         snakeHead.Move();
     }
 
@@ -87,5 +94,10 @@ public class SnakeNormalState : ISnakeState, IRegularMovement
             270 => new Vector3(-1f, 0f, 0f),
             _ => new Vector3(0f, 0f, 0f),
         };
+    }
+
+    void TransitionToNormalState()
+    {
+        stateMachine.TransitionTo(stateMachine.NormalState);
     }
 }
