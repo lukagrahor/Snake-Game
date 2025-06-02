@@ -7,7 +7,7 @@ using System;
 public class PlayerSpawner : ObjectSpawner
 {
     [SerializeField] int distanceFromWall = 2;
-    List<GridObject>SnakePositions = new List<GridObject>();
+    //List<GridObject>SnakePositions = new List<GridObject>();
     int snakeSize;
     public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
     {
@@ -16,9 +16,6 @@ public class PlayerSpawner : ObjectSpawner
         snakeSize = snake.StartingSize;
         SetSnakeStartingDirection();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
-        //Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
-        //LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, emptyGridObjects);
-        //GridObject selectedBlock = PickARandomBlock(gridObjectsWithoutSpawnPoint);
         Debug.Log("izbrana kocka " + selectedBlocks.First());
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
 
@@ -29,15 +26,11 @@ public class PlayerSpawner : ObjectSpawner
 
     public override void Spawn()
     {
-        /*
-        GridObject[,] gridObjects = grid.GetGridObjects();
-        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(gridObjects);
+        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(grid.GetGridObjects());
 
         GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
-        Vector3 enemyPosition = GenerateObjectPosition(selectedBlock);
-
-        enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
-        SetupEnemy(enemy, selectedBlock);*/
+        Vector3 playerPosition = GenerateObjectPosition(selectedBlock);
+        snake.SnakeHead.transform.position = playerPosition;
     }
 
     // vrne vse bloke, ki jih kaèa zasede --> upošteva se njena velikost

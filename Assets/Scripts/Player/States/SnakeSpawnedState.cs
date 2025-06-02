@@ -16,6 +16,7 @@ public class SnakeSpawnedState : ISnakeState, IRegularMovement
 
     public void Enter()
     {
+        Debug.Log("omogoèen Spawned");
         snakeHead.Snake.MoveSpeed = startingMoveSpeed;
         timer = new CountDown(transitionDuration);
         timer.TimeRanOut += TransitionToNormalState;
@@ -24,7 +25,7 @@ public class SnakeSpawnedState : ISnakeState, IRegularMovement
 
     public void Exit()
     {
-        
+        Debug.Log("omogoèen Èau");
     }
 
     public void Update()

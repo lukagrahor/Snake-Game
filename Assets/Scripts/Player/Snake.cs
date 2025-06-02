@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UIElements;
 using GlobalEnums;
+using static UnityEngine.Splines.SplineInstantiate;
 
 public class Snake : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Snake : MonoBehaviour
     [SerializeField] SnakeHead snakeHeadPrefab;
     [SerializeField] SnakeTorso snakeTorsoPrefab;
     [SerializeField] Canvas abilityChargeCanvas;
+    [SerializeField] PlayerSpawner playerSpawner;
     //[SerializeField] SnakeCorner snakeCornerPrefab;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
@@ -78,10 +80,11 @@ public class Snake : MonoBehaviour
         Application.targetFrameRate = -1;
     }
 
-    void Respawn()
+    public void Respawn()
     {
         snakeTorsoParts = new List<SnakeTorso>();
-        SnakeHead.transform.position = spawnPosition;
+        //SnakeHead.transform.position = spawnPosition;
+        playerSpawner.Spawn(); // sets the new position
         SnakeHead.gameObject.SetActive(true);
         snakeInputManager.OnSnakeRespawn();
         SpawnStartingTorsoBlocks();
