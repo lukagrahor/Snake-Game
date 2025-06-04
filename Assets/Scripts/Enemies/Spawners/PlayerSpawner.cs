@@ -26,11 +26,31 @@ public class PlayerSpawner : ObjectSpawner
 
     public override void Spawn()
     {
-        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(grid.GetGridObjects());
-
+        LinkedList<GridObject> emptyGridObjects = GetEmpty();
+        LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
+        Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
+        snake.SnakeHead.transform.position = playerPosition;
+        /*
         GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlock);
         snake.SnakeHead.transform.position = playerPosition;
+        */
+    }
+
+    protected LinkedList<GridObject> GetEmpty()
+    {
+        GridObject[,] gridObjects = grid.GetGridObjects();
+        LinkedList<GridObject> emptyGridObjects = new LinkedList<GridObject>();
+        foreach (GridObject obj in gridObjects)
+        {
+            if (obj.IsOccupied)
+            {
+                continue;
+            }
+
+            emptyGridObjects.AddLast(obj);
+        }
+        return emptyGridObjects;
     }
 
     // vrne vse bloke, ki jih kaèa zasede --> upošteva se njena velikost
@@ -62,33 +82,6 @@ public class PlayerSpawner : ObjectSpawner
 
             if (IsNearAWall(row)) continue;
             snakeBlocks = BoolCheckForOccupiedBlocks(col, row);
-
-            /*
-            if (dir == Directions.Up)
-            {
-                Debug.Log("Dimitrij smer 0");
-                if (!CheckIfSnakeFitsUp(row)) continue;
-                snakeBlocks = BoolCheckForOccupiedBlocksRow(col, row, -1);
-            }
-            else if (dir == Directions.Down)
-            {
-                Debug.Log("Dimitrij smer 1");
-                if (!CheckIfSnakeFitsDown(row)) continue;
-                snakeBlocks = BoolCheckForOccupiedBlocksRow(col, row, 1);
-            }
-            else if (dir == Directions.Left)
-            {
-                Debug.Log("Dimitrij smer 2");
-                if (!CheckIfSnakeFitsDown(col)) continue;
-                snakeBlocks = BoolCheckForOccupiedBlocksCol(col, row, 1);
-            }
-            else if (dir == Directions.Right)
-            {
-                Debug.Log("Dimitrij smer 3");
-                if (!CheckIfSnakeFitsUp(col)) continue;
-                snakeBlocks = BoolCheckForOccupiedBlocksCol(col, row, -1);
-            }
-            */
 
             if (snakeBlocks.Count == 0) continue;
 

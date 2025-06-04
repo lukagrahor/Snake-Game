@@ -36,8 +36,8 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
 
     public void HandleTrigger(GridObject gridObject)
     {
-        gridObject.IsOccupied = true;
-        gridObject.SetMarker();
+        //gridObject.IsOccupied = true;
+        //gridObject.SetMarker();
         //hasSnapped = false;
         //timer.StartTimer();
     }
@@ -57,6 +57,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         {
             gridObject.IsOccupied = false;
             gridObject.RemoveMarker();
+            gridObject.StopHeadTimer();
         }
     }
 

@@ -16,6 +16,11 @@ public class CountDown
         isRunning = true;
     }
 
+    public void Stop()
+    {
+        isRunning = false;
+    }
+
     public void Update()
     {
         if (isRunning == true)

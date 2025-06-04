@@ -11,6 +11,8 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     Food food;
     [SerializeField] GameObject occupiedMarkerPrefab;
     GameObject occupiedMarker;
+    float headResetTime = 3f;
+    CountDown timer;
 
     public int Col { get => col; set => col = value; }
     public int Row { get => row; set => row = value; }
@@ -20,9 +22,15 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     public SnakePathMarker Marker { get => marker; set => marker = value; }
     public Food Food { get => food; set => food = value; }
 
+    public void Update()
+    {
+        timer?.Update();
+    }
+
     public void HandleTrigger(SnakeHead snakeHead)
     {
         snakeHead.NextBlock = this;
+        StartHeadTimer();
         isOccupiedBySnakeHead = true;
         HasPathMarker = false;
     }
@@ -76,5 +84,25 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
             Destroy(occupiedMarker);
         }
         Debug.Log("huraaa " + gameObject.name);
+    }
+
+    void StartHeadTimer()
+    {
+        timer = new CountDown(headResetTime);
+        timer.Start();
+        timer.TimeRanOut += ResetOccupation;
+    }
+
+    void ResetOccupation()
+    {
+        Debug.Log("Okupacija");
+        isOccupied = false;
+        isOccupiedBySnakeHead = false;
+        Destroy(occupiedMarker);
+    }
+
+    public void StopHeadTimer()
+    {
+        timer.Stop();
     }
 }
