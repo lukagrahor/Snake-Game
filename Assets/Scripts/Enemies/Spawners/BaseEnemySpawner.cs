@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseEnemySpawner<T> : EnemySpawner where T : Enemy
+public abstract class BaseEnemySpawner<T> : ObjectSpawner where T : Enemy
 {
     [SerializeField] protected T enemyPrefab;
     protected T enemy;
@@ -26,11 +26,6 @@ public abstract class BaseEnemySpawner<T> : EnemySpawner where T : Enemy
         return newBlocks;
     }
 
-    public override void SetupSpawnedEnemy()
-    {
-        
-    }
-
     public override void Spawn()
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
@@ -43,7 +38,7 @@ public abstract class BaseEnemySpawner<T> : EnemySpawner where T : Enemy
         SetupEnemy(enemy, selectedBlock);
     }
 
-     public override GridObject[,] GetEdgeBlocks()
+    GridObject[,] GetEdgeBlocks()
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
         int gridSize = grid.GetSize();

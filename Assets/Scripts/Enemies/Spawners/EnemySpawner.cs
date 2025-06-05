@@ -1,8 +1,16 @@
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
-public abstract class EnemySpawner : ObjectSpawner
+public class EnemySpawner : BaseEnemySpawner<Enemy>
 {
-    public abstract void SetupSpawnedEnemy();
-    public abstract GridObject[,] GetEdgeBlocks();
+    /*
+    [SerializeField] Enemy enemyPrefab;
+    // al nrdi da je generic al pa da je interface
+    protected Enemy enemy;*/
+
+    protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
+    {
+        enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
+    }
 }

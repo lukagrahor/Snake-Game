@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static GameManager;
 
 public class SpawnerManager : MonoBehaviour
 {
-    [SerializeField] GameManager gameManager;
     [SerializeField] FoodSpawner foodSpawner;
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] StationaryEnemySpawner stationaryEnemySpawner;
@@ -13,21 +11,11 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] PathSpawner pathSpawner;
     [SerializeField] WaspSpawner waspSpawner;
     [SerializeField] PlayerSpawner playerSpawner;
-    Difficulty difficulty;
-    int maxEnemies;
-    public List<EnemySpawner> enemySpawners;
     /*
     void Start()
     {
         ManageFirstSpawns();
     }*/
-
-    void Start()
-    {
-        //difficulty = gameManager.CurrentDifficulty;
-        //enemySpawners.Add(waspSpawner);
-        //enemySpawners.Add(dogSpawner);
-    }
 
     public void ManageFirstSpawns(LinkedList<GridObject> wallBlocks)
     {
@@ -39,11 +27,6 @@ public class SpawnerManager : MonoBehaviour
 
         newBlocks = foodSpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
-
-        foreach (EnemySpawner spawner in enemySpawners)
-        {
-            spawner.Spawn();
-        }
         /*
         // spawnanje nasprotnikov rabi prep time + ne smejo se spawnat preveè okuli kaèe, si ne želiš, da gre igralc na nasprotnika med tem ku se ta spawna
         newBlocks = chaseEnemySpawner.FirstSpawn(occupiedBlocks);
@@ -59,7 +42,6 @@ public class SpawnerManager : MonoBehaviour
         }
         return occupiedBlocks;
     }
-
 
     void Update()
     {

@@ -9,16 +9,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] ArenaGrid grid;
     [SerializeField] SpawnerManager spawnerManager;
     LevelSelector levelSelector;
-    Difficulty currentDifficulty;
+    Difficulty currentDifficulty = Difficulty.Easy;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
-
+    public enum Difficulty
+    {
+        Easy = 0,
+        Medium = 1,
+        Hard = 2
+    }
     void Awake()
     {
         CheckIfOnlyInstance();
         levelSelector = new LevelSelector();
         List<Level> levels = new List<Level>();
-
-        currentDifficulty = Difficulty.Easy;
 
         if (CurrentDifficulty == Difficulty.Easy) levels = levelSelector.easyLevels;
         else if (CurrentDifficulty == Difficulty.Medium) levels = levelSelector.mediumLevels;
