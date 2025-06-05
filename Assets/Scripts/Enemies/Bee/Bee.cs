@@ -47,6 +47,8 @@ public class Bee : Enemy, ISpawnableObject, IWaspFrontTriggerHandler
         }
     }
 
+    public override void SetupAI(Snake snake, ArenaGrid grid){}
+
     protected override void GetHit()
     {
         Destroy(gameObject);

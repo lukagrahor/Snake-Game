@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 
-public class EnemySpawner : BaseEnemySpawner<Enemy>
+public class EnemySpawner : BaseEnemySpawner
 {
     /*
     [SerializeField] Enemy enemyPrefab;
@@ -12,5 +12,6 @@ public class EnemySpawner : BaseEnemySpawner<Enemy>
     protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
     {
         enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
+        enemy.SetupAI(snake, grid);
     }
 }

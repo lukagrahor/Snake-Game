@@ -8,17 +8,14 @@ public class Fly : Enemy
     public PathSpawner PathSpawner {get; set;}
     public bool IsRotating { get => isRotating; set => isRotating = value; }
 
-    public override void Setup(int col, int row, int gridSize)
-    {
-
-    }
+    public override void Setup(int col, int row, int gridSize){}
 
     private void OnTriggerEnter(Collider other)
     {
         other.GetComponent<IFlytrigger>()?.HandleFlyTrigger(this);
     }
 
-    public void SetupAI(Snake player, ArenaGrid grid)
+    public override void SetupAI(Snake player, ArenaGrid grid)
     {
         ai.SetPlayer(player);
         ai.SetGrid(grid);

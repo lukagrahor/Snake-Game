@@ -18,7 +18,7 @@ public class Wasp : Enemy
         NextBlock = StartBlock;
     }
 
-    public void SetupAI(Snake player, ArenaGrid grid)
+    public override void SetupAI(Snake player, ArenaGrid grid)
     {
         ai.SetPlayer(player);
         ai.SetGrid(grid);

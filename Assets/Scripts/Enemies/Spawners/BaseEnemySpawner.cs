@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseEnemySpawner<T> : ObjectSpawner where T : Enemy
+public abstract class BaseEnemySpawner: ObjectSpawner
 {
-    [SerializeField] protected T enemyPrefab;
-    protected T enemy;
+    protected Enemy enemyPrefab;
+    protected Enemy enemy;
 
-    protected abstract void SetupEnemy(T enemy, GridObject selectedBlock);
+    protected abstract void SetupEnemy(Enemy enemy, GridObject selectedBlock);
 
     public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
     {
@@ -26,7 +26,9 @@ public abstract class BaseEnemySpawner<T> : ObjectSpawner where T : Enemy
         return newBlocks;
     }
 
-    public override void Spawn()
+    public override void Spawn(){}
+
+    public void Spawn(Enemy enemyPrefab)
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
         LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(gridObjects);

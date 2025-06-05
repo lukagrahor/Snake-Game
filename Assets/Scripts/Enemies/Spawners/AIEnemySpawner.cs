@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class AIEnemySpawner : BaseEnemySpawner<Fly>
+public class AIEnemySpawner : BaseEnemySpawner
 {
-    protected override void SetupEnemy(Fly enemy, GridObject selectedBlock)
+    protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
     {
-        enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
-        enemy.SetupAI(snake, grid);
+        Fly fly = (Fly)enemy;
+        fly.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
+        fly.SetupAI(snake, grid);
     }
 }

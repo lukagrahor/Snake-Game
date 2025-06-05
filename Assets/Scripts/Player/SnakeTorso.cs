@@ -55,6 +55,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
     {
         if (lastSnakePart == true)
         {
+            if (gridObject == null) Debug.Log("Tanzanija");
             gridObject.IsOccupied = false;
             gridObject.RemoveMarker();
             gridObject.StopHeadTimer();

@@ -4,6 +4,7 @@ public abstract class Enemy : MonoBehaviour, IBiteTriggerHandler, ISnakeHeadTrig
 {
     protected abstract void GetHit();
     public abstract void Setup(int col, int row, int gridSize);
+    public abstract void SetupAI(Snake snake, ArenaGrid grid);
 
     public void HandleBiteTrigger(SnakeHead snakeHead)
     {

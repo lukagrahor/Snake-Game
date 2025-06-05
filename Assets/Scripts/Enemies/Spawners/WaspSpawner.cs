@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class WaspSpawner : BaseEnemySpawner<Wasp>
+public class WaspSpawner : BaseEnemySpawner
 {
-    protected override void SetupEnemy(Wasp enemy, GridObject selectedBlock)
+    protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
     {
-        enemy.SetupAI(snake, grid);
-        enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
+        Wasp wasp = (Wasp)enemy;
+        wasp.SetupAI(snake, grid);
+        wasp.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
     }
 }

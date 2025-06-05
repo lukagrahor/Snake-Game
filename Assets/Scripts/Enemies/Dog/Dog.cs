@@ -22,7 +22,7 @@ public class Dog : Enemy, IWaspFrontTriggerHandler, IPathTrigger
         if (ai.DogStateMachine != null) enteredObject?.HandleTrigger(ai.DogStateMachine.PatrolState, this);
     }
 
-    public void SetupAI(Snake player, ArenaGrid grid)
+    public override void SetupAI(Snake player, ArenaGrid grid)
     {
         ai.SetPlayer(player);
         ai.SetGrid(grid);

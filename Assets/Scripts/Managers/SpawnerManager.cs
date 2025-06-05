@@ -5,12 +5,13 @@ public class SpawnerManager : MonoBehaviour
 {
     [SerializeField] FoodSpawner foodSpawner;
     [SerializeField] EnemySpawner enemySpawner;
-    [SerializeField] StationaryEnemySpawner stationaryEnemySpawner;
-    [SerializeField] AIEnemySpawner chaseEnemySpawner;
-    [SerializeField] DogSpawner dogSpawner;
     [SerializeField] PathSpawner pathSpawner;
-    [SerializeField] WaspSpawner waspSpawner;
     [SerializeField] PlayerSpawner playerSpawner;
+    [SerializeField] Bee bee;
+    [SerializeField] Wasp wasp;
+    [SerializeField] Dog dog;
+    [SerializeField] Fly fly;
+    List<Enemy> enemies;
     /*
     void Start()
     {
@@ -27,6 +28,15 @@ public class SpawnerManager : MonoBehaviour
 
         newBlocks = foodSpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+
+        enemies = new List<Enemy>();
+        enemies.Add(bee);
+        enemies.Add(wasp);
+
+        foreach (Enemy enemy in enemies)
+        {
+            enemySpawner.Spawn(enemy);
+        }
         /*
         // spawnanje nasprotnikov rabi prep time + ne smejo se spawnat preveè okuli kaèe, si ne želiš, da gre igralc na nasprotnika med tem ku se ta spawna
         newBlocks = chaseEnemySpawner.FirstSpawn(occupiedBlocks);

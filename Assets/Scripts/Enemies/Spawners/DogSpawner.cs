@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class DogSpawner : BaseEnemySpawner<Dog>
+public class DogSpawner : BaseEnemySpawner
 {
-    protected override void SetupEnemy(Dog enemy, GridObject selectedBlock)
+    protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
     {
-        enemy.SetupAI(snake, grid);
-        enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
+        Dog dog = (Dog)enemy;
+        dog.SetupAI(snake, grid);
+        dog.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
     }
 }

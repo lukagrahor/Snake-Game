@@ -152,7 +152,6 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
   objectScale: 0.19
-  enemyPrefab: {fileID: 1055173254773622347, guid: 0c570945cedeeb146b7ffd73e677772a, type: 3}
 --- !u!4 &9674572
 Transform:
   m_ObjectHideFlags: 0
@@ -216,7 +215,6 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
   objectScale: 0.18
-  enemyPrefab: {fileID: 176585611563766650, guid: b1967f98af537554b8b90258907f7bd5, type: 3}
 --- !u!1 &184481908
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +555,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6075153
+  orthographic size: 6.622878
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1156,7 +1154,6 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
   objectScale: 0.19
-  enemyPrefab: {fileID: 1538063464904830449, guid: f2f7d6dc4340166499b1095eee41cc03, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,7 +1251,6 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
   objectScale: 0.18
-  enemyPrefab: {fileID: 8837778402620649376, guid: 95595233456c3ac4a986ce33a8cab03d, type: 3}
 --- !u!1 &1118341866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,12 +1603,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodSpawner: {fileID: 1379569882}
   enemySpawner: {fileID: 9674571}
-  stationaryEnemySpawner: {fileID: 1311046229}
-  chaseEnemySpawner: {fileID: 786172749}
-  dogSpawner: {fileID: 92366188}
   pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
-  waspSpawner: {fileID: 929081956}
   playerSpawner: {fileID: 415246873}
+  bee: {fileID: 1055173254773622347, guid: 0c570945cedeeb146b7ffd73e677772a, type: 3}
+  wasp: {fileID: 8837778402620649376, guid: 95595233456c3ac4a986ce33a8cab03d, type: 3}
+  dog: {fileID: 176585611563766650, guid: b1967f98af537554b8b90258907f7bd5, type: 3}
+  fly: {fileID: 1538063464904830449, guid: f2f7d6dc4340166499b1095eee41cc03, type: 3}
 --- !u!1 &1294393573
 GameObject:
   m_ObjectHideFlags: 0
