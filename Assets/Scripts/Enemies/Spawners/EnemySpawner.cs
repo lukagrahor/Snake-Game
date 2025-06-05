@@ -11,7 +11,7 @@ public class EnemySpawner : BaseEnemySpawner
 
     protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
     {
-        enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
         enemy.SetupAI(snake, grid);
+        enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
     }
 }

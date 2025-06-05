@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
 {
+    [SerializeField] GameManager gameManager;
     [SerializeField] FoodSpawner foodSpawner;
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] PathSpawner pathSpawner;
@@ -11,7 +12,9 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] Wasp wasp;
     [SerializeField] Dog dog;
     [SerializeField] Fly fly;
+
     List<Enemy> enemies;
+    Difficulty currentDifficulty;
     /*
     void Start()
     {
@@ -28,6 +31,8 @@ public class SpawnerManager : MonoBehaviour
 
         newBlocks = foodSpawner.FirstSpawn(occupiedBlocks);
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+
+        currentDifficulty = gameManager.CurrentDifficulty;
 
         enemies = new List<Enemy>();
         enemies.Add(bee);
@@ -51,6 +56,11 @@ public class SpawnerManager : MonoBehaviour
             occupiedBlocks.AddLast(block);
         }
         return occupiedBlocks;
+    }
+
+    List<Enemy> SetEnemiesToSpawn()
+    {
+        return new List<Enemy>();
     }
 
     void Update()

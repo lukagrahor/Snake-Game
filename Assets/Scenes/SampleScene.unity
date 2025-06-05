@@ -555,7 +555,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.622878
+  orthographic size: 6.680385
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1601,6 +1601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d91e1bae4221614083a914c18ebf887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 184481909}
   foodSpawner: {fileID: 1379569882}
   enemySpawner: {fileID: 9674571}
   pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}

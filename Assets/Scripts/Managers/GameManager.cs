@@ -11,12 +11,6 @@ public class GameManager : MonoBehaviour
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
-    public enum Difficulty
-    {
-        Easy = 0,
-        Medium = 1,
-        Hard = 2
-    }
     void Awake()
     {
         CheckIfOnlyInstance();
