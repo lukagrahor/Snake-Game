@@ -28,17 +28,6 @@ public abstract class BaseEnemySpawner: ObjectSpawner
 
     public override void Spawn(){}
 
-    public void Spawn(Enemy enemyPrefab)
-    {
-        GridObject[,] gridObjects = grid.GetGridObjects();
-        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(gridObjects);
-
-        GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
-        Vector3 enemyPosition = GenerateObjectPosition(selectedBlock);
-
-        enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
-        SetupEnemy(enemy, selectedBlock);
-    }
 
     GridObject[,] GetEdgeBlocks()
     {

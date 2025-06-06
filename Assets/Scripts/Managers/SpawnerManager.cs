@@ -15,12 +15,9 @@ public class SpawnerManager : MonoBehaviour
 
     List<Enemy> enemies;
     Difficulty currentDifficulty;
-    /*
-    void Start()
-    {
-        ManageFirstSpawns();
-    }*/
-
+    int maxEnemies;
+    float spawnDuration = 3f;
+   
     public void ManageFirstSpawns(LinkedList<GridObject> wallBlocks)
     {
         LinkedList<GridObject> occupiedBlocks = new LinkedList<GridObject>();
@@ -34,14 +31,13 @@ public class SpawnerManager : MonoBehaviour
 
         currentDifficulty = gameManager.CurrentDifficulty;
 
-        enemies = new List<Enemy>();
-        enemies.Add(bee);
-        enemies.Add(wasp);
+        enemies = SetEnemiesToSpawn();
 
         foreach (Enemy enemy in enemies)
         {
             enemySpawner.Spawn(enemy);
         }
+
         /*
         // spawnanje nasprotnikov rabi prep time + ne smejo se spawnat preveè okuli kaèe, si ne želiš, da gre igralc na nasprotnika med tem ku se ta spawna
         newBlocks = chaseEnemySpawner.FirstSpawn(occupiedBlocks);
@@ -60,11 +56,40 @@ public class SpawnerManager : MonoBehaviour
 
     List<Enemy> SetEnemiesToSpawn()
     {
-        return new List<Enemy>();
+        if (currentDifficulty == Difficulty.Easy) maxEnemies = 5;
+        else if (currentDifficulty == Difficulty.Medium) maxEnemies = 8;
+        else if (currentDifficulty == Difficulty.Hard) maxEnemies = 12;
+
+        Enemy[] enemyPool = SetEnemyPool();
+        List<Enemy> enemyList = new List<Enemy>();
+        for (int i = 0; i < maxEnemies; i++)
+        {
+            int index = Random.Range(0, enemyPool.Length);
+            enemyList.Add(enemyPool[index]);
+        }
+
+        return enemyList;
     }
 
-    void Update()
+    Enemy[] SetEnemyPool() {
+        if (currentDifficulty == Difficulty.Easy)
+        {
+            Enemy[] enemyPool = { bee, dog, fly };
+            return enemyPool;
+        }
+        else if (currentDifficulty == Difficulty.Medium) {
+            Enemy[] enemyPool = { bee, wasp, dog, fly };
+            return enemyPool;
+        }
+        else
+        {
+            Enemy[] enemyPool = { wasp, dog, fly };
+            return enemyPool;
+        }
+    }
+
+    void CheckIfRespawnIsNeeded()
     {
-        
+
     }
 }

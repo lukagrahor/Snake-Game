@@ -6,6 +6,7 @@ public class CountDown
     float timer = 0f;
     bool isRunning = false;
     public event Action TimeRanOut;
+    public float Timer { get => timer; set => timer = value; }
     public CountDown (float timer)
     {
         this.timer = timer;
