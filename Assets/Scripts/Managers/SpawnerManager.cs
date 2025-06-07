@@ -32,11 +32,12 @@ public class SpawnerManager : MonoBehaviour
         currentDifficulty = gameManager.CurrentDifficulty;
 
         enemies = SetEnemiesToSpawn();
-
+        enemySpawner.WaitForSpawn(enemies);
+        /*
         foreach (Enemy enemy in enemies)
         {
-            enemySpawner.Spawn(enemy);
-        }
+            enemySpawner.WaitForSpawn(enemy);
+        }*/
 
         /*
         // spawnanje nasprotnikov rabi prep time + ne smejo se spawnat preveè okuli kaèe, si ne želiš, da gre igralc na nasprotnika med tem ku se ta spawna
