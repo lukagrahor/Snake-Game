@@ -52,6 +52,7 @@ public class Bee : Enemy, ISpawnableObject, IWaspFrontTriggerHandler
     protected override void GetHit()
     {
         Destroy(gameObject);
+        enemyDied.Invoke();
     }
 
     void Start()

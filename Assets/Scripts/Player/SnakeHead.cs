@@ -58,6 +58,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     {
         transform.rotation = Quaternion.Euler(0, (float)startingDirection, 0);
         Debug.Log("Omogoèen!");
+        if (stateMachine == null) stateMachine = new SnakeHeadStateMachine(this, layersToHit);
         if (stateMachine.CurrentState != null && stateMachine.CurrentState != stateMachine.SpawnedState)
         {
             stateMachine.TransitionTo(stateMachine.SpawnedState);

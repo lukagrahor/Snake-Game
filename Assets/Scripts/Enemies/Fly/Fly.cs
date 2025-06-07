@@ -24,6 +24,7 @@ public class Fly : Enemy
     protected override void GetHit()
     {
         Destroy(gameObject);
+        enemyDied?.Invoke();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

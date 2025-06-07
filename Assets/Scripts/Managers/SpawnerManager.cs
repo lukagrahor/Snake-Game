@@ -15,9 +15,11 @@ public class SpawnerManager : MonoBehaviour
 
     List<Enemy> enemies;
     Difficulty currentDifficulty;
+    int minEnemies;
     int maxEnemies;
+    int currentEnemies;
     float spawnDuration = 3f;
-   
+
     public void ManageFirstSpawns(LinkedList<GridObject> wallBlocks)
     {
         LinkedList<GridObject> occupiedBlocks = new LinkedList<GridObject>();
@@ -46,6 +48,18 @@ public class SpawnerManager : MonoBehaviour
         */
     }
 
+    public void RespawnEnemies()
+    {
+        currentEnemies--;
+        // respawn only if there aren't enough enemies
+        Debug.Log("Respawnacija zaèetek");
+        Debug.Log("Respawnacija currentEnemies " + currentEnemies);
+        Debug.Log("Respawnacija minEnemies " + minEnemies);
+        if (currentEnemies > minEnemies) return;
+        Debug.Log("Respawnacija treba je lwatet");
+        enemySpawner.WaitForSpawn(enemies);
+    }
+
     LinkedList<GridObject> AddBlocks(LinkedList<GridObject> occupiedBlocks, LinkedList<GridObject> newBlocks)
     {
         foreach (GridObject block in newBlocks)
@@ -57,9 +71,22 @@ public class SpawnerManager : MonoBehaviour
 
     List<Enemy> SetEnemiesToSpawn()
     {
-        if (currentDifficulty == Difficulty.Easy) maxEnemies = 5;
-        else if (currentDifficulty == Difficulty.Medium) maxEnemies = 8;
-        else if (currentDifficulty == Difficulty.Hard) maxEnemies = 12;
+        if (currentDifficulty == Difficulty.Easy)
+        {
+            minEnemies = 1;
+            maxEnemies = 5;
+        }
+        else if (currentDifficulty == Difficulty.Medium)
+        {
+            minEnemies = 2;
+            maxEnemies = 8;
+        }
+        else if (currentDifficulty == Difficulty.Hard)
+        {
+            minEnemies = 4;
+            maxEnemies = 12;
+        }
+        currentEnemies = maxEnemies;
 
         Enemy[] enemyPool = SetEnemyPool();
         List<Enemy> enemyList = new List<Enemy>();

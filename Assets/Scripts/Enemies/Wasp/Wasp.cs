@@ -29,6 +29,7 @@ public class Wasp : Enemy
     protected override void GetHit()
     {
         Destroy(gameObject);
+        enemyDied?.Invoke();
     }
 
     public void Turn()

@@ -9,6 +9,7 @@ public class EnemySpawner : BaseEnemySpawner
     // al nrdi da je generic al pa da je interface
     protected Enemy enemy;*/
     [SerializeField] SpawnIndicator spawnIndicator;
+    [SerializeField] SpawnerManager spawnerManager;
     CountDown timer;
     float spawnDuration = 2f;
     Enemy prefab;
@@ -66,12 +67,13 @@ public class EnemySpawner : BaseEnemySpawner
         {
             Enemy enemy = Instantiate(indicator.EnemyPrefab, indicator.transform.position, Quaternion.identity);
             SetupEnemy(enemy, indicator.SelectedBlock);
+            enemy.enemyDied += spawnerManager.RespawnEnemies;
         }
 
         foreach (SpawnIndicator indicator in indicators)
         {
             Debug.Log("Unièenje");
-            Destroy(indicator);
+            Destroy(indicator.gameObject);
         }
     }
     /*
