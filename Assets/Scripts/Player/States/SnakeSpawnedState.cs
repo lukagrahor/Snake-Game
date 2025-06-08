@@ -5,8 +5,8 @@ public class SnakeSpawnedState : ISnakeState, IRegularMovement
 {
     SnakeHead snakeHead;
     SnakeHeadStateMachine stateMachine;
-    float startingMoveSpeed = 0.5f;
-    float transitionDuration = 2f;
+    float startingMoveSpeed = 0.7f;
+    float transitionDuration = 1.5f;
     CountDown timer;
     public SnakeSpawnedState(SnakeHead snakeHead, SnakeHeadStateMachine stateMachine)
     {

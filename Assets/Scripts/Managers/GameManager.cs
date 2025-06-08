@@ -11,15 +11,31 @@ public class GameManager : MonoBehaviour
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
+    int foodToCollect;
+    int maxFoodCount;
     void Awake()
     {
         CheckIfOnlyInstance();
         levelSelector = new LevelSelector();
         List<Level> levels = new List<Level>();
 
-        if (CurrentDifficulty == Difficulty.Easy) levels = levelSelector.easyLevels;
-        else if (CurrentDifficulty == Difficulty.Medium) levels = levelSelector.mediumLevels;
-        else if (CurrentDifficulty == Difficulty.Hard) levels = levelSelector.hardLevels;
+        if (CurrentDifficulty == Difficulty.Easy)
+        {
+            levels = levelSelector.easyLevels;
+            maxFoodCount = 5;
+        }
+        else if (CurrentDifficulty == Difficulty.Medium)
+        {
+            levels = levelSelector.mediumLevels;
+            maxFoodCount = 8;
+        }
+        else if (CurrentDifficulty == Difficulty.Hard)
+        {
+            levels = levelSelector.hardLevels;
+            maxFoodCount = 10;
+        }
+
+        foodToCollect = maxFoodCount;
 
         Level newLevel = ChooseALevel(levels);
         LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
@@ -73,5 +89,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
 
+    }
+
+    public void CollectFood()
+    {
+        foodToCollect--;
+        if (foodToCollect != 0) return;
+        // naslednji nivo
     }
 }

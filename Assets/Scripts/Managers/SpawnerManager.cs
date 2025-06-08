@@ -32,6 +32,7 @@ public class SpawnerManager : MonoBehaviour
         occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
 
         currentDifficulty = gameManager.CurrentDifficulty;
+        currentEnemies = 0;
 
         enemies = SetEnemiesToSpawn();
         enemySpawner.WaitForSpawn(enemies);
@@ -57,6 +58,7 @@ public class SpawnerManager : MonoBehaviour
         Debug.Log("Respawnacija minEnemies " + minEnemies);
         if (currentEnemies > minEnemies) return;
         Debug.Log("Respawnacija treba je lwatet");
+        enemies = SetEnemiesToSpawn();
         enemySpawner.WaitForSpawn(enemies);
     }
 
@@ -86,15 +88,17 @@ public class SpawnerManager : MonoBehaviour
             minEnemies = 4;
             maxEnemies = 12;
         }
-        currentEnemies = maxEnemies;
+        int enemiesToSpawn = maxEnemies - currentEnemies;
 
         Enemy[] enemyPool = SetEnemyPool();
         List<Enemy> enemyList = new List<Enemy>();
-        for (int i = 0; i < maxEnemies; i++)
+        for (int i = 0; i < enemiesToSpawn; i++)
         {
             int index = Random.Range(0, enemyPool.Length);
             enemyList.Add(enemyPool[index]);
         }
+
+        currentEnemies += enemiesToSpawn;
 
         return enemyList;
     }
