@@ -50,6 +50,8 @@ public class Snake : MonoBehaviour
     public int StartingSize { get => startingSize; }
     public Directions StartingDirection { get => startingDirection; set => startingDirection = value; }
 
+    int blocksToSpawn = 0;
+
     public void FirstSpawn(Vector3 spawnPosition)
     {
         defaultSpeed = moveSpeed;
@@ -72,7 +74,9 @@ public class Snake : MonoBehaviour
 
     void SpawnStartingTorsoBlocks()
     {
-        for (int i = 0; i < startingSize; i++)
+        int numOfBlocks = startingSize;
+        if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
+        for (int i = 0; i < numOfBlocks; i++)
         {
             Grow();
         }
@@ -162,7 +166,7 @@ public class Snake : MonoBehaviour
         previousPart.UnsetLast();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
         newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector);
-
+        if(SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
         // kopira pozicije, ki so v bufferju od njegovga predhodnika
         if (snakeTorsoParts.Count > 0)
         {
@@ -172,7 +176,6 @@ public class Snake : MonoBehaviour
         newSnakeTorso.SetPreviousPart(previousPart);
         newSnakeTorso.name = "Torso " + snakeTorsoParts.Count;
         
-
         snakeTorsoParts.Add(newSnakeTorso);
     }
 
@@ -194,6 +197,7 @@ public class Snake : MonoBehaviour
             // gameOver
         }
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
+        if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
 
         stateMachine.TransitionTo(stateMachine.SpawnedState);
         
@@ -210,13 +214,12 @@ public class Snake : MonoBehaviour
         }
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
 
-        if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
-
         if (stateMachine.CurrentState == stateMachine.BitingState)
         {
             stateMachine.TransitionTo(stateMachine.NormalState);
         }
 
+        blocksToSpawn = snakeTorsoParts.Count - 2;
         SnakeHead.gameObject.SetActive(false);
         foreach (SnakeTorso torso in snakeTorsoParts)
         {

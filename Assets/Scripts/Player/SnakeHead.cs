@@ -187,6 +187,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void HitWall()
     {
+        Debug.Log("Zdni zid majstr");
         snake.HitWall();
     }
 
