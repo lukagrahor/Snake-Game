@@ -9,7 +9,7 @@ public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFrontTrigg
 
     public void HandleTrigger(SnakeHead snakeHead)
     {
-        snakeHead.GetHit();
+        snakeHead.HitWall();
     }
 
     public void HandleTrigger(Wasp wasp)

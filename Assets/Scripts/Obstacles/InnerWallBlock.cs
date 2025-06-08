@@ -4,6 +4,6 @@ public class InnerWallBlock : MonoBehaviour, ISnakeHeadTriggerHandler
 {
     public void HandleTrigger(SnakeHead snakeHead)
     {
-        snakeHead.Snake.GetHit();
+        snakeHead.Snake.HitWall();
     }
 }

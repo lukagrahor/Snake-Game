@@ -185,6 +185,11 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         snake.GetHit();
     }
 
+    public void HitWall()
+    {
+        snake.HitWall();
+    }
+
     public void Grow()
     {
         snake.Grow();

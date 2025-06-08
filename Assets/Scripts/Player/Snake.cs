@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UIElements;
 using GlobalEnums;
 using static UnityEngine.Splines.SplineInstantiate;
+using System.Linq;
 
 public class Snake : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class Snake : MonoBehaviour
     [SerializeField] float waitTime = 3f;
     [SerializeField] CountDownTimer timer;
     ISnakeInput snakeInputManager;
+
+    int minTorsoParts = 2;
 
     public SnakeHead SnakeHead { get; set; }
     public SnakePath Path;
@@ -186,6 +189,25 @@ public class Snake : MonoBehaviour
 
     public void GetHit()
     {
+        if (snakeTorsoParts.Count - 1 < minTorsoParts)
+        {
+            // gameOver
+        }
+        SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
+
+        stateMachine.TransitionTo(stateMachine.SpawnedState);
+        
+        SnakeTorso lastTorsoPart = snakeTorsoParts.Last();
+        snakeTorsoParts.Remove(lastTorsoPart);
+        Destroy(lastTorsoPart.gameObject);
+    }
+
+    public void HitWall()
+    {
+        if (snakeTorsoParts.Count - 2 < minTorsoParts)
+        {
+            // gameOver
+        }
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
 
         if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
