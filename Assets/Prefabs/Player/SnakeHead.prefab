@@ -155,6 +155,7 @@ MonoBehaviour:
   layersToHit:
     serializedVersion: 2
     m_Bits: 520
+  headRenderer: {fileID: 311438574784473439}
 --- !u!120 &6883513490584404443
 LineRenderer:
   serializedVersion: 2

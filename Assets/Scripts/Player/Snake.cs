@@ -64,6 +64,7 @@ public class Snake : MonoBehaviour
         timer.TimeRanOut += Respawn;
 
         SpawnStartingTorsoBlocks();
+        SnakeHead.SetStateMachine(); // need to set here, because if set earleir the torso parts won't be transparent
     }
 
     void SpawnStartingTorsoBlocks()
@@ -88,6 +89,7 @@ public class Snake : MonoBehaviour
         SnakeHead.gameObject.SetActive(true);
         snakeInputManager.OnSnakeRespawn();
         SpawnStartingTorsoBlocks();
+        SnakeHead.SetStateMachine();
     }
 
     public float GetSnakeYRotation()
@@ -185,6 +187,9 @@ public class Snake : MonoBehaviour
     public void GetHit()
     {
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
+
+        if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
+
         if (stateMachine.CurrentState == stateMachine.BitingState)
         {
             stateMachine.TransitionTo(stateMachine.NormalState);
@@ -239,5 +244,22 @@ public class Snake : MonoBehaviour
     public void SetSnakePath(GridObject gridObject, Vector3 location, float rotation)
     {
         Path.SpawnMarker(gridObject, location, rotation);
+    }
+
+    public void SetToTransparent()
+    {
+        Debug.Log("Transparentnost delavnica snakeTorsoParts count" + snakeTorsoParts.Count);
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            torso.SetToTransparent();
+        }
+    }
+
+    public void SetToSolid()
+    {
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            torso.SetToSolid();
+        }
     }
 }

@@ -6,6 +6,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 {
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] LayerMask layersToHit;
+    [SerializeField] MeshRenderer headRenderer;
     Canvas abilityChargeCanvas;
     Directions startingDirection = Directions.Up;
     public float MoveSpeed { get; set; }
@@ -102,6 +103,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             ArrowTransform.localPosition = new Vector3(0f, -0.03f, -0.748f);
             ArrowTransform.sizeDelta = new Vector2(2f, 0.1f);
         }
+    }
+
+    public void SetStateMachine()
+    {
         stateMachine.Intialize();
     }
 
@@ -176,6 +181,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void GetHit()
     {
+        if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
         snake.GetHit();
     }
 
@@ -235,5 +241,22 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
         biteCancelled = true;
         if (stateMachine.CurrentState != stateMachine.BitingState) return;
         stateMachine.TransitionTo(stateMachine.NormalState);
+    }
+
+    public void SetToTransparent()
+    {
+        Debug.Log("Transparentnost kljulavnica");
+        Color tempColor = headRenderer.material.color;
+        tempColor.a = 0.7f;
+        headRenderer.material.color = tempColor;
+        snake.SetToTransparent();
+    }
+
+    public void SetToSolid()
+    {
+        Color tempColor = headRenderer.material.color;
+        tempColor.a = 1f;
+        headRenderer.material.color = tempColor;
+        snake.SetToSolid();
     }
 }

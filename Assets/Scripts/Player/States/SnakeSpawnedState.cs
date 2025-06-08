@@ -16,8 +16,8 @@ public class SnakeSpawnedState : ISnakeState, IRegularMovement
 
     public void Enter()
     {
-        Debug.Log("omogoèen Spawned");
         snakeHead.Snake.MoveSpeed = startingMoveSpeed;
+        snakeHead.SetToTransparent();
         timer = new CountDown(transitionDuration);
         timer.TimeRanOut += TransitionToNormalState;
         timer.Start();
@@ -25,7 +25,7 @@ public class SnakeSpawnedState : ISnakeState, IRegularMovement
 
     public void Exit()
     {
-        Debug.Log("omogoèen Èau");
+        snakeHead.SetToSolid();
     }
 
     public void Update()
@@ -36,7 +36,6 @@ public class SnakeSpawnedState : ISnakeState, IRegularMovement
 
     public void OnGridBlockStay(Collider other)
     {
-        Debug.Log("OnGridBlockStay");
         // ignore the y axis
         Vector3 snakeHeadPosition = new(snakeHead.transform.position.x, 0f, snakeHead.transform.position.z);
         Vector3 gridBlockPosition = new(other.transform.position.x, 0f, other.transform.position.z);

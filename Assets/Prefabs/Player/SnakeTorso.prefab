@@ -149,3 +149,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde9072ceba98f847b9f7b0158017a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  torsoRenderer: {fileID: 311438574784473439}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWaspFrontTriggerHandler, IGridObjectStayTriggerHandler
 {
+    [SerializeField] MeshRenderer torsoRenderer;
     public float MoveSpeed { get; set; }
     bool lastSnakePart = true;
 
@@ -305,5 +306,19 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
     public void GetHit()
     {
         snake.GetHit();
+    }
+    public void SetToTransparent()
+    {
+        Debug.Log("Transparentnost je kljuè do");
+        Color tempColor = torsoRenderer.material.color;
+        tempColor.a = 0.7f;
+        torsoRenderer.material.color = tempColor;
+    }
+
+    public void SetToSolid()
+    {
+        Color tempColor = torsoRenderer.material.color;
+        tempColor.a = 1f;
+        torsoRenderer.material.color = tempColor;
     }
 }
