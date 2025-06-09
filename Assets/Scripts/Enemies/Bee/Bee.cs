@@ -82,7 +82,7 @@ public class Bee : Enemy, ISpawnableObject, IWaspFrontTriggerHandler
         if (stateMachine.CurrentState == stateMachine.ChargeState)
         {
             stateMachine.ChargeState.CoolDown();
+            GetHit();
         }
-        GetHit();
     }
 }

@@ -15,7 +15,29 @@ MonoBehaviour:
   arenaSize: 15
   difficulty: 0
   wallObjectIndexes:
-  - Row: 3
+  - Row: 7
     Col: 2
-  - Row: 3
+  - Row: 7
+    Col: 3
+  - Row: 7
     Col: 4
+  - Row: 7
+    Col: 5
+  - Row: 7
+    Col: 6
+  - Row: 7
+    Col: 7
+  - Row: 7
+    Col: 8
+  - Row: 7
+    Col: 9
+  - Row: 6
+    Col: 6
+  - Row: 6
+    Col: 5
+  - Row: 6
+    Col: 4
+  - Row: 6
+    Col: 4
+  - Row: 6
+    Col: 8

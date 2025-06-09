@@ -17,11 +17,21 @@ MonoBehaviour:
   wallObjectIndexes:
   - Row: 3
     Col: 1
-  - Row: 3
+  - Row: 7
     Col: 2
-  - Row: 3
+  - Row: 7
     Col: 4
-  - Row: 3
+  - Row: 7
     Col: 5
-  - Row: 3
+  - Row: 7
     Col: 6
+  - Row: 7
+    Col: 7
+  - Row: 6
+    Col: 5
+  - Row: 5
+    Col: 5
+  - Row: 8
+    Col: 5
+  - Row: 9
+    Col: 5

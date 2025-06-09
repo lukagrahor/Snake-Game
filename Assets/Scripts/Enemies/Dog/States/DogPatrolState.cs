@@ -106,7 +106,7 @@ public class DogPatrolState : IState
         }
     }
 
-    void ChangeLane()
+    public void ChangeLane()
     {
         if (isRotatingPrimary || isRotatingSecondary) return;
         isRotatingSecondary = true;

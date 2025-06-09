@@ -19,7 +19,8 @@ public class Dog : Enemy, IWaspFrontTriggerHandler, IPathTrigger
     private void OnTriggerEnter(Collider other)
     {
         IDogTriggerHandler enteredObject = other.GetComponent<IDogTriggerHandler>();
-        if (ai.DogStateMachine != null) enteredObject?.HandleTrigger(ai.DogStateMachine.PatrolState, this);
+        if (ai.DogStateMachine != null && ai.DogStateMachine.CurrentState == ai.DogStateMachine.PatrolState)
+            enteredObject?.HandleTrigger(ai.DogStateMachine.CurrentState, this);
     }
 
     public override void SetupAI(Snake player, ArenaGrid grid)
