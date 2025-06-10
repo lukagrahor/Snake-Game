@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ArenaGrid grid;
     [SerializeField] SpawnerManager spawnerManager;
     [SerializeField] GameUIManager UIManager;
+    [SerializeField] Camera cam;
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
@@ -78,9 +79,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void NewGame()
+    public void NewLevel()
     {
-
+        cam.MoveCameraAway();
     }
 
     public void GameOver()

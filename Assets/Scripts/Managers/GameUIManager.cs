@@ -7,6 +7,7 @@ public class GameUIManager : MonoBehaviour
     int foodCollected;
     int maxFoodCount;
     [SerializeField] TMP_Text foodCounter;
+    [SerializeField] GameManager gameManager;
     void Start()
     {
         FoodActions.Eaten += CollectFood;
@@ -30,6 +31,6 @@ public class GameUIManager : MonoBehaviour
         foodCollected++;
         foodCounter.text = foodCollected + "/" + maxFoodCount;
         if (foodCollected < maxFoodCount) return;
-        // naslednji nivo
+        gameManager.NewLevel();
     }
 }
