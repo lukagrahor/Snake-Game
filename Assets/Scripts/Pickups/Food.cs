@@ -33,6 +33,7 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
         gameObject.SetActive(false);
         spawner.RemovePreviousObject(locationObject);
         spawner.Spawn();
+        FoodActions.Eaten?.Invoke();
     }
 
     public void SetSpawner(ObjectSpawner spawner)

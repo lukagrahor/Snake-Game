@@ -8,11 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Arena arena;
     [SerializeField] ArenaGrid grid;
     [SerializeField] SpawnerManager spawnerManager;
+    [SerializeField] GameUIManager UIManager;
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
-    int foodToCollect;
-    int maxFoodCount;
     void Awake()
     {
         CheckIfOnlyInstance();
@@ -22,20 +21,18 @@ public class GameManager : MonoBehaviour
         if (CurrentDifficulty == Difficulty.Easy)
         {
             levels = levelSelector.easyLevels;
-            maxFoodCount = 5;
+            UIManager.SetMaxFood(5);
         }
         else if (CurrentDifficulty == Difficulty.Medium)
         {
             levels = levelSelector.mediumLevels;
-            maxFoodCount = 8;
+            UIManager.SetMaxFood(8);
         }
         else if (CurrentDifficulty == Difficulty.Hard)
         {
             levels = levelSelector.hardLevels;
-            maxFoodCount = 10;
+            UIManager.SetMaxFood(10);
         }
-
-        foodToCollect = maxFoodCount;
 
         Level newLevel = ChooseALevel(levels);
         LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
@@ -89,12 +86,5 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
 
-    }
-
-    public void CollectFood()
-    {
-        foodToCollect--;
-        if (foodToCollect != 0) return;
-        // naslednji nivo
     }
 }

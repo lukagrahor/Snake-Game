@@ -164,17 +164,34 @@ public class DogPatrolState : IState
         int laneSize = grid.GetSize(); 
         switch (primaryDirection)
         {
+            // preverimo ali je v stolpcu/vrstici kakšen zid
             case (float)Directions.Up:
-                i = laneSize - 1;
+                for (int index = i; index < laneSize; index++)
+                {
+                    if (gridObjects[j, index].IsOccupiedByWall) break;
+                    i = index;
+                }
                 break;
             case (float)Directions.Down:
-                i = 0;
+                for (int index = i; index >= 0; index--)
+                {
+                    if (gridObjects[j, index].IsOccupiedByWall) break;
+                    i = index;
+                }
                 break;
             case (float)Directions.Left:
-                j = 0;
+                for (int index = j; index >= 0; index--)
+                {
+                    if (gridObjects[index, i].IsOccupiedByWall) break;
+                    j = index;
+                }
                 break;
             case (float)Directions.Right:
-                j = laneSize - 1;
+                for (int index = j; index < laneSize; index++)
+                {
+                    if (gridObjects[index, i].IsOccupiedByWall) break;
+                    j = index;
+                }
                 break;
         }
         lastLaneBlock = gridObjects[j, i];

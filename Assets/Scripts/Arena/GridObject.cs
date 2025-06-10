@@ -4,6 +4,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
 {
     bool isOccupied = false;
     bool isOccupiedBySnakeHead = false;
+    bool isOccupiedByWall = false;
     bool hasPathMarker = false;
     int col;
     int row;
@@ -18,6 +19,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     public int Row { get => row; set => row = value; }
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }
     public bool IsOccupiedBySnakeHead { get => isOccupiedBySnakeHead; set => isOccupiedBySnakeHead = value; }
+    public bool IsOccupiedByWall { get => isOccupiedByWall; set => isOccupiedByWall = value; }
     public bool HasPathMarker { get => hasPathMarker; set => hasPathMarker = value; }
     public SnakePathMarker Marker { get => marker; set => marker = value; }
     public Food Food { get => food; set => food = value; }
