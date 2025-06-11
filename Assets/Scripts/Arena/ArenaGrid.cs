@@ -10,6 +10,7 @@ public class ArenaGrid : MonoBehaviour
     [SerializeField] InnerWallBlock wallBlock;
     GridObject [,] gridObjects;
     List<GridObject> objectsWithFood;
+    List<InnerWallBlock> innerWallBlocks;
     Vector3 wallSize = new Vector3(0.2f, 0.2f, 0.2f);
     public List<GridObject> ObjectsWithFood { get => objectsWithFood; set => objectsWithFood = value; }
     int size;
@@ -18,6 +19,7 @@ public class ArenaGrid : MonoBehaviour
         size = arena.GetSize();
         gridObjects = new GridObject[size, size];
         objectsWithFood = new List<GridObject>();
+        innerWallBlocks = new List<InnerWallBlock>();
         SpawnGrid();
     }
 
@@ -99,13 +101,23 @@ public class ArenaGrid : MonoBehaviour
             }
             Debug.Log("gridObjects length " + gridObjects.Length);
             GridObject wallGridObject = gridObjects[item.Col, item.Row];
-            GameObject wall = Instantiate(wallBlock.gameObject, wallGridObject.transform.position, Quaternion.identity);
+            InnerWallBlock wall = Instantiate(wallBlock, wallGridObject.transform.position, Quaternion.identity);
             wallGridObject.IsOccupied = true;
             wallGridObject.IsOccupiedByWall = true;
             wallGridObject.SetMarker();
             wall.transform.localScale = wallSize;
             wallBlocks.AddLast(wallGridObject);
+            innerWallBlocks.Add(wall);
         }
         return wallBlocks;
+    }
+
+    public void DespawnInnerWalls()
+    {
+        if (innerWallBlocks == null) return;
+        foreach (InnerWallBlock innerWall in innerWallBlocks)
+        {
+            Destroy(innerWall.gameObject);
+        }
     }
 }

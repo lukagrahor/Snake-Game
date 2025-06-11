@@ -10,8 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] SpawnerManager spawnerManager;
     [SerializeField] GameUIManager UIManager;
     [SerializeField] Camera cam;
+    [SerializeField] Snake snake;
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
+    int levelNumber = 1;
+    int lastLevelNumber = 7;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
     void Awake()
     {
@@ -79,9 +82,21 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void NewLevel()
+    public void MoveCamera()
     {
         cam.MoveCameraAway();
+    }
+
+    public void StartNewLevel()
+    {
+        // despawn all the enemies and objects
+        spawnerManager.DespawnAllObjects();
+        grid.DespawnInnerWalls();
+        snake.DespawnForNewLevel();
+        // despawn the arena
+        // chose a new level
+        // make a new arena
+        // spawn new enemies and objects
     }
 
     public void GameOver()

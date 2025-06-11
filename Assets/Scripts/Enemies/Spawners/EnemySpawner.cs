@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 
-public class EnemySpawner : BaseEnemySpawner
+public class EnemySpawner : ObjectSpawner
 {
     /*
     [SerializeField] Enemy enemyPrefab;
@@ -14,6 +14,7 @@ public class EnemySpawner : BaseEnemySpawner
     float spawnDuration = 2f;
     Enemy prefab;
     List<SpawnIndicator> indicators;
+    Enemy enemyPrefab;
 
     private void Awake()
     {
@@ -27,12 +28,48 @@ public class EnemySpawner : BaseEnemySpawner
         timer?.Update();
     }
 
-    protected override void SetupEnemy(Enemy enemy, GridObject selectedBlock)
+    public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
+    {
+        GridObject[,] gridObjects = GetEdgeBlocks();
+        LinkedList<GridObject> emptyGridObjects = RemoveOccupiedBlocks(gridObjects, occupiedBlocks);
+        Vector3 snakeSpawnPosition = snake.GetSpawnPosition();
+        LinkedList<GridObject> gridObjectsWithoutSpawnPoint = RemoveSnakeSpawnPoint(snakeSpawnPosition, emptyGridObjects);
+        GridObject selectedBlock = PickARandomBlock(gridObjectsWithoutSpawnPoint);
+        Vector3 enemyPosition = GenerateObjectPosition(selectedBlock);
+
+        Enemy enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
+        SetupEnemy(enemy, selectedBlock);
+
+        LinkedList<GridObject> newBlocks = new LinkedList<GridObject>();
+        newBlocks.AddLast(selectedBlock);
+
+        return newBlocks;
+    }
+
+    GridObject[,] GetEdgeBlocks()
+    {
+        GridObject[,] gridObjects = grid.GetGridObjects();
+        int gridSize = grid.GetSize();
+        int edgeBlockCount = (2 * gridSize) + (2 * (gridSize - 2));
+        GridObject[,] edgeObjects = new GridObject[1, edgeBlockCount];
+
+        int i = 0;
+        foreach (var block in gridObjects)
+        {
+            if (block.Col == 0 || block.Row == 0 || block.Col == (gridSize - 1) || block.Row == (gridSize - 1))
+            {
+                edgeObjects[0, i++] = block;
+            }
+        }
+
+        return edgeObjects;
+    }
+
+    void SetupEnemy(Enemy enemy, GridObject selectedBlock)
     {
         enemy.SetupAI(snake, grid);
         enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
     }
-
 
     public void WaitForSpawn(List<Enemy> enemies)
     {
@@ -76,28 +113,15 @@ public class EnemySpawner : BaseEnemySpawner
             Destroy(indicator.gameObject);
         }
     }
-    /*
-    public void Spawn(Enemy enemyPrefab)
-    {
-        GridObject[,] gridObjects = grid.GetGridObjects();
-        LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(gridObjects);
 
-        selectedBlock = PickARandomBlock(emptyGridObjects);
-        enemyPosition = GenerateObjectPosition(selectedBlock);
-
-        if (timer == null) timer = new CountDown(spawnDuration);
-        else timer.Timer = spawnDuration;
-        Debug.Log("Èasovnik zaèni se");
-        prefab = enemyPrefab;
-        timer.Start();
-    }
-    */
-    /*
-    void FinishSpawning()
+    public void RemoveAllEnemies()
     {
-        Debug.Log("Èasovnik konèaj se");
-        enemy = Instantiate(prefab, enemyPosition, Quaternion.identity);
-        SetupEnemy(enemy, selectedBlock);
+        // nasprotniki bodo še vedno v FindObjectsByType do konmca tega frame-a
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+        foreach(Enemy enemy in enemies)
+        {
+            Debug.Log("Nasprotnik: " + enemy.name);
+            Destroy(enemy.gameObject);
+        }
     }
-    */
 }

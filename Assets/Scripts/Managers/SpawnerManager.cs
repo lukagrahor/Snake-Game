@@ -120,8 +120,9 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    void CheckIfRespawnIsNeeded()
+    public void DespawnAllObjects()
     {
-
+        foodSpawner.RemoveFood();
+        enemySpawner.RemoveAllEnemies();
     }
 }

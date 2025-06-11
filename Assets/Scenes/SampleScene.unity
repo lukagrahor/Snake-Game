@@ -203,6 +203,7 @@ MonoBehaviour:
   spawnerManager: {fileID: 1259437601}
   UIManager: {fileID: 216685750}
   cam: {fileID: 284575321}
+  snake: {fileID: 545034464}
 --- !u!4 &184481910
 Transform:
   m_ObjectHideFlags: 0
@@ -379,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72bdc5b26703244c85a9ca9c4c4922d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 184481909}
   camera: {fileID: 284575321}
   speed: 5
 --- !u!1 &311419180
@@ -701,7 +703,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.8286304
+  orthographic size: 4.95018
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

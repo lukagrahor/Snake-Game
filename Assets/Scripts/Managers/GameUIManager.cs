@@ -31,6 +31,6 @@ public class GameUIManager : MonoBehaviour
         foodCollected++;
         foodCounter.text = foodCollected + "/" + maxFoodCount;
         if (foodCollected < maxFoodCount) return;
-        gameManager.NewLevel();
+        gameManager.MoveCamera();
     }
 }

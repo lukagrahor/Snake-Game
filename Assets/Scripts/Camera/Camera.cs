@@ -3,6 +3,7 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] GameManager gameManager;
     [SerializeField] Camera camera;
     [SerializeField] float speed = 5f;
     Vector3 cameraDefaultPosition;
@@ -54,6 +55,7 @@ public class Camera : MonoBehaviour
     {
         timer.Timer = prepareTime;
         timer.Start();
+        gameManager.StartNewLevel();
     }
 
     public void Move()

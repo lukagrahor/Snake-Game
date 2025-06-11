@@ -61,4 +61,9 @@ public class FoodSpawner : ObjectSpawner
             i++;
         }
     }
+
+    public void RemoveFood()
+    {
+        food.gameObject.SetActive(false);
+    }
 }

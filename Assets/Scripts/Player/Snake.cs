@@ -243,6 +243,15 @@ public class Snake : MonoBehaviour
         return spawnPosition;
     }
 
+    public void DespawnForNewLevel()
+    {
+        SnakeHead.gameObject.SetActive(false);
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            torso.gameObject.SetActive(false);
+        }
+    }
+
     private ISnakeInput CreateInputManager()
     {
         /*
