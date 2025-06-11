@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         if (CurrentDifficulty == Difficulty.Easy)
         {
             levels = levelSelector.easyLevels;
-            UIManager.SetMaxFood(5);
+            UIManager.SetMaxFood(1);
         }
         else if (CurrentDifficulty == Difficulty.Medium)
         {
