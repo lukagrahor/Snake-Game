@@ -703,7 +703,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.95018
+  orthographic size: 9.041267
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -979,7 +979,7 @@ MonoBehaviour:
   snake: {fileID: 545034464}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   grid: {fileID: 457970926}
-  objectScale: 0.18
+  objectScale: 0.4
   distanceFromWall: 2
 --- !u!1 &457970925
 GameObject:
@@ -2207,9 +2207,9 @@ RectTransform:
   - {fileID: 2040104353}
   m_Father: {fileID: 1877119248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 206, y: 222}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -148, y: -56}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1877119244

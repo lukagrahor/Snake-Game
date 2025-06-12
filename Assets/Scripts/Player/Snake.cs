@@ -248,7 +248,7 @@ public class Snake : MonoBehaviour
         SnakeHead.gameObject.SetActive(false);
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
-            torso.gameObject.SetActive(false);
+            if (torso != null) torso.gameObject.SetActive(false);
         }
     }
 

@@ -111,11 +111,10 @@ public class ArenaGrid : MonoBehaviour
         }
         return wallBlocks;
     }
-
     public void DespawnInnerWalls()
     {
-        if (innerWallBlocks == null) return;
-        foreach (InnerWallBlock innerWall in innerWallBlocks)
+        InnerWallBlock[] innerWalls = FindObjectsByType<InnerWallBlock>(FindObjectsSortMode.None);
+        foreach (InnerWallBlock innerWall in innerWalls)
         {
             Destroy(innerWall.gameObject);
         }
