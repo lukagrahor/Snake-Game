@@ -11,14 +11,14 @@ public class EnemySpawner : ObjectSpawner
     [SerializeField] SpawnIndicator spawnIndicator;
     [SerializeField] SpawnerManager spawnerManager;
     CountDown timer;
-    float spawnDuration = 2f;
+    float defaultSpawnDuration = 2f;
     Enemy prefab;
     List<SpawnIndicator> indicators;
     Enemy enemyPrefab;
 
     private void Awake()
     {
-        timer = new CountDown(spawnDuration);
+        timer = new CountDown(defaultSpawnDuration);
         timer.TimeRanOut += Spawn;
     }
     private void Update()
@@ -69,7 +69,7 @@ public class EnemySpawner : ObjectSpawner
         enemy.Setup(selectedBlock.Col, selectedBlock.Row, grid.GetSize());
     }
 
-    public void WaitForSpawn(List<Enemy> enemies)
+    public void WaitForSpawn(List<Enemy> enemies, float spawnDuration = -1f)
     {
         indicators = new List<SpawnIndicator>();
         foreach (Enemy enemy in enemies)
@@ -77,6 +77,7 @@ public class EnemySpawner : ObjectSpawner
             SpawnIndicator indicator = GetPosition(enemy);
             indicators.Add(indicator);
         }
+        if (spawnDuration == -1f) spawnDuration = defaultSpawnDuration;
         timer.Timer = spawnDuration;
         timer.Start();
     }
@@ -118,6 +119,12 @@ public class EnemySpawner : ObjectSpawner
         foreach(Enemy enemy in enemies)
         {
             Destroy(enemy.gameObject);
+        }
+
+        SpawnIndicator[] spawnIndicators = FindObjectsByType<SpawnIndicator>(FindObjectsSortMode.None);
+        foreach (SpawnIndicator spawnIndicator in spawnIndicators)
+        {
+            Destroy(spawnIndicator.gameObject);
         }
     }
 }

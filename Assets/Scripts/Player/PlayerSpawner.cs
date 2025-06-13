@@ -17,6 +17,22 @@ public class PlayerSpawner : ObjectSpawner
         SetSnakeStartingDirection();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
+        playerPosition.y = 0.19f;
+
+        snake.FirstSpawn(playerPosition);
+
+        return selectedBlocks;
+    }
+
+    public LinkedList<GridObject> SpawnForNewLevel(LinkedList<GridObject> occupiedBlocks)
+    {
+        GridObject[,] gridObjects = grid.GetGridObjects();
+        LinkedList<GridObject> emptyGridObjects = RemoveOccupiedBlocks(gridObjects, occupiedBlocks); // occupied so zidi
+        snakeSize = snake.StartingSize;
+        SetSnakeStartingDirection();
+        LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
+        Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
+        playerPosition.y = 0.19f;
 
         snake.FirstSpawn(playerPosition);
 
@@ -28,6 +44,7 @@ public class PlayerSpawner : ObjectSpawner
         LinkedList<GridObject> emptyGridObjects = GetEmpty();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
+        playerPosition.y = 0.19f;
         snake.SnakeHead.transform.position = playerPosition;
         /*
         GridObject selectedBlock = PickARandomBlock(emptyGridObjects);

@@ -18,7 +18,7 @@ public class SpawnerManager : MonoBehaviour
     int minEnemies;
     int maxEnemies;
     int currentEnemies;
-    float spawnDuration = 3f;
+    float firstSpawnDuration = 5f;
 
     public void ManageFirstSpawns(LinkedList<GridObject> wallBlocks)
     {
@@ -35,7 +35,7 @@ public class SpawnerManager : MonoBehaviour
         currentEnemies = 0;
 
         enemies = SetEnemiesToSpawn();
-        enemySpawner.WaitForSpawn(enemies);
+        enemySpawner.WaitForSpawn(enemies, firstSpawnDuration);
         /*
         foreach (Enemy enemy in enemies)
         {
@@ -123,5 +123,17 @@ public class SpawnerManager : MonoBehaviour
         foodSpawner.gameObject.SetActive(false);
         enemySpawner.gameObject.SetActive(false);
         playerSpawner.gameObject.SetActive(false);
+    }
+
+    public void EnableSpawners()
+    {
+        foodSpawner.gameObject.SetActive(true);
+        enemySpawner.gameObject.SetActive(true);
+        playerSpawner.gameObject.SetActive(true);
+    }
+
+    public void SpawnPlayer()
+    {
+        //playerSpawner.SpawnForNewLevel();
     }
 }

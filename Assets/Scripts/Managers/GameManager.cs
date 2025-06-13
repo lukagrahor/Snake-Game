@@ -86,8 +86,11 @@ public class GameManager : MonoBehaviour
         levelNumber++;
         if (levelNumber == 3) CurrentDifficulty = Difficulty.Medium;
         else if (levelNumber == 6) CurrentDifficulty = Difficulty.Hard;
-        SelectLevel();
+        spawnerManager.EnableSpawners();
         // spawn new enemies and objects
+        SelectLevel();
+        // spawn the player
+        spawnerManager.SpawnPlayer();
     }
 
     void DisableCornerBlocks()
@@ -122,6 +125,11 @@ public class GameManager : MonoBehaviour
         Level newLevel = ChooseALevel(levels);
         LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
         spawnerManager.ManageFirstSpawns(wallBlocks);
+    }
+
+    void CheckForGameOver()
+    {
+
     }
 
     public void GameOver()
