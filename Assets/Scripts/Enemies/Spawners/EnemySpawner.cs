@@ -20,11 +20,9 @@ public class EnemySpawner : ObjectSpawner
     {
         timer = new CountDown(spawnDuration);
         timer.TimeRanOut += Spawn;
-        Debug.Log("Èasovnik ajdeeeeeeeeee");
     }
     private void Update()
     {
-        Debug.Log("Èasovnik dela");
         timer?.Update();
     }
 
@@ -109,7 +107,6 @@ public class EnemySpawner : ObjectSpawner
 
         foreach (SpawnIndicator indicator in indicators)
         {
-            Debug.Log("Unièenje");
             Destroy(indicator.gameObject);
         }
     }
@@ -120,7 +117,6 @@ public class EnemySpawner : ObjectSpawner
         Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         foreach(Enemy enemy in enemies)
         {
-            Debug.Log("Nasprotnik: " + enemy.name);
             Destroy(enemy.gameObject);
         }
     }

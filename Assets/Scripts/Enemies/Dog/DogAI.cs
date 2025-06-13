@@ -10,7 +10,6 @@ public class DogAI : AI
     {
         if (player == null)
         {
-            Debug.Log("Ne najdem glave!");
             return;
         }
 

@@ -145,26 +145,4 @@ public class DesktopInputManager : ISnakeInput
         // izvedi ugriz --> ugrizni pred kaèo
 
     }
-
-    /*
-    private void PrimaryAttack(InputAction.CallbackContext context)
-    {
-        float snakeSpeed = snake.MoveSpeed;
-        // To ustavi kaèo
-        if (snakeSpeed != 0f)
-        {
-            defaultSnakeSpeed = snakeSpeed;
-            snake.MoveSpeed = 0f;
-            return;
-        }
-
-        if (defaultSnakeSpeed == 0f)
-        {
-            Debug.Log("Ups, defaultSnakeSpeed je niè");
-            return;
-        }
-
-        snake.MoveSpeed = defaultSnakeSpeed;
-    }
-    */
 }

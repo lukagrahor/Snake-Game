@@ -11,7 +11,6 @@ public class WaspAI : AI
     {
         if (player == null)
         {
-            Debug.Log("Ne najdem glave!");
             return;
         }
         stateMachine = new WaspStateMachine(npc, player, grid, pathSpawner, LayersToHit);

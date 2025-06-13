@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class PrimaryCamera : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] GameManager gameManager;
-    [SerializeField] Camera camera;
+    [SerializeField] PrimaryCamera cam;
     [SerializeField] float speed = 5f;
     Vector3 cameraDefaultPosition;
     Vector3 cameraStartPosition;
@@ -12,6 +12,7 @@ public class Camera : MonoBehaviour
     float startTime;
     float journeyLength;
     bool move = false;
+    bool movingAway = false;
 
     CountDown timer;
     float prepareTime = 2f;
@@ -30,8 +31,8 @@ public class Camera : MonoBehaviour
 
     public void MoveCameraAway()
     {
-        Debug.Log("Hodi èja");
-        cameraStartPosition = camera.transform.position;
+        Debug.Log("Odmokni kamero!");
+        cameraStartPosition = cam.transform.position;
         cameraDefaultPosition = cameraStartPosition;
         startTime = Time.time;
 
@@ -39,20 +40,33 @@ public class Camera : MonoBehaviour
         destination = new Vector3(cameraStartPosition.x, 8f, cameraStartPosition.z);
         journeyLength = Vector3.Distance(cameraStartPosition, destination);
         move = true;
+        movingAway = true;
     }
 
     void MoveCameraBack()
     {
-        cameraStartPosition = camera.transform.position;
+        Debug.Log("Ajmo nazaj!");
+        cameraStartPosition = cam.transform.position;
         startTime = Time.time;
 
         destination = cameraDefaultPosition;
         journeyLength = Vector3.Distance(cameraStartPosition, destination);
-        move = true;
+        EnableCornerBlocks();
+        //move = true;
+    }
+
+    void EnableCornerBlocks()
+    {
+        CornerBlock[] blocks = FindObjectsByType<CornerBlock>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (CornerBlock block in blocks)
+        {
+            block.gameObject.SetActive(true);
+        }
     }
 
     void Prepare()
     {
+        Debug.Log("Pripravi se na premik!");
         timer.Timer = prepareTime;
         timer.Start();
         gameManager.StartNewLevel();
@@ -60,7 +74,6 @@ public class Camera : MonoBehaviour
 
     public void Move()
     {
-        Debug.Log("moooooove");
         float distCovered = (Time.time - startTime) * speed;
 
         float fractionOfJourney = distCovered / journeyLength;
@@ -70,7 +83,12 @@ public class Camera : MonoBehaviour
         {
             Debug.Log("Reached destination");
             move = false;
-            Prepare();
+            // without this, when the camera comes backt to the arena it moves away again and repeats that
+            if (movingAway)
+            {
+                Prepare();
+                movingAway = false;
+            }
         }
     }
 }

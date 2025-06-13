@@ -17,17 +17,15 @@ public class LevelSelector
     public void GetAllLevels()
     {
         string[] guids = AssetDatabase.FindAssets("t:Level"); // "t:Level" searches for assets of type Level
-        Debug.Log("Ohja ---------------------------");
         foreach (string guid in guids)
         {
             string assetPath = AssetDatabase.GUIDToAssetPath(guid);
             Level level = AssetDatabase.LoadAssetAtPath<Level>(assetPath);
             if (level != null)
             {
-                easyLevels.Add(level);
-                Debug.Log("Ohja " + level.ToString());
-                Debug.Log("Ohja " + level.arenaSize);
-                Debug.Log("Ohja " + level.difficulty);
+                if (level.difficulty == Difficulty.Easy) easyLevels.Add(level);
+                else if (level.difficulty == Difficulty.Medium) mediumLevels.Add(level);
+                else if (level.difficulty == Difficulty.Hard) hardLevels.Add(level);
             }
         }
     }

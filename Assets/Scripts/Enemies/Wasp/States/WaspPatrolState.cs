@@ -91,15 +91,12 @@ public class WaspPatrolState : IState
         Ray ray = new Ray(npc.transform.position, npc.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, rayMaxDistance, layersToHit))
         {
-            //Debug.Log(hit.collider.gameObject.name + " je bil zdnjen na razdalji " + hit.distance + " layer " + hit.collider.gameObject.layer);
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SnakeHead") || hit.collider.gameObject.layer == LayerMask.NameToLayer("SnakeBody"))
             {
-                //Debug.Log("Zdnjen igralc!");
                 stateMachine.TransitionTo(stateMachine.ChargeState);
             }
             else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && hit.distance < 0.3f)
             {
-                //Debug.Log("Zdnjen nasprotnik!");
                 npc.Turn();
             }
         }

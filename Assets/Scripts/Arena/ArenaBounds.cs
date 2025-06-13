@@ -5,6 +5,7 @@ public class ArenaBounds : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     float boundsSize;
     [SerializeField] ArenaWall wall;
+    [SerializeField] Arena arena;
     ArenaWall topRightWall;
     ArenaWall bottomLeftWall;
     ArenaWall topLeftWall;
@@ -47,6 +48,7 @@ public class ArenaBounds : MonoBehaviour
         Vector3 wallPosition = new (leftEdge.x + (blockSize * xPositionDirection), blockSize, zPosition);
         ArenaWall newWall = Instantiate(wall, wallPosition, Quaternion.identity);
         newWall.transform.localScale = new Vector3(blockSize, blockSize, arenaSize * blockSize + overlapOffset);
+        newWall.transform.SetParent(arena.transform);
 
         return newWall;
     }
@@ -59,6 +61,7 @@ public class ArenaBounds : MonoBehaviour
         Vector3 wallPosition = new (topLeftWallX, blockSize, rightEdge.z + (blockSize * zPositionDirection));
         ArenaWall newWall = Instantiate(wall, wallPosition, Quaternion.identity);
         newWall.transform.localScale = new Vector3(arenaSize * blockSize, blockSize, blockSize);
+        newWall.transform.SetParent(arena.transform);
 
         return newWall;
     }

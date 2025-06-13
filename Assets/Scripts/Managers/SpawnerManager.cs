@@ -53,11 +53,7 @@ public class SpawnerManager : MonoBehaviour
     {
         currentEnemies--;
         // respawn only if there aren't enough enemies
-        Debug.Log("Respawnacija zaèetek");
-        Debug.Log("Respawnacija currentEnemies " + currentEnemies);
-        Debug.Log("Respawnacija minEnemies " + minEnemies);
         if (currentEnemies > minEnemies) return;
-        Debug.Log("Respawnacija treba je lwatet");
         enemies = SetEnemiesToSpawn();
         enemySpawner.WaitForSpawn(enemies);
     }
@@ -124,5 +120,8 @@ public class SpawnerManager : MonoBehaviour
     {
         foodSpawner.RemoveFood();
         enemySpawner.RemoveAllEnemies();
+        foodSpawner.gameObject.SetActive(false);
+        enemySpawner.gameObject.SetActive(false);
+        playerSpawner.gameObject.SetActive(false);
     }
 }

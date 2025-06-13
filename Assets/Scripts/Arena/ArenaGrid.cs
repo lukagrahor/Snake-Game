@@ -93,19 +93,17 @@ public class ArenaGrid : MonoBehaviour
         LinkedList <GridObject> wallBlocks = new LinkedList<GridObject>();
         foreach (var item in wallLocations)
         {
-            Debug.Log("wall location, Col: " + item.Col + ", Row: " + item.Row);
             if (gridObjects == null)
             {
-                Debug.Log("gridObjects kriza");
                 return new LinkedList<GridObject>();
             }
-            Debug.Log("gridObjects length " + gridObjects.Length);
             GridObject wallGridObject = gridObjects[item.Col, item.Row];
             InnerWallBlock wall = Instantiate(wallBlock, wallGridObject.transform.position, Quaternion.identity);
             wallGridObject.IsOccupied = true;
             wallGridObject.IsOccupiedByWall = true;
             wallGridObject.SetMarker();
             wall.transform.localScale = wallSize;
+            wall.transform.SetParent(arena.transform);
             wallBlocks.AddLast(wallGridObject);
             innerWallBlocks.Add(wall);
         }
@@ -117,6 +115,16 @@ public class ArenaGrid : MonoBehaviour
         foreach (InnerWallBlock innerWall in innerWalls)
         {
             Destroy(innerWall.gameObject);
+        }
+    }
+
+    public void DespawnGridObjects()
+    {
+        GridObject[] gridObjects = FindObjectsByType<GridObject>(FindObjectsSortMode.None);
+        foreach (GridObject gridObject in gridObjects)
+        {
+            gridObject.RemoveMarker();
+            Destroy(gridObject.gameObject);
         }
     }
 }

@@ -118,6 +118,21 @@ public class Arena : MonoBehaviour
         }
     }
 
+    public void DespawnArena()
+    {
+        ArenaBlock[] blocks = FindObjectsByType<ArenaBlock>(FindObjectsSortMode.None);
+        foreach (ArenaBlock block in blocks)
+        {
+            Destroy(block.gameObject);
+        }
+
+        ArenaWall[] walls = FindObjectsByType<ArenaWall>(FindObjectsSortMode.None);
+        foreach (ArenaWall wall in walls)
+        {
+            Destroy(wall.gameObject);
+        }
+    }
+
     /*
     ArenaBlock ChooseArenaBlock(int i)
     {

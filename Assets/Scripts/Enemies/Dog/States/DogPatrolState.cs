@@ -230,7 +230,6 @@ public class DogPatrolState : IState
     {
         if (lastLaneBlock == null)
         {
-            Debug.Log("Dog error lastLaneBlock is null");
             return;
         }
         

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ArenaGrid grid;
     [SerializeField] SpawnerManager spawnerManager;
     [SerializeField] GameUIManager UIManager;
-    [SerializeField] Camera cam;
+    [SerializeField] PrimaryCamera cam;
     [SerializeField] Snake snake;
     LevelSelector levelSelector;
     Difficulty currentDifficulty = Difficulty.Easy;
@@ -20,6 +20,87 @@ public class GameManager : MonoBehaviour
     {
         CheckIfOnlyInstance();
         levelSelector = new LevelSelector();
+        SelectLevel();
+    }
+
+    void CheckIfOnlyInstance()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    Level ChooseALevel(List<Level> levels)
+    {
+        int index = Random.Range(0, levels.Count);
+        return levels[index];
+    }
+    LinkedList<GridObject> ArenaSetup(Level level)
+    {
+        arena.Size = level.arenaSize;
+        arena.SpawnArena();
+        grid.SetupGrid();
+        LinkedList<GridObject> wallBlocks = grid.SpawnWalls(level.wallObjectIndexes);
+        return wallBlocks;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void MoveCamera()
+    {
+        cam.MoveCameraAway();
+        snake.DespawnForNewLevel();
+        snake.gameObject.SetActive(false);
+    }
+
+    public void StartNewLevel()
+    {
+        DespawnCurrentLevel();
+        PrepareNewLevel();
+    }
+
+    void DespawnCurrentLevel()
+    {
+        // despawn all the enemies and objects
+        spawnerManager.DespawnAllObjects();
+        grid.DespawnInnerWalls();
+        grid.DespawnGridObjects();
+        // brez tega se ob pojavitvi nove arene, kamera takoj premakne na areno
+        DisableCornerBlocks();
+        // despawn the arena
+        arena.DespawnArena();
+    }
+
+    void PrepareNewLevel()
+    {
+        // chose a new level and make a new arena
+        levelNumber++;
+        if (levelNumber == 3) CurrentDifficulty = Difficulty.Medium;
+        else if (levelNumber == 6) CurrentDifficulty = Difficulty.Hard;
+        SelectLevel();
+        // spawn new enemies and objects
+    }
+
+    void DisableCornerBlocks()
+    {
+        CornerBlock[] blocks = FindObjectsByType<CornerBlock>(FindObjectsSortMode.None);
+        foreach (CornerBlock block in blocks)
+        {
+            block.gameObject.SetActive(false);
+        }
+    }
+
+    void SelectLevel()
+    {
         List<Level> levels = new List<Level>();
 
         if (CurrentDifficulty == Difficulty.Easy)
@@ -41,62 +122,6 @@ public class GameManager : MonoBehaviour
         Level newLevel = ChooseALevel(levels);
         LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
         spawnerManager.ManageFirstSpawns(wallBlocks);
-    }
-
-    void CheckIfOnlyInstance()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    Level ChooseALevel(List<Level> levels)
-    {
-        /*
-        foreach (Level level in levels)
-        {
-            Debug.Log("andrej: " + level.name);
-        }
-        */
-        int index = Random.Range(0, levels.Count);
-        return levels[index];
-    }
-    LinkedList<GridObject> ArenaSetup(Level level)
-    {
-        Debug.Log("velikost arene " + level.arenaSize);
-        arena.Size = level.arenaSize;
-        arena.SpawnArena();
-        grid.SetupGrid();
-        LinkedList<GridObject> wallBlocks = grid.SpawnWalls(level.wallObjectIndexes);
-        return wallBlocks;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void MoveCamera()
-    {
-        cam.MoveCameraAway();
-    }
-
-    public void StartNewLevel()
-    {
-        // despawn all the enemies and objects
-        spawnerManager.DespawnAllObjects();
-        grid.DespawnInnerWalls();
-        snake.DespawnForNewLevel();
-        // despawn the arena
-        // chose a new level
-        // make a new arena
-        // spawn new enemies and objects
     }
 
     public void GameOver()

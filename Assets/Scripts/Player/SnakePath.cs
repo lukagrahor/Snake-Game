@@ -61,7 +61,6 @@ public class SnakePath : MonoBehaviour
         index++;
         Path.Add(pathMarker);
         gridObject.Marker = pathMarker;
-        Debug.Log("rotacija: " + nextRotation);
     }
 
     public void RemoveMarkers()

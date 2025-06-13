@@ -7,6 +7,10 @@ public class FoodSpawner : ObjectSpawner
 {
     [SerializeField] Food foodPrefab;
     Food food;
+    int maxFood;
+    int foodCollected;
+    public int MaxFood { get => maxFood; set => maxFood = value; }
+    public int FoodCollected { get => foodCollected; set => foodCollected = value; }
 
     public override LinkedList<GridObject> FirstSpawn(LinkedList<GridObject> occupiedBlocks)
     {
@@ -35,6 +39,7 @@ public class FoodSpawner : ObjectSpawner
 
     public override void Spawn()
     {
+        if (foodCollected >= maxFood) return;
         LinkedList<GridObject> emptyGridObjects = GetEmptyGridObjects(grid.GetGridObjects());
 
         GridObject selectedBlock = PickARandomBlock(emptyGridObjects);

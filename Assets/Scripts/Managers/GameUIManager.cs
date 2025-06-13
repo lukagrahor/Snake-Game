@@ -4,10 +4,9 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    int foodCollected;
-    int maxFoodCount;
     [SerializeField] TMP_Text foodCounter;
     [SerializeField] GameManager gameManager;
+    [SerializeField] FoodSpawner foodSpawner;
     void Start()
     {
         FoodActions.Eaten += CollectFood;
@@ -21,16 +20,17 @@ public class GameUIManager : MonoBehaviour
 
     public void SetMaxFood(int foodCount)
     {
-        maxFoodCount = foodCount;
-        foodCollected = 0;
-        foodCounter.text = foodCollected + "/" + maxFoodCount;
+        foodSpawner.MaxFood = foodCount;
+        foodSpawner.FoodCollected = 0;
+        foodCounter.text = foodSpawner.FoodCollected + "/" + foodSpawner.MaxFood;
     }
 
     void CollectFood()
     {
-        foodCollected++;
-        foodCounter.text = foodCollected + "/" + maxFoodCount;
-        if (foodCollected < maxFoodCount) return;
+        foodSpawner.FoodCollected++;
+        foodCounter.text = foodSpawner.FoodCollected + "/" + foodSpawner.MaxFood;
+        if (foodSpawner.FoodCollected < foodSpawner.MaxFood) return;
+        foodSpawner.FoodCollected = 0;
         gameManager.MoveCamera();
     }
 }

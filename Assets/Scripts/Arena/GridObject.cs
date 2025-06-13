@@ -70,11 +70,11 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     }
 
     public void SetMarker()
-    { // sprobej
-        Debug.Log("huraaa evo mene " + gameObject.name);
+    {
         if (occupiedMarker == null)
         {
             occupiedMarker = Instantiate(occupiedMarkerPrefab, transform.position, Quaternion.identity);
+            occupiedMarker.transform.SetParent(transform);
         }
     }
 
@@ -82,10 +82,8 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     {
         if (occupiedMarker != null)
         {
-            Debug.Log("hip hip " + gameObject.name);
             Destroy(occupiedMarker);
         }
-        Debug.Log("huraaa " + gameObject.name);
     }
 
     void StartHeadTimer()
@@ -97,7 +95,6 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
 
     void ResetOccupation()
     {
-        Debug.Log("Okupacija");
         isOccupied = false;
         isOccupiedBySnakeHead = false;
         Destroy(occupiedMarker);

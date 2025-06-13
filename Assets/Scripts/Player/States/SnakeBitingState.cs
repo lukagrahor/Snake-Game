@@ -29,7 +29,6 @@ public class SnakeBitingState : ISnakeState
 
     public void Enter()
     {
-        Debug.Log("Pozdravljeni!");
         snakeHead.Snake.MoveSpeed = moveSpeed;
         currentChargeTime = 0f;
         SetBiteMovementDirection();
@@ -74,8 +73,6 @@ public class SnakeBitingState : ISnakeState
     {
         float biteMoveRotation = MovementVectorToRotation(biteMoveDirecton);
         float currentRotation = snakeHead.GetRotation();
-        //Debug.Log("biteMoveRotation " + biteMoveRotation);
-        //Debug.Log("currentRotation " + currentRotation);
         float nextRotation = currentRotation + turnRotation;
         //if (biteMoveRotation - 180 >= 0) { wrongDirection = biteMoveRotation - 180f; Debug.Log("abraham wrong direction " + wrongDirection); }
         //else if (biteMoveRotation + 180 <= 360f) wrongDirection = biteMoveRotation + 180f;
@@ -115,23 +112,7 @@ public class SnakeBitingState : ISnakeState
         RectTransform arrowRect = arrow.GetComponent<RectTransform>();
         arrowRect.sizeDelta = new Vector2(arrowRect.sizeDelta.x, currentCalculatedBiteRange);
     }
-    /*
-    void PerformBiteLinecast()
-    {
-        Vector3 startPoint = snakeHead.transform.position;
-        Vector3 endPoint = startPoint + snakeHead.transform.forward * currentCalculatedBiteRange;
 
-        lineRenderer.enabled = true;
-        lineRenderer.SetPosition(0, startPoint);
-        lineRenderer.SetPosition(1, endPoint);
-
-        RaycastHit hit;
-        if (Physics.Linecast(startPoint, endPoint, out hit, layersToHit))
-        {
-            Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
-        }
-    }
-    */
     void PerfromBiteBoxCast()
     {
         Vector3 halfExtents = new Vector3 (0.07f, 0.07f, 0.07f);
@@ -143,7 +124,6 @@ public class SnakeBitingState : ISnakeState
         RaycastHit hit;
         if (Physics.BoxCast(startPoint, halfExtents, direction, out hit, boxOrientation, maxDistance, layersToHit))
         {
-            Debug.Log($"Bite hit: {hit.collider.name} at distance {hit.distance}");
             IBiteTriggerHandler hitObject = hit.collider.gameObject.GetComponent<IBiteTriggerHandler>();
             hitObject?.HandleBiteTrigger(snakeHead);
         }

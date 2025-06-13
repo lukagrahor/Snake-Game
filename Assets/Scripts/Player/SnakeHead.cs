@@ -58,7 +58,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     void OnEnable()
     {
         transform.rotation = Quaternion.Euler(0, (float)startingDirection, 0);
-        Debug.Log("Omogoèen!");
         if (stateMachine == null) stateMachine = new SnakeHeadStateMachine(this, layersToHit);
         if (stateMachine.CurrentState != null && stateMachine.CurrentState != stateMachine.SpawnedState)
         {
@@ -126,7 +125,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     {
         if (stateMachine.CurrentState != stateMachine.BitingState)
         {
-            Debug.Log("NormalState");
             if (lastRotationBlock != null && other.gameObject.name == lastRotationBlock.gameObject.name)
             {
                 return;
@@ -187,7 +185,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void HitWall()
     {
-        Debug.Log("Zdni zid majstr");
         snake.HitWall();
     }
 
@@ -251,7 +248,6 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void SetToTransparent()
     {
-        Debug.Log("Transparentnost kljulavnica");
         Color tempColor = headRenderer.material.color;
         tempColor.a = 0.7f;
         headRenderer.material.color = tempColor;

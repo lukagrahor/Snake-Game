@@ -282,7 +282,6 @@ public class Snake : MonoBehaviour
 
     public void SetToTransparent()
     {
-        Debug.Log("Transparentnost delavnica snakeTorsoParts count" + snakeTorsoParts.Count);
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
             torso.SetToTransparent();

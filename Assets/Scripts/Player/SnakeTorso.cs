@@ -56,7 +56,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
     {
         if (lastSnakePart == true)
         {
-            if (gridObject == null) Debug.Log("Tanzanija");
+            if (gridObject == null) Debug.Log("Grid object doesn't exist");
             gridObject.IsOccupied = false;
             gridObject.RemoveMarker();
             gridObject.StopHeadTimer();
@@ -309,7 +309,6 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
     }
     public void SetToTransparent()
     {
-        Debug.Log("Transparentnost je kljuè do");
         Color tempColor = torsoRenderer.material.color;
         tempColor.a = 0.7f;
         torsoRenderer.material.color = tempColor;
