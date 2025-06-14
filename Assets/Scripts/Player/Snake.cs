@@ -263,7 +263,9 @@ public class Snake : MonoBehaviour
 
     public void DespawnForNewLevel()
     {
+        SnakeHead.RotationBuffer = new LinkedList<float>();
         SnakeHead.gameObject.SetActive(false);
+        
         NewLevelSize = snakeTorsoParts.Count;
         for (int i = snakeTorsoParts.Count - 1; i >= 0; i--)
         {
