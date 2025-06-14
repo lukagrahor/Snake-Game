@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PrimaryCamera cam;
     [SerializeField] Snake snake;
     LevelSelector levelSelector;
+    LinkedList<GridObject> newLevelWallBlocks;
     Difficulty currentDifficulty = Difficulty.Easy;
     int levelNumber = 1;
     int lastLevelNumber = 7;
@@ -94,9 +95,12 @@ public class GameManager : MonoBehaviour
         // spawn new enemies and objects
         List<Level> levels = SelectLevel();
         Level newLevel = ChooseALevel(levels);
-        LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
-        spawnerManager.ManageNewLevelSpawns(wallBlocks);
+        newLevelWallBlocks = ArenaSetup(newLevel);
+    }
 
+    public void SpawnPlayerAndEnemies()
+    {
+        spawnerManager.ManageNewLevelSpawns(newLevelWallBlocks);
         // spawn the player
         spawnerManager.SpawnPlayer();
     }

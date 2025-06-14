@@ -52,6 +52,7 @@ public class PrimaryCamera : MonoBehaviour
         destination = cameraDefaultPosition;
         journeyLength = Vector3.Distance(cameraStartPosition, destination);
         EnableCornerBlocks();
+        gameManager.SpawnPlayerAndEnemies();
         //move = true;
     }
 

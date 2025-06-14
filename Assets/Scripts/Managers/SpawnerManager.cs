@@ -18,7 +18,7 @@ public class SpawnerManager : MonoBehaviour
     int minEnemies;
     int maxEnemies;
     int currentEnemies;
-    float firstSpawnDuration = 5f;
+    float firstSpawnDuration = 3f;
 
     public void ManageFirstSpawns(LinkedList<GridObject> wallBlocks)
     {
