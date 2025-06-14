@@ -31,7 +31,7 @@ public class PrimaryCamera : MonoBehaviour
 
     public void MoveCameraAway()
     {
-        Debug.Log("Odmokni kamero!");
+        //Debug.Log("Odmokni kamero!");
         cameraStartPosition = cam.transform.position;
         cameraDefaultPosition = cameraStartPosition;
         startTime = Time.time;
@@ -45,7 +45,7 @@ public class PrimaryCamera : MonoBehaviour
 
     void MoveCameraBack()
     {
-        Debug.Log("Ajmo nazaj!");
+        //Debug.Log("Ajmo nazaj!");
         cameraStartPosition = cam.transform.position;
         startTime = Time.time;
 
@@ -66,7 +66,7 @@ public class PrimaryCamera : MonoBehaviour
 
     void Prepare()
     {
-        Debug.Log("Pripravi se na premik!");
+        //Debug.Log("Pripravi se na premik!");
         timer.Timer = prepareTime;
         timer.Start();
         gameManager.StartNewLevel();
@@ -81,7 +81,7 @@ public class PrimaryCamera : MonoBehaviour
         transform.position = Vector3.Lerp(cameraStartPosition, destination, fractionOfJourney);
         if (fractionOfJourney >= 1)
         {
-            Debug.Log("Reached destination");
+            //Debug.Log("Reached destination");
             move = false;
             // without this, when the camera comes backt to the arena it moves away again and repeats that
             if (movingAway)

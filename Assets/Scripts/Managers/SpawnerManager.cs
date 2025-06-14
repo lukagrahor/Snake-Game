@@ -136,4 +136,22 @@ public class SpawnerManager : MonoBehaviour
     {
         //playerSpawner.SpawnForNewLevel();
     }
+
+    public void ManageNewLevelSpawns(LinkedList<GridObject> wallBlocks)
+    {
+        LinkedList<GridObject> occupiedBlocks = new LinkedList<GridObject>();
+        occupiedBlocks = AddBlocks(occupiedBlocks, wallBlocks);
+
+        LinkedList<GridObject> newBlocks = playerSpawner.SpawnForNewLevel(occupiedBlocks);
+        occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+
+        newBlocks = foodSpawner.FirstSpawn(occupiedBlocks);
+        occupiedBlocks = AddBlocks(occupiedBlocks, newBlocks);
+
+        currentDifficulty = gameManager.CurrentDifficulty;
+        currentEnemies = 0;
+
+        enemies = SetEnemiesToSpawn();
+        enemySpawner.WaitForSpawn(enemies, firstSpawnDuration);
+    }
 }

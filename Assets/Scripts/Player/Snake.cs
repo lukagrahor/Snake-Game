@@ -47,6 +47,7 @@ public class Snake : MonoBehaviour
     }
 
     public int SnakeSize { get => snakeTorsoParts.Count; }
+    public int NewLevelSize { get; set; }
     public int StartingSize { get => startingSize; }
     public Directions StartingDirection { get => startingDirection; set => startingDirection = value; }
 
@@ -72,9 +73,26 @@ public class Snake : MonoBehaviour
         SnakeHead.SetStateMachine(); // need to set here, because if set earleir the torso parts won't be transparent
     }
 
-    void SpawnStartingTorsoBlocks()
+    public void NewLevelSpawn(Vector3 spawnPosition)
     {
-        int numOfBlocks = startingSize;
+        Debug.Log("Spawnej kaèo");
+        SnakeHead.transform.position = spawnPosition;
+        gameObject.SetActive(true);
+        SnakeHead.gameObject.SetActive(true);
+        SpawnStartingTorsoBlocks(NewLevelSize);
+        SnakeHead.SetStateMachine();
+        /*
+        foreach(SnakeTorso torso in snakeTorsoParts)
+        {
+            torso.gameObject.SetActive(true);
+        }
+        */
+    }
+
+    void SpawnStartingTorsoBlocks(int size = 0)
+    {
+        int numOfBlocks = size;
+        if (size == 0) numOfBlocks = startingSize;
         if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
         for (int i = 0; i < numOfBlocks; i++)
         {
@@ -246,9 +264,15 @@ public class Snake : MonoBehaviour
     public void DespawnForNewLevel()
     {
         SnakeHead.gameObject.SetActive(false);
-        foreach (SnakeTorso torso in snakeTorsoParts)
+        NewLevelSize = snakeTorsoParts.Count;
+        for (int i = snakeTorsoParts.Count - 1; i >= 0; i--)
         {
-            if (torso != null) torso.gameObject.SetActive(false);
+            SnakeTorso torso = snakeTorsoParts[i];
+            if (torso != null)
+            {
+                Destroy(torso.gameObject); // Destroy the GameObject
+                snakeTorsoParts.RemoveAt(i); // Remove from the list
+            }
         }
     }
 

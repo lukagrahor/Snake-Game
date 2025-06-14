@@ -28,13 +28,13 @@ public class PlayerSpawner : ObjectSpawner
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
         LinkedList<GridObject> emptyGridObjects = RemoveOccupiedBlocks(gridObjects, occupiedBlocks); // occupied so zidi
-        snakeSize = snake.StartingSize;
+        snakeSize = snake.NewLevelSize;
         SetSnakeStartingDirection();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
         playerPosition.y = 0.19f;
 
-        snake.FirstSpawn(playerPosition);
+        snake.NewLevelSpawn(playerPosition);
 
         return selectedBlocks;
     }

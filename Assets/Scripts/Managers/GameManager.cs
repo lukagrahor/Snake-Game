@@ -20,7 +20,10 @@ public class GameManager : MonoBehaviour
     {
         CheckIfOnlyInstance();
         levelSelector = new LevelSelector();
-        SelectLevel();
+        List<Level> levels = SelectLevel();
+        Level newLevel = ChooseALevel(levels);
+        LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
+        spawnerManager.ManageFirstSpawns(wallBlocks);
     }
 
     void CheckIfOnlyInstance()
@@ -87,8 +90,13 @@ public class GameManager : MonoBehaviour
         if (levelNumber == 3) CurrentDifficulty = Difficulty.Medium;
         else if (levelNumber == 6) CurrentDifficulty = Difficulty.Hard;
         spawnerManager.EnableSpawners();
+
         // spawn new enemies and objects
-        SelectLevel();
+        List<Level> levels = SelectLevel();
+        Level newLevel = ChooseALevel(levels);
+        LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
+        spawnerManager.ManageNewLevelSpawns(wallBlocks);
+
         // spawn the player
         spawnerManager.SpawnPlayer();
     }
@@ -102,7 +110,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SelectLevel()
+    List<Level> SelectLevel()
     {
         List<Level> levels = new List<Level>();
 
@@ -121,10 +129,7 @@ public class GameManager : MonoBehaviour
             levels = levelSelector.hardLevels;
             UIManager.SetMaxFood(10);
         }
-
-        Level newLevel = ChooseALevel(levels);
-        LinkedList<GridObject> wallBlocks = ArenaSetup(newLevel);
-        spawnerManager.ManageFirstSpawns(wallBlocks);
+        return levels;
     }
 
     void CheckForGameOver()
