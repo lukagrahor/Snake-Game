@@ -384,6 +384,12 @@ MonoBehaviour:
   gameManager: {fileID: 184481909}
   cam: {fileID: 284575321}
   speed: 5
+  cornerBlocks:
+  - {fileID: 2049560731}
+  - {fileID: 1682332301}
+  - {fileID: 1190230169}
+  - {fileID: 1254296666}
+  arena: {fileID: 587043827}
 --- !u!1 &311419180
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +710,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.7845316
+  orthographic size: 4.6075153
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

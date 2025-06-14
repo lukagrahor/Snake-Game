@@ -27,11 +27,14 @@ public class Arena : MonoBehaviour
     }
     private CornerBlocks cornerBlocks;
 
-    void SetBoundsAndCamera()
+    void SetBounds()
     {
         arenaBounds = GetComponent<ArenaBounds>();
         arenaBounds.Setup(cornerBlocks.bottom, cornerBlocks.left, cornerBlocks.right, cornerBlocks.top, GetBlockSize(), size);
+    }
 
+    public void SetCamera()
+    {
         cameraCornerSpawner = GetComponent<CameraCornerSpawner>();
         cameraCornerSpawner.Setup();
     }
@@ -41,7 +44,7 @@ public class Arena : MonoBehaviour
         
     }
 
-    public void SpawnArena()
+    public void SpawnArena(bool setupCamera = true)
     {
         Vector3 bottom = Vector3.zero;
         Vector3 left = Vector3.zero;
@@ -89,7 +92,8 @@ public class Arena : MonoBehaviour
             }
         }
         SetCornerBlockPositions(bottom, left, right, top);
-        SetBoundsAndCamera();
+        SetBounds();
+        if (setupCamera) SetCamera();
     }
 
     ArenaBlock ChooseArenaBlock(int i, int j)

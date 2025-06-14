@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour
         int index = Random.Range(0, levels.Count);
         return levels[index];
     }
-    LinkedList<GridObject> ArenaSetup(Level level)
+    LinkedList<GridObject> ArenaSetup(Level level, bool setCamera = true)
     {
         arena.Size = level.arenaSize;
-        arena.SpawnArena();
+        arena.SpawnArena(setCamera);
         grid.SetupGrid();
         LinkedList<GridObject> wallBlocks = grid.SpawnWalls(level.wallObjectIndexes);
         return wallBlocks;
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         // spawn new enemies and objects
         List<Level> levels = SelectLevel();
         Level newLevel = ChooseALevel(levels);
-        newLevelWallBlocks = ArenaSetup(newLevel);
+        newLevelWallBlocks = ArenaSetup(newLevel, false);
     }
 
     public void SpawnPlayerAndEnemies()
@@ -107,11 +107,13 @@ public class GameManager : MonoBehaviour
 
     void DisableCornerBlocks()
     {
+        /*
         CornerBlock[] blocks = FindObjectsByType<CornerBlock>(FindObjectsSortMode.None);
         foreach (CornerBlock block in blocks)
         {
             block.gameObject.SetActive(false);
         }
+        */
     }
 
     List<Level> SelectLevel()

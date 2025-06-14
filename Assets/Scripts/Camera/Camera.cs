@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PrimaryCamera : MonoBehaviour
@@ -6,6 +7,8 @@ public class PrimaryCamera : MonoBehaviour
     [SerializeField] GameManager gameManager;
     [SerializeField] PrimaryCamera cam;
     [SerializeField] float speed = 5f;
+    [SerializeField] List<CornerBlock> cornerBlocks;
+    [SerializeField] Arena arena;
     Vector3 cameraDefaultPosition;
     Vector3 cameraStartPosition;
     Vector3 destination;
@@ -33,6 +36,7 @@ public class PrimaryCamera : MonoBehaviour
     {
         //Debug.Log("Odmokni kamero!");
         cameraStartPosition = cam.transform.position;
+        cameraStartPosition.y = cornerBlocks[0].transform.position.y;
         cameraDefaultPosition = cameraStartPosition;
         startTime = Time.time;
 
@@ -47,13 +51,14 @@ public class PrimaryCamera : MonoBehaviour
     {
         //Debug.Log("Ajmo nazaj!");
         cameraStartPosition = cam.transform.position;
+        cameraStartPosition.y = cornerBlocks[0].transform.position.y;
         startTime = Time.time;
 
         destination = cameraDefaultPosition;
         journeyLength = Vector3.Distance(cameraStartPosition, destination);
-        EnableCornerBlocks();
+        //EnableCornerBlocks();
         gameManager.SpawnPlayerAndEnemies();
-        //move = true;
+        move = true;
     }
 
     void EnableCornerBlocks()
@@ -78,8 +83,14 @@ public class PrimaryCamera : MonoBehaviour
         float distCovered = (Time.time - startTime) * speed;
 
         float fractionOfJourney = distCovered / journeyLength;
-
-        transform.position = Vector3.Lerp(cameraStartPosition, destination, fractionOfJourney);
+        foreach(CornerBlock corner in cornerBlocks)
+        {
+            Vector3 cornerPosition = corner.transform.position;
+            Vector3 blockStartPosition = new Vector3(cornerPosition.x, cameraStartPosition.y, cornerPosition.z);
+            destination.x = cornerPosition.x;
+            destination.z = cornerPosition.z;
+            corner.transform.position = Vector3.Lerp(blockStartPosition, destination, fractionOfJourney);
+        }
         if (fractionOfJourney >= 1)
         {
             //Debug.Log("Reached destination");
@@ -89,6 +100,9 @@ public class PrimaryCamera : MonoBehaviour
             {
                 Prepare();
                 movingAway = false;
+            } else
+            {
+                arena.SetCamera();
             }
         }
     }
