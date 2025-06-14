@@ -30,7 +30,7 @@ public class PathMarker
     /// <returns>Vrne true, ko sta dva markerja na enaki lokaciji --> to je en in isti marker</returns>
     public override bool Equals(object obj)
     {
-        if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+        if ((obj == null) || !this.GetType().Equals(obj.GetType()) || locationBlock == null)
             return false;
         else
         {
@@ -75,6 +75,7 @@ public class FindPathAStar
             // dobi vse sosede izbrane kocke, ustvari njihove path markerje, izraèunaj njihove vrednosti in jih dodaj v open
             foreach(GridObject neighbour in neighbours)
             {
+                if (neighbour == null) continue;
                 if (neighbour.IsOccupied && !neighbour.IsOccupiedBySnakeHead) continue;
                 if (closed.Exists(x => x.locationBlock == neighbour)) continue;
 

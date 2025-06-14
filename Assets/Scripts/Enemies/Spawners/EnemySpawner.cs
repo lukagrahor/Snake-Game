@@ -101,6 +101,7 @@ public class EnemySpawner : ObjectSpawner
     {
         foreach (SpawnIndicator indicator in indicators)
         {
+            if (indicator == null) return;
             Enemy enemy = Instantiate(indicator.EnemyPrefab, indicator.transform.position, Quaternion.identity);
             SetupEnemy(enemy, indicator.SelectedBlock);
             enemy.enemyDied += spawnerManager.RespawnEnemies;
