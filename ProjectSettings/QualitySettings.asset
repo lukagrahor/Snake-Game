@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 1
+  m_CurrentQuality: 5
   m_QualitySettings:
   - serializedVersion: 4
     name: PC
@@ -58,8 +58,8 @@ QualitySettings:
     terrainFadeLength: 5
     terrainMaxTrees: 50
     excludedTargetPlatforms:
-    - Android
     - iPhone
+    - Android
   - serializedVersion: 4
     name: Web
     pixelLightCount: 2

@@ -16,11 +16,9 @@ public class LevelSelector
     }
     public void GetAllLevels()
     {
-        string[] guids = AssetDatabase.FindAssets("t:Level"); // "t:Level" searches for assets of type Level
-        foreach (string guid in guids)
+        Level[] allLevels = Resources.LoadAll<Level>("");
+        foreach (Level level in allLevels)
         {
-            string assetPath = AssetDatabase.GUIDToAssetPath(guid);
-            Level level = AssetDatabase.LoadAssetAtPath<Level>(assetPath);
             if (level != null)
             {
                 if (level.difficulty == Difficulty.Easy) easyLevels.Add(level);
@@ -28,5 +26,6 @@ public class LevelSelector
                 else if (level.difficulty == Difficulty.Hard) hardLevels.Add(level);
             }
         }
+        
     }
 }
