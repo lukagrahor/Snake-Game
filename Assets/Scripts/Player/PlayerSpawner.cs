@@ -17,7 +17,7 @@ public class PlayerSpawner : ObjectSpawner
         SetSnakeStartingDirection();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
-        playerPosition.y = 0.19f;
+        playerPosition.y = 0.17f;
 
         snake.FirstSpawn(playerPosition);
 
@@ -32,7 +32,7 @@ public class PlayerSpawner : ObjectSpawner
         SetSnakeStartingDirection();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
-        playerPosition.y = 0.19f;
+        playerPosition.y = 0.17f;
 
         snake.NewLevelSpawn(playerPosition);
 
@@ -44,7 +44,7 @@ public class PlayerSpawner : ObjectSpawner
         LinkedList<GridObject> emptyGridObjects = GetEmpty();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
-        playerPosition.y = 0.19f;
+        playerPosition.y = 0.17f;
         snake.SnakeHead.transform.position = playerPosition;
         /*
         GridObject selectedBlock = PickARandomBlock(emptyGridObjects);

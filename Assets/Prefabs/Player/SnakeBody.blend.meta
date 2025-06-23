@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: a5b7580b6518b9043a74e4354cd93f97
+guid: 1d42803a46ab3a04fbf7767262326ab6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 30ab4e8d655008d4cbc54762e1dec40d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snake bottom
+    second: {fileID: 2100000, guid: ca7627534fd03e24cacb03ddd6611070, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -41,8 +51,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0

@@ -17,9 +17,9 @@ public class Snake : MonoBehaviour
     //[SerializeField] SnakeCorner snakeCornerPrefab;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
-
+     
     [SerializeField] ArenaBlock arenaBlock;
-    [SerializeField] float snakeScale = 0.4f;
+    [SerializeField] float snakeScale = 1.1f;
     float defaultSpeed;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     [SerializeField][Range(2, 6)] int startingSize = 2;
@@ -60,7 +60,7 @@ public class Snake : MonoBehaviour
         snakeTorsoParts = new List<SnakeTorso>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         //spawnPosition = new Vector3(-4.2f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -0.5999999f);
-        spawnPosition.y = arenaBlock.GetBlockSize() / 2f + snakeScale / 2f;
+        spawnPosition.y = (arenaBlock.GetBlockSize() / 2f + snakeScale / 2f) - 0.02f;
         SnakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
 
@@ -171,9 +171,11 @@ public class Snake : MonoBehaviour
     {
         SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
         ISnakePart previousPart;
+        float distanceFromParent = 1f;
         if (snakeTorsoParts.Count == 0)
         {
              previousPart = SnakeHead;
+            distanceFromParent = 0.1f;
         }
         else
         {
@@ -183,7 +185,7 @@ public class Snake : MonoBehaviour
         newSnakeTorso.transform.SetParent(previousPart.GetTransform());
         previousPart.UnsetLast();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
-        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector);
+        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, distanceFromParent);
         if(SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
         // kopira pozicije, ki so v bufferju od njegovga predhodnika
         if (snakeTorsoParts.Count > 0)

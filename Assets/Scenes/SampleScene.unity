@@ -710,7 +710,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6075153
+  orthographic size: 4.741722
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1081,12 +1081,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ff38739e7545d4098a5e40edae95ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snakeHeadPrefab: {fileID: -3341983892340847818, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
-  snakeTorsoPrefab: {fileID: 3859413543012038021, guid: d0053ec5cc905de4ba9a9c1411a6ea50, type: 3}
+  snakeHeadPrefab: {fileID: 8925674417714516846, guid: e5e4c75970afea04394601787e7f9f6c, type: 3}
+  snakeTorsoPrefab: {fileID: 6170232485920992933, guid: 41b349035be210440bdd2e8e72c4ad05, type: 3}
   abilityChargeCanvas: {fileID: 1294393577}
   playerSpawner: {fileID: 415246873}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
-  snakeScale: 0.18
+  snakeScale: 0.2
   moveSpeed: 1
   startingSize: 2
   waitTime: 3
@@ -1614,7 +1614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 118.4, y: 38.8}
+  m_AnchoredPosition: {x: 118.399994, y: 38.799988}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1190230167

@@ -248,17 +248,17 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void SetToTransparent()
     {
-        Color tempColor = headRenderer.material.color;
+        Color tempColor = headRenderer.sharedMaterial.color;
         tempColor.a = 0.7f;
-        headRenderer.material.color = tempColor;
+        headRenderer.sharedMaterial.color = tempColor;
         snake.SetToTransparent();
     }
 
     public void SetToSolid()
     {
-        Color tempColor = headRenderer.material.color;
+        Color tempColor = headRenderer.sharedMaterial.color;
         tempColor.a = 1f;
-        headRenderer.material.color = tempColor;
+        headRenderer.sharedMaterial.color = tempColor;
         snake.SetToSolid();
     }
 }

@@ -106,11 +106,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         }
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector)
+    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector, float distanceFromParent)
     {
         this.MoveSpeed = moveSpeed;
 
-        transform.localPosition = new Vector3(0, 0, -1f);
+        transform.localPosition = new Vector3(0, 0, -distanceFromParent);
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snake.transform);
@@ -309,15 +309,15 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
     }
     public void SetToTransparent()
     {
-        Color tempColor = torsoRenderer.material.color;
+        Color tempColor = torsoRenderer.sharedMaterial.color;
         tempColor.a = 0.7f;
-        torsoRenderer.material.color = tempColor;
+        torsoRenderer.sharedMaterial.color = tempColor;
     }
 
     public void SetToSolid()
     {
-        Color tempColor = torsoRenderer.material.color;
+        Color tempColor = torsoRenderer.sharedMaterial.color;
         tempColor.a = 1f;
-        torsoRenderer.material.color = tempColor;
+        torsoRenderer.sharedMaterial.color = tempColor;
     }
 }
