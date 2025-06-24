@@ -171,11 +171,11 @@ public class Snake : MonoBehaviour
     {
         SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
         ISnakePart previousPart;
-        float distanceFromParent = 1f;
+        float distanceFromParent = 0.9f;
         if (snakeTorsoParts.Count == 0)
         {
              previousPart = SnakeHead;
-            distanceFromParent = 0.1f;
+            distanceFromParent = 0.02f;
         }
         else
         {

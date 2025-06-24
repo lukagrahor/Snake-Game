@@ -177,8 +177,13 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
     void FixGaps()
     {
         if (rotationBuffer.Count != 0) { return; }
+
         Vector3 previous = previousPart.GetTransform().position;
         Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * size);
+        if (gameObject.name == "Torso 0")
+        {
+            newCurrentPosition = previous;
+        }
         transform.position = newCurrentPosition;
         hasTurned = false;
     }
@@ -277,6 +282,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
                     gridObject.HasPathMarker = true;
                 } else if (gameObject.name == "Torso 0" && gridObject.HasPathMarker == true)
                 {
+                    if (gridObject.Marker == null) { Debug.Log("Marker ne obstaja"); }
                     gridObject.Marker.NextRotation = rotationBuffer.First.Value;
                 }
                 SetRotation();
