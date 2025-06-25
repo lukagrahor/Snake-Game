@@ -283,7 +283,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
                 } else if (gameObject.name == "Torso 0" && gridObject.HasPathMarker == true)
                 {
                     if (gridObject.Marker == null) { Debug.Log("Marker ne obstaja"); }
-                    gridObject.Marker.NextRotation = rotationBuffer.First.Value;
+                    if (gridObject.Marker != null) gridObject.Marker.NextRotation = rotationBuffer.First.Value; // to zna delat probleme pesu pri sledenju !!!
                 }
                 SetRotation();
                 // na sredino grid kocke
