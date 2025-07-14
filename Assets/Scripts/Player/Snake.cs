@@ -60,7 +60,7 @@ public class Snake : MonoBehaviour
         snakeTorsoParts = new List<SnakeTorso>();
         // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
         //spawnPosition = new Vector3(-4.2f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -0.5999999f);
-        spawnPosition.y = (arenaBlock.GetBlockSize() / 2f + snakeScale / 2f) - 0.02f;
+        spawnPosition.y = 0.185f;
         SnakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
 
@@ -171,11 +171,13 @@ public class Snake : MonoBehaviour
     {
         SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
         ISnakePart previousPart;
-        float distanceFromParent = 0.9f;
+        float distanceFromParent = 1.13f;
+        float yPosition = 0f;
         if (snakeTorsoParts.Count == 0)
         {
              previousPart = SnakeHead;
-            distanceFromParent = 0.02f;
+            distanceFromParent = 1.36f;
+            yPosition = -0.21f;
         }
         else
         {
@@ -185,7 +187,7 @@ public class Snake : MonoBehaviour
         newSnakeTorso.transform.SetParent(previousPart.GetTransform());
         previousPart.UnsetLast();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
-        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, distanceFromParent);
+        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, yPosition, distanceFromParent);
         if(SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
         // kopira pozicije, ki so v bufferju od njegovga predhodnika
         if (snakeTorsoParts.Count > 0)

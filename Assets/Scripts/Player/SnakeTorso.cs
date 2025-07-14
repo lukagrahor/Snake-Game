@@ -106,15 +106,15 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         }
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector, float distanceFromParent)
+    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector, float yPosition, float distanceFromParent)
     {
         this.MoveSpeed = moveSpeed;
 
-        transform.localPosition = new Vector3(0, 0, -distanceFromParent);
+        transform.localPosition = new Vector3(0, yPosition, -distanceFromParent);
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snake.transform);
-        transform.localScale = snakeScaleVector;
+        transform.localScale = new Vector3(snakeScaleVector.x + 0.02f, snakeScaleVector.y, snakeScaleVector.z);
         size = snakeScaleVector.x;
 
         this.snake = snake;
@@ -179,11 +179,12 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         if (rotationBuffer.Count != 0) { return; }
 
         Vector3 previous = previousPart.GetTransform().position;
-        Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * size);
+        Vector3 newCurrentPosition = previous - (previousPart.GetTransform().forward * 0.158f);
         if (gameObject.name == "Torso 0")
         {
-            newCurrentPosition = previous;
+            newCurrentPosition = previous - (previousPart.GetTransform().forward * 0.19f);
         }
+        newCurrentPosition.y = 0.16f;
         transform.position = newCurrentPosition;
         hasTurned = false;
     }
