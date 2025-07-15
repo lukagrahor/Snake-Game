@@ -99,7 +99,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
             canvasTransform.localPosition = new Vector3(0f, 0f, 14f);
             Arrow = canvasTransform.Find("Arrow").gameObject;
             RectTransform ArrowTransform = Arrow.GetComponent<RectTransform>();
-            ArrowTransform.localPosition = new Vector3(0f, -0.03f, -0.748f);
+            ArrowTransform.localPosition = new Vector3(0f, -0.025f, -0.627f);
             ArrowTransform.sizeDelta = new Vector2(2f, 0.1f);
         }
     }
