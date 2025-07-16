@@ -3,7 +3,57 @@ guid: 7c0525a7f59f27e42bb4a93e7e66ba10
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyelids
+    second: {fileID: 2100000, guid: db99f4a35b32bed4bb7021836b6f448d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: 5ce7bc7008442994792957a0b9911c1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inner mouth
+    second: {fileID: 2100000, guid: ab80973cf6f84534ba5c3796b8e9e97a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 356b202a07c0c0f4a905c50357343927, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 199dc8d4a5ce72c488f27cac8f11364c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: 754315bd426f6344ba1b66b99cdb3b4c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: c269f00b9abff474baf4f25087c8e777, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mouth
+    second: {fileID: 2100000, guid: a98f8f403aed1084489e30e9114461a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snake Body
+    second: {fileID: 2100000, guid: 620741fe474d3aa41bd6ea212451ccec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snake body
+    second: {fileID: 2100000, guid: 4b468490650080a4ebb3e871179d1ba8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

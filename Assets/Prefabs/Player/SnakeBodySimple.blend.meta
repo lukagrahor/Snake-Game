@@ -3,7 +3,17 @@ guid: b07fc36c400e87f44a0c7af87f6686da
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 4ff9a8874c871b5449b5e0efd0876a9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snake Body
+    second: {fileID: 2100000, guid: 4c16bc960d00fde4280ea4d3b5bc212f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

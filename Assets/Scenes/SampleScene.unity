@@ -1871,7 +1871,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 9674571}
   pathSpawner: {fileID: 4457703815553065046, guid: d39e52047e6e62644b73f63a4dce19eb, type: 3}
   playerSpawner: {fileID: 415246873}
-  bee: {fileID: 1055173254773622347, guid: 0c570945cedeeb146b7ffd73e677772a, type: 3}
+  bee: {fileID: 1707166795428963678, guid: 3b31c1a806ca0494b82a5ba9070c12cb, type: 3}
   wasp: {fileID: 8837778402620649376, guid: 95595233456c3ac4a986ce33a8cab03d, type: 3}
   dog: {fileID: 176585611563766650, guid: b1967f98af537554b8b90258907f7bd5, type: 3}
   fly: {fileID: 1538063464904830449, guid: f2f7d6dc4340166499b1095eee41cc03, type: 3}

@@ -3,7 +3,27 @@ guid: f481bd16277066f4e920a1f62f56428f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black stripes
+    second: {fileID: 2100000, guid: 5302a159fdc078441b5eddeff2b66371, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes glow
+    second: {fileID: 2100000, guid: 96a96383582092642aa40b56c7181db4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 1f1c548759759e64b975d544cd259c3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Yellow stripes
+    second: {fileID: 2100000, guid: bbfc4b5793f44f044bee469315e13ead, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

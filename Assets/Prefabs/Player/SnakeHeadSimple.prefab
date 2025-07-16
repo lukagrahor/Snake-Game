@@ -104,6 +104,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: SnakeHeadSimple
       objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.50008726
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.49991274
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.50008726
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.49991274
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
@@ -148,7 +184,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.59230566, z: 0.8}
+  m_Size: {x: 1.1, y: 0.5, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8627410735169130212
 Rigidbody:
@@ -300,4 +336,9 @@ MonoBehaviour:
   layersToHit:
     serializedVersion: 2
     m_Bits: 520
-  headRenderer: {fileID: 311438574784473439, guid: 8a43eaa0620443a4b934548cf47ae825, type: 3}
+  headRenderer: {fileID: 9032436752589528599}
+--- !u!23 &9032436752589528599 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4587302668392987624, guid: 7c0525a7f59f27e42bb4a93e7e66ba10, type: 3}
+  m_PrefabInstance: {fileID: 4399746191990200847}
+  m_PrefabAsset: {fileID: 0}
