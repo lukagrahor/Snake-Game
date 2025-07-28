@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class WaspChargeState : IState
 {
@@ -23,6 +22,7 @@ public class WaspChargeState : IState
     public void Enter()
     {
         baseColor = npc.WaspColor;
+        Debug.Log("Zaènem charge");
     }
     public void Update()
     {
@@ -31,7 +31,7 @@ public class WaspChargeState : IState
     }
     public void Exit()
     {
-
+        Debug.Log("Konèam charge");
     }
 
     public void CoolDown()

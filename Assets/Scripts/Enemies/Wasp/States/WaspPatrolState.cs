@@ -45,7 +45,7 @@ public class WaspPatrolState : IState
     {
 
     }
-
+    /*
     void Setup()
     {
         GridObject startBlock = npc.StartBlock;
@@ -85,7 +85,7 @@ public class WaspPatrolState : IState
             npc.transform.Rotate(0f, (float)Directions.Down, 0f);
         }
     }
-
+    */
     void CheckForPlayer()
     {
         Ray ray = new Ray(npc.transform.position, npc.transform.forward);
