@@ -4,12 +4,13 @@ public class Wasp : Enemy
 {
     [SerializeField] WaspAI ai;
     [SerializeField] LayerMask layersToHit;
+    [SerializeField] MeshRenderer bodyMeshRenderer;
     ArenaGrid grid;
     public GridObject NextBlock { get; set; } // je null takoj ob spawnu --> popravi
     public PathSpawner PathSpawner { get; set; }
     public GridObject StartBlock { get; set; }
     public WaspAI Ai { get => ai; set => ai = value; }
-    public Renderer WaspRenderer { get; set; }
+    public MeshRenderer WaspRenderer { get => bodyMeshRenderer; set => bodyMeshRenderer = value; }
     public Color WaspColor { get; set; }
 
     public override void Setup(int col, int row, int gridSize)
@@ -36,10 +37,10 @@ public class Wasp : Enemy
     {
         transform.Rotate(0f, 180f, 0f);
     }
-
+    
     void Start()
     {
-        WaspRenderer = GetComponent<Renderer>();
+        //WaspRenderer = GetComponent<Renderer>();
         WaspColor = WaspRenderer.material.color;
     }
 

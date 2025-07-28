@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2347712055117047768}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.95}
+  m_LocalPosition: {x: 0, y: 0, z: 0.86}
   m_LocalScale: {x: 0.03165, y: 0.85060996, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07901efe972efb4bbdd947dc594c249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasp: {fileID: 0}
+  wasp: {fileID: 3322982958476214552}
 --- !u!1001 &7403507019846073784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,6 +155,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7072302
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
       propertyPath: m_Name
       value: WaspSimple
@@ -178,6 +202,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3936256079476481473}
   m_SourcePrefab: {fileID: 100100000, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+--- !u!23 &6466828201355668343 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4683669308469848369, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
+  m_PrefabInstance: {fileID: 7403507019846073784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7004279489055447635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 257ecb1510481cf4caf901a2fca766af, type: 3}
@@ -204,6 +233,7 @@ MonoBehaviour:
   layersToHit:
     serializedVersion: 2
     m_Bits: 896
+  bodyMeshRenderer: {fileID: 6466828201355668343}
 --- !u!114 &1880776415782379342
 MonoBehaviour:
   m_ObjectHideFlags: 0
