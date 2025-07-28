@@ -29,14 +29,14 @@ public class WaspPatrolState : IState
 
     public void Enter()
     {
-        previousColor = npc.WaspRenderer.material.color;
+        previousColor = npc.WaspRenderer.sharedMaterial.color;
         baseColor = npc.WaspColor;
     }
     public void Update()
     {
-        if (npc.WaspRenderer.material.color != baseColor)
+        if (npc.WaspRenderer.sharedMaterial.color != baseColor)
         {
-            npc.WaspRenderer.material.color = Color.Lerp(previousColor, baseColor, Mathf.PingPong(Time.time, 1.5f));
+            npc.WaspRenderer.sharedMaterial.color = Color.Lerp(previousColor, baseColor, Mathf.PingPong(Time.time, 1.5f));
         }
         CheckForPlayer();
         Move();

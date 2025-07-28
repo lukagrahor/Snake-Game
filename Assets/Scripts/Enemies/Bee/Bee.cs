@@ -68,6 +68,7 @@ public class Bee : Enemy, ISpawnableObject, IWaspFrontTriggerHandler
 
     public void Turn()
     {
+        Debug.Log("Obrni");
         transform.Rotate(0f, 180f, 0f);
     }
 
