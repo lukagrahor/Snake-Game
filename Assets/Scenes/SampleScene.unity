@@ -710,7 +710,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.151169
+  orthographic size: 7.1644607
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1873,8 +1873,8 @@ MonoBehaviour:
   playerSpawner: {fileID: 415246873}
   bee: {fileID: 1707166795428963678, guid: 3b31c1a806ca0494b82a5ba9070c12cb, type: 3}
   wasp: {fileID: 3322982958476214552, guid: 9e23a92ba99c41c418ce87ec4a3907d0, type: 3}
-  dog: {fileID: 176585611563766650, guid: b1967f98af537554b8b90258907f7bd5, type: 3}
-  fly: {fileID: 1538063464904830449, guid: f2f7d6dc4340166499b1095eee41cc03, type: 3}
+  dog: {fileID: 4523669805097429079, guid: b2d342b85c0013c4eb5df14afac2f0df, type: 3}
+  fly: {fileID: 7998676948249606025, guid: 6b3fa8ea37c04cb4b9f330bb806e2cc4, type: 3}
 --- !u!1 &1294393573
 GameObject:
   m_ObjectHideFlags: 0

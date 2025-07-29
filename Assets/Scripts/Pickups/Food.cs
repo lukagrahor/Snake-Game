@@ -55,6 +55,7 @@ public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnable
     public void HandleFlyTrigger(Fly fly)
     {
         Use();
+        if (!fly) return;
         FlyStateMachine stateMachine = (FlyStateMachine) fly.ai.stateMachine;
         if (stateMachine == null) return;
         if (stateMachine.CurrentState == stateMachine.pursueState)
