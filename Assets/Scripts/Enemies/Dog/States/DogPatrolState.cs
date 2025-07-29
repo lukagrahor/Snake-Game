@@ -115,24 +115,51 @@ public class DogPatrolState : IState
 
     void SetNewLane()
     {
-        int i = currentBlock.Row;
-        int j = currentBlock.Col;
+        // tukej moram tudi upoštevat zide
+        int i = lastLaneBlock.Row;
+        int j = lastLaneBlock.Col;
+        Debug.Log("SetNewLane before:" + "Row: " + i + " Col: " + j);
+        int gridSize = grid.GetSize();
         switch (secondaryDirection)
         {
             case (float)Directions.Up:
                 i += 1;
+                if (i >= gridSize) break;
+                if (gridObjects[j, i].IsOccupiedByWall)
+                {
+                    i -= 2;
+                    secondaryDirection = (float)Directions.Down;
+                }
                 break;
             case (float)Directions.Down:
-                i -= 1; 
+                i -= 1;
+                if (i < 0) break;
+                if (gridObjects[j, i].IsOccupiedByWall)
+                {
+                    i+= 2;
+                    secondaryDirection = (float)Directions.Up;
+                }
                 break;
             case (float)Directions.Left:
                 j -= 1;
+                if (j < 0) break;
+                if (gridObjects[j, i].IsOccupiedByWall)
+                {
+                    j += 2;
+                    secondaryDirection = (float)Directions.Right;
+                }
                 break;
             case (float)Directions.Right:
                 j += 1;
+                if (j >= gridSize) break;
+                if (gridObjects[j, i].IsOccupiedByWall)
+                {
+                    j -= 2;
+                    secondaryDirection = (float)Directions.Left;
+                }
                 break;
         }
-        int gridSize = grid.GetSize();
+
         if (i < 0)
         {
             i = 1;
@@ -154,6 +181,7 @@ public class DogPatrolState : IState
             secondaryDirection = (float)Directions.Left;
         }
 
+        Debug.Log("SetNewLane after:" + "Row: " + i + " Col: " + j);
         nextBlock = gridObjects[j, i];
     }
 
@@ -161,7 +189,8 @@ public class DogPatrolState : IState
     {
         int i = currentBlock.Row;
         int j = currentBlock.Col;
-        int laneSize = grid.GetSize(); 
+        int laneSize = grid.GetSize();
+        Debug.Log("SetLastLaneBlock");
         switch (primaryDirection)
         {
             // preverimo ali je v stolpcu/vrstici kakšen zid
