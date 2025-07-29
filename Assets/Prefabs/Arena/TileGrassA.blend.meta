@@ -1,9 +1,39 @@
 fileFormatVersion: 2
-guid: 29a3086c3d7494b4e9793be9d50e5103
+guid: 0bd1abf75b27e834d90959aadcf5478a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottom layer
+    second: {fileID: 2100000, guid: f77af27392e1fa644ac5396e1950e1a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass base
+    second: {fileID: 2100000, guid: 9842bf148797452428e7e4b6c9333554, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass lighter
+    second: {fileID: 2100000, guid: 1b39be0b236c5f949a2b4a3ea7b8f763, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Middle layer
+    second: {fileID: 2100000, guid: 1310bdc37dd1b474ca07f9d920c40fc9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rocks
+    second: {fileID: 2100000, guid: 4f6dd7bdc640d3545a0a3503227e23ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Top layer
+    second: {fileID: 2100000, guid: 3f372f57502e6a8479fee60e991fe990, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -41,8 +71,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
