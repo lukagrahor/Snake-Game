@@ -710,7 +710,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.1386433
+  orthographic size: 7.057062
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1256,8 +1256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e6b786200933843801c2c62534fcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arenaBlockA: {fileID: 6259185290400769298, guid: a3071d5c22c0596449192987d8227581, type: 3}
-  arenaBlockB: {fileID: 6259185290400769298, guid: a3071d5c22c0596449192987d8227581, type: 3}
+  arenaBlockPrefab: {fileID: 8510176354273589674, guid: 2a8d50717a8857d47a9c3d0bc8600afc, type: 3}
+  arenaBlocks:
+  - {fileID: 8510176354273589674, guid: 2a8d50717a8857d47a9c3d0bc8600afc, type: 3}
+  - {fileID: 3912385789875640049, guid: a6f2c3994fe58f0479af7be1fbd9da3b, type: 3}
+  - {fileID: 2312100903174737873, guid: 837778bb42667b64596984f25ee79155, type: 3}
 --- !u!4 &587043828
 Transform:
   m_ObjectHideFlags: 0

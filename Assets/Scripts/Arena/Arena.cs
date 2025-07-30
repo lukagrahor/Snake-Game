@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Arena : MonoBehaviour
 {
-    [SerializeField] ArenaBlock arenaBlockA;
-    [SerializeField] ArenaBlock arenaBlockB;
+    [SerializeField] ArenaBlock arenaBlockPrefab;
+    [SerializeField] List<ArenaBlock> arenaBlocks;
     int size = 10;
     
     CameraCornerSpawner cameraCornerSpawner;
@@ -61,7 +61,7 @@ public class Arena : MonoBehaviour
                 float colPosition = (j * blockSize) - 5f;
                 Vector3 location = new(colPosition, 0f, rowPosition);
 
-                arenaBlock = ChooseArenaBlock(i, j);
+                arenaBlock = ChooseArenaBlock();
 
                 GameObject block = arenaBlock.Spawn(arenaBlock.gameObject, location, Quaternion.identity);
                 block.transform.SetParent(transform);
@@ -96,30 +96,10 @@ public class Arena : MonoBehaviour
         if (setupCamera) SetCamera();
     }
 
-    ArenaBlock ChooseArenaBlock(int i, int j)
+    ArenaBlock ChooseArenaBlock()
     {
-        if (i % 2 == 0)
-        {
-            if (j % 2 == 0)
-            {
-                return arenaBlockA;
-            }
-            else
-            {
-                return arenaBlockB;
-            }
-        }
-        else
-        {
-            if (j % 2 == 0)
-            {
-                return arenaBlockB;
-            }
-            else
-            {
-                return arenaBlockA;
-            }
-        }
+        int index = Random.Range(0, arenaBlocks.Count - 1);
+        return arenaBlocks[index];
     }
 
     public void DespawnArena()
@@ -160,5 +140,5 @@ public class Arena : MonoBehaviour
 
     public int GetSize() { return size; }
 
-    public float GetBlockSize() { return arenaBlockA.GetBlockSize(); }
+    public float GetBlockSize() { return arenaBlockPrefab.GetBlockSize(); }
 }
