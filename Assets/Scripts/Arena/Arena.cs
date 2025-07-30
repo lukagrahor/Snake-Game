@@ -6,6 +6,7 @@ public class Arena : MonoBehaviour
 {
     [SerializeField] ArenaBlock arenaBlockPrefab;
     [SerializeField] List<ArenaBlock> arenaBlocks;
+    [SerializeField] List<ArenaBlock> edgeArenaBlocks;
     int size = 10;
     
     CameraCornerSpawner cameraCornerSpawner;
@@ -61,7 +62,7 @@ public class Arena : MonoBehaviour
                 float colPosition = (j * blockSize) - 5f;
                 Vector3 location = new(colPosition, 0f, rowPosition);
 
-                arenaBlock = ChooseArenaBlock();
+                arenaBlock = ChooseArenaBlock(i, j);
 
                 GameObject block = arenaBlock.Spawn(arenaBlock.gameObject, location, Quaternion.identity);
                 block.transform.SetParent(transform);
@@ -96,9 +97,10 @@ public class Arena : MonoBehaviour
         if (setupCamera) SetCamera();
     }
 
-    ArenaBlock ChooseArenaBlock()
+    ArenaBlock ChooseArenaBlock(int i, int j)
     {
         int index = Random.Range(0, arenaBlocks.Count - 1);
+        if (i == 0 || j == 0 || i == size - 1 || j == size -1) return edgeArenaBlocks[index];
         return arenaBlocks[index];
     }
 

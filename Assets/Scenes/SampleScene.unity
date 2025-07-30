@@ -710,7 +710,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.5845838
+  orthographic size: 8.646663
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1258,6 +1258,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaBlockPrefab: {fileID: 8510176354273589674, guid: 2a8d50717a8857d47a9c3d0bc8600afc, type: 3}
   arenaBlocks:
+  - {fileID: 7922633664604683277, guid: 0b1b4cecab91847419cfd62eb560d209, type: 3}
+  - {fileID: 156510713966259805, guid: 3929ed222ee25564f9395dbefe644103, type: 3}
+  - {fileID: 3037294451538499411, guid: 0cac8ab4127294348b04768988370f43, type: 3}
+  - {fileID: 6111846738273738448, guid: 84093b8665ff6324bbb4cc0e2540c54a, type: 3}
+  - {fileID: 4401003724326512194, guid: 81ea8a985f1acf54a9e3c8f1b44a569e, type: 3}
+  - {fileID: 478478410243804297, guid: 179054b7a2bd226428b3babaa557febb, type: 3}
+  - {fileID: 1240621256021930075, guid: 17ef9b3ceced30e47b841381565aabd0, type: 3}
+  edgeArenaBlocks:
   - {fileID: 8510176354273589674, guid: 2a8d50717a8857d47a9c3d0bc8600afc, type: 3}
   - {fileID: 3912385789875640049, guid: a6f2c3994fe58f0479af7be1fbd9da3b, type: 3}
   - {fileID: 2312100903174737873, guid: 837778bb42667b64596984f25ee79155, type: 3}
