@@ -53,7 +53,9 @@ PrefabInstance:
       value: TileGrassVariation3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: 1b2c6659b415c43468b0ff3a540dbba6, type: 3}
+    - {fileID: 65702495048144492, guid: 1b2c6659b415c43468b0ff3a540dbba6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b2c6659b415c43468b0ff3a540dbba6, type: 3}

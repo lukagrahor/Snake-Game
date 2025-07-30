@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e0b8b3ba523a1454f9563647d85f7add
+guid: 067a4c8f44d49f4458f5016614bb407a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -12,13 +12,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Grass golden
-    second: {fileID: 2100000, guid: f5f16df607d5e944c9e15324fbd95c73, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: d2ece130c71d2214f8eed849f83f5cac, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Grass light
-    second: {fileID: 2100000, guid: f0a39203d8d35a5409c5a28952c6ffc8, type: 2}
+      name: Material.001
+    second: {fileID: 2100000, guid: 7f34cdf28545e0d488ce3902b1bedf3b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
