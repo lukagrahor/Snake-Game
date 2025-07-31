@@ -710,7 +710,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.046821
+  orthographic size: 5.046873
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arena: {fileID: 587043827}
   gridObjectPrefab: {fileID: 5107840659102063939, guid: d855a86e23ffaa549bc15badc826d5ec, type: 3}
-  wallBlock: {fileID: -4747733691059813635, guid: 00dbdc539cfa549438493f050a63977e, type: 3}
+  wallBlock: {fileID: -548637206716053588, guid: 3cdc574464ea67b4fa7ac25fc61c1808, type: 3}
 --- !u!4 &457970927
 Transform:
   m_ObjectHideFlags: 0
@@ -1743,7 +1743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 118.399994, y: 38.799973}
+  m_AnchoredPosition: {x: 118.399994, y: 38.799988}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1190230167

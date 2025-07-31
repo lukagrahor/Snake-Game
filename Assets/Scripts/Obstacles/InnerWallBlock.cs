@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class InnerWallBlock : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFrontTriggerHandler, IWaspFrontTriggerHandler, IDogTriggerHandler
 {
+    void Awake()
+    {
+        int multiplier = Random.Range(0, 4);
+        transform.Rotate(0f, 90f * multiplier, 0f);
+    }
     public void HandleEnemyFrontTrigger(Bee enemy)
     {
         enemy.Turn();
