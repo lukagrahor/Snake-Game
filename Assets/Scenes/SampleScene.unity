@@ -710,7 +710,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.12494
+  orthographic size: 4.6075153
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1223,8 +1223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4934c2b068af3f1458fabe765e1a1760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathMarkerPrefab1: {fileID: 1812546547283259746, guid: 6da0e25951a05e643aab438107691854, type: 3}
-  pathMarkerPrefab2: {fileID: -9039235820039132326, guid: a15b102adb4dfb049ac02da2de51bef8, type: 3}
+  pathMarkers:
+  - {fileID: 4070101621901363468, guid: 52b8ec328ef47b547bb3129a42f74e8e, type: 3}
+  - {fileID: 8953538899169778684, guid: fb091830183955c4f91113137ffc8557, type: 3}
+  - {fileID: 314752870404392370, guid: d2effd4529e9346498f0263baa8b271a, type: 3}
 --- !u!1 &587043826
 GameObject:
   m_ObjectHideFlags: 0

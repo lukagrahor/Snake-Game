@@ -27,7 +27,8 @@ public class DogPursueState : IState
     }
     public void Enter()
     {
-        npc.transform.position = npc.FirstMarker.transform.position;
+        Vector3 firstMarkerPosition = npc.FirstMarker.transform.position;
+        npc.transform.position = new Vector3(firstMarkerPosition.x, npc.transform.position.y, firstMarkerPosition.z);
         pathObject = player.GetSnake().Path;
         List<SnakePathMarker> path = pathObject.Path;
         index = path.IndexOf(npc.FirstMarker);
@@ -37,7 +38,8 @@ public class DogPursueState : IState
             stateMachine.TransitionTo(stateMachine.PatrolState);
         }
         SnakePathMarker nextMarker = path[index];
-        Vector3 directionToNext = (nextMarker.transform.position - npc.transform.position).normalized;
+        Vector3 nextMarkerPosition = new Vector3(nextMarker.transform.position.x, npc.transform.position.y, nextMarker.transform.position.z);
+        Vector3 directionToNext = (nextMarkerPosition - npc.transform.position).normalized;
         npc.transform.forward = directionToNext;
 
         PlayerActions.PlayerDeath += TransitionToPatrol;

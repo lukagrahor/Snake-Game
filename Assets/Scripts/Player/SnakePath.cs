@@ -1,18 +1,14 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SnakePath : MonoBehaviour
 {
-    [SerializeField] SnakePathMarker pathMarkerPrefab1;
-    [SerializeField] SnakePathMarker pathMarkerPrefab2;
-    SnakePathMarker pathMarkerPrefab;
+    [SerializeField] List<SnakePathMarker> pathMarkers;
     public List<SnakePathMarker> Path { get; set; }
     int index = 0;
 
     void Start()
     {
-        pathMarkerPrefab = pathMarkerPrefab2;
         Path = new List<SnakePathMarker>();
     }
     /*
@@ -42,18 +38,10 @@ public class SnakePath : MonoBehaviour
     */
     public void SpawnMarker(GridObject gridObject, Vector3 position, float nextRotation)
     {
-        //if (pathMarkers != null) RemoveMarkers();
-        return; // pol odstrani
-        if (pathMarkerPrefab == pathMarkerPrefab2) pathMarkerPrefab = pathMarkerPrefab1;
-        else if (pathMarkerPrefab == pathMarkerPrefab1) pathMarkerPrefab = pathMarkerPrefab2;
+        int index = Random.Range(0, pathMarkers.Count);
+        SnakePathMarker pathMarkerPrefab = pathMarkers[index];
 
-        if (pathMarkerPrefab1 == null || pathMarkerPrefab2 == null)
-        {
-            Debug.LogError("Path Marker Prefab is not assigned in the Inspector!");
-            return;
-        }
-
-        Vector3 location = new(position.x, 0.25f, position.z);
+        Vector3 location = new(position.x, 0.117f, position.z);
         SnakePathMarker pathMarker = Instantiate(pathMarkerPrefab, location, Quaternion.identity);
         pathMarker.transform.parent = transform;
         pathMarker.NextRotation = nextRotation;
