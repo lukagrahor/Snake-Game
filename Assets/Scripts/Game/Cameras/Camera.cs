@@ -6,6 +6,7 @@ public class PrimaryCamera : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] GameManager gameManager;
     [SerializeField] PrimaryCamera cam;
+    [SerializeField] MarketCamera marketCamera;
     [SerializeField] float speed = 5f;
     [SerializeField] List<CornerBlock> cornerBlocks;
     [SerializeField] Arena arena;
@@ -18,11 +19,11 @@ public class PrimaryCamera : MonoBehaviour
     bool movingAway = false;
 
     CountDown timer;
-    float prepareTime = 2f;
+    float prepareTime = 1.5f;
     void Start()
     {
         timer = new CountDown(prepareTime);
-        timer.TimeRanOut += MoveCameraBack;
+        timer.TimeRanOut += ChangeCamera;
     }
 
     // Update is called once per frame
@@ -73,8 +74,8 @@ public class PrimaryCamera : MonoBehaviour
     void Prepare()
     {
         //Debug.Log("Pripravi se na premik!");
-        timer.Timer = prepareTime;
-        timer.Start();
+        //timer.Timer = prepareTime;
+        //timer.Start();
         gameManager.StartNewLevel();
     }
 
@@ -83,7 +84,7 @@ public class PrimaryCamera : MonoBehaviour
         float distCovered = (Time.time - startTime) * speed;
 
         float fractionOfJourney = distCovered / journeyLength;
-        foreach(CornerBlock corner in cornerBlocks)
+        foreach (CornerBlock corner in cornerBlocks)
         {
             Vector3 cornerPosition = corner.transform.position;
             Vector3 blockStartPosition = new Vector3(cornerPosition.x, cameraStartPosition.y, cornerPosition.z);
@@ -95,7 +96,11 @@ public class PrimaryCamera : MonoBehaviour
         {
             //Debug.Log("Reached destination");
             move = false;
-            // without this, when the camera comes backt to the arena it moves away again and repeats that
+
+            timer.Timer = prepareTime;
+            timer.Start();
+
+            // without this, when the camera comes back to the arena it moves away again and repeats that
             if (movingAway)
             {
                 Prepare();
@@ -105,5 +110,13 @@ public class PrimaryCamera : MonoBehaviour
                 arena.SetCamera();
             }
         }
+    }
+
+    void ChangeCamera()
+    {
+        Debug.Log("Change camera");
+        cam.gameObject.SetActive(false);
+        marketCamera.gameObject.SetActive(true);
+        marketCamera.StartMoving(marketCamera.transform.position ,new Vector3(-2.468f, 6.408f, -2.98f));
     }
 }
