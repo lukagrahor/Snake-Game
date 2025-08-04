@@ -1,8 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MarketCamera : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] Canvas marketCanvas;
     float speed = 6f;
     Vector3 startPosition;
     Vector3 goalPosition;
@@ -26,6 +28,16 @@ public class MarketCamera : MonoBehaviour
         startTime = Time.time;
         startPosition = start;
         goalPosition = goal;
+        journeyLength = Vector3.Distance(startPosition, goalPosition);
+        isMoving = true;
+        marketCanvas.gameObject.SetActive(true);
+    }
+
+    public void StartMovingBackwards()
+    {
+        startTime = Time.time;
+        startPosition = transform.position;
+        goalPosition = new Vector3(-4.26f, 6.92f, -5.12f);
         journeyLength = Vector3.Distance(startPosition, goalPosition);
         isMoving = true;
     }

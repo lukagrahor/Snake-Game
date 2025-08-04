@@ -117,6 +117,6 @@ public class PrimaryCamera : MonoBehaviour
         Debug.Log("Change camera");
         cam.gameObject.SetActive(false);
         marketCamera.gameObject.SetActive(true);
-        marketCamera.StartMoving(marketCamera.transform.position ,new Vector3(-2.468f, 6.408f, -2.98f));
+        marketCamera.StartMoving(marketCamera.transform.position, new Vector3(-2.468f, 6.408f, -2.98f));
     }
 }
