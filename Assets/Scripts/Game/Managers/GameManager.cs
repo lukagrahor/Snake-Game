@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,13 +67,7 @@ public class GameManager : MonoBehaviour
         snake.gameObject.SetActive(false);
     }
 
-    public void StartNewLevel()
-    {
-        DespawnCurrentLevel();
-        PrepareNewLevel();
-    }
-
-    void DespawnCurrentLevel()
+    public void DespawnCurrentLevel()
     {
         // despawn all the enemies and objects
         spawnerManager.DespawnAllObjects();
@@ -84,7 +79,7 @@ public class GameManager : MonoBehaviour
         arena.DespawnArena();
     }
 
-    void PrepareNewLevel()
+    public void PrepareNewLevel()
     {
         // chose a new level and make a new arena
         levelNumber++;
@@ -98,8 +93,9 @@ public class GameManager : MonoBehaviour
         newLevelWallBlocks = ArenaSetup(newLevel, false);
     }
 
-    public void SpawnPlayerAndEnemies()
+    public IEnumerator SpawnPlayerAndEnemies()
     {
+        yield return new WaitForSeconds(2);
         spawnerManager.ManageNewLevelSpawns(newLevelWallBlocks);
         // spawn the player
         spawnerManager.SpawnPlayer();

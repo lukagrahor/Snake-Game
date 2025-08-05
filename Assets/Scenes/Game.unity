@@ -3061,6 +3061,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   marketCanvas: {fileID: 151122214}
+  backButton: {fileID: 202427773}
+  mainCamera: {fileID: 284575321}
 --- !u!1 &1903296499
 GameObject:
   m_ObjectHideFlags: 0

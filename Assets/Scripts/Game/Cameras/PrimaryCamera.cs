@@ -16,7 +16,7 @@ public class PrimaryCamera : MonoBehaviour
     float startTime;
     float journeyLength;
     bool move = false;
-    bool movingAway = false;
+    bool movingBack = false;
 
     CountDown timer;
     float prepareTime = 1.5f;
@@ -45,10 +45,9 @@ public class PrimaryCamera : MonoBehaviour
         destination = new Vector3(cameraStartPosition.x, 8f, cameraStartPosition.z);
         journeyLength = Vector3.Distance(cameraStartPosition, destination);
         move = true;
-        movingAway = true;
     }
 
-    void MoveCameraBack()
+    public void MoveCameraBack()
     {
         //Debug.Log("Ajmo nazaj!");
         cameraStartPosition = cam.transform.position;
@@ -58,8 +57,12 @@ public class PrimaryCamera : MonoBehaviour
         destination = cameraDefaultPosition;
         journeyLength = Vector3.Distance(cameraStartPosition, destination);
         //EnableCornerBlocks();
-        gameManager.SpawnPlayerAndEnemies();
         move = true;
+
+        //gameManager.StartNewLevel();
+        gameManager.PrepareNewLevel();
+
+        movingBack = true;
     }
 
     void EnableCornerBlocks()
@@ -69,14 +72,6 @@ public class PrimaryCamera : MonoBehaviour
         {
             block.gameObject.SetActive(true);
         }
-    }
-
-    void Prepare()
-    {
-        //Debug.Log("Pripravi se na premik!");
-        //timer.Timer = prepareTime;
-        //timer.Start();
-        gameManager.StartNewLevel();
     }
 
     public void Move()
@@ -97,17 +92,16 @@ public class PrimaryCamera : MonoBehaviour
             //Debug.Log("Reached destination");
             move = false;
 
-            timer.Timer = prepareTime;
-            timer.Start();
-
             // without this, when the camera comes back to the arena it moves away again and repeats that
-            if (movingAway)
+            if (movingBack)
             {
-                Prepare();
-                movingAway = false;
+                movingBack = false;
+                arena.SetCamera();
+                StartCoroutine(gameManager.SpawnPlayerAndEnemies());
             } else
             {
-                arena.SetCamera();
+                timer.Timer = prepareTime;
+                timer.Start();
             }
         }
     }
@@ -115,6 +109,7 @@ public class PrimaryCamera : MonoBehaviour
     void ChangeCamera()
     {
         Debug.Log("Change camera");
+        gameManager.DespawnCurrentLevel();
         cam.gameObject.SetActive(false);
         marketCamera.gameObject.SetActive(true);
         marketCamera.StartMoving(marketCamera.transform.position, new Vector3(-2.468f, 6.408f, -2.98f));

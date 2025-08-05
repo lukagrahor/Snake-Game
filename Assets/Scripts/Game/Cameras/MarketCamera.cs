@@ -1,17 +1,26 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MarketCamera : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Canvas marketCanvas;
+    [SerializeField] Button backButton;
+    [SerializeField] PrimaryCamera mainCamera;
     float speed = 6f;
     Vector3 startPosition;
     Vector3 goalPosition;
     private float startTime;
     private float journeyLength;
 
+    bool isMovingBack = false;
+
     bool isMoving = false;
+    private void OnEnable()
+    {
+        isMovingBack = false;
+    }
     void Start()
     {
 
@@ -31,6 +40,7 @@ public class MarketCamera : MonoBehaviour
         journeyLength = Vector3.Distance(startPosition, goalPosition);
         isMoving = true;
         marketCanvas.gameObject.SetActive(true);
+        backButton.interactable = false;
     }
 
     public void StartMovingBackwards()
@@ -40,6 +50,8 @@ public class MarketCamera : MonoBehaviour
         goalPosition = new Vector3(-4.26f, 6.92f, -5.12f);
         journeyLength = Vector3.Distance(startPosition, goalPosition);
         isMoving = true;
+        backButton.interactable = false;
+        isMovingBack = true;
     }
 
     void Move()
@@ -50,6 +62,17 @@ public class MarketCamera : MonoBehaviour
 
         transform.position = Vector3.Lerp(startPosition, goalPosition, fractionOfJourney);
 
-        if (fractionOfJourney >= 1) isMoving = false;
+        if (fractionOfJourney >= 1)
+        {
+            isMoving = false;
+            backButton.interactable = true;
+            if (isMovingBack)
+            {
+                mainCamera.gameObject.SetActive(true);
+                mainCamera.MoveCameraBack();
+                marketCanvas.gameObject.SetActive(false);
+                gameObject.SetActive(false);
+            }
+        }
     }
 }
