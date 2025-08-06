@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1438430669928376732}
   - component: {fileID: 7573233851467224379}
   - component: {fileID: 888699351032153094}
-  - component: {fileID: 1081280564211402351}
+  - component: {fileID: -9181108290624325549}
   m_Layer: 0
-  m_Name: TestPower
+  m_Name: Spit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1081280564211402351
+--- !u!114 &-9181108290624325549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,6 +118,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 122755771717903179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe47a6e4da2eb446b837ad2a5bcc6b1, type: 3}
+  m_Script: {fileID: 11500000, guid: fcc69c5a79fdaaa40aa9b1969d6ecf1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

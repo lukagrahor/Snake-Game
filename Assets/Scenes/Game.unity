@@ -946,7 +946,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9.519566
+  orthographic size: 5.25175
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1616,6 +1616,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.71
       objectReference: {fileID: 0}
+    - target: {fileID: 26844662620191305, guid: 75245783ddc1d574ebcc45cc6fb7a7cf, type: 3}
+      propertyPath: m_Name
+      value: MarketTable
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 75245783ddc1d574ebcc45cc6fb7a7cf, type: 3}
       propertyPath: m_Name
       value: Stylized Landscape
@@ -1623,8 +1627,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 26844662620191305, guid: 75245783ddc1d574ebcc45cc6fb7a7cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 614023883}
   m_SourcePrefab: {fileID: 100100000, guid: 75245783ddc1d574ebcc45cc6fb7a7cf, type: 3}
+--- !u!1 &614023882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 26844662620191305, guid: 75245783ddc1d574ebcc45cc6fb7a7cf, type: 3}
+  m_PrefabInstance: {fileID: 614023881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &614023883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614023882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd83cc6a7174314f9c031b0177aaf5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powers:
+  - {fileID: 1081280564211402351, guid: 2d49745c3400e0e4d8729dca7576ba26, type: 3}
+  - {fileID: -2680791243279288912, guid: c081e64f464d8df488b5742ed41a3cfd, type: 3}
+  - {fileID: -9181108290624325549, guid: 294a1537532045345a78782958e3db99, type: 3}
 --- !u!1 &709771913
 GameObject:
   m_ObjectHideFlags: 0
@@ -3063,6 +3091,7 @@ MonoBehaviour:
   marketCanvas: {fileID: 151122214}
   backButton: {fileID: 202427773}
   mainCamera: {fileID: 284575321}
+  market: {fileID: 614023883}
 --- !u!1 &1903296499
 GameObject:
   m_ObjectHideFlags: 0

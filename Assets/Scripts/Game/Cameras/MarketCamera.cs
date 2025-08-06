@@ -8,6 +8,7 @@ public class MarketCamera : MonoBehaviour
     [SerializeField] Canvas marketCanvas;
     [SerializeField] Button backButton;
     [SerializeField] PrimaryCamera mainCamera;
+    [SerializeField] Market market;
     float speed = 6f;
     Vector3 startPosition;
     Vector3 goalPosition;
@@ -39,8 +40,11 @@ public class MarketCamera : MonoBehaviour
         goalPosition = goal;
         journeyLength = Vector3.Distance(startPosition, goalPosition);
         isMoving = true;
+
         marketCanvas.gameObject.SetActive(true);
         backButton.interactable = false;
+
+        market.SpawnNewItems();
     }
 
     public void StartMovingBackwards()

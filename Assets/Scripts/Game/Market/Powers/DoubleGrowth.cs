@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestPower : Power
+public class DoubleGrowth : Power
 {
     public override void Buy()
     {
