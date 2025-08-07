@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7573233851467224379}
   - component: {fileID: 888699351032153094}
   - component: {fileID: -2680791243279288912}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DoubleGrowth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

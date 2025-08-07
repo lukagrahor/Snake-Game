@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7573233851467224379}
   - component: {fileID: 888699351032153094}
   - component: {fileID: 1081280564211402351}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
