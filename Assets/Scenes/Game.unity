@@ -187,6 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snake: {fileID: 545034464}
+  snakeHeadPrefab: {fileID: 7089256464993724791, guid: 3ac7e6946d3d47546a90c96b9ad94805, type: 3}
+  snakeTorsoPrefab: {fileID: 366185830983166052, guid: 7970b45d937750144a0317a2b064e386, type: 3}
 --- !u!1 &151122211
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,7 +966,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.912437
+  orthographic size: 4.6075153
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
