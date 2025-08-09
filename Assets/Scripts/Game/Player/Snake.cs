@@ -175,7 +175,7 @@ public class Snake : MonoBehaviour
         float yPosition = 0f;
         if (snakeTorsoParts.Count == 0)
         {
-             previousPart = SnakeHead;
+            previousPart = SnakeHead;
             distanceFromParent = 1.36f;
             yPosition = -0.21f;
         }
@@ -197,8 +197,10 @@ public class Snake : MonoBehaviour
 
         newSnakeTorso.SetPreviousPart(previousPart);
         newSnakeTorso.name = "Torso " + snakeTorsoParts.Count;
-        
+
+        Debug.Log("Zrasi");
         snakeTorsoParts.Add(newSnakeTorso);
+        NewLevelSize = snakeTorsoParts.Count;
     }
 
     float GetAbsoluteRotation(float rotation)
@@ -270,7 +272,6 @@ public class Snake : MonoBehaviour
         SnakeHead.RotationBuffer = new LinkedList<float>();
         SnakeHead.gameObject.SetActive(false);
         
-        NewLevelSize = snakeTorsoParts.Count;
         for (int i = snakeTorsoParts.Count - 1; i >= 0; i--)
         {
             SnakeTorso torso = snakeTorsoParts[i];

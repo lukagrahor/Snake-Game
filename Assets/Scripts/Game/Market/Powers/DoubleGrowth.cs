@@ -4,8 +4,16 @@ public class DoubleGrowth : Power
 {
     public override void Buy()
     {
-        Debug.Log("Test item bought");
+        Debug.Log("Double growth bought");
+        Destroy(gameObject);
     }
+
+    /*
+    public override void Hover()
+    {
+        Debug.Log("Split hovered");
+    }
+    */
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

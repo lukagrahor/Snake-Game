@@ -9,6 +9,7 @@ public class MarketCamera : MonoBehaviour
     [SerializeField] Button backButton;
     [SerializeField] PrimaryCamera mainCamera;
     [SerializeField] Market market;
+    [SerializeField] MarketSign marketSign;
     float speed = 6f;
     Vector3 startPosition;
     Vector3 goalPosition;
@@ -43,8 +44,10 @@ public class MarketCamera : MonoBehaviour
 
         marketCanvas.gameObject.SetActive(true);
         backButton.interactable = false;
+        market.gameObject.SetActive(true);
 
         market.SpawnNewItems();
+        marketSign.gameObject.SetActive(true);
     }
 
     public void StartMovingBackwards()
@@ -75,6 +78,8 @@ public class MarketCamera : MonoBehaviour
                 mainCamera.gameObject.SetActive(true);
                 mainCamera.MoveCameraBack();
                 marketCanvas.gameObject.SetActive(false);
+                market.gameObject.SetActive(false);
+                marketSign.gameObject.SetActive(false);
                 gameObject.SetActive(false);
             }
         }
