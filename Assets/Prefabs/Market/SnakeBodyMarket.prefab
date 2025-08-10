@@ -48,6 +48,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1461304994638716399, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c16bc960d00fde4280ea4d3b5bc212f, type: 2}
+    - target: {fileID: -1461304994638716399, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ff9a8874c871b5449b5e0efd0876a9a, type: 2}
     - target: {fileID: -516098083770646512, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
       propertyPath: m_Name
       value: SimpleBodyCube
@@ -81,31 +89,5 @@ PrefabInstance:
     - {fileID: 65702495048144492, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
     - {fileID: -8700617353114198275, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 366185830983166052}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
---- !u!23 &3472011481946794515 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1461304994638716399, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
-  m_PrefabInstance: {fileID: 6599874438744377346}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6293251633476744531 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b07fc36c400e87f44a0c7af87f6686da, type: 3}
-  m_PrefabInstance: {fileID: 6599874438744377346}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &366185830983166052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6293251633476744531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde9072ceba98f847b9f7b0158017a58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  torsoRenderer: {fileID: 3472011481946794515}
