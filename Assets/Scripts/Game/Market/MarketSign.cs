@@ -49,7 +49,6 @@ public class MarketSign : MonoBehaviour
                 // space for the head
                 if (i == 0 && j == 0)
                 {
-                    j++;
                     continue;
                 }
                 
@@ -79,6 +78,7 @@ public class MarketSign : MonoBehaviour
         newTorso.transform.SetLocalPositionAndRotation(new Vector3(0.14f - j * snakeTorsoXSize, -0.038f, 0.063f - (lineCount * snakeTorsoZSize)), Quaternion.identity);
         Transform newTorsoModel = newTorso.transform.GetChild(0);
         newTorsoModel.localRotation = Quaternion.identity;
+        newTorsoModel.name = $"partJ{j}";
     }
 
     void SpawnHead()
