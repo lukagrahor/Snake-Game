@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Market : MonoBehaviour
 {
+    [SerializeField] Snake snake;
     [SerializeField] List<Power> powers;
     List<Power> powersToSpawn;
     List<Power> spawnedPowers;
@@ -34,5 +35,11 @@ public class Market : MonoBehaviour
             powersToSpawn.RemoveAt(index);
             spawnedPowers.Add(newItem);
         }
+    }
+
+    public bool CheckForFunds(int price)
+    {
+        if (snake.NewLevelSize - 2 >= price) return true;
+        return false;
     }
 }

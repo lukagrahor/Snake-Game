@@ -3,10 +3,30 @@ using UnityEngine.EventSystems;
 
 public class TestPower : Power
 {
+    [SerializeField] MeshRenderer meshRenderer;
+    public override int Price { get => 1; }
+
+    public void Start()
+    {
+        ItemMarket = transform.parent.GetComponent<Market>();
+    }
+
     public override void Buy()
     {
-        Debug.Log("Test item bought");
-        Destroy(gameObject);
+        Debug.Log("Test item: bought");
+        //Destroy(gameObject);
+    }
+
+    public override void SelectItem()
+    {
+        bool enoughMoney = ItemMarket.CheckForFunds(Price);
+        if (enoughMoney) Buy();
+        else NotEnoughFunds();
+    }
+
+    public override void NotEnoughFunds()
+    {
+        Debug.Log("Split: Nimaš dovolj denarja");
     }
 
     /*
@@ -15,13 +35,6 @@ public class TestPower : Power
         Debug.Log("Split hovered");
     }
     */
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

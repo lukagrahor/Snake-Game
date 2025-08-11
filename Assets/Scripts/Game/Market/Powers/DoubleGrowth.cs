@@ -2,10 +2,30 @@ using UnityEngine;
 
 public class DoubleGrowth : Power
 {
+    public override int Price { get => 8;}
+    [SerializeField] MeshRenderer meshRenderer;
+
+    public void Start()
+    {
+        ItemMarket = transform.parent.GetComponent<Market>();
+    }
+
     public override void Buy()
     {
-        Debug.Log("Double growth bought");
-        Destroy(gameObject);
+        Debug.Log("DoubleGrowth: bought");
+        //Destroy(gameObject);
+    }
+
+    public override void SelectItem()
+    {
+        bool enoughMoney = ItemMarket.CheckForFunds(Price);
+        if (enoughMoney) Buy();
+        else NotEnoughFunds();
+    }
+
+    public override void NotEnoughFunds()
+    {
+        Debug.Log("Split: Nimaš dovolj denarja");
     }
 
     /*
@@ -14,12 +34,6 @@ public class DoubleGrowth : Power
         Debug.Log("Split hovered");
     }
     */
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
