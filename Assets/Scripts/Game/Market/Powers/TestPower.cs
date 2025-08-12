@@ -3,25 +3,25 @@ using UnityEngine.EventSystems;
 
 public class TestPower : Power
 {
-    [SerializeField] MeshRenderer meshRenderer;
     public override int Price { get => 1; }
 
     public void Start()
     {
         ItemMarket = transform.parent.GetComponent<Market>();
+        defaultColor = meshRenderer.material.color;
     }
 
     public override void Buy()
     {
-        Debug.Log("Test item: bought");
-        //Destroy(gameObject);
-    }
-
-    public override void SelectItem()
-    {
         bool enoughMoney = ItemMarket.CheckForFunds(Price);
-        if (enoughMoney) Buy();
+        if (enoughMoney)
+        {
+            Debug.Log("Test item: bought");
+            MarkNeededParts(Price);
+        }
         else NotEnoughFunds();
+        
+        //Destroy(gameObject);
     }
 
     public override void NotEnoughFunds()

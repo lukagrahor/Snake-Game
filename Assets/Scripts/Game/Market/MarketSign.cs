@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MarketSign : MonoBehaviour
@@ -6,11 +7,13 @@ public class MarketSign : MonoBehaviour
     [SerializeField] Snake snake;
     [SerializeField] GameObject snakeHeadPrefab;
     [SerializeField] GameObject snakeTorsoPrefab;
+    List<GameObject> torsoParts;
     int snakeSize;
     int lineSize = 8;
     private void OnEnable()
     {
         ShowSnakeParts();
+        torsoParts = new List<GameObject>();
     }
     public void ShowSnakeParts()
     {
@@ -79,6 +82,7 @@ public class MarketSign : MonoBehaviour
         Transform newTorsoModel = newTorso.transform.GetChild(0);
         newTorsoModel.localRotation = Quaternion.identity;
         newTorsoModel.name = $"partJ{j}";
+        torsoParts.Add(newTorsoModel.gameObject);
     }
 
     void SpawnHead()
@@ -87,5 +91,15 @@ public class MarketSign : MonoBehaviour
         GameObject snakeHead = Instantiate(snakeHeadPrefab, transform);
         snakeHead.transform.localScale = new Vector3(snakeHeadXSize, snakeHeadXSize, snakeHeadXSize);
         snakeHead.transform.SetLocalPositionAndRotation(new Vector3(0.15f, -0.038f, 0.07f), Quaternion.Euler(0f, 0f, 180f));
+    }
+
+    public void MarkParts(int partCount)
+    {
+        for (int i = torsoParts.Count - 1; i >= 0; i--)
+        {
+            if (partCount == 0) return;
+            torsoParts[i].gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            partCount--;
+        }
     }
 }

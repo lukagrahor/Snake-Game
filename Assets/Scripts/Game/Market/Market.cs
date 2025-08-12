@@ -5,6 +5,7 @@ public class Market : MonoBehaviour
 {
     [SerializeField] Snake snake;
     [SerializeField] List<Power> powers;
+    [SerializeField] MarketSign marketSign;
     List<Power> powersToSpawn;
     List<Power> spawnedPowers;
     int itemLimit = 3;
@@ -41,5 +42,18 @@ public class Market : MonoBehaviour
     {
         if (snake.NewLevelSize - 2 >= price) return true;
         return false;
+    }
+
+    public void UnselectPreviouslySelcted(Power keepSelected)
+    {
+        foreach (Power power in spawnedPowers)
+        {
+            if (keepSelected != power) power.UnselectItem();
+        }
+    }
+
+    public void MarkParts(int partCount)
+    {
+        marketSign.MarkParts(partCount);
     }
 }

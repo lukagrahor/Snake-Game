@@ -3,12 +3,14 @@ using UnityEngine.EventSystems;
 
 public abstract class Power : MonoBehaviour, IPointerClickHandler
 {
+    public MeshRenderer meshRenderer;
+    public Color defaultColor;
     public Market ItemMarket { get; set; }
     float rotationSpeed = 12f;
+    public bool isSelected = false;
     public abstract int Price { get; }
     public abstract void Buy();
     public abstract void NotEnoughFunds();
-    public abstract void SelectItem();
     //public abstract void Hover();
 
     public void OnPointerClick(PointerEventData eventData)
@@ -26,5 +28,33 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
     public void RotateItem()
     {
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+    }
+
+    public void SelectItem()
+    {
+        if (!isSelected)
+        {
+            meshRenderer.material.color = Color.yellow;
+            meshRenderer.material.SetColor("_EmissionColor", Color.yellow);
+            Buy();
+            isSelected = true;
+            // unselect all other items
+            ItemMarket.UnselectPreviouslySelcted(this);
+            return;
+        }
+
+        UnselectItem();
+    }
+
+    public void UnselectItem()
+    {
+        meshRenderer.material.color = defaultColor;
+        meshRenderer.material.SetColor("_EmissionColor", Color.black);
+        isSelected = false;
+    }
+
+    public void MarkNeededParts(int partCount)
+    {
+        ItemMarket.MarkParts(partCount);
     }
 }

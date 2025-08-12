@@ -3,24 +3,24 @@ using UnityEngine;
 public class DoubleGrowth : Power
 {
     public override int Price { get => 8;}
-    [SerializeField] MeshRenderer meshRenderer;
 
     public void Start()
     {
         ItemMarket = transform.parent.GetComponent<Market>();
+        defaultColor = meshRenderer.material.color;
     }
 
     public override void Buy()
     {
-        Debug.Log("DoubleGrowth: bought");
-        //Destroy(gameObject);
-    }
-
-    public override void SelectItem()
-    {
         bool enoughMoney = ItemMarket.CheckForFunds(Price);
-        if (enoughMoney) Buy();
+        if (enoughMoney)
+        {
+            Debug.Log("Double growth: bought");
+            MarkNeededParts(Price);
+        }
         else NotEnoughFunds();
+
+        //Destroy(gameObject);
     }
 
     public override void NotEnoughFunds()
