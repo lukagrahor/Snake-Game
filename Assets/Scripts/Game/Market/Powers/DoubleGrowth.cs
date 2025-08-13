@@ -8,6 +8,7 @@ public class DoubleGrowth : Power
     {
         ItemMarket = transform.parent.GetComponent<Market>();
         defaultColor = meshRenderer.material.color;
+        gameObject.name = "Double growth";
     }
 
     public override void Buy()

@@ -6,6 +6,7 @@ public class Market : MonoBehaviour
     [SerializeField] Snake snake;
     [SerializeField] List<Power> powers;
     [SerializeField] MarketSign marketSign;
+    public Power SelectedPower;
     List<Power> powersToSpawn;
     List<Power> spawnedPowers;
     int itemLimit = 3;
@@ -46,6 +47,7 @@ public class Market : MonoBehaviour
 
     public void UnselectPreviouslySelected(int partCount, Power keepSelected)
     {
+        SelectedPower = keepSelected;
         foreach (Power power in spawnedPowers)
         {
             if (keepSelected != power) power.UnselectItem();
@@ -61,5 +63,11 @@ public class Market : MonoBehaviour
     public void MarkParts(int partCount)
     {
         marketSign.MarkParts(partCount);
+    }
+
+    public void ConfirmPurchase()
+    {
+        Debug.Log($"Bought power: {SelectedPower.name}");
+        marketSign.RemoveMarks(SelectedPower.Price);
     }
 }

@@ -9,6 +9,7 @@ public class TestPower : Power
     {
         ItemMarket = transform.parent.GetComponent<Market>();
         defaultColor = meshRenderer.material.color;
+        gameObject.name = "Test power";
     }
 
     public override void Buy()

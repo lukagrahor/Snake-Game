@@ -8,6 +8,7 @@ public class Spit : Power
     {
         ItemMarket = transform.parent.GetComponent<Market>();
         defaultColor = meshRenderer.material.color;
+        gameObject.name = "Split";
     }
 
     public override void Buy()
