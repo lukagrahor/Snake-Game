@@ -34,12 +34,13 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
     {
         if (!isSelected)
         {
+            // unselect all other items
+            ItemMarket.UnselectPreviouslySelected(Price, this);
+
             meshRenderer.material.color = Color.yellow;
             meshRenderer.material.SetColor("_EmissionColor", Color.yellow);
             Buy();
             isSelected = true;
-            // unselect all other items
-            ItemMarket.UnselectPreviouslySelcted(this);
             return;
         }
 
@@ -51,6 +52,7 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
         meshRenderer.material.color = defaultColor;
         meshRenderer.material.SetColor("_EmissionColor", Color.black);
         isSelected = false;
+        ItemMarket.RemoveMarks(Price);
     }
 
     public void MarkNeededParts(int partCount)

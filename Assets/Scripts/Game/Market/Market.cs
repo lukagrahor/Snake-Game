@@ -44,12 +44,18 @@ public class Market : MonoBehaviour
         return false;
     }
 
-    public void UnselectPreviouslySelcted(Power keepSelected)
+    public void UnselectPreviouslySelected(int partCount, Power keepSelected)
     {
         foreach (Power power in spawnedPowers)
         {
             if (keepSelected != power) power.UnselectItem();
         }
+        RemoveMarks(partCount);
+    }
+
+    public void RemoveMarks(int partCount)
+    {
+        marketSign.RemoveMarks(partCount);
     }
 
     public void MarkParts(int partCount)

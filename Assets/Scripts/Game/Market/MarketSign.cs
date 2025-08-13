@@ -8,12 +8,15 @@ public class MarketSign : MonoBehaviour
     [SerializeField] GameObject snakeHeadPrefab;
     [SerializeField] GameObject snakeTorsoPrefab;
     List<GameObject> torsoParts;
+    Color defaultColor1;
+    Color defaultColor2;
     int snakeSize;
     int lineSize = 8;
+    bool marksPresent = false;
     private void OnEnable()
     {
-        ShowSnakeParts();
         torsoParts = new List<GameObject>();
+        ShowSnakeParts();
     }
     public void ShowSnakeParts()
     {
@@ -80,6 +83,7 @@ public class MarketSign : MonoBehaviour
         newTorso.transform.localScale = new Vector3(snakeTorsoXSize, snakeTorsoXSize, snakeTorsoXSize);
         newTorso.transform.SetLocalPositionAndRotation(new Vector3(0.14f - j * snakeTorsoXSize, -0.038f, 0.063f - (lineCount * snakeTorsoZSize)), Quaternion.identity);
         Transform newTorsoModel = newTorso.transform.GetChild(0);
+        Debug.Log($"newTorsoModel: {newTorsoModel}");
         newTorsoModel.localRotation = Quaternion.identity;
         newTorsoModel.name = $"partJ{j}";
         torsoParts.Add(newTorsoModel.gameObject);
@@ -95,10 +99,29 @@ public class MarketSign : MonoBehaviour
 
     public void MarkParts(int partCount)
     {
+        Debug.Log($"Marking {partCount} parts");
+        marksPresent = true;
         for (int i = torsoParts.Count - 1; i >= 0; i--)
         {
             if (partCount == 0) return;
-            torsoParts[i].gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            defaultColor1 = torsoParts[i].gameObject.GetComponent<MeshRenderer>().materials[0].color;
+            defaultColor2 = torsoParts[i].gameObject.GetComponent<MeshRenderer>().materials[1].color;
+            torsoParts[i].gameObject.GetComponent<MeshRenderer>().materials[0].color = Color.red;
+            torsoParts[i].gameObject.GetComponent<MeshRenderer>().materials[1].color = Color.red;
+            partCount--;
+        }
+    }
+
+    public void RemoveMarks(int partCount)
+    {
+        if (!marksPresent) return;
+        marksPresent = false;
+        Debug.Log($"Removing marks from {partCount} parts");
+        for (int i = torsoParts.Count - 1; i >= 0; i--)
+        {
+            if (partCount == 0) return;
+            torsoParts[i].gameObject.GetComponent<MeshRenderer>().materials[0].color = defaultColor1;
+            torsoParts[i].gameObject.GetComponent<MeshRenderer>().materials[1].color = defaultColor2;
             partCount--;
         }
     }
