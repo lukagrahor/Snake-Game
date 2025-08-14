@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 public class WaspPatrolState : IState
 {
     Wasp npc;
@@ -29,6 +30,7 @@ public class WaspPatrolState : IState
 
     public void Enter()
     {
+        //Setup();
         previousColor = npc.WaspRenderer.sharedMaterial.color;
         baseColor = npc.WaspColor;
     }
@@ -86,6 +88,7 @@ public class WaspPatrolState : IState
         }
     }
     */
+    
     void CheckForPlayer()
     {
         Ray ray = new Ray(npc.transform.position, npc.transform.forward);
@@ -97,6 +100,7 @@ public class WaspPatrolState : IState
             }
             else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && hit.distance < 0.3f)
             {
+                Debug.Log($"Wasp hit enemy: {hit.collider.gameObject.name}");
                 npc.Turn();
             }
         }

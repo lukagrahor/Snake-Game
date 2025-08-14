@@ -21,6 +21,7 @@ public class Market : MonoBehaviour
 
     private void OnDisable()
     {
+        if (spawnedPowers == null || spawnedPowers.Count == 0) return;
         foreach (Power power in spawnedPowers)
         {
             Destroy(power.gameObject);
