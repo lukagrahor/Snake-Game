@@ -7,6 +7,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] LayerMask layersToHit;
     [SerializeField] MeshRenderer headRenderer;
+    [SerializeField] SnakeHeadFront front;
     Canvas abilityChargeCanvas;
     Directions startingDirection = Directions.Up;
     public float MoveSpeed { get; set; }
@@ -27,11 +28,12 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public GridObject LastRotationBlock { get => lastRotationBlock; set => lastRotationBlock = value; }
     public Snake Snake { get => snake; }
     public LinkedList<float> RotationBuffer { get => rotationBuffer; set => rotationBuffer = value; }
-    public SnakeHeadStateMachine StateMachine { get => stateMachine;}
+    public SnakeHeadStateMachine StateMachine { get => stateMachine; }
     public Canvas AbilityChargeCanvas { get => abilityChargeCanvas; set => abilityChargeCanvas = value; }
     public GameObject Arrow { get; set; }
     public LineRenderer LineRenderer { get => lineRenderer; set => lineRenderer = value; }
     public bool BiteCancelled { get => biteCancelled; set => biteCancelled = value; }
+    public SnakeHeadFront Front { get => front; } 
 
     public void HandleTrigger(GridObject gridObject)
     {

@@ -14,6 +14,7 @@ public class Snake : MonoBehaviour
     [SerializeField] SnakeTorso snakeTorsoPrefab;
     [SerializeField] Canvas abilityChargeCanvas;
     [SerializeField] PlayerSpawner playerSpawner;
+    [SerializeField] SnakePowerHandler powerHandler;
     //[SerializeField] SnakeCorner snakeCornerPrefab;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
