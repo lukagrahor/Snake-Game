@@ -6,11 +6,18 @@ public class Market : MonoBehaviour
     [SerializeField] Snake snake;
     [SerializeField] List<Power> powers;
     [SerializeField] MarketSign marketSign;
+    [SerializeField] GameObject confirmButton;
     public Power SelectedPower;
     List<Power> powersToSpawn;
     List<Power> spawnedPowers;
+    List<Power> boughtPowers;
     int itemLimit = 3;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Start()
+    {
+        boughtPowers = new List<Power>();
+    }
 
     private void OnDisable()
     {
@@ -42,22 +49,22 @@ public class Market : MonoBehaviour
         }
     }
 
-    List<Power> RemoveBoughtItems(List<Power> spawnedPowers)
+    List<Power> RemoveBoughtItems(List<Power> powersToSpawn)
     {
         int i = 0;
-        while (i < spawnedPowers.Count)
+        while (i < powersToSpawn.Count)
         {
-            if (spawnedPowers.Count == 0) break;
-            Power power = spawnedPowers[i];
-            if (power.bought)
+            if (powersToSpawn.Count == 0) break;
+            Power power = powersToSpawn[i];
+            if (boughtPowers.Contains(power))
             {
-                spawnedPowers.Remove(power);
-                Destroy(power.gameObject);
+                Debug.Log($"Bought power removed: {power.GetType()}");
+                powersToSpawn.Remove(power);
                 continue;
             }
             i++;
         }
-        return spawnedPowers;
+        return powersToSpawn;
     }
 
     public void DespawnItems()
@@ -111,10 +118,20 @@ public class Market : MonoBehaviour
             if (SelectedPower.GetType() == power.GetType())
             {
                 Debug.Log($"Ta je tista!!! Power: {power}, type: {power.GetType()}");
-                power.bought = true;
+                boughtPowers.Add(power);
                 break;
             }
         }
         Destroy(SelectedPower.gameObject);
+    }
+
+    public void ShowConfirmButton()
+    {
+        confirmButton.SetActive(true);
+    }
+
+    public void HideConfirmButton()
+    {
+        confirmButton.SetActive(false);
     }
 }

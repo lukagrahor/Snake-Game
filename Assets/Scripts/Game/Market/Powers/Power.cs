@@ -11,8 +11,12 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
     public abstract int Price { get; }
     public abstract void Buy();
     public abstract void NotEnoughFunds();
-    public bool bought = false;
     //public abstract void Hover();
+
+    void Awake()
+    {
+
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -42,6 +46,7 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
             meshRenderer.material.SetColor("_EmissionColor", Color.yellow);
             Buy();
             isSelected = true;
+            ItemMarket.ShowConfirmButton();
             return;
         }
 

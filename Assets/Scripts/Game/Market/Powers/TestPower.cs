@@ -5,6 +5,10 @@ public class TestPower : Power
 {
     public override int Price { get => 1; }
 
+    private void Awake()
+    {
+        
+    }
     public void Start()
     {
         ItemMarket = transform.parent.GetComponent<Market>();

@@ -187,7 +187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &81254327
 RectTransform:
   m_ObjectHideFlags: 0
@@ -205,7 +205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 120}
   m_SizeDelta: {x: 300, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &81254328
@@ -575,7 +575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 40}
+  m_AnchoredPosition: {x: 0, y: 70}
   m_SizeDelta: {x: 300, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &202427773
@@ -1112,7 +1112,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.9417562
+  orthographic size: 5.89066
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1968,6 +1968,7 @@ MonoBehaviour:
   - {fileID: -2680791243279288912, guid: c081e64f464d8df488b5742ed41a3cfd, type: 3}
   - {fileID: -9181108290624325549, guid: 294a1537532045345a78782958e3db99, type: 3}
   marketSign: {fileID: 95971154}
+  confirmButton: {fileID: 81254326}
   SelectedPower: {fileID: 0}
 --- !u!1 &709771913
 GameObject:
