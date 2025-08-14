@@ -125,4 +125,22 @@ public class MarketSign : MonoBehaviour
             partCount--;
         }
     }
+
+    public void RemoveParts(int partCount)
+    {
+        Debug.Log($"Removing parts");
+        marksPresent = false;
+        int i = torsoParts.Count - 1;
+
+        while (i >= 0)
+        {
+            if (partCount == 0) return;
+            GameObject torso = torsoParts[i];
+            torsoParts.RemoveAt(i);
+            Destroy(torso);
+            i--;
+            partCount--;
+            snake.NewLevelSize--;
+        }
+    }
 }

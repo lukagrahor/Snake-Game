@@ -58,8 +58,6 @@ public class Snake : MonoBehaviour
         defaultSpeed = moveSpeed;
         snakeInputManager = CreateInputManager();
         snakeTorsoParts = new List<SnakeTorso>();
-        // arena je na poziciji 0, kocka arene je velika 1, kar pomeni da gre za 0.5 gor od 0, kocka od kaèe pa je velika 0.5 --> 0.25
-        //spawnPosition = new Vector3(-4.2f, arenaBlock.GetBlockSize()/2f + snakeScale/2f, -0.5999999f);
         spawnPosition.y = 0.185f;
         SnakeHead = Instantiate(snakeHeadPrefab.gameObject, spawnPosition, Quaternion.identity).GetComponent<SnakeHead>();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);

@@ -11,6 +11,7 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
     public abstract int Price { get; }
     public abstract void Buy();
     public abstract void NotEnoughFunds();
+    public bool bought = false;
     //public abstract void Hover();
 
     public void OnPointerClick(PointerEventData eventData)
