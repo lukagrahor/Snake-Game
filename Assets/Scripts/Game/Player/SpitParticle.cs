@@ -14,4 +14,11 @@ public class SpitParticle : MonoBehaviour
     {
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var enteredObject = other.GetComponent<ISpitTriggerHandler>();
+        enteredObject?.HandleSpitTrigger();
+    }
+
 }

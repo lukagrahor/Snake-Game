@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IBiteTriggerHandler, ISnakeHeadTriggerHandler, ISnakeTorsoTriggerHandler
+public abstract class Enemy : MonoBehaviour, IBiteTriggerHandler, ISnakeHeadTriggerHandler, ISnakeTorsoTriggerHandler, ISpitTriggerHandler
 {
     public Action enemyDied;
     protected abstract void GetHit();
@@ -9,6 +9,11 @@ public abstract class Enemy : MonoBehaviour, IBiteTriggerHandler, ISnakeHeadTrig
     public abstract void SetupAI(Snake snake, ArenaGrid grid);
 
     public void HandleBiteTrigger(SnakeHead snakeHead)
+    {
+        GetHit();
+    }
+
+    public void HandleSpitTrigger()
     {
         GetHit();
     }
