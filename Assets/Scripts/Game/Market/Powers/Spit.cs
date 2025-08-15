@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Spit : Power
 {
-    public override int Price { get => 1; }
+    public override int Price { get => 6; }
 
     public void Start()
     {
         ItemMarket = transform.parent.GetComponent<Market>();
-        defaultColor = meshRenderer.material.color;
-        gameObject.name = "Split";
+        defaultColor = meshRenderer.sharedMaterial.color;
+        gameObject.name = "Spit";
     }
 
     public override void Buy()
@@ -45,9 +45,7 @@ public class Spit : Power
 
     public override void EnablePower(Snake snake)
     {
-        Debug.Log("Enabled");
         SnakeHeadStateMachine stateMachine = snake.SnakeHead.StateMachine;
         stateMachine.PowerState = stateMachine.SpittingState;
-        // omogoèi spitState in onemogoèi prejšnji power state
     }
 }

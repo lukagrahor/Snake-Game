@@ -41,8 +41,12 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
         if (!isSelected)
         {
             // unselect all other items
+            if (ItemMarket == null) Debug.Log("Ne joèi Peter!");
             ItemMarket.UnselectPreviouslySelected(Price, this);
-
+            if (meshRenderer == null)
+            {
+                meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+            }
             meshRenderer.material.color = Color.yellow;
             meshRenderer.material.SetColor("_EmissionColor", Color.yellow);
             Buy();

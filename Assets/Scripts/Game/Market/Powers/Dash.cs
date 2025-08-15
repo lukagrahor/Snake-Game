@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TestPower : Power
+public class Dash : Power
 {
-    public override int Price { get => 5; }
+    public override int Price { get => 1; }
 
     private void Awake()
     {
@@ -49,6 +49,7 @@ public class TestPower : Power
 
     public override void EnablePower(Snake snake)
     {
-        Debug.Log("Enabled");
+        SnakeHeadStateMachine stateMachine = snake.SnakeHead.StateMachine;
+        stateMachine.PowerState = stateMachine.DashingState;
     }
 }

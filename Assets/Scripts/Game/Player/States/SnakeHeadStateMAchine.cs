@@ -10,6 +10,7 @@ public class SnakeHeadStateMachine : FiniteStateMachine
 
     public SnakeBitingState BitingState;
     public SnakeSpittingState SpittingState;
+    public SnakeDashingState DashingState;
 
     protected SnakeHead player;
 
@@ -17,6 +18,7 @@ public class SnakeHeadStateMachine : FiniteStateMachine
     {
         this.BitingState = new SnakeBitingState(player, layersToHit, this);
         this.SpittingState = new SnakeSpittingState(player, layersToHit, this);
+        this.DashingState = new SnakeDashingState(player, layersToHit, this);
 
         this.SpawnedState = new SnakeSpawnedState(player, this);
         this.NormalState = new SnakeNormalState(player, this);
