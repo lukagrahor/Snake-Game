@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class TestPower : Power
 {
-    public override int Price { get => 1; }
+    public override int Price { get => 5; }
 
     private void Awake()
     {
@@ -45,5 +45,10 @@ public class TestPower : Power
     void Update()
     {
         RotateItem();
+    }
+
+    public override void EnablePower(Snake snake)
+    {
+        Debug.Log("Enabled");
     }
 }

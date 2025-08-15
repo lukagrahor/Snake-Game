@@ -21,6 +21,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     Vector3 biteMoveDirecton;
     LinkedList<float> rotationBuffer;
     SnakeHeadStateMachine stateMachine;
+    int growthMultiplier = 1;
 
     //bool stop = false;
 
@@ -34,6 +35,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public LineRenderer LineRenderer { get => lineRenderer; set => lineRenderer = value; }
     public bool BiteCancelled { get => biteCancelled; set => biteCancelled = value; }
     public SnakeHeadFront Front { get => front; } 
+    public int GrowthMultiplier { get => growthMultiplier; set => growthMultiplier = value; }
 
     public void HandleTrigger(GridObject gridObject)
     {
@@ -192,7 +194,10 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void Grow()
     {
-        snake.Grow();
+        for (int i = 0; i < growthMultiplier; i++)
+        {
+            snake.Grow();
+        }
     }
     /*
     Vector3 RotationToMovementVector(float rotation)

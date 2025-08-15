@@ -1567,6 +1567,7 @@ GameObject:
   - component: {fileID: 545034463}
   - component: {fileID: 545034464}
   - component: {fileID: 545034465}
+  - component: {fileID: 545034466}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Untagged
@@ -1630,6 +1631,19 @@ MonoBehaviour:
   - {fileID: 4070101621901363468, guid: 52b8ec328ef47b547bb3129a42f74e8e, type: 3}
   - {fileID: 8953538899169778684, guid: fb091830183955c4f91113137ffc8557, type: 3}
   - {fileID: 314752870404392370, guid: d2effd4529e9346498f0263baa8b271a, type: 3}
+--- !u!114 &545034466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f86cfbcab4f63b44a645411be11b686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snake: {fileID: 545034464}
 --- !u!1 &587043826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,6 +1984,7 @@ MonoBehaviour:
   - {fileID: -9181108290624325549, guid: 294a1537532045345a78782958e3db99, type: 3}
   marketSign: {fileID: 95971154}
   confirmButton: {fileID: 81254326}
+  snakePowerHandler: {fileID: 545034466}
   SelectedPower: {fileID: 0}
 --- !u!1 &709771913
 GameObject:

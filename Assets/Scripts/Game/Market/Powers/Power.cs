@@ -11,6 +11,7 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
     public abstract int Price { get; }
     public abstract void Buy();
     public abstract void NotEnoughFunds();
+    public abstract void EnablePower(Snake snake);
     //public abstract void Hover();
 
     void Awake()

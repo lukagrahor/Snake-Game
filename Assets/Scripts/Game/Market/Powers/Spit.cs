@@ -42,4 +42,9 @@ public class Spit : Power
     {
         RotateItem();
     }
+
+    public override void EnablePower(Snake snake)
+    {
+        Debug.Log("Enabled");
+    }
 }

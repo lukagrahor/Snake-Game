@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DoubleGrowth : Power
 {
-    public override int Price { get => 8;}
+    public override int Price { get => 1;}
 
     public void Start()
     {
@@ -40,5 +40,11 @@ public class DoubleGrowth : Power
     void Update()
     {
         RotateItem();
+    }
+
+    public override void EnablePower(Snake snake)
+    {
+        SnakeHead snakeHead = snake.SnakeHead;
+        snakeHead.GrowthMultiplier = 2;
     }
 }

@@ -7,6 +7,7 @@ public class Market : MonoBehaviour
     [SerializeField] List<Power> powers;
     [SerializeField] MarketSign marketSign;
     [SerializeField] GameObject confirmButton;
+    [SerializeField] SnakePowerHandler snakePowerHandler;
     public Power SelectedPower;
     List<Power> powersToSpawn;
     List<Power> spawnedPowers;
@@ -111,6 +112,7 @@ public class Market : MonoBehaviour
         Debug.Log($"Bought power: {SelectedPower.name}");
         marketSign.RemoveParts(SelectedPower.Price);
         spawnedPowers.Remove(SelectedPower);
+        snakePowerHandler.AddPower(SelectedPower);
         // hodi skozi vse moèi in preveri ali je tip trenutno izbrane moèi enak tipu moèi v listu
         Debug.Log($"Selected power: {SelectedPower}, type: {SelectedPower.GetType()}");
         foreach (Power power in powers)
