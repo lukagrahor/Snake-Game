@@ -127,7 +127,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     private void OnTriggerStay(Collider other)
     {
-        if (stateMachine.CurrentState != stateMachine.BitingState)
+        if (stateMachine.CurrentState != stateMachine.PowerState)
         {
             if (lastRotationBlock != null && other.gameObject.name == lastRotationBlock.gameObject.name)
             {
@@ -241,7 +241,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     {
         if (biteCancelled == true)
         {
-            stateMachine.TransitionTo(stateMachine.BitingState);
+            stateMachine.TransitionTo(stateMachine.PowerState);
             biteCancelled = false;
         }
     }
@@ -249,7 +249,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public void StopBiting()
     {
         biteCancelled = true;
-        if (stateMachine.CurrentState != stateMachine.BitingState) return;
+        if (stateMachine.CurrentState != stateMachine.PowerState) return;
         stateMachine.TransitionTo(stateMachine.NormalState);
     }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Spit : Power
 {
-    public override int Price { get => 6; }
+    public override int Price { get => 1; }
 
     public void Start()
     {
@@ -46,5 +46,8 @@ public class Spit : Power
     public override void EnablePower(Snake snake)
     {
         Debug.Log("Enabled");
+        SnakeHeadStateMachine stateMachine = snake.SnakeHead.StateMachine;
+        stateMachine.PowerState = stateMachine.SpittingState;
+        // omogoèi spitState in onemogoèi prejšnji power state
     }
 }

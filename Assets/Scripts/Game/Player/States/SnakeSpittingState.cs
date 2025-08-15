@@ -2,25 +2,43 @@ using UnityEngine;
 using System;
 using System.IO.Pipes;
 
-public class SnakeBitingState : SnakePowerState
+public class SnakeSpittingState : SnakePowerState
 {
-    GameObject arrow;
-    float arrowWidth = 2f;
-    float minArrowLength = 0.1f;
-    float maxArrowLength = 0.8f;
     float currentChargeTime;
     float maxChargeTime = 0.8f;
     float chargeTimeLimit = 3f;
     float currentCalculatedBiteRange;
-    float moveSpeed = 0.5f;
+    float moveSpeed = 2f;
     LineRenderer lineRenderer;
 
     //Quaternion biteMoveRotation;
     Vector3 biteMoveDirecton;
 
-    public SnakeBitingState(SnakeHead snakeHead, LayerMask layersToHit, SnakeHeadStateMachine stateMachine) : base(snakeHead, layersToHit, stateMachine)
+    public SnakeSpittingState(SnakeHead snakeHead, LayerMask layersToHit, SnakeHeadStateMachine stateMachine) : base(snakeHead, layersToHit, stateMachine)
     {
     }
+
+    public override void Enter()
+    {
+        Debug.Log("Spitting time!");
+        snakeHead.Front.Spit();
+    }
+
+    public override void Exit()
+    {
+
+    }
+
+    public override void Update()
+    {
+        snakeHead.transform.Translate(snakeHead.MoveSpeed * Time.deltaTime * Vector3.forward);
+    }
+
+    public override void SetRotation(float turnRotation)
+    {
+
+    }
+    /*
 
     public override void Enter()
     {
@@ -123,4 +141,5 @@ public class SnakeBitingState : SnakePowerState
             hitObject?.HandleBiteTrigger(snakeHead);
         }
     }
+    */
 }

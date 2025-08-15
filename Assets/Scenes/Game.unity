@@ -1607,7 +1607,8 @@ MonoBehaviour:
   snakeTorsoPrefab: {fileID: 366185830983166052, guid: 2a09e10fa57637e4fb9bc631edee9ee1, type: 3}
   abilityChargeCanvas: {fileID: 1294393577}
   playerSpawner: {fileID: 415246873}
-  powerHandler: {fileID: 0}
+  powerHandler: {fileID: 545034466}
+  spit: {fileID: 5788614842409587876, guid: e067ef860d4dc614981771d81efb413a, type: 3}
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   snakeScale: 0.14
   moveSpeed: 1

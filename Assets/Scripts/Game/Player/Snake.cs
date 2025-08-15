@@ -15,6 +15,7 @@ public class Snake : MonoBehaviour
     [SerializeField] Canvas abilityChargeCanvas;
     [SerializeField] PlayerSpawner playerSpawner;
     [SerializeField] SnakePowerHandler powerHandler;
+    [SerializeField] GameObject spit;
     //[SerializeField] SnakeCorner snakeCornerPrefab;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
@@ -51,6 +52,7 @@ public class Snake : MonoBehaviour
     public int NewLevelSize { get; set; }
     public int StartingSize { get => startingSize; }
     public Directions StartingDirection { get => startingDirection; set => startingDirection = value; }
+    public GameObject Spit { get => spit; }
 
     int blocksToSpawn = 0;
 
@@ -237,7 +239,7 @@ public class Snake : MonoBehaviour
         }
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
 
-        if (stateMachine.CurrentState == stateMachine.BitingState)
+        if (stateMachine.CurrentState == stateMachine.PowerState)
         {
             stateMachine.TransitionTo(stateMachine.NormalState);
         }
