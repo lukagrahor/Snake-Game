@@ -1980,8 +1980,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snake: {fileID: 545034464}
   powers:
-  - {fileID: 1081280564211402351, guid: 2d49745c3400e0e4d8729dca7576ba26, type: 3}
-  - {fileID: -2680791243279288912, guid: c081e64f464d8df488b5742ed41a3cfd, type: 3}
+  - {fileID: 4414377606592154084, guid: 12411d48851ffde45bc458c6e9801641, type: 3}
+  - {fileID: 2248923254942300715, guid: e578a5fb3057d584bad2103f88281278, type: 3}
   - {fileID: 7903067656404973687, guid: c935a432f638cea43af16e188beb5c33, type: 3}
   marketSign: {fileID: 95971154}
   confirmButton: {fileID: 81254326}

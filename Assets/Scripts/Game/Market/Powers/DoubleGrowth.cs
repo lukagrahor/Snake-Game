@@ -7,7 +7,7 @@ public class DoubleGrowth : Power
     public void Start()
     {
         ItemMarket = transform.parent.GetComponent<Market>();
-        defaultColor = meshRenderer.material.color;
+        defaultColor = meshRenderer.sharedMaterial.color;
         gameObject.name = "Double growth";
     }
 
