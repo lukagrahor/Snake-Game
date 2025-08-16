@@ -24,7 +24,7 @@ public class Snake : MonoBehaviour
     [SerializeField] float snakeScale = 1.1f;
     float defaultSpeed;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
-    [SerializeField][Range(2, 6)] int startingSize = 2;
+    [SerializeField][Range(2, 6)] int startingSize = 3;
     Directions startingDirection = Directions.Up;
     Vector3 spawnPosition;
 
@@ -33,6 +33,7 @@ public class Snake : MonoBehaviour
     ISnakeInput snakeInputManager;
 
     [SerializeField] AudioSource eatSoundEffect;
+    [SerializeField] Canvas GameOverCanvas;
 
     int minTorsoParts = 2;
 
@@ -224,6 +225,17 @@ public class Snake : MonoBehaviour
         if (snakeTorsoParts.Count - 1 < minTorsoParts)
         {
             // gameOver
+            SnakeHead.gameObject.SetActive(false);
+            foreach (SnakeTorso torso in snakeTorsoParts)
+            {
+                Destroy(torso.gameObject);
+            }
+            Path.RemoveMarkers();
+            snakeInputManager.OnSnakeDeath();
+
+            PlayerActions.PlayerDeath?.Invoke();
+
+            GameOverCanvas.gameObject.SetActive(true);
         }
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
         if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
