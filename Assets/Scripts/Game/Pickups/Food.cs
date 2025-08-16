@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Food : MonoBehaviour, IPickup, ISnakeHeadTriggerHandler, ISpawnableObject, IFlyFrontTriggerHandler, IBiteTriggerHandler
 {

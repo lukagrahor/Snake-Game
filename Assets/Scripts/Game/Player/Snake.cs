@@ -32,6 +32,8 @@ public class Snake : MonoBehaviour
     [SerializeField] CountDownTimer timer;
     ISnakeInput snakeInputManager;
 
+    [SerializeField] AudioSource eatSoundEffect;
+
     int minTorsoParts = 2;
 
     public SnakeHead SnakeHead { get; set; }
@@ -202,6 +204,8 @@ public class Snake : MonoBehaviour
         Debug.Log("Zrasi");
         snakeTorsoParts.Add(newSnakeTorso);
         NewLevelSize = snakeTorsoParts.Count;
+
+        eatSoundEffect.Play();
     }
 
     float GetAbsoluteRotation(float rotation)
