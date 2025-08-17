@@ -9,7 +9,6 @@ using System.Linq;
 
 public class Snake : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] SnakeHead snakeHeadPrefab;
     [SerializeField] SnakeTorso snakeTorsoPrefab;
     [SerializeField] Canvas abilityChargeCanvas;
@@ -32,7 +31,6 @@ public class Snake : MonoBehaviour
     [SerializeField] CountDownTimer timer;
     ISnakeInput snakeInputManager;
 
-    [SerializeField] AudioSource eatSoundEffect;
     [SerializeField] Canvas gameOverCanvas;
 
     int minTorsoParts = 2;
@@ -58,6 +56,12 @@ public class Snake : MonoBehaviour
     public GameObject Spit { get => spit; }
 
     int blocksToSpawn = 0;
+
+    void Start()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = -1;
+    }
 
     public void FirstSpawn(Vector3 spawnPosition)
     {
@@ -102,12 +106,6 @@ public class Snake : MonoBehaviour
         {
             Grow();
         }
-    }
-
-    void Start()
-    {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = -1;
     }
 
     public void Respawn()
@@ -205,8 +203,6 @@ public class Snake : MonoBehaviour
         Debug.Log("Zrasi");
         snakeTorsoParts.Add(newSnakeTorso);
         NewLevelSize = snakeTorsoParts.Count;
-
-        eatSoundEffect.Play();
     }
 
     float GetAbsoluteRotation(float rotation)
