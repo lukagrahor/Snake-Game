@@ -128,4 +128,9 @@ public class EnemySpawner : ObjectSpawner
             Destroy(spawnIndicator.gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        timer.TimeRanOut -= Spawn;
+    }
 }

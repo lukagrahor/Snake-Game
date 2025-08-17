@@ -42,6 +42,7 @@ public class DogPatrolState : IState
 
     public void Enter()
     {
+        if (npc == null) return;
         currentBlock = npc.StartBlock; // ko se menja state je treba to posodobit
         Array DirectionsValues = Enum.GetValues(typeof(Directions));
         int index = UnityEngine.Random.Range(0, DirectionsValues.Length);
@@ -69,6 +70,7 @@ public class DogPatrolState : IState
 
     public void Update()
     {
+        if (npc == null) return;
         if (isRotatingPrimary || isRotatingSecondary)
         {
             Rotate();

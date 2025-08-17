@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,6 +48,8 @@ public class DesktopInputManager : ISnakeInput
         _controls.PlayerDesktop.MoveRight.performed -= MoveRight;
         _controls.PlayerDesktop.MoveDown.performed -= MoveDown;
         _controls.PlayerDesktop.MoveLeft.performed -= MoveLeft;
+        _controls.PlayerDesktop.PrimaryAttack.performed -= PrimaryAttackPerformed;
+        _controls.PlayerDesktop.PrimaryAttack.canceled -= PrimaryAttackCanceled;
     }
 
     public void OnSnakeRespawn()

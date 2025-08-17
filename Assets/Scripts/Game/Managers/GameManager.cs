@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameUIManager UIManager;
     [SerializeField] PrimaryCamera cam;
     [SerializeField] Snake snake;
+    [SerializeField] Canvas gameOverCanvas;
     LevelSelector levelSelector;
     LinkedList<GridObject> newLevelWallBlocks;
     Difficulty currentDifficulty = Difficulty.Easy;
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void DespawnCurrentLevel()
     {
+        if ((levelNumber + 1) > lastLevelNumber) Victory();
         // despawn all the enemies and objects
         spawnerManager.DespawnAllObjects();
         grid.DespawnInnerWalls();
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
     {
         // chose a new level and make a new arena
         levelNumber++;
+
         if (levelNumber == 3) CurrentDifficulty = Difficulty.Medium;
         else if (levelNumber == 6) CurrentDifficulty = Difficulty.Hard;
         spawnerManager.EnableSpawners();
@@ -134,13 +138,20 @@ public class GameManager : MonoBehaviour
         return levels;
     }
 
-    void CheckForGameOver()
+    void Victory()
     {
-
+        gameOverCanvas.gameObject.SetActive(true);
+        gameOverCanvas.transform.GetChild(0).gameObject.SetActive(false);
+        gameOverCanvas.transform.GetChild(1).gameObject.SetActive(true);
     }
 
-    public void GameOver()
+    public void Retry()
     {
+        SceneManager.LoadScene("Game");
+    }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 }

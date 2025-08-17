@@ -48,6 +48,7 @@ public class DogPursueState : IState
     public void Exit()
     {
         // centrirej ga na kocko
+        if (npc == null) return;
         npc.transform.position = npc.NextBlock.transform.position;
         npc.StartBlock = npc.NextBlock;
     }

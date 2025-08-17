@@ -33,7 +33,7 @@ public class Snake : MonoBehaviour
     ISnakeInput snakeInputManager;
 
     [SerializeField] AudioSource eatSoundEffect;
-    [SerializeField] Canvas GameOverCanvas;
+    [SerializeField] Canvas gameOverCanvas;
 
     int minTorsoParts = 2;
 
@@ -222,20 +222,10 @@ public class Snake : MonoBehaviour
 
     public void GetHit()
     {
-        if (snakeTorsoParts.Count - 1 < minTorsoParts)
+        Debug.Log($"snakeTorsoParts.Count: {snakeTorsoParts.Count}, minTorsoParts: {minTorsoParts}");
+        if ((snakeTorsoParts.Count - 1) < minTorsoParts)
         {
-            // gameOver
-            SnakeHead.gameObject.SetActive(false);
-            foreach (SnakeTorso torso in snakeTorsoParts)
-            {
-                Destroy(torso.gameObject);
-            }
-            Path.RemoveMarkers();
-            snakeInputManager.OnSnakeDeath();
-
-            PlayerActions.PlayerDeath?.Invoke();
-
-            GameOverCanvas.gameObject.SetActive(true);
+            GameOver();
         }
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
         if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
@@ -247,11 +237,29 @@ public class Snake : MonoBehaviour
         Destroy(lastTorsoPart.gameObject);
     }
 
+    void GameOver()
+    {
+        SnakeHead.gameObject.SetActive(false);
+        foreach (SnakeTorso torso in snakeTorsoParts)
+        {
+            Destroy(torso.gameObject);
+        }
+        Path.RemoveMarkers();
+        snakeInputManager.OnSnakeDeath();
+
+        PlayerActions.PlayerDeath?.Invoke();
+
+        gameOverCanvas.gameObject.SetActive(true);
+        gameOverCanvas.transform.GetChild(0).gameObject.SetActive(true);
+        gameOverCanvas.transform.GetChild(1).gameObject.SetActive(false);
+    }
+
     public void HitWall()
     {
-        if (snakeTorsoParts.Count - 2 < minTorsoParts)
+        Debug.Log($"The wall, snakeTorsoParts.Count: {snakeTorsoParts.Count}, minTorsoParts: {minTorsoParts}");
+        if ((snakeTorsoParts.Count - 1) < minTorsoParts)
         {
-            // gameOver
+            GameOver();
         }
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
 
@@ -260,7 +268,7 @@ public class Snake : MonoBehaviour
             stateMachine.TransitionTo(stateMachine.NormalState);
         }
 
-        blocksToSpawn = snakeTorsoParts.Count - 2;
+        blocksToSpawn = snakeTorsoParts.Count - 1;
         SnakeHead.gameObject.SetActive(false);
         foreach (SnakeTorso torso in snakeTorsoParts)
         {
@@ -342,5 +350,10 @@ public class Snake : MonoBehaviour
         {
             torso.SetToSolid();
         }
+    }
+
+    private void OnDestroy()
+    {
+        snakeInputManager.OnSnakeDeath();
     }
 }

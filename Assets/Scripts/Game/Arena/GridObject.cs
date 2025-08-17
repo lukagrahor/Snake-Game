@@ -104,4 +104,6 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     {
         timer?.Stop();
     }
+
+
 }

@@ -33,4 +33,9 @@ public class GameUIManager : MonoBehaviour
         foodSpawner.FoodCollected = 0;
         gameManager.MoveCamera();
     }
+
+    private void OnDestroy()
+    {
+        FoodActions.Eaten -= CollectFood;
+    }
 }

@@ -78,6 +78,7 @@ public class FindPathAStar
                 if (neighbour == null) continue;
                 if (neighbour.IsOccupied && !neighbour.IsOccupiedBySnakeHead) continue;
                 if (closed.Exists(x => x.locationBlock == neighbour)) continue;
+                if (selectedMarker.locationBlock == null) continue;
 
                 float g = selectedMarker.G + Vector3.Distance(selectedMarker.locationBlock.transform.position, neighbour.transform.position); // The object of type 'GridObject' has been destroyed but you are still trying to access it.
                 float h = Vector3.Distance(neighbour.transform.position, endBlock.transform.position);

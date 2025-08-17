@@ -263,6 +263,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
 
     public void SetToSolid()
     {
+        if (headRenderer == null) return;
         Color tempColor = headRenderer.sharedMaterial.color;
         tempColor.a = 1f;
         headRenderer.sharedMaterial.color = tempColor;

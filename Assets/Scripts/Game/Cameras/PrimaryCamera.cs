@@ -114,4 +114,9 @@ public class PrimaryCamera : MonoBehaviour
         marketCamera.gameObject.SetActive(true);
         marketCamera.StartMoving(marketCamera.transform.position, new Vector3(-2.468f, 6.408f, -2.98f));
     }
+
+    private void OnDestroy()
+    {
+        timer.TimeRanOut -= ChangeCamera;
+    }
 }
