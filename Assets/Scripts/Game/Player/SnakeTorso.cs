@@ -58,7 +58,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         {
             if (gridObject == null) Debug.Log("Grid object doesn't exist");
             gridObject.IsOccupied = false;
-            gridObject.RemoveMarker();
+            //gridObject.RemoveMarker();
             gridObject.StopHeadTimer();
         }
     }

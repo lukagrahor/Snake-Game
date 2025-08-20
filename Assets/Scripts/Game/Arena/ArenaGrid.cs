@@ -101,7 +101,7 @@ public class ArenaGrid : MonoBehaviour
             InnerWallBlock wall = Instantiate(wallBlock, wallGridObject.transform.position, Quaternion.identity);
             wallGridObject.IsOccupied = true;
             wallGridObject.IsOccupiedByWall = true;
-            wallGridObject.SetMarker();
+            //wallGridObject.SetMarker();
             wall.transform.localScale = wallSize;
             wall.transform.SetParent(arena.transform);
             wallBlocks.AddLast(wallGridObject);
@@ -123,7 +123,7 @@ public class ArenaGrid : MonoBehaviour
         GridObject[] gridObjects = FindObjectsByType<GridObject>(FindObjectsSortMode.None);
         foreach (GridObject gridObject in gridObjects)
         {
-            gridObject.RemoveMarker();
+            //gridObject.RemoveMarker();
             Destroy(gridObject.gameObject);
         }
     }

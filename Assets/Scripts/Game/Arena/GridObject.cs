@@ -11,7 +11,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     SnakePathMarker marker;
     Food food;
     [SerializeField] GameObject occupiedMarkerPrefab;
-    GameObject occupiedMarker;
+    //GameObject occupiedMarker;
     float headResetTime = 3f;
     CountDown timer;
 
@@ -68,7 +68,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     {
         dog.NextBlock = this;
     }
-
+    /*
     public void SetMarker()
     {
         if (occupiedMarker == null)
@@ -85,6 +85,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
             Destroy(occupiedMarker);
         }
     }
+    */
 
     void StartHeadTimer()
     {
@@ -97,7 +98,7 @@ public class GridObject : MonoBehaviour, ISnakeHeadTriggerHandler, ISnakeHeadExi
     {
         isOccupied = false;
         isOccupiedBySnakeHead = false;
-        Destroy(occupiedMarker);
+        //Destroy(occupiedMarker);
     }
 
     public void StopHeadTimer()

@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class Dash : Power
 {
-    public override int Price { get => 1; }
+    public override int Price { get => 5; }
 
     private void Awake()
     {

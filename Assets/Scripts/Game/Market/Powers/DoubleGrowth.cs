@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DoubleGrowth : Power
 {
-    public override int Price { get => 8;}
+    public override int Price { get => 1;}
 
     public void Start()
     {

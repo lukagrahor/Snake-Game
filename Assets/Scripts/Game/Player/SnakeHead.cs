@@ -40,7 +40,7 @@ public class SnakeHead : MonoBehaviour, ISnakePart, IWaspFrontTriggerHandler
     public void HandleTrigger(GridObject gridObject)
     {
         gridObject.IsOccupied = true;
-        gridObject.SetMarker();
+        //gridObject.SetMarker();
     }
 
     public void HandleTriggerExit(GridObject gridObject)
