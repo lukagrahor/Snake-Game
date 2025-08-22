@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DoubleGrowth : Power
 {
-    public override int Price { get => 1;}
+    public override int Price { get => 4;}
 
     public void Start()
     {
@@ -16,7 +16,7 @@ public class DoubleGrowth : Power
         bool enoughMoney = ItemMarket.CheckForFunds(Price);
         if (enoughMoney)
         {
-            Debug.Log("Double growth: bought");
+            Debug.Log($"Double growth item: bought {Price}");
             MarkNeededParts(Price);
         }
         else NotEnoughFunds();

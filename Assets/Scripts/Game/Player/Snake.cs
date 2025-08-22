@@ -219,12 +219,13 @@ public class Snake : MonoBehaviour
     public void GetHit()
     {
         Debug.Log($"snakeTorsoParts.Count: {snakeTorsoParts.Count}, minTorsoParts: {minTorsoParts}");
+        SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
+        if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
+
         if ((snakeTorsoParts.Count - 1) < minTorsoParts)
         {
             GameOver();
         }
-        SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
-        if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
 
         stateMachine.TransitionTo(stateMachine.SpawnedState);
         

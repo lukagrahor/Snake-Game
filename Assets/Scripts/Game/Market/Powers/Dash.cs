@@ -21,7 +21,7 @@ public class Dash : Power
         bool enoughMoney = ItemMarket.CheckForFunds(Price);
         if (enoughMoney)
         {
-            Debug.Log("Test item: bought");
+            Debug.Log($"Dash item: bought {Price}");
             MarkNeededParts(Price);
         }
         else NotEnoughFunds();

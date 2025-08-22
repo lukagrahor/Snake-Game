@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using GlobalEnums;
 using System;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class PlayerSpawner : ObjectSpawner
 {
@@ -72,31 +73,17 @@ public class PlayerSpawner : ObjectSpawner
     // vrne vse bloke, ki jih kaèa zasede --> upošteva se njena velikost
     protected LinkedList<GridObject> SelectBlocks(LinkedList<GridObject> emptyGridObjects)
     {
-        bool foundBlock = false;
-        LinkedList<GridObject> snakeBlocks = new LinkedList<GridObject>();
-        int i = 0;
-        while (!foundBlock)
+        
+        List<GridObject> canSpawnOnBlocks = new();
+        foreach (GridObject obj in emptyGridObjects)
         {
-            if (i > 100)
-            {
-                break;
-            }
-            i++;
-            int upperLimit = emptyGridObjects.Count;
-            int gridObjectIndex = UnityEngine.Random.Range(0, upperLimit);
-
-            GridObject gridObject = emptyGridObjects.ElementAt(gridObjectIndex);
-            int col = gridObject.Col;
-            int row = gridObject.Row;
-            Directions dir = snake.StartingDirection;
-
-            if (IsNearAWall(row)) continue;
-            snakeBlocks = BoolCheckForOccupiedBlocks(col, row);
-
-            if (snakeBlocks.Count == 0) continue;
-
-            foundBlock = true;
+            if (!IsBlockFree(obj.Col, obj.Row)) continue;
+            canSpawnOnBlocks.Add(obj);
         }
+
+        int index = UnityEngine.Random.Range(0, canSpawnOnBlocks.Count);
+        GridObject headBlock = canSpawnOnBlocks[index];
+        LinkedList<GridObject> snakeBlocks = GetFreeBlocks(headBlock.Col, headBlock.Row);
 
         return snakeBlocks;
     }
@@ -112,13 +99,12 @@ public class PlayerSpawner : ObjectSpawner
         return false;
     }
 
-    LinkedList<GridObject> BoolCheckForOccupiedBlocks(int col, int row)
+    LinkedList<GridObject> GetFreeBlocks(int col, int row)
     {
-        // preveri vsako kocko, kjer naj bi bil trup kaèe, ali je kocka že zasedena
-        // ne pozabi med spawnanjem zidov nastavit kocke na occupied
+        // check if there is something already on a block where the snake parts will spawn
         GridObject[,] gridObjects = grid.GetGridObjects();
         LinkedList<GridObject> snakeBlocks = new LinkedList<GridObject>();
-        // spredej
+        // front
         for (int i = 1; i <= distanceFromWall; i++)
         {
             int currentRow = row + i;
@@ -128,7 +114,7 @@ public class PlayerSpawner : ObjectSpawner
         }
         snakeBlocks.AddLast(gridObjects[col, row]);
 
-        // zadej
+        // back
         for (int i = 1; i <= snakeSize; i++)
         {
             int currentRow = row - i;
@@ -140,90 +126,31 @@ public class PlayerSpawner : ObjectSpawner
         return snakeBlocks;
     }
 
-    /*
-
-    // preveri ali je plac za trup kaèe in da kaèa ni obrnjena v zid
-    bool CheckIfSnakeFitsUp(int cellIndex)
+    bool IsBlockFree(int col, int row)
     {
-        int gridSize = grid.GetSize();
-        Debug.Log("snakeSize 1" + snakeSize);
-        if (cellIndex + distanceFromWall >= gridSize) return false;
-        if (cellIndex - snakeSize < 0) return false;
-        return true;
-    }
-
-    bool CheckIfSnakeFitsDown(int cellIndex)
-    {
-        int gridSize = grid.GetSize();
-        Debug.Log("snakeSize 2" + snakeSize);
-        if (cellIndex - distanceFromWall < 0) return false;
-        if (cellIndex + snakeSize >= gridSize) return false;
-        return true;
-    }
-    */
-
-    /*
-    LinkedList<GridObject> BoolCheckForOccupiedBlocksCol(int col, int row, int dir)
-    {
-        // preveri vsako kocko, kjer naj bi bil trup kaèe, ali je kocka že zasedena
-        // ne pozabi med spawnanjem zidov nastavit kocke na occupied
         GridObject[,] gridObjects = grid.GetGridObjects();
-        foreach (var item in gridObjects)
+        // front
+        for (int i = 1; i <= distanceFromWall; i++)
         {
-            Debug.Log("objektno razmišljanje 1 row:" + item.Row + " col: " + item.Col);
+            int currentRow = row + i;
+            if (currentRow >= grid.GetSize()) return false;
+            GridObject obj = gridObjects[col, currentRow];
+            if (obj.IsOccupied) return false;
         }
-        LinkedList<GridObject> snakeBlocks = new LinkedList<GridObject>();
-        snakeBlocks.AddLast(gridObjects[col, row]);
+
+        // back
         for (int i = 1; i <= snakeSize; i++)
         {
-            GridObject obj = gridObjects[col + (i * dir), row];
-            if (obj.IsOccupied) return new LinkedList<GridObject>();
-            snakeBlocks.AddLast(obj);
+            int currentRow = row - i;
+            if (currentRow < 0) return false;
+            GridObject obj = gridObjects[col, currentRow];
+            if (obj.IsOccupied) return false;
         }
-        return snakeBlocks;
+        return true;
     }
-
-    LinkedList<GridObject> BoolCheckForOccupiedBlocksRow(int col, int row, int dir)
-    {
-        // preveri vsako kocko, kjer naj bi bil trup kaèe, ali je kocka že zasedena
-        // ne pozabi med spawnanjem zidov nastavit kocke na occupied
-        GridObject[,] gridObjects = grid.GetGridObjects();
-        foreach (var item in gridObjects)
-        {
-            Debug.Log("objektno razmišljanje 2 row:" + item.Row + " col: " + item.Col);
-        }
-        LinkedList<GridObject> snakeBlocks = new LinkedList<GridObject>();
-        snakeBlocks.AddLast(gridObjects[col, row]);
-        for (int i = 1; i <= snakeSize; i++)
-        {
-            GridObject obj = gridObjects[col, row + (i * dir)];
-            if (obj.IsOccupied) return new LinkedList<GridObject>();
-            snakeBlocks.AddLast(obj);
-        }
-        return snakeBlocks;
-    }
-    */
 
     void SetSnakeStartingDirection()
     {
-        /*
-        Array DirectionsValues = Enum.GetValues(typeof(Directions));
-        int index = UnityEngine.Random.Range(0, DirectionsValues.Length);
-        Directions dir = (Directions)DirectionsValues.GetValue(index);
-        snake.StartingDirection = dir;
-        */
         snake.StartingDirection = Directions.Up;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -332,7 +332,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 37816825a95f893478731c005c36be33, type: 3}
   m_Resource: {fileID: 8300000, guid: 37816825a95f893478731c005c36be33, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1982,7 +1982,7 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   snakeScale: 0.14
   moveSpeed: 1
-  startingSize: 3
+  startingSize: 6
   waitTime: 3
   timer: {fileID: 1903296500}
   gameOverCanvas: {fileID: 270416666}

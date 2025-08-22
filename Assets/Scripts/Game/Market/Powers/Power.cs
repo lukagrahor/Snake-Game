@@ -68,6 +68,7 @@ public abstract class Power : MonoBehaviour, IPointerClickHandler
 
     public void MarkNeededParts(int partCount)
     {
+        Debug.Log($"Markiraj {partCount} delov");
         ItemMarket.MarkParts(partCount);
     }
 }
