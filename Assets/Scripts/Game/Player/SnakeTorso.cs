@@ -263,7 +263,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         Vector3 gridBlockPosition = new(blockPositionWithY.x, 0f, blockPositionWithY.z);
         Vector3 currentBlockPosition = new(gridObject.transform.position.x, 0f, gridObject.transform.position.z);
 
-        if (gridBlockPosition != currentBlockPosition) return; // zbriši to èe se pojavijo kakšne težave. Namenjeno je za to, da se izvede koda na tem bloku le èe je ta blok v position bufferju
+        //if (gridBlockPosition != currentBlockPosition) return; // zbriši to èe se pojavijo kakšne težave. Namenjeno je za to, da se izvede koda na tem bloku le èe je ta blok v position bufferju
 
         Vector3 snakeTorsoPosition = new(transform.position.x, 0f, transform.position.z);
         float floatOffset = Vector3.Distance(snakeTorsoPosition, gridBlockPosition);

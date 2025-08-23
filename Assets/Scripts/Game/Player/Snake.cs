@@ -103,7 +103,7 @@ public class Snake : MonoBehaviour
         int headColIndex = selectedBlocks.First().Col;
         selectedBlocks.RemoveFirst(); // remove the block for head
         List<GridObject> gridObjectList = selectedBlocks.ToList();
-        int numOfBlocks = selectedBlocks.Count;
+        int numOfBlocks = gridObjectList.Count;
         if (size == 0) numOfBlocks = startingSize;
         if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
 
@@ -242,7 +242,7 @@ public class Snake : MonoBehaviour
         if (gridObject.Col != headColIndex && turnRight == false) {
             newSnakeTorso.Setup(moveSpeed, 90f, this, snakeScaleVector, yPosition, distanceFromParent, 0f);
             turnRight = true;
-            newSnakeTorso.AddToPositionBuffer(turningPart.transform.position);
+            newSnakeTorso.AddToPositionBuffer(previousPart.GetTransform().position); // namesto pozicije kocke mreže uporabi pozicijo kocke kaèe -- ok ne vem veè kaj nrdit
             newSnakeTorso.AddToRotationBuffer(-90f);
         }
         else if(gridObject.Col != headColIndex)
