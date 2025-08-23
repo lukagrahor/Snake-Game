@@ -17,10 +17,14 @@ public class PlayerSpawner : ObjectSpawner
         snakeSize = snake.StartingSize;
         SetSnakeStartingDirection();
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
+        foreach (GridObject block in selectedBlocks)
+        {
+            Debug.Log($"block name: {block.name}");
+        }
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
         playerPosition.y = 0.185f;
 
-        snake.FirstSpawn(playerPosition);
+        snake.FirstSpawn(playerPosition, selectedBlocks);  // podaj še ostale izbrane bloke
 
         return selectedBlocks;
     }
@@ -35,7 +39,7 @@ public class PlayerSpawner : ObjectSpawner
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
         playerPosition.y = 0.185f;
 
-        snake.NewLevelSpawn(playerPosition);
+        snake.NewLevelSpawn(playerPosition, selectedBlocks);  // podaj še ostale izbrane bloke
 
         return selectedBlocks;
     }
@@ -46,7 +50,22 @@ public class PlayerSpawner : ObjectSpawner
         LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
         playerPosition.y = 0.185f;
+        snake.SnakeHead.transform.position = playerPosition; // podaj še ostale izbrane bloke
+        /*
+        GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
+        Vector3 playerPosition = GenerateObjectPosition(selectedBlock);
         snake.SnakeHead.transform.position = playerPosition;
+        */
+    }
+
+    public LinkedList<GridObject> SpawnPlayer()
+    {
+        LinkedList<GridObject> emptyGridObjects = GetEmpty();
+        LinkedList<GridObject> selectedBlocks = SelectBlocks(emptyGridObjects);
+        Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
+        playerPosition.y = 0.185f;
+        snake.SnakeHead.transform.position = playerPosition; // podaj še ostale izbrane bloke
+        return selectedBlocks;
         /*
         GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
         Vector3 playerPosition = GenerateObjectPosition(selectedBlock);
@@ -87,7 +106,7 @@ public class PlayerSpawner : ObjectSpawner
 
         return snakeBlocks;
     }
-
+    /*
     bool IsNearAWall(int cellIndex)
     {
         int gridSize = grid.GetSize();
@@ -98,7 +117,7 @@ public class PlayerSpawner : ObjectSpawner
         if (tailOffset - snakeSize < 0) return true;
         return false;
     }
-
+    */
     LinkedList<GridObject> GetFreeBlocks(int col, int row)
     {
         // check if there is something already on a block where the snake parts will spawn
@@ -118,7 +137,15 @@ public class PlayerSpawner : ObjectSpawner
         for (int i = 1; i <= snakeSize; i++)
         {
             int currentRow = row - i;
-            if (currentRow < 0) return new LinkedList<GridObject>();
+            if (currentRow < 0)
+            {
+                snakeBlocks = AddTheSides(col, (currentRow + 1), gridObjects, i, snakeBlocks);
+                if (snakeBlocks.Count > 0)
+                {
+                    return snakeBlocks;
+                }
+                return new LinkedList<GridObject>();
+            }
             GridObject obj = gridObjects[col, currentRow];
             if (obj.IsOccupied) return new LinkedList<GridObject>();
             snakeBlocks.AddLast(obj);
@@ -142,11 +169,56 @@ public class PlayerSpawner : ObjectSpawner
         for (int i = 1; i <= snakeSize; i++)
         {
             int currentRow = row - i;
-            if (currentRow < 0) return false;
+            if (currentRow < 0)
+            {
+                if (CheckTheSides(col, (currentRow + 1), gridObjects, i)) return true;
+                return false;
+            }
             GridObject obj = gridObjects[col, currentRow];
             if (obj.IsOccupied) return false;
         }
         return true;
+    }
+
+    bool CheckTheSides(int col, int row, GridObject[,] gridObjects, int i)
+    {
+        // first check if the blocks left of the last one can fit
+        int colOffset = 1;
+        while (i <= snakeSize)
+        {
+            int currentCol = col - colOffset;
+            if (currentCol < 0)
+            {
+                return false;
+            }
+            GridObject obj = gridObjects[currentCol, row];
+            if (obj.IsOccupied) return false;
+            i++;
+            colOffset++;
+        }
+        return true;
+        // if not check the right side
+    }
+
+    LinkedList<GridObject> AddTheSides(int col, int row, GridObject[,] gridObjects, int i, LinkedList<GridObject> snakeBlocks)
+    {
+        // first check if the blocks left of the last one can fit
+        int colOffset = 1;
+        while (i <= snakeSize)
+        {
+            int currentCol = col - colOffset;
+            if (currentCol < 0)
+            {
+                return new LinkedList<GridObject>();
+            }
+            GridObject obj = gridObjects[currentCol, row];
+            if (obj.IsOccupied) return new LinkedList<GridObject>();
+            snakeBlocks.AddLast(obj);
+            i++;
+            colOffset++;
+        }
+        return snakeBlocks;
+        // if not check the right side
     }
 
     void SetSnakeStartingDirection()

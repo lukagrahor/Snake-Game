@@ -23,7 +23,7 @@ public class Snake : MonoBehaviour
     [SerializeField] float snakeScale = 1.1f;
     float defaultSpeed;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
-    [SerializeField][Range(2, 6)] int startingSize = 3;
+    [SerializeField][Range(2, 10)] int startingSize = 3;
     Directions startingDirection = Directions.Up;
     Vector3 spawnPosition;
 
@@ -63,7 +63,7 @@ public class Snake : MonoBehaviour
         Application.targetFrameRate = -1;
     }
 
-    public void FirstSpawn(Vector3 spawnPosition)
+    public void FirstSpawn(Vector3 spawnPosition, LinkedList<GridObject> selectedBlocks)
     {
         defaultSpeed = moveSpeed;
         snakeInputManager = CreateInputManager();
@@ -77,17 +77,17 @@ public class Snake : MonoBehaviour
 
         timer.TimeRanOut += Respawn;
 
-        SpawnStartingTorsoBlocks();
+        SpawnStartingTorsoBlocks(selectedBlocks);
         SnakeHead.SetStateMachine(); // need to set here, because if set earleir the torso parts won't be transparent
     }
 
-    public void NewLevelSpawn(Vector3 spawnPosition)
+    public void NewLevelSpawn(Vector3 spawnPosition, LinkedList<GridObject> selectedBlocks)
     {
         Debug.Log("Spawnej kaèo");
         SnakeHead.transform.position = spawnPosition;
         gameObject.SetActive(true);
         SnakeHead.gameObject.SetActive(true);
-        SpawnStartingTorsoBlocks(NewLevelSize);
+        SpawnStartingTorsoBlocks(selectedBlocks, NewLevelSize);
         SnakeHead.SetStateMachine();
         /*
         foreach(SnakeTorso torso in snakeTorsoParts)
@@ -97,9 +97,10 @@ public class Snake : MonoBehaviour
         */
     }
 
-    void SpawnStartingTorsoBlocks(int size = 0)
+    void SpawnStartingTorsoBlocks(LinkedList<GridObject> selectedBlocks, int size = 0)
     {
-        int numOfBlocks = size;
+        selectedBlocks.RemoveFirst(); // remove the block for head
+        int numOfBlocks = selectedBlocks.Count;
         if (size == 0) numOfBlocks = startingSize;
         if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
         for (int i = 0; i < numOfBlocks; i++)
@@ -112,10 +113,10 @@ public class Snake : MonoBehaviour
     {
         snakeTorsoParts = new List<SnakeTorso>();
         //SnakeHead.transform.position = spawnPosition;
-        playerSpawner.Spawn(); // sets the new position
+        LinkedList<GridObject> selectedBlocks = playerSpawner.SpawnPlayer(); // sets the new position
         SnakeHead.gameObject.SetActive(true);
         snakeInputManager.OnSnakeRespawn();
-        SpawnStartingTorsoBlocks();
+        SpawnStartingTorsoBlocks(selectedBlocks);
         SnakeHead.SetStateMachine();
     }
 
@@ -191,6 +192,42 @@ public class Snake : MonoBehaviour
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
         newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, yPosition, distanceFromParent);
         if(SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
+        // kopira pozicije, ki so v bufferju od njegovga predhodnika
+        if (snakeTorsoParts.Count > 0)
+        {
+            newSnakeTorso.CopyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
+        }
+
+        newSnakeTorso.SetPreviousPart(previousPart);
+        newSnakeTorso.name = "Torso " + snakeTorsoParts.Count;
+
+        Debug.Log("Zrasi");
+        snakeTorsoParts.Add(newSnakeTorso);
+        NewLevelSize = snakeTorsoParts.Count;
+    }
+
+    public void AddTorsoBlock() // naj upošteva selected blocks pozicije
+    {
+        SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
+        ISnakePart previousPart;
+        float distanceFromParent = 1.13f;
+        float yPosition = 0f;
+        if (snakeTorsoParts.Count == 0)
+        {
+            previousPart = SnakeHead;
+            distanceFromParent = 1.36f;
+            yPosition = -0.21f;
+        }
+        else
+        {
+            previousPart = snakeTorsoParts[^1];
+        }
+
+        newSnakeTorso.transform.SetParent(previousPart.GetTransform());
+        previousPart.UnsetLast();
+        Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
+        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, yPosition, distanceFromParent);
+        if (SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
         // kopira pozicije, ki so v bufferju od njegovga predhodnika
         if (snakeTorsoParts.Count > 0)
         {

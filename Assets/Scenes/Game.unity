@@ -1982,7 +1982,7 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   snakeScale: 0.14
   moveSpeed: 1
-  startingSize: 6
+  startingSize: 9
   waitTime: 3
   timer: {fileID: 1903296500}
   gameOverCanvas: {fileID: 270416666}
