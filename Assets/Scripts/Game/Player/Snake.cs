@@ -24,7 +24,7 @@ public class Snake : MonoBehaviour
     [SerializeField] float snakeScale = 1.1f;
     float defaultSpeed;
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
-    [SerializeField][Range(2, 10)] int startingSize = 3;
+    [SerializeField][Range(2, 20)] int startingSize = 3;
     Directions startingDirection = Directions.Up;
     Vector3 spawnPosition;
 
@@ -35,6 +35,7 @@ public class Snake : MonoBehaviour
     [SerializeField] Canvas gameOverCanvas;
 
     int minTorsoParts = 2;
+    int maxTorsoParts = 20;
 
     public SnakeHead SnakeHead { get; set; }
     public SnakePath Path;
@@ -183,6 +184,7 @@ public class Snake : MonoBehaviour
 
     public void Grow()
     {
+        if (maxTorsoParts >= SnakeSize) return;
         SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
         ISnakePart previousPart;
         float distanceFromParent = 1.13f;

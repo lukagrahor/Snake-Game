@@ -1482,7 +1482,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.5384865
+  orthographic size: 5.5402856
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1982,8 +1982,8 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   snakeScale: 0.14
   moveSpeed: 1
-  startingSize: 9
-  waitTime: 3
+  startingSize: 20
+  waitTime: 2
   timer: {fileID: 1903296500}
   gameOverCanvas: {fileID: 270416666}
   Path: {fileID: 545034465}
