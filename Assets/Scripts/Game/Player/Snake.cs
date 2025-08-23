@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 using GlobalEnums;
 using static UnityEngine.Splines.SplineInstantiate;
 using System.Linq;
+using UnityEditor.Rendering;
 
 public class Snake : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class Snake : MonoBehaviour
         timer.TimeRanOut += Respawn;
 
         SpawnStartingTorsoBlocks(selectedBlocks);
-        SnakeHead.SetStateMachine(); // need to set here, because if set earleir the torso parts won't be transparent
+        SnakeHead.SetStateMachine(); // need to set here, because if set earlier the torso parts won't be transparent
     }
 
     public void NewLevelSpawn(Vector3 spawnPosition, LinkedList<GridObject> selectedBlocks)
@@ -99,13 +100,23 @@ public class Snake : MonoBehaviour
 
     void SpawnStartingTorsoBlocks(LinkedList<GridObject> selectedBlocks, int size = 0)
     {
+        int headColIndex = selectedBlocks.First().Col;
         selectedBlocks.RemoveFirst(); // remove the block for head
+        List<GridObject> gridObjectList = selectedBlocks.ToList();
         int numOfBlocks = selectedBlocks.Count;
         if (size == 0) numOfBlocks = startingSize;
         if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
+
+        bool turnRight = false;
+        GridObject turningPart = gridObjectList[0];
         for (int i = 0; i < numOfBlocks; i++)
         {
-            Grow();
+            if (turnRight == false && i > 0)
+            {
+                turningPart = gridObjectList[i - 1];
+            }
+            
+            turnRight = AddTorsoBlock(gridObjectList[i], headColIndex, turnRight, turningPart);
         }
     }
 
@@ -190,7 +201,7 @@ public class Snake : MonoBehaviour
         newSnakeTorso.transform.SetParent(previousPart.GetTransform());
         previousPart.UnsetLast();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
-        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, yPosition, distanceFromParent);
+        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, yPosition, 0f, distanceFromParent);
         if(SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
         // kopira pozicije, ki so v bufferju od njegovga predhodnika
         if (snakeTorsoParts.Count > 0)
@@ -206,8 +217,9 @@ public class Snake : MonoBehaviour
         NewLevelSize = snakeTorsoParts.Count;
     }
 
-    public void AddTorsoBlock() // naj upošteva selected blocks pozicije
+    public bool AddTorsoBlock(GridObject gridObject, int headColIndex, bool turnRight, GridObject turningPart)
     {
+        // blok iz selectedBlocks se uporabi, da se ugotovi ali je v istem stolpci kot je glava, èe nej pol gre kocka levo namesto dol
         SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
         ISnakePart previousPart;
         float distanceFromParent = 1.13f;
@@ -226,13 +238,33 @@ public class Snake : MonoBehaviour
         newSnakeTorso.transform.SetParent(previousPart.GetTransform());
         previousPart.UnsetLast();
         Vector3 snakeScaleVector = new(snakeScale, snakeScale, snakeScale);
-        newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, yPosition, distanceFromParent);
-        if (SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
-        // kopira pozicije, ki so v bufferju od njegovga predhodnika
-        if (snakeTorsoParts.Count > 0)
-        {
-            newSnakeTorso.CopyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
+
+        if (gridObject.Col != headColIndex && turnRight == false) {
+            newSnakeTorso.Setup(moveSpeed, 90f, this, snakeScaleVector, yPosition, distanceFromParent, 0f);
+            turnRight = true;
+            newSnakeTorso.AddToPositionBuffer(turningPart.transform.position);
+            newSnakeTorso.AddToRotationBuffer(-90f);
         }
+        else if(gridObject.Col != headColIndex)
+        {
+            newSnakeTorso.Setup(moveSpeed, 90f, this, snakeScaleVector, yPosition, 0f, distanceFromParent);
+            // kopira pozicije, ki so v bufferju od njegovga predhodnika
+            if (snakeTorsoParts.Count > 0)
+            {
+                newSnakeTorso.CopyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
+            }
+        }
+        else
+        {
+            newSnakeTorso.Setup(moveSpeed, previousPart.GetRotation(), this, snakeScaleVector, yPosition, 0f, distanceFromParent);
+            // kopira pozicije, ki so v bufferju od njegovga predhodnika
+            if (snakeTorsoParts.Count > 0)
+            {
+                newSnakeTorso.CopyBuffers(previousPart.GetRotationBuffer(), previousPart.GetPositionBuffer());
+            }
+        }
+        
+        if (SnakeHead.StateMachine.CurrentState == SnakeHead.StateMachine.SpawnedState) newSnakeTorso.SetToTransparent();
 
         newSnakeTorso.SetPreviousPart(previousPart);
         newSnakeTorso.name = "Torso " + snakeTorsoParts.Count;
@@ -240,6 +272,7 @@ public class Snake : MonoBehaviour
         Debug.Log("Zrasi");
         snakeTorsoParts.Add(newSnakeTorso);
         NewLevelSize = snakeTorsoParts.Count;
+        return turnRight;
     }
 
     float GetAbsoluteRotation(float rotation)

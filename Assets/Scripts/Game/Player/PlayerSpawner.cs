@@ -122,7 +122,12 @@ public class PlayerSpawner : ObjectSpawner
     {
         // check if there is something already on a block where the snake parts will spawn
         GridObject[,] gridObjects = grid.GetGridObjects();
+
+        GridObject headObj = gridObjects[col, row];
+        if (headObj.IsOccupied) return new LinkedList<GridObject>();
+
         LinkedList<GridObject> snakeBlocks = new LinkedList<GridObject>();
+
         // front
         for (int i = 1; i <= distanceFromWall; i++)
         {
@@ -131,12 +136,16 @@ public class PlayerSpawner : ObjectSpawner
             GridObject obj = gridObjects[col, currentRow];
             if (obj.IsOccupied) return new LinkedList<GridObject>();
         }
-        snakeBlocks.AddLast(gridObjects[col, row]);
+        snakeBlocks.AddLast(headObj);
 
         // back
         for (int i = 1; i <= snakeSize; i++)
         {
             int currentRow = row - i;
+            if (currentRow < 0 && i == 1)
+            {
+                return new LinkedList<GridObject>();
+            }
             if (currentRow < 0)
             {
                 snakeBlocks = AddTheSides(col, (currentRow + 1), gridObjects, i, snakeBlocks);
@@ -156,6 +165,8 @@ public class PlayerSpawner : ObjectSpawner
     bool IsBlockFree(int col, int row)
     {
         GridObject[,] gridObjects = grid.GetGridObjects();
+        GridObject headObj = gridObjects[col, row];
+        if (headObj.IsOccupied) return false;
         // front
         for (int i = 1; i <= distanceFromWall; i++)
         {
@@ -169,6 +180,10 @@ public class PlayerSpawner : ObjectSpawner
         for (int i = 1; i <= snakeSize; i++)
         {
             int currentRow = row - i;
+            if (currentRow < 0 && i == 1)
+            {
+                return false;
+            }
             if (currentRow < 0)
             {
                 if (CheckTheSides(col, (currentRow + 1), gridObjects, i)) return true;

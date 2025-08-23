@@ -106,11 +106,11 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         }
     }
 
-    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector, float yPosition, float distanceFromParent)
+    public void Setup(float moveSpeed, float moveRotation, Snake snake, Vector3 snakeScaleVector, float yPosition, float distanceFromParentX, float distanceFromParentZ)
     {
         this.MoveSpeed = moveSpeed;
 
-        transform.localPosition = new Vector3(0, yPosition, -distanceFromParent);
+        transform.localPosition = new Vector3(0f - distanceFromParentX, yPosition, 0f - distanceFromParentZ);
         SetStartingRotation(moveRotation);
 
         transform.SetParent(snake.transform);
