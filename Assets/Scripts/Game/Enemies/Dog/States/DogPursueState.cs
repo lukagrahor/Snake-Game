@@ -107,6 +107,7 @@ public class DogPursueState : IState
 
     void TransitionToPatrol()
     {
-        stateMachine.TransitionTo(stateMachine.PatrolState);
+        //stateMachine.TransitionTo(stateMachine.PatrolState);
+        stateMachine.TransitionTo(stateMachine.IdleState);
     }
 }

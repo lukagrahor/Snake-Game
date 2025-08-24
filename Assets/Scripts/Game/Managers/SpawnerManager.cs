@@ -102,12 +102,13 @@ public class SpawnerManager : MonoBehaviour
     Enemy[] SetEnemyPool() {
         if (currentDifficulty == Difficulty.Easy)
         {
-            Enemy[] enemyPool = { bee, dog, fly };
+            Enemy[] enemyPool = { dog };
+            //Enemy[] enemyPool = { bee, dog, fly };
             return enemyPool;
         }
         else if (currentDifficulty == Difficulty.Medium) {
-            //Enemy[] enemyPool = { bee, wasp, dog, fly };
-            Enemy[] enemyPool = { dog };
+            Enemy[] enemyPool = { bee, wasp, dog, fly };
+            //Enemy[] enemyPool = { dog };
             return enemyPool;
         }
         else
