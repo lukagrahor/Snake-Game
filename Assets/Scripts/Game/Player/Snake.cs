@@ -90,6 +90,7 @@ public class Snake : MonoBehaviour
         SnakeHead.transform.position = spawnPosition;
         gameObject.SetActive(true);
         SnakeHead.gameObject.SetActive(true);
+        snakeInputManager.OnSnakeRespawn();
         SpawnStartingTorsoBlocks(selectedBlocks, NewLevelSize);
         SnakeHead.SetStateMachine();
         /*
@@ -124,6 +125,8 @@ public class Snake : MonoBehaviour
 
     public void Respawn()
     {
+        // prevent spawning when the snake gameObject is disabled
+        if (!gameObject.activeInHierarchy) return;
         snakeTorsoParts = new List<SnakeTorso>();
         //SnakeHead.transform.position = spawnPosition;
         LinkedList<GridObject> selectedBlocks = playerSpawner.SpawnPlayer(); // sets the new position
@@ -310,9 +313,11 @@ public class Snake : MonoBehaviour
     void GameOver()
     {
         SnakeHead.gameObject.SetActive(false);
-        foreach (SnakeTorso torso in snakeTorsoParts)
+        while (snakeTorsoParts.Count > 0)
         {
-            Destroy(torso.gameObject);
+            SnakeTorso part = snakeTorsoParts.First();
+            snakeTorsoParts.RemoveAt(0);
+            Destroy(part.gameObject);
         }
         Path.RemoveMarkers();
         snakeInputManager.OnSnakeDeath();
@@ -340,9 +345,11 @@ public class Snake : MonoBehaviour
 
         blocksToSpawn = snakeTorsoParts.Count - 1;
         SnakeHead.gameObject.SetActive(false);
-        foreach (SnakeTorso torso in snakeTorsoParts)
+        while (snakeTorsoParts.Count > 0)
         {
-            Destroy(torso.gameObject);
+            SnakeTorso part = snakeTorsoParts.First();
+            snakeTorsoParts.RemoveAt(0);
+            Destroy(part.gameObject);
         }
         Path.RemoveMarkers();
         snakeInputManager.OnSnakeDeath();
@@ -420,6 +427,11 @@ public class Snake : MonoBehaviour
         {
             torso.SetToSolid();
         }
+    }
+
+    private void OnDisable()
+    {
+        timer.TimeRanOut -= Respawn;
     }
 
     private void OnDestroy()
