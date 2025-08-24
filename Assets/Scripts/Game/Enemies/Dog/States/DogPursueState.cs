@@ -36,6 +36,7 @@ public class DogPursueState : IState
         if(index >= path.Count || index < 0)
         {
             stateMachine.TransitionTo(stateMachine.PatrolState);
+            return;
         }
         SnakePathMarker nextMarker = path[index];
         Vector3 nextMarkerPosition = new Vector3(nextMarker.transform.position.x, npc.transform.position.y, nextMarker.transform.position.z);

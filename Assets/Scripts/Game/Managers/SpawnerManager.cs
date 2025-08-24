@@ -107,7 +107,7 @@ public class SpawnerManager : MonoBehaviour
         }
         else if (currentDifficulty == Difficulty.Medium) {
             //Enemy[] enemyPool = { bee, wasp, dog, fly };
-            Enemy[] enemyPool = { wasp, dog };
+            Enemy[] enemyPool = { dog };
             return enemyPool;
         }
         else
