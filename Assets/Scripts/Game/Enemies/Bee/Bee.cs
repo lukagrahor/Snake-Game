@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bee : Enemy, ISpawnableObject, IWaspFrontTriggerHandler
+public class Bee : Enemy, ISpawnableObject
 { 
     [SerializeField][Range(0, 7)] float moveSpeed = 2f;
     enum Directions
@@ -75,15 +75,5 @@ public class Bee : Enemy, ISpawnableObject, IWaspFrontTriggerHandler
     void Move()
     {
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
-    }
-
-    public void HandleTrigger(Wasp wasp)
-    {
-        WaspStateMachine stateMachine = wasp.Ai.waspStateMachine;
-        if (stateMachine.CurrentState == stateMachine.ChargeState)
-        {
-            stateMachine.ChargeState.CoolDown();
-            GetHit();
-        }
     }
 }

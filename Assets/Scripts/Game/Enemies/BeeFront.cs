@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestEnemyFront : MonoBehaviour
+public class BeeFront : MonoBehaviour
 {
     [SerializeField] Bee enemy;
     private void OnTriggerEnter(Collider other)

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Canvas gameOverCanvas;
     LevelSelector levelSelector;
     LinkedList<GridObject> newLevelWallBlocks;
-    Difficulty currentDifficulty = Difficulty.Easy;
+    Difficulty currentDifficulty = Difficulty.Medium;
     int levelNumber = 1;
     int lastLevelNumber = 7;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
         if (CurrentDifficulty == Difficulty.Easy)
         {
             levels = levelSelector.easyLevels;
-            UIManager.SetMaxFood(1);
+            UIManager.SetMaxFood(3);
         }
         else if (CurrentDifficulty == Difficulty.Medium)
         {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Dog : Enemy, IWaspFrontTriggerHandler, IPathTrigger
+public class Dog : Enemy, IPathTrigger
 {
     [SerializeField] DogAI ai;
     SnakePathMarker firstMarker;
@@ -46,16 +46,6 @@ public class Dog : Enemy, IWaspFrontTriggerHandler, IPathTrigger
     void Update()
     {
 
-    }
-
-    public void HandleTrigger(Wasp wasp)
-    {
-        WaspStateMachine stateMachine = wasp.Ai.waspStateMachine;
-        if (stateMachine.CurrentState == stateMachine.ChargeState)
-        {
-            stateMachine.ChargeState.CoolDown();
-        }
-        GetHit();
     }
 
     public void HandlePathTrigger(SnakePathMarker marker)

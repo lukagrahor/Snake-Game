@@ -98,11 +98,6 @@ public class WaspPatrolState : IState
             {
                 stateMachine.TransitionTo(stateMachine.ChargeState);
             }
-            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && hit.distance < 0.3f)
-            {
-                Debug.Log($"Wasp hit enemy: {hit.collider.gameObject.name}");
-                npc.Turn();
-            }
         }
     }
 
