@@ -19,7 +19,7 @@ public class Snake : MonoBehaviour
     //[SerializeField] SnakeCorner snakeCornerPrefab;
     List<SnakeTorso> snakeTorsoParts;
     //SnakeCorner snakeCorner;
-     
+
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] float snakeScale = 1.1f;
     float defaultSpeed;
@@ -56,6 +56,7 @@ public class Snake : MonoBehaviour
     public int StartingSize { get => startingSize; }
     public Directions StartingDirection { get => startingDirection; set => startingDirection = value; }
     public GameObject Spit { get => spit; }
+    public int MaxSnakeSize { get => maxTorsoParts; }
 
     int blocksToSpawn = 0;
 
@@ -184,7 +185,7 @@ public class Snake : MonoBehaviour
 
     public void Grow()
     {
-        if (maxTorsoParts >= SnakeSize) return;
+        if (SnakeSize >= maxTorsoParts) return;
         SnakeTorso newSnakeTorso = Instantiate(snakeTorsoPrefab.gameObject).GetComponent<SnakeTorso>();
         ISnakePart previousPart;
         float distanceFromParent = 1.13f;
@@ -214,7 +215,6 @@ public class Snake : MonoBehaviour
         newSnakeTorso.SetPreviousPart(previousPart);
         newSnakeTorso.name = "Torso " + snakeTorsoParts.Count;
 
-        Debug.Log("Zrasi");
         snakeTorsoParts.Add(newSnakeTorso);
         NewLevelSize = snakeTorsoParts.Count;
     }
@@ -300,10 +300,11 @@ public class Snake : MonoBehaviour
         }
 
         stateMachine.TransitionTo(stateMachine.SpawnedState);
-        
+
         SnakeTorso lastTorsoPart = snakeTorsoParts.Last();
         snakeTorsoParts.Remove(lastTorsoPart);
         Destroy(lastTorsoPart.gameObject);
+        PlayerActions.PlayerHit?.Invoke();
     }
 
     void GameOver()
