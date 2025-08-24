@@ -8,7 +8,7 @@ public class DogIdleState : IState
     public DogIdleState(DogStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
-        WaitTime = 1.5f;
+        WaitTime = 0.5f;
     }
 
     void StopWaiting()
