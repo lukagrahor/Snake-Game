@@ -42,10 +42,14 @@ public class FlyPursueState : IState
 
     public void Update()
     {
-        if (pathCalculating) return;
+        if (pathCalculating)
+        {
+            return;
+        }
         if (path == null || path.Count == 0)
         {
             CalculatePathAsync();
+            return;
         }
 
         if (npc.IsRotating)
@@ -77,9 +81,15 @@ public class FlyPursueState : IState
     {
         pathIndex++;
 
+        if (path == null || path.Count == 0)
+        {
+            return;
+        }
+
         if (pathIndex >= path.Count || pathIndex < 0)
         {
             stateMachine.TransitionTo(stateMachine.idleState);
+            return;
         }
         try
         {
@@ -104,6 +114,7 @@ public class FlyPursueState : IState
         } catch(ArgumentOutOfRangeException e)
         {
             Debug.LogException(e);
+            Debug.Log("Ven iz obsega izjema"); // nit to vir težave
             path = new List<GridObject>();
             return;
         }
@@ -144,15 +155,22 @@ public class FlyPursueState : IState
     private async void CalculatePathAsync()
     {
         List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
-        if (gridObjectsWithFood.Count <= 0) return;
+        if (gridObjectsWithFood.Count <= 0)
+        {
+            return;
+        }
         pathCalculating = true;
         int randomIndex = UnityEngine.Random.Range(0, gridObjectsWithFood.Count);
         GridObject foodPositionObject = gridObjectsWithFood[randomIndex];
         pathfindingTask = pathfinder.FindPathAsync(npc.NextBlock, foodPositionObject);
-
+        Debug.Log("Muha kuha. Še kalkuliram pot 1");
         List<GridObject> newPath = await pathfindingTask;
+        Debug.Log("Muha kuha. Še kalkuliram pot 2");
         path = newPath;
-        if (path.Count == 0) return;
+        if (path.Count == 0)
+        {
+            return;
+        }
 
         pathIndex = 0;
         targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);

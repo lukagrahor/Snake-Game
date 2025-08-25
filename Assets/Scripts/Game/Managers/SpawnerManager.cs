@@ -71,8 +71,8 @@ public class SpawnerManager : MonoBehaviour
     {
         if (currentDifficulty == Difficulty.Easy)
         {
-            minEnemies = 2;
-            maxEnemies = 4;
+            minEnemies = 1;
+            maxEnemies = 1;
         }
         else if (currentDifficulty == Difficulty.Medium)
         {
@@ -102,7 +102,8 @@ public class SpawnerManager : MonoBehaviour
     Enemy[] SetEnemyPool() {
         if (currentDifficulty == Difficulty.Easy)
         {
-            Enemy[] enemyPool = { bee, dog, fly };
+            //Enemy[] enemyPool = { bee, dog, fly };
+            Enemy[] enemyPool = { fly };
             return enemyPool;
         }
         else if (currentDifficulty == Difficulty.Medium) {

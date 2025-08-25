@@ -101,8 +101,8 @@ public class Snake : MonoBehaviour
         selectedBlocks.RemoveFirst(); // remove the block for head
         List<GridObject> gridObjectList = selectedBlocks.ToList();
         int numOfBlocks = gridObjectList.Count;
-        if (size == 0) numOfBlocks = startingSize;
-        if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
+        //if (size == 0) numOfBlocks = startingSize;
+        //if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
 
         bool turnRight = false;
         GridObject turningPart = gridObjectList[0];
