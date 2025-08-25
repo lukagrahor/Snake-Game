@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IBiteTriggerHandler, ISnakeHeadTriggerHandler, ISnakeTorsoTriggerHandler, ISpitTriggerHandler, IWaspFrontTriggerHandler, IBeeFrontTriggerHandler
+public abstract class Enemy : MonoBehaviour, IBiteTriggerHandler, ISnakeHeadTriggerHandler, ISnakeTorsoTriggerHandler, ISpitTriggerHandler, IWaspFrontTriggerHandler, IBeeFrontTriggerHandler, IArenaKillBoxTriggerHandler
 {
     public Action enemyDied;
     protected abstract void GetHit();
@@ -42,5 +42,10 @@ public abstract class Enemy : MonoBehaviour, IBiteTriggerHandler, ISnakeHeadTrig
     public void HandleEnemyFrontTrigger(Bee bee)
     {
         bee.Turn();
+    }
+
+    public void HandleKillBoxTrigger()
+    {
+        GetHit();
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class SnakeHeadFront : MonoBehaviour
+public class SnakeHeadFront : MonoBehaviour, IArenaKillBoxTriggerHandler
 {
     [SerializeField] SnakeHead snakeHead;
     [SerializeField] SpitParticle spitPrefab;
@@ -28,5 +28,10 @@ public class SnakeHeadFront : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         wait = false;
+    }
+
+    public void HandleKillBoxTrigger()
+    {
+        snakeHead.Snake.HitWall();
     }
 }

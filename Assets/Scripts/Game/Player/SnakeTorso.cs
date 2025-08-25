@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWaspFrontTriggerHandler, IGridObjectStayTriggerHandler
+public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWaspFrontTriggerHandler, IGridObjectStayTriggerHandler, IArenaKillBoxTriggerHandler
 {
     [SerializeField] MeshRenderer torsoRenderer;
     public float MoveSpeed { get; set; }
@@ -326,5 +326,10 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         Color tempColor = torsoRenderer.sharedMaterial.color;
         tempColor.a = 1f;
         torsoRenderer.sharedMaterial.color = tempColor;
+    }
+
+    public void HandleKillBoxTrigger()
+    {
+        snake.HitWall();
     }
 }
