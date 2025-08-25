@@ -32,7 +32,7 @@ public class SnakeTorso : MonoBehaviour, ISnakePart, IFrontTriggerHandler, IWasp
         {
             return;
         }
-        snake.GetHit();
+        snake.HitWall();
     }
 
     public void HandleTrigger(GridObject gridObject)

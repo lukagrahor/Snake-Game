@@ -6,18 +6,13 @@ public class SnakeHeadFront : MonoBehaviour
     [SerializeField] SnakeHead snakeHead;
     [SerializeField] SpitParticle spitPrefab;
     bool wait = false;
-    /*
-    public void HandleEnemyFrontTrigger(StationaryEnemy enemy)
-    {
-        snakeHead.GetSnake().GetHit();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         var enteredObject = other.GetComponent<IFrontTriggerHandler>();
         enteredObject?.HandleFrontTrigger();
     }
-    */
+    
     public void Spit()
     {
         if (spitPrefab == null) return;

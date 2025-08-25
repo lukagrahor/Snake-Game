@@ -14,6 +14,7 @@ public class GameUIManager : MonoBehaviour
         FoodActions.Eaten += CollectFood;
         FoodActions.EatenByPlayer += UpdatePartCountOnEat;
         PlayerActions.PlayerHit += UpdatePartCountOnHit;
+        PlayerActions.PlayerDeath += UpdatePartCountOnEat;
 
         UpdatePartCountOnHit();
     }

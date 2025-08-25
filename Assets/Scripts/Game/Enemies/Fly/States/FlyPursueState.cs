@@ -104,6 +104,7 @@ public class FlyPursueState : IState
         } catch(ArgumentOutOfRangeException e)
         {
             Debug.LogException(e);
+            path = new List<GridObject>();
             return;
         }
     }
@@ -142,17 +143,17 @@ public class FlyPursueState : IState
     /* prva kocka je kocka na kateri nasprotnik trenutno stoji */
     private async void CalculatePathAsync()
     {
-        // èe se zraèuna nova pot med tem ko se je muha rotirala, jo tu totalnu zmede
         List<GridObject> gridObjectsWithFood = grid.ObjectsWithFood;
         if (gridObjectsWithFood.Count <= 0) return;
         pathCalculating = true;
         int randomIndex = UnityEngine.Random.Range(0, gridObjectsWithFood.Count);
         GridObject foodPositionObject = gridObjectsWithFood[randomIndex];
         pathfindingTask = pathfinder.FindPathAsync(npc.NextBlock, foodPositionObject);
-        List<GridObject> newPath = await pathfindingTask;
 
+        List<GridObject> newPath = await pathfindingTask;
         path = newPath;
-        //pathSpawner.SpawnMarkers(newPath);
+        if (path.Count == 0) return;
+
         pathIndex = 0;
         targetPos = new Vector3(path[pathIndex].transform.position.x, 0f, path[pathIndex].transform.position.z);
         pathCalculating = false;
@@ -160,11 +161,11 @@ public class FlyPursueState : IState
 
     public void Exit()
     {
-
+        pathfinder.CancelCurrentPathfinding();
     }
 
     public void HandleSnakeDeath()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

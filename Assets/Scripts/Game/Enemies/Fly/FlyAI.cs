@@ -4,6 +4,7 @@ public class FlyAI : AI
 {
     [SerializeField] Fly npc;
     [SerializeField] PathSpawner pathSpawner;
+    public FlyStateMachine StateMachine { get; }
     void Start()
     {
         if (player == null)

@@ -7,6 +7,7 @@ using GlobalEnums;
 using static UnityEngine.Splines.SplineInstantiate;
 using System.Linq;
 using UnityEditor.Rendering;
+using System.Collections;
 
 public class Snake : MonoBehaviour
 {
@@ -16,9 +17,7 @@ public class Snake : MonoBehaviour
     [SerializeField] PlayerSpawner playerSpawner;
     [SerializeField] SnakePowerHandler powerHandler;
     [SerializeField] GameObject spit;
-    //[SerializeField] SnakeCorner snakeCornerPrefab;
     List<SnakeTorso> snakeTorsoParts;
-    //SnakeCorner snakeCorner;
 
     [SerializeField] ArenaBlock arenaBlock;
     [SerializeField] float snakeScale = 1.1f;
@@ -59,6 +58,10 @@ public class Snake : MonoBehaviour
     public int MaxSnakeSize { get => maxTorsoParts; }
 
     int blocksToSpawn = 0;
+    private void OnEnable()
+    {
+        timer.TimeRanOut += Respawn;
+    }
 
     void Start()
     {
@@ -77,8 +80,6 @@ public class Snake : MonoBehaviour
 
         SnakeHead.AbilityChargeCanvas = abilityChargeCanvas;
         SnakeHead.Setup(moveSpeed, this, snakeScaleVector);
-
-        timer.TimeRanOut += Respawn;
 
         SpawnStartingTorsoBlocks(selectedBlocks);
         SnakeHead.SetStateMachine(); // need to set here, because if set earlier the torso parts won't be transparent
@@ -115,14 +116,16 @@ public class Snake : MonoBehaviour
             turnRight = AddTorsoBlock(gridObjectList[i], headColIndex, turnRight, turningPart);
         }
     }
+    IEnumerator WaitForRespawn()
+    {
+        yield return new WaitForSeconds(2);
+    }
 
     public void Respawn()
     {
-        // prevent spawning when the snake gameObject is disabled
         if (!gameObject.activeInHierarchy) return;
         snakeTorsoParts = new List<SnakeTorso>();
-        //SnakeHead.transform.position = spawnPosition;
-        LinkedList<GridObject> selectedBlocks = playerSpawner.SpawnPlayer(); // sets the new position
+        LinkedList<GridObject> selectedBlocks = playerSpawner.SpawnPlayer();
         SnakeHead.gameObject.SetActive(true);
         snakeInputManager.OnSnakeRespawn();
         SpawnStartingTorsoBlocks(selectedBlocks);
@@ -287,7 +290,6 @@ public class Snake : MonoBehaviour
     public void GetHit()
     {
         Debug.Log($"snakeTorsoParts.Count: {snakeTorsoParts.Count}, minTorsoParts: {minTorsoParts}");
-        /*
         SnakeHeadStateMachine stateMachine = SnakeHead.StateMachine;
         if (stateMachine.CurrentState == stateMachine.SpawnedState) return;
 
@@ -303,7 +305,6 @@ public class Snake : MonoBehaviour
         snakeTorsoParts.Remove(lastTorsoPart);
         Destroy(lastTorsoPart.gameObject);
         PlayerActions.PlayerHit?.Invoke();
-        */
     }
 
     void GameOver()
@@ -328,7 +329,6 @@ public class Snake : MonoBehaviour
 
     public void HitWall()
     {
-        Debug.Log($"The wall, snakeTorsoParts.Count: {snakeTorsoParts.Count}, minTorsoParts: {minTorsoParts}");
         if ((snakeTorsoParts.Count - 1) < minTorsoParts)
         {
             GameOver();
@@ -433,6 +433,7 @@ public class Snake : MonoBehaviour
 
     private void OnDestroy()
     {
+        timer.TimeRanOut -= Respawn;
         snakeInputManager.OnSnakeDeath();
     }
 }
