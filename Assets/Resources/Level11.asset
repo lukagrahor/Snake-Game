@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865531123d0350a4e9f1c5b7efdbb29a, type: 3}
+  m_Name: Level11
+  m_EditorClassIdentifier: 
+  arenaSize: 15
+  difficulty: 1
+  wallObjectIndexes:
+  - Row: 6
+    Col: 0
+  - Row: 6
+    Col: 1
+  - Row: 6
+    Col: 2
+  - Row: 6
+    Col: 3
+  - Row: 6
+    Col: 4
+  - Row: 6
+    Col: 5
+  - Row: 6
+    Col: 9
+  - Row: 6
+    Col: 10
+  - Row: 6
+    Col: 11
+  - Row: 6
+    Col: 12
+  - Row: 6
+    Col: 13
+  - Row: 6
+    Col: 14
+  - Row: 7
+    Col: 0
+  - Row: 7
+    Col: 1
+  - Row: 7
+    Col: 2
+  - Row: 7
+    Col: 3
+  - Row: 7
+    Col: 4
+  - Row: 7
+    Col: 5
+  - Row: 7
+    Col: 9
+  - Row: 7
+    Col: 10
+  - Row: 7
+    Col: 11
+  - Row: 7
+    Col: 12
+  - Row: 7
+    Col: 13
+  - Row: 7
+    Col: 14
+  - Row: 8
+    Col: 0
+  - Row: 8
+    Col: 1
+  - Row: 8
+    Col: 2
+  - Row: 8
+    Col: 3
+  - Row: 8
+    Col: 4
+  - Row: 8
+    Col: 5
+  - Row: 8
+    Col: 9
+  - Row: 8
+    Col: 10
+  - Row: 8
+    Col: 11
+  - Row: 8
+    Col: 12
+  - Row: 8
+    Col: 13
+  - Row: 8
+    Col: 14
+  - Row: 2
+    Col: 6
+  - Row: 2
+    Col: 7
+  - Row: 2
+    Col: 8
+  - Row: 11
+    Col: 6
+  - Row: 11
+    Col: 7
+  - Row: 11
+    Col: 8

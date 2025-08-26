@@ -116,6 +116,12 @@ public class Arena : MonoBehaviour
         {
             Destroy(wall.gameObject);
         }
+
+        ArenaKillBox[] killBoxes = FindObjectsByType<ArenaKillBox>(FindObjectsSortMode.None);
+        foreach (ArenaKillBox killBox in killBoxes)
+        {
+            Destroy(killBox.gameObject);
+        }
     }
 
     /*

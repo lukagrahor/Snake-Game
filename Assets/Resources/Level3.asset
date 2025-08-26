@@ -10,22 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 865531123d0350a4e9f1c5b7efdbb29a, type: 3}
-  m_Name: Level5
+  m_Name: Level3
   m_EditorClassIdentifier: 
-  arenaSize: 12
-  difficulty: 2
+  arenaSize: 11
+  difficulty: 0
   wallObjectIndexes:
-  - Row: 6
-    Col: 6
-  - Row: 7
-    Col: 6
-  - Row: 7
-    Col: 7
-  - Row: 1
+  - Row: 5
+    Col: 0
+  - Row: 5
+    Col: 1
+  - Row: 5
+    Col: 2
+  - Row: 5
     Col: 3
-  - Row: 1
-    Col: 4
-  - Row: 9
+  - Row: 5
+    Col: 7
+  - Row: 5
     Col: 8
-  - Row: 9
+  - Row: 5
     Col: 9
+  - Row: 5
+    Col: 10

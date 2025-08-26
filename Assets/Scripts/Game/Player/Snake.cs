@@ -1,12 +1,8 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UIElements;
 using GlobalEnums;
-using static UnityEngine.Splines.SplineInstantiate;
 using System.Linq;
-using UnityEditor.Rendering;
 using System.Collections;
 
 public class Snake : MonoBehaviour

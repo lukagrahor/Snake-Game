@@ -335,7 +335,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -2105,7 +2105,7 @@ MonoBehaviour:
   arenaBlock: {fileID: -8586341943021454714, guid: 9a1660f99bd0a9f4abb3196d4304bcb6, type: 3}
   snakeScale: 0.14
   moveSpeed: 1
-  startingSize: 7
+  startingSize: 3
   waitTime: 2
   timer: {fileID: 1903296500}
   gameOverCanvas: {fileID: 270416666}
@@ -3467,7 +3467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 118.400024, y: 38.799866}
+  m_AnchoredPosition: {x: 118.400024, y: 38.79985}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1190230167
