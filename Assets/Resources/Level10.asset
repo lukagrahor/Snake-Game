@@ -12,6 +12,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865531123d0350a4e9f1c5b7efdbb29a, type: 3}
   m_Name: Level10
   m_EditorClassIdentifier: 
-  arenaSize: 20
-  difficulty: 2
-  wallObjectIndexes: []
+  arenaSize: 15
+  difficulty: 1
+  wallObjectIndexes:
+  - Row: 2
+    Col: 4
+  - Row: 2
+    Col: 5
+  - Row: 2
+    Col: 6
+  - Row: 2
+    Col: 7
+  - Row: 2
+    Col: 9
+  - Row: 2
+    Col: 10
+  - Row: 11
+    Col: 4
+  - Row: 11
+    Col: 5
+  - Row: 11
+    Col: 7
+  - Row: 11
+    Col: 8
+  - Row: 11
+    Col: 9
+  - Row: 11
+    Col: 10
+  - Row: 3
+    Col: 4
+  - Row: 4
+    Col: 4
+  - Row: 5
+    Col: 4
+  - Row: 6
+    Col: 4
+  - Row: 7
+    Col: 4
+  - Row: 8
+    Col: 4
+  - Row: 9
+    Col: 4
+  - Row: 3
+    Col: 10
+  - Row: 4
+    Col: 10
+  - Row: 5
+    Col: 10
+  - Row: 7
+    Col: 10
+  - Row: 8
+    Col: 10
+  - Row: 9
+    Col: 10
+  - Row: 10
+    Col: 10
+  - Row: 7
+    Col: 0
+  - Row: 7
+    Col: 14
+  - Row: 0
+    Col: 7
+  - Row: 14
+    Col: 7
+  - Row: 7
+    Col: 1
+  - Row: 7
+    Col: 13
+  - Row: 1
+    Col: 7
+  - Row: 13
+    Col: 7

@@ -38,4 +38,10 @@ public class Fly : Enemy
     {
         
     }
+
+    void OnDestroy()
+    {
+        FlyStateMachine stateMachine = (FlyStateMachine) ai.stateMachine;
+        stateMachine.TransitionTo(stateMachine.idleState);
+    }
 }

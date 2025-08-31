@@ -12,32 +12,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865531123d0350a4e9f1c5b7efdbb29a, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  arenaSize: 15
+  arenaSize: 12
   difficulty: 0
   wallObjectIndexes:
-  - Row: 7
+  - Row: 0
+    Col: 0
+  - Row: 0
+    Col: 1
+  - Row: 0
     Col: 2
-  - Row: 7
-    Col: 3
-  - Row: 7
-    Col: 4
-  - Row: 7
-    Col: 5
-  - Row: 7
-    Col: 6
-  - Row: 7
-    Col: 7
-  - Row: 7
-    Col: 8
-  - Row: 7
+  - Row: 1
+    Col: 0
+  - Row: 1
+    Col: 1
+  - Row: 1
+    Col: 2
+  - Row: 2
+    Col: 0
+  - Row: 2
+    Col: 1
+  - Row: 2
+    Col: 2
+  - Row: 0
     Col: 9
-  - Row: 6
-    Col: 6
-  - Row: 6
-    Col: 5
-  - Row: 6
-    Col: 4
-  - Row: 6
-    Col: 4
-  - Row: 6
-    Col: 8
+  - Row: 0
+    Col: 10
+  - Row: 0
+    Col: 11
+  - Row: 1
+    Col: 9
+  - Row: 1
+    Col: 11
+  - Row: 2
+    Col: 9
+  - Row: 2
+    Col: 10
+  - Row: 2
+    Col: 11
+  - Row: 9
+    Col: 2
+  - Row: 11
+    Col: 0
+  - Row: 11
+    Col: 1
+  - Row: 11
+    Col: 2
+  - Row: 10
+    Col: 9
+  - Row: 10
+    Col: 10
+  - Row: 10
+    Col: 11
+  - Row: 11
+    Col: 9
+  - Row: 11
+    Col: 10
+  - Row: 11
+    Col: 11
+  - Row: 9
+    Col: 9
+  - Row: 9
+    Col: 10
+  - Row: 9
+    Col: 10
+  - Row: 1
+    Col: 10
+  - Row: 10
+    Col: 0
+  - Row: 10
+    Col: 1
+  - Row: 10
+    Col: 2
+  - Row: 9
+    Col: 0
+  - Row: 9
+    Col: 1
+  - Row: 9
+    Col: 11
+  - Row: 9
+    Col: 11

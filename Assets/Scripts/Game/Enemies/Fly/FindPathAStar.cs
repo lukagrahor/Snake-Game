@@ -1,9 +1,11 @@
-using UnityEngine;
-using System.Linq;
-using System.Collections.Generic;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Timeline;
 
 public class PathMarker
@@ -45,12 +47,44 @@ public class PathMarker
 public class FindPathAStar
 {
     private ArenaGrid grid;
+    private CancellationTokenSource pathfindingToken;
+    private int activePathfindingOperations = 0;
     public FindPathAStar(ArenaGrid grid)
     {
         this.grid = grid;
     }
+
     public async Awaitable<List<GridObject>> FindPathAsync(GridObject startBlock, GridObject endBlock)
     {
+        CancelCurrentPathfinding();
+
+        pathfindingToken = new CancellationTokenSource();
+
+        try
+        {
+            return await FindPathAsyncMain(startBlock, endBlock, pathfindingToken.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("Pathfinding was cancelled");
+            return new List<GridObject>();
+        }
+        finally
+        {
+            activePathfindingOperations--;
+        }
+    }
+
+    public async Awaitable<List<GridObject>> FindPathAsyncMain(GridObject startBlock, GridObject endBlock, CancellationToken pathfindingToken)
+    {
+        activePathfindingOperations++;
+
+        if (activePathfindingOperations > 3)
+        {
+            return new List<GridObject>();
+        }
+
+        Debug.Log("Active pathfinding operations: " + activePathfindingOperations);
         PathMarker start = new PathMarker(startBlock, null, 0, 0, 0);
         PathMarker goal = new PathMarker(endBlock, null, 0, 0, 0);
 
@@ -61,6 +95,17 @@ public class FindPathAStar
         int i = 0;
         while (open.Count > 0)
         {
+            if (pathfindingToken.IsCancellationRequested)
+            {
+                throw new OperationCanceledException();
+            }
+
+            if (i >= 1000)
+            {
+                Debug.LogWarning("Pathfinding hit iteration limit");
+                return new List<GridObject>();
+            }
+
             open.Sort((a, b) => a.F.CompareTo(b.F));
             PathMarker selectedMarker = open[0];
             if (selectedMarker.Equals(goal))
@@ -97,10 +142,25 @@ public class FindPathAStar
             }
 
             // pet tock predela v enem frame-u
-            if (i % 5 == 0) await Awaitable.NextFrameAsync();
+            if (i % 5 == 0)
+            {
+                if (pathfindingToken.IsCancellationRequested)
+                {
+                    throw new OperationCanceledException();
+                }
+                await Awaitable.NextFrameAsync();
+            }
+
             i++;
         }
         return new List<GridObject>();
+    }
+
+    public void CancelCurrentPathfinding()
+    {
+        pathfindingToken?.Cancel();
+        pathfindingToken?.Dispose();
+        pathfindingToken = null;
     }
 
     // toliko toèk kot je v novi poti, tolikokrat gre v to metodo

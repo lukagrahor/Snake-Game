@@ -32,6 +32,7 @@ public class InnerWallBlock : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFront
 
     public void HandleTrigger(IState patrolState, Dog dog)
     {
+        if (dog.StateMachine.CurrentState != dog.StateMachine.PatrolState) return;
         DogPatrolState currentState = (DogPatrolState)patrolState;
         currentState.ChangeLane();
     }

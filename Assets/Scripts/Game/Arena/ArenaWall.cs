@@ -24,10 +24,4 @@ public class ArenaWall : MonoBehaviour, ISnakeHeadTriggerHandler, IBeeFrontTrigg
             stateMachine.ChargeState.CoolDown();
         }
     }
-    /*
-    public void HandleTrigger(DogPatrolState patrolState, Dog dog)
-    {
-        patrolState.ChangeLane();
-    }
-    */
 }

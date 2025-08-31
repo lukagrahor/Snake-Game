@@ -13,6 +13,9 @@ public class CountDownTimer : MonoBehaviour
     {
         timer = duration;
         isRunning = true;
+
+        Debug.Log($"CountDownTimer: Starting timer with duration {duration}s");
+        Debug.Log($"CountDownTimer: Event subscribers count: {TimeRanOut?.GetInvocationList()?.Length ?? 0}");
     }
 
     void Update()
@@ -33,8 +36,24 @@ public class CountDownTimer : MonoBehaviour
         else
         {
             isRunning = false;
-            TimeRanOut?.Invoke();
             textField.text = "";
+            try
+            {
+                TimeRanOut?.Invoke();
+                Debug.Log("CountDownTimer: TimeRanOut event invoked successfully");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"CountDownTimer: Error invoking TimeRanOut event: {e.Message}");
+            }
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (isRunning)
+        {
+            Debug.LogWarning("CountDownTimer: Timer was destroyed while still running!");
         }
     }
 }

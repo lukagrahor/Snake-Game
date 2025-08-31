@@ -52,6 +52,7 @@ public class DogPursueState : IState
         if (npc == null) return;
         npc.transform.position = npc.NextBlock.transform.position;
         npc.StartBlock = npc.NextBlock;
+        PlayerActions.PlayerDeath -= TransitionToPatrol;
     }
 
     public void Update()
@@ -107,7 +108,6 @@ public class DogPursueState : IState
 
     void TransitionToPatrol()
     {
-        //stateMachine.TransitionTo(stateMachine.PatrolState);
         stateMachine.TransitionTo(stateMachine.IdleState);
     }
 }

@@ -9,6 +9,7 @@ public class Dog : Enemy, IPathTrigger
     public PathSpawner PathSpawner { get; set; }
     public GridObject StartBlock { get; set; }
     public SnakePathMarker FirstMarker { get => firstMarker; set => firstMarker = value; }
+    public DogStateMachine StateMachine { get => ai.DogStateMachine; }
 
     public override void Setup(int col, int row, int gridSize)
     {
@@ -19,8 +20,7 @@ public class Dog : Enemy, IPathTrigger
     private void OnTriggerEnter(Collider other)
     {
         IDogTriggerHandler enteredObject = other.GetComponent<IDogTriggerHandler>();
-        if (ai.DogStateMachine != null && ai.DogStateMachine.CurrentState == ai.DogStateMachine.PatrolState)
-            enteredObject?.HandleTrigger(ai.DogStateMachine.CurrentState, this);
+        if (ai.DogStateMachine != null) enteredObject?.HandleTrigger(ai.DogStateMachine.CurrentState, this);
     }
 
     public override void SetupAI(Snake player, ArenaGrid grid)

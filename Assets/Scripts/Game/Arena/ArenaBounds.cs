@@ -5,11 +5,17 @@ public class ArenaBounds : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     float boundsSize;
     [SerializeField] ArenaWall wall;
+    [SerializeField] ArenaKillBox killBox;
     [SerializeField] Arena arena;
     ArenaWall topRightWall;
     ArenaWall bottomLeftWall;
     ArenaWall topLeftWall;
     ArenaWall bottomRightWall;
+
+    ArenaKillBox topRightKillBox;
+    ArenaKillBox bottomLeftKillBox;
+    ArenaKillBox topLeftKillBox;
+    ArenaKillBox bottomRightKillBox;
 
     private void Start()
     {
@@ -36,6 +42,16 @@ public class ArenaBounds : MonoBehaviour
         topRightWall.name = "top-right wall";
         topLeftWall.name = "top-left wall";
         bottomRightWall.name = "bottom-right wall";
+
+        bottomLeftKillBox = SpawnBottomLeftTopRightKillBoxes(left, bottom, -1f, blockSize, arenaSize, -0.12f);
+        topRightKillBox = SpawnBottomLeftTopRightKillBoxes(top, right, 1f, blockSize, arenaSize, 0.12f);
+        topLeftKillBox = SpawnTopLeftBottomRightKillBoxes(left, top, 1f, blockSize, arenaSize, 0.12f);
+        bottomRightKillBox = SpawnTopLeftBottomRightKillBoxes(bottom, right, -1f, blockSize, arenaSize, -0.12f);
+
+        bottomLeftKillBox.name = "bottom-left kill-box";
+        topRightKillBox.name = "top-right kill-box";
+        topLeftKillBox.name = "top-left kill-box";
+        bottomRightKillBox.name = "bottom-right kill-box";
     }
 
     ArenaWall SpawnBottomLeftTopRightWalls(Vector3 leftEdge, Vector3 rightEdge, float xPositionDirection, float blockSize, float arenaSize)
@@ -64,5 +80,33 @@ public class ArenaBounds : MonoBehaviour
         newWall.transform.SetParent(arena.transform);
 
         return newWall;
+    }
+
+    ArenaKillBox SpawnBottomLeftTopRightKillBoxes(Vector3 leftEdge, Vector3 rightEdge, float xPositionDirection, float blockSize, float arenaSize, float xOffset)
+    {
+        float overlapOffset = 2f * blockSize;
+
+        float halfDistance = (rightEdge.z - leftEdge.z) / 2f;
+        float zPosition = leftEdge.z + halfDistance;
+
+        Vector3 wallPosition = new(leftEdge.x + (blockSize * xPositionDirection) + xOffset, blockSize, zPosition);
+        ArenaKillBox newKillBox = Instantiate(killBox, wallPosition, Quaternion.identity);
+        newKillBox.transform.localScale = new Vector3(blockSize, blockSize, arenaSize * blockSize + overlapOffset);
+        newKillBox.transform.SetParent(arena.transform);
+
+        return newKillBox;
+    }
+
+    ArenaKillBox SpawnTopLeftBottomRightKillBoxes(Vector3 leftEdge, Vector3 rightEdge, float zPositionDirection, float blockSize, float arenaSize, float zOffset)
+    {
+        float halfDistance = (rightEdge.x - leftEdge.x) / 2f;
+        float topLeftWallX = leftEdge.x + halfDistance;
+
+        Vector3 wallPosition = new(topLeftWallX, blockSize, rightEdge.z + (blockSize * zPositionDirection) + zOffset);
+        ArenaKillBox newKillBox = Instantiate(killBox, wallPosition, Quaternion.identity);
+        newKillBox.transform.localScale = new Vector3(arenaSize * blockSize, blockSize, blockSize);
+        newKillBox.transform.SetParent(arena.transform);
+
+        return newKillBox;
     }
 }

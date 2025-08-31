@@ -1,23 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
-public class SnakeHeadFront : MonoBehaviour
+public class SnakeHeadFront : MonoBehaviour, IArenaKillBoxTriggerHandler
 {
     [SerializeField] SnakeHead snakeHead;
     [SerializeField] SpitParticle spitPrefab;
     bool wait = false;
-    /*
-    public void HandleEnemyFrontTrigger(StationaryEnemy enemy)
-    {
-        snakeHead.GetSnake().GetHit();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         var enteredObject = other.GetComponent<IFrontTriggerHandler>();
         enteredObject?.HandleFrontTrigger();
     }
-    */
+    
     public void Spit()
     {
         if (spitPrefab == null) return;
@@ -33,5 +28,10 @@ public class SnakeHeadFront : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         wait = false;
+    }
+
+    public void HandleKillBoxTrigger()
+    {
+        snakeHead.Snake.HitWall();
     }
 }
