@@ -51,11 +51,6 @@ public class PlayerSpawner : ObjectSpawner
         Vector3 playerPosition = GenerateObjectPosition(selectedBlocks.First());
         playerPosition.y = 0.185f;
         snake.SnakeHead.transform.position = playerPosition; // podaj še ostale izbrane bloke
-        /*
-        GridObject selectedBlock = PickARandomBlock(emptyGridObjects);
-        Vector3 playerPosition = GenerateObjectPosition(selectedBlock);
-        snake.SnakeHead.transform.position = playerPosition;
-        */
     }
 
     public LinkedList<GridObject> SpawnPlayer()

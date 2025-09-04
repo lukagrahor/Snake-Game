@@ -53,7 +53,6 @@ public class Snake : MonoBehaviour
     public GameObject Spit { get => spit; }
     public int MaxSnakeSize { get => maxTorsoParts; }
 
-    int blocksToSpawn = 0;
     private void OnEnable()
     {
         timer.TimeRanOut += Respawn;
@@ -97,8 +96,10 @@ public class Snake : MonoBehaviour
         selectedBlocks.RemoveFirst(); // remove the block for head
         List<GridObject> gridObjectList = selectedBlocks.ToList();
         int numOfBlocks = gridObjectList.Count;
-        //if (size == 0) numOfBlocks = startingSize;
-        //if (blocksToSpawn > 0) numOfBlocks = blocksToSpawn;
+        if (size != 0)
+        {
+            numOfBlocks = size;
+        }
 
         bool turnRight = false;
         GridObject turningPart = gridObjectList[0];
@@ -112,10 +113,6 @@ public class Snake : MonoBehaviour
             turnRight = AddTorsoBlock(gridObjectList[i], headColIndex, turnRight, turningPart);
         }
     }
-    IEnumerator WaitForRespawn()
-    {
-        yield return new WaitForSeconds(2);
-    }
 
     public void Respawn()
     {
@@ -124,7 +121,7 @@ public class Snake : MonoBehaviour
         LinkedList<GridObject> selectedBlocks = playerSpawner.SpawnPlayer();
         SnakeHead.gameObject.SetActive(true);
         snakeInputManager.OnSnakeRespawn();
-        SpawnStartingTorsoBlocks(selectedBlocks);
+        SpawnStartingTorsoBlocks(selectedBlocks, NewLevelSize);
         SnakeHead.SetStateMachine();
     }
 
@@ -336,7 +333,7 @@ public class Snake : MonoBehaviour
             stateMachine.TransitionTo(stateMachine.NormalState);
         }
 
-        blocksToSpawn = snakeTorsoParts.Count - 1;
+        NewLevelSize = snakeTorsoParts.Count - 1;
         SnakeHead.gameObject.SetActive(false);
         while (snakeTorsoParts.Count > 0)
         {
