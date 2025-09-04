@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Canvas gameOverCanvas;
     LevelSelector levelSelector;
     LinkedList<GridObject> newLevelWallBlocks;
-    Difficulty currentDifficulty = Difficulty.Medium;
+    Difficulty currentDifficulty = Difficulty.Easy;
     int levelNumber = 1;
     int lastLevelNumber = 7;
     public Difficulty CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }

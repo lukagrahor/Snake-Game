@@ -5,7 +5,7 @@ public class DogPatrolState : IState
 {
     float primaryDirection;
     float secondaryDirection;
-    float speed = 1.5f;
+    float speed = 1.25f;
     float rotationSpeed = 400f;
     bool isChangingLane = false;
     float rotationThreshold = 5f;

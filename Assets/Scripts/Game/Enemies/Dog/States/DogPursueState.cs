@@ -11,7 +11,7 @@ public class DogPursueState : IState
     ArenaGrid grid;
     SnakePath pathObject;
 
-    float speed = 1f;
+    float speed = 0.97f;
     float rotationSpeed = 10f;
     bool isRotating = false;
     int index;
