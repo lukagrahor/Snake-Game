@@ -19,10 +19,12 @@ public class Dash : Power
     public override void Buy()
     {
         bool enoughMoney = ItemMarket.CheckForFunds(Price);
+        Debug.Log($"enoughMoney: {enoughMoney}");
         if (enoughMoney)
         {
             Debug.Log($"Dash item: bought {Price}");
             MarkNeededParts(Price);
+            ItemMarket.EnableConfirmButton();
         }
         else NotEnoughFunds();
         
@@ -32,6 +34,8 @@ public class Dash : Power
     public override void NotEnoughFunds()
     {
         Debug.Log("Split: Nimaš dovolj denarja");
+        ItemMarket.HideConfirmButton();
+        ItemMarket.DisableConfirmButton();
     }
 
     /*

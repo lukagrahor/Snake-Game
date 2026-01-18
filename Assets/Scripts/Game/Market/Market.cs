@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Market : MonoBehaviour
 {
     [SerializeField] Snake snake;
     [SerializeField] List<Power> powers;
     [SerializeField] MarketSign marketSign;
-    [SerializeField] GameObject confirmButton;
+    [SerializeField] Button confirmButton;
     [SerializeField] SnakePowerHandler snakePowerHandler;
     public Power SelectedPower;
     List<Power> powersToSpawn;
@@ -83,7 +84,9 @@ public class Market : MonoBehaviour
 
     public bool CheckForFunds(int price)
     {
-        if (snake.NewLevelSize - 2 >= price) return true;
+        Debug.Log($"NewLevelSize: {snake.NewLevelSize - 2}");
+        Debug.Log($"NewLevelSize price: {price}");
+        if ((snake.NewLevelSize - 2) >= price) return true;
         return false;
     }
 
@@ -125,16 +128,29 @@ public class Market : MonoBehaviour
                 break;
             }
         }
+        DisableConfirmButton();
         Destroy(SelectedPower.gameObject);
     }
 
     public void ShowConfirmButton()
     {
-        confirmButton.SetActive(true);
+        confirmButton.gameObject.SetActive(true);
     }
 
     public void HideConfirmButton()
     {
-        confirmButton.SetActive(false);
+        confirmButton.gameObject.SetActive(false);
+    }
+
+    public void DisableConfirmButton()
+    {
+        confirmButton.enabled = false;
+        confirmButton.image.color = Color.gray;
+    }
+
+    public void EnableConfirmButton()
+    {
+        confirmButton.enabled = true;
+        confirmButton.image.color = Color.cyan;
     }
 }

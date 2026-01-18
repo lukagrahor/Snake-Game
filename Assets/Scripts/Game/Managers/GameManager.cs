@@ -128,12 +128,12 @@ public class GameManager : MonoBehaviour
         else if (CurrentDifficulty == Difficulty.Medium)
         {
             levels = levelSelector.mediumLevels;
-            UIManager.SetMaxFood(8);
+            UIManager.SetMaxFood(5);
         }
         else if (CurrentDifficulty == Difficulty.Hard)
         {
             levels = levelSelector.hardLevels;
-            UIManager.SetMaxFood(10);
+            UIManager.SetMaxFood(7);
         }
         return levels;
     }

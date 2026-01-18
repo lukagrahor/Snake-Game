@@ -14,10 +14,12 @@ public class DoubleGrowth : Power
     public override void Buy()
     {
         bool enoughMoney = ItemMarket.CheckForFunds(Price);
+        Debug.Log($"enoughMoney: {enoughMoney}");
         if (enoughMoney)
         {
             Debug.Log($"Double growth item: bought {Price}");
             MarkNeededParts(Price);
+            ItemMarket.EnableConfirmButton();
         }
         else NotEnoughFunds();
 
@@ -27,6 +29,7 @@ public class DoubleGrowth : Power
     public override void NotEnoughFunds()
     {
         Debug.Log("Split: Nimaš dovolj denarja");
+        ItemMarket.DisableConfirmButton();
     }
 
     /*

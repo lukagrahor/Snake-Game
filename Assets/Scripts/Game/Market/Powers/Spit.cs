@@ -14,10 +14,12 @@ public class Spit : Power
     public override void Buy()
     {
         bool enoughMoney = ItemMarket.CheckForFunds(Price);
+        Debug.Log($"enoughMoney: {enoughMoney}");
         if (enoughMoney)
         {
             Debug.Log("Spit: bought");
             MarkNeededParts(Price);
+            ItemMarket.EnableConfirmButton();
         }
         else NotEnoughFunds();
 
@@ -27,6 +29,7 @@ public class Spit : Power
     public override void NotEnoughFunds()
     {
         Debug.Log("Split: Nimaš dovolj denarja");
+        ItemMarket.DisableConfirmButton();
     }
 
     /*

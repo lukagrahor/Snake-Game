@@ -72,17 +72,17 @@ public class SpawnerManager : MonoBehaviour
         if (currentDifficulty == Difficulty.Easy)
         {
             minEnemies = 2;
-            maxEnemies = 4;
+            maxEnemies = 3;
         }
         else if (currentDifficulty == Difficulty.Medium)
         {
             minEnemies = 3;
-            maxEnemies = 6;
+            maxEnemies = 5;
         }
         else if (currentDifficulty == Difficulty.Hard)
         {
             minEnemies = 4;
-            maxEnemies = 7;
+            maxEnemies = 5;
         }
         int enemiesToSpawn = maxEnemies - currentEnemies;
 
